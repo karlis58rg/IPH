@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".administrativo.ui.fragmets.PuestaDisposicion_Administrativo">
+
+    <ScrollView
+        android:id="@+id/scrollTransporte"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+        <LinearLayout
+            android:id="@+id/principalLinear"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:id="@+id/lyHeaderPuestaDisposicion"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@color/background_section">
+                <TextView
+                    android:id="@+id/lblPuestaDisposicionAdministrativo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/font"
+                    android:text="@string/apartado_1_1_fecha_y_hora_de_la_puesta_a_disposicion" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/segundoLinear"
+            android:layout_width="match_parent"
+            android:layout_weight="0.5"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:layout_marginTop="20dp">
+            <LinearLayout
+                android:id="@+id/lyFechaHoraPuestaDisposicionAdministrativo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/lblFechaPuestaDisposicionAdministrativo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fecha_de_la_puesta_a_disposicion" />
+
+                <EditText
+                    android:id="@+id/txtFechaPuestaDisposicionAdministrativo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/lyPuestaDisposicionAdministrativo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:weightSum="1"
+                android:layout_weight="0.5">
+                <TextView
+                    android:id="@+id/lblHoraPuestaDisposicionAdministrativo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hora_de_la_puesta_a_posposicion" />
+                <EditText
+                    android:id="@+id/txthoraPuestaDisposicionAdministrativo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/tercerLinear"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="20dp">
+            <TextView
+                android:id="@+id/lblNoExpedienteAdmministrativo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/numero_de_expediente_en_caso_de_existir" />
+
+            <EditText
+                android:id="@+id/txtNoExpedienteAdmministrativo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/cuartoLinear"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="20dp">
+            <TextView
+                android:id="@+id/lblAnexosEntregadosAdministrativo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="italic"
+                android:text="@string/marque_con_una_x_el_o_los_anexos_entregados" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/quintoLinear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
+            <LinearLayout
+                android:id="@+id/lyAnexosADetencionAdministrativo"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:weightSum="1"
+                android:gravity="center|start"
+                android:layout_weight="0.10">
+                <TextView
+                    android:id="@+id/lblAnexosADetencionAdministrativo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/anexo_a_detenciones" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/lyDetencionesAnexoAAdministrativo"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                android:layout_weight="0.10">
+                <CheckBox
+                    android:id="@+id/chDetencionesAnexoAAdministrativo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"/>
+                <Spinner
+                    android:id="@+id/spDetencionesAnexoAAdministrativo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/lyAnexosEDescripcionVehiculosAdministrativo"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:weightSum="1"
+                android:gravity="center|start"
+                android:layout_weight="0.10">
+                <TextView
+                    android:id="@+id/lblAnexosEDescripcionVehiculosAdministrativo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/descripcion_de_vehiculos" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lyDetencionesAnexoBAdministrativo"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                android:layout_weight="0.10">
+                <CheckBox
+                    android:id="@+id/chDetencionesAnexoBAdministrativo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"/>
+                <Spinner
+                    android:id="@+id/spDetencionesAnexoBAdministrativo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/sextoLinear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
+            <LinearLayout
+                android:id="@+id/lySinAnexosAdministrativo"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:weightSum="1"
+                android:gravity="center|start"
+                android:layout_weight="0.10">
+                <TextView
+                    android:id="@+id/lblSinAnexosAdministrativo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/no_se_entregan_anexos" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/lySinEntregaAnexosAdministrativo"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                android:layout_weight="0.10">
+                <CheckBox
+                    android:id="@+id/chSinAnexosAdministrativo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"/>
+                <Spinner
+                    android:id="@+id/spSinAnexosAdministrativo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:weightSum="1"
+                android:gravity="center|start"
+                android:layout_weight="0.10"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                android:layout_weight="0.10"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/septimoLinear"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
+            <LinearLayout
+                android:id="@+id/lyHeaderDatosPuestaDisposicion"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@color/background_section">
+                <TextView
+                    android:id="@+id/lblDatosPuestaDisposicionAdministrativo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/font"
+                    android:text="@string/apartado_1_2_datos_de_quien_realiza_la_puesta_a_disposicion_primer_respondiente" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/octavoLinear"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+            <LinearLayout
+                android:id="@+id/lyPrimerRespondiente"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/lblPrimerRespondienteAdministrativo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/font"
+                    android:text="@string/el_usuario_que_inicio_sesion_es_el_primer_respondiente"/>
+                <RadioGroup
+                    android:id="@+id/rgPrimerRespondienteAdministrativo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rbSiPrimerRespondienteAdministrativo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:text="@string/si" />
+
+                    <RadioButton
+                        android:id="@+id/rbNoPrimerRespondienteAdministrativo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="20dp"
+                        android:text="@string/no" />
+                </RadioGroup>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/novenoLinear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
+            <LinearLayout
+                android:id="@+id/lyPrimerApellido"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:weightSum="1"
+                android:layout_weight="0.10">
+                <TextView
+                    android:id="@+id/lblPrimerApellidoAdministrativo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/font"
+                    android:text="@string/primer_apellido"/>
+                <EditText
+                    android:id="@+id/txtPrimerApellidoAdministrativo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/lySegundoApellido"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:weightSum="1"
+                android:layout_weight="0.10">
+                <TextView
+                    android:id="@+id/lblSegundoApellidoAdministrativo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/font"
+                    android:text="@string/segundo_apellido"/>
+                <EditText
+                    android:id="@+id/txtSegundoApellidoAdministrativo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/lyGuardarReferenciaAdministrativo"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:weightSum="1"
+                android:layout_weight="0.10">
+                <TextView
+                    android:id="@+id/lblNombreAdministrativo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/font"
+                    android:text="@string/nombres"/>
+                <EditText
+                    android:id="@+id/txtNombresAdministrativo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/decimoLinear"
+            android:layout_width="match_parent"
+            android:layout_weight="0.5"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:layout_marginTop="20dp">
+            <LinearLayout
+                android:id="@+id/lyInstitucionAdscripcionAdministrativo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/lblInstitucionAdscripcionAdministrativo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/institucion_entidad_federativa_o_municipio_de_adscripcion" />
+
+                <EditText
+                    android:id="@+id/txtInstitucionAdscripcionAdministrativo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/lyGradoCargoAdministrativo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:weightSum="1"
+                android:layout_weight="0.5">
+                <TextView
+                    android:id="@+id/lblGradoCargoAdministrativo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="¿Cúal es su grado o cargo?" />
+                <EditText
+                    android:id="@+id/txtGradoCargoAdministrativo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/onceavoLinear"
+            android:layout_width="match_parent"
+            android:layout_weight="0.5"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:layout_marginTop="20dp">
+            <LinearLayout
+                android:id="@+id/lyUnidadDeArriboAdministrativo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/lblUnidadDeArriboAdministrativo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/en_que_unidad_arribo_al_lugar_de_la_intervencion" />
+
+                <EditText
+                    android:id="@+id/txtUnidadDeArriboAdministrativo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/lyNoAplicaUnidadDeArriboAdministrativo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="bottom"
+                android:weightSum="1"
+                android:layout_weight="0.5">
+                <TextView
+                    android:id="@+id/lblNoAplicaUnidadDeArriboAdministrativo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/no_aplica" />
+                <CheckBox
+                    android:id="@+id/chNoAplicaUnidadDeArriboAdministrativo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/doceavoLinear"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
+            <LinearLayout
+                android:id="@+id/lyHeaderDatosQuienRecibePuestaDisposicion"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@color/background_section">
+                <TextView
+                    android:id="@+id/lblDatosQuienRecibePuestaDisposicionAdministrativo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/font"
+                    android:text="@string/apartado_1_3_datos_de_quien_recibe_la_puesta_a_disposicion" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/terceavoLinear"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="20dp">
+            <TextView
+                android:id="@+id/lblAutoridadQueRecibeAdministrativo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="italic"
+                android:text="@string/fiscal_autoridad_que_recibe_la_puesta_a_disposicion" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/catorceavoLinear"
+            android:layout_width="match_parent"
+            android:layout_weight="0.5"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:layout_marginTop="20dp">
+            <LinearLayout
+                android:id="@+id/lyFiscaliaAutoridadAdministrativo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/lblFiscaliaAutoridadAdministrativo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fiscalia_autoridad" />
+
+                <EditText
+                    android:id="@+id/txtFiscaliaAutoridadAdministrativo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/lyAdscripcionAdministrativo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:weightSum="1"
+                android:layout_weight="0.5">
+                <TextView
+                    android:id="@+id/lblAdscripcionAdministrativo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/adscripcion" />
+                <EditText
+                    android:id="@+id/txtAdscripcionAdministrativo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    </ScrollView>
+
+</FrameLayout>
