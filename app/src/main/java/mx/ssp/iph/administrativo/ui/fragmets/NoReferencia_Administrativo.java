@@ -1,4 +1,4 @@
-package mx.ssp.iph.Fragment;
+package mx.ssp.iph.administrativo.ui.fragmets;
 
 import androidx.lifecycle.ViewModelProvider;
 
@@ -13,14 +13,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import mx.ssp.iph.R;
-import mx.ssp.iph.ViewModel.NoReferenciaViewModel;
+import mx.ssp.iph.administrativo.viewModel.NoReferencia_Administrativo_ViewModel;
 
-public class NoReferencia extends Fragment {
+public class NoReferencia_Administrativo extends Fragment {
 
-    private NoReferenciaViewModel mViewModel;
+    private NoReferencia_Administrativo_ViewModel mViewModel;
 
-    public static NoReferencia newInstance() {
-        return new NoReferencia();
+    public static NoReferencia_Administrativo newInstance() {
+        return new NoReferencia_Administrativo();
     }
 
     @Override
@@ -32,7 +32,7 @@ public class NoReferencia extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(NoReferenciaViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(NoReferencia_Administrativo_ViewModel.class);
         // TODO: Use the ViewModel
     }
 

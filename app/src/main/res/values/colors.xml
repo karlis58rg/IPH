@@ -7,4 +7,10 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+
+    <color name="backgroud_header_toolbar">#374761</color>
+    <color name="background_section">#E2DBBA</color>
+    <color name="font_section">#374761</color>
+    <color name="font">#374761</color>
 </resources>
