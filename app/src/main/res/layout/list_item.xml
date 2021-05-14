@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#FAFAFA"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <fragment
+        android:id="@+id/fragmentContainerAdministrativo"
+        android:name="mx.ssp.iph.administrativo.ui.fragmets.Fragment_ContainerBlank_Administrativo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>
