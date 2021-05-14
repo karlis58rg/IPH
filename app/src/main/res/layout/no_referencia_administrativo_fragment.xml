@@ -19,54 +19,54 @@
             android:orientation="horizontal"
             android:weightSum="1">
             <LinearLayout
-                android:id="@+id/folioInternoLy"
+                android:id="@+id/lyFolioInternoAdministrativo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"
                 android:orientation="vertical">
                 <TextView
-                    android:id="@+id/folioInternoText"
+                    android:id="@+id/lblFolioInternoAdministrativo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="*Folio Interno" />
+                    android:text="@string/folio_interno" />
 
                 <EditText
-                    android:id="@+id/folioInternoEdit"
+                    android:id="@+id/txtFolioInternoAdministrativo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
             <LinearLayout
-                android:id="@+id/folioSistemaLy"
+                android:id="@+id/lyFolioSistemaAdministrativo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:weightSum="1"
                 android:layout_weight="0.5">
                 <TextView
-                    android:id="@+id/folioSistemaText"
+                    android:id="@+id/lblFolioSistemaAdministrativo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="*Folio Asignado por el Sistema" />
+                    android:text="@string/folio_asignado_por_el_sistema" />
                 <EditText
-                    android:id="@+id/folioSistemaEdit"
+                    android:id="@+id/txtFolioSistemaAdministrativo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
         </LinearLayout>
         <LinearLayout
-            android:id="@+id/noReferenciaLy"
+            android:id="@+id/lyNoReferenciaAdmministrativo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_marginTop="20dp">
             <TextView
-                android:id="@+id/noReferenciaText"
+                android:id="@+id/lblNoReferenciaAdministrativo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="*Número de Referencia" />
+                android:text="@string/numero_de_referencia" />
 
             <EditText
-                android:id="@+id/noReferenciaEdit"
+                android:id="@+id/txtNoReferenciaAdministrativo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -79,36 +79,36 @@
             android:weightSum="1"
             android:layout_marginTop="20dp">
             <LinearLayout
-                android:id="@+id/estadoReferenciaLy"
+                android:id="@+id/lyeEstadoReferenciaAdministrativo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"
                 android:orientation="vertical">
                 <TextView
-                    android:id="@+id/estadoReferenciaText"
+                    android:id="@+id/lblEstadoReferenciaAdministrativo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="*Estado" />
+                    android:text="@string/estado" />
 
                 <EditText
-                    android:id="@+id/estadoReferenciaEdit"
+                    android:id="@+id/txtEstadoReferenciaAdministrativo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
             <LinearLayout
-                android:id="@+id/institucionReferenciaLy"
+                android:id="@+id/lyInstitucionReferenciaAdministrativo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:weightSum="1"
                 android:layout_weight="0.5">
                 <TextView
-                    android:id="@+id/institucionReferenciaText"
+                    android:id="@+id/lblInstitucionReferenciaAdministrativo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="*Institución" />
+                    android:text="@string/institucion" />
                 <Spinner
-                    android:id="@+id/institucionReferenciaSpinner"
+                    android:id="@+id/spinnerInstitucionReferenciaAdministrativo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
@@ -122,36 +122,36 @@
             android:weightSum="1"
             android:layout_marginTop="20dp">
             <LinearLayout
-                android:id="@+id/gobiernoReferenciaLy"
+                android:id="@+id/lyGobiernoReferenciaAdministrativo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"
                 android:orientation="vertical">
                 <TextView
-                    android:id="@+id/gobiernoReferenciaText"
+                    android:id="@+id/lblGobiernoReferenciaAdministrativo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="*Gobierno" />
+                    android:text="@string/gobierno" />
 
                 <EditText
-                    android:id="@+id/gobiernoReferenciaEdit"
+                    android:id="@+id/txtGobiernoReferenciaAdministrativo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
             <LinearLayout
-                android:id="@+id/municipioReferenciaLy"
+                android:id="@+id/lyMunicipioReferenciaAdministrativo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:weightSum="1"
                 android:layout_weight="0.5">
                 <TextView
-                    android:id="@+id/municipioReferenciaText"
+                    android:id="@+id/lblMunicipioReferenciaAdministrativo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="*Municipio en dónde se entrega el IPH" />
+                    android:text="@string/municipio_en_donde_se_entrega_el_iph" />
                 <Spinner
-                    android:id="@+id/municipioReferenciaSpinner"
+                    android:id="@+id/spinnerMunicipioReferenciaAdministrativo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
@@ -165,36 +165,36 @@
             android:weightSum="1"
             android:layout_marginTop="20dp">
             <LinearLayout
-                android:id="@+id/fechaEntregaReferenciaLy"
+                android:id="@+id/lyFechaEntregaReferenciaAdministrativo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"
                 android:orientation="vertical">
                 <TextView
-                    android:id="@+id/fechaEntregaReferenciaText"
+                    android:id="@+id/lblFechaEntregaReferenciaAdministrativo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Fecha de Entrega del IPH" />
+                    android:text="@string/fecha_de_entrega_del_iph" />
 
                 <EditText
-                    android:id="@+id/fechaEntregaReferenciaEdit"
+                    android:id="@+id/txtFechaEntregaReferenciaAdministrativo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
             <LinearLayout
-                android:id="@+id/horaEntregaReferenciaLy"
+                android:id="@+id/lyHoraEntregaReferenciaAdministrativo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:weightSum="1"
                 android:layout_weight="0.5">
                 <TextView
-                    android:id="@+id/horaEntregaReferenciaText"
+                    android:id="@+id/lblHoraEntregaReferenciaAdministrativo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Hora de Entrega del IPH" />
+                    android:text="@string/hora_de_entrega_del_iph" />
                 <EditText
-                    android:id="@+id/horaEntregaReferenciaEdit"
+                    android:id="@+id/txtHoraEntregaReferenciaAdministrativo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
@@ -214,7 +214,7 @@
                 android:layout_weight="0.10">
             </LinearLayout>
             <LinearLayout
-                android:id="@+id/guardarReferenciaLy"
+                android:id="@+id/lyGuardarReferenciaAdministrativo"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
@@ -222,10 +222,10 @@
                 android:weightSum="1"
                 android:layout_weight="0.12">
                 <Button
-                    android:id="@+id/btnGuardarReferencia"
+                    android:id="@+id/btnGuardarReferenciaAdministrativo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Guardar Datos" />
+                    android:text="@string/guardar_datos" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="0dp"
