@@ -66,6 +66,10 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
         txtNombre.setText(nombre);
         return convertView;
     }
+    public void CambiarColor()
+    {
+
+    }
 
 
     @Override
