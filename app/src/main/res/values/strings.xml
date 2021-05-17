@@ -32,4 +32,13 @@
     <string name="fiscal_autoridad_que_recibe_la_puesta_a_disposicion">Fiscal/Autoridad que recibe la puesta a disposición</string>
     <string name="fiscalia_autoridad">Fiscalia/Autoridad</string>
     <string name="adscripcion">Adscripción</string>
+    <string name="cargo">Cargo</string>
+    <string name="apartado_2_1_conocimiento_de_la_probable_infraccion_administrativa_por_el_primer_respondiente">Apartado 2.1 Conocimiento de la probable infracción administrativa por el primer respondiente</string>
+    <string name="como_se_entero_del_hecho">¿Cómo se enteró del hecho?</string>
+    <string name="otro_especifique">Otro (Especifique)</string>
+    <string name="_911_no_solo_en_caso_de_contar_con_el">911 No. (Solo en caso de contar con el)</string>
+    <string name="apartado_3_1_ubicacion_geografica">Apartado 3.1 Ubicación Geográfica</string>
+    <string name="entidad">*Entidad</string>
+    <string name="municipio_demarcacion_territorial">Municipio/Demarcación territorial</string>
+    <string name="calle_tramo_carretero">Calle/Tramo carretero</string>
 </resources>
