@@ -41,4 +41,71 @@
     <string name="entidad">*Entidad</string>
     <string name="municipio_demarcacion_territorial">Municipio/Demarcación territorial</string>
     <string name="calle_tramo_carretero">Calle/Tramo carretero</string>
+
+    <!--Sección 4 Narración de los Hechos Administrativo -->
+    <string name="apartado_4_1_descripcion_de_los_hechos">Apartado 4.1 Descripción de los hechos y actuación de la autoridad</string>
+    <string name="apartado_4_1_Instrucciones_descripcion_de_los_hechos">Relate cronológicamente las acciones realizadas durante su intervención desde el conocimiento del hecho, hasta su conclusión o la puesta a disposición. En su
+caso, explique las circunstancias de modo, tiempo y lugar que motivaron cada uno de los niveles de contacto y la detención. Tome como base las siguientes
+preguntas: ¿Quién? (personas), ¿Qué? (hechos), ¿Cómo? (circunstancias), ¿Cuándo? (tiempo) y ¿Dónde? (lugar).</string>
+    <string name="max3000caracteres">Max 3,000 caracteres</string>
+
+    <!--Anexo A:Detenciones Administrativo -->
+    <string name="subtitulo_apartado_A1">Apartado A.1 Fecha y hora de la detención </string>
+    <string name="fecha_de_la_detencion">Fecha de la Detención</string>
+    <string name="hora_de_la_detencion">Hora de la Detención</string>
+
+    <string name="subtitulo_apartado_A2">Apartado A.2 Datos generales de la persona detenida</string>
+    <string name="lblApodoDetenido">Apodo o Alias</string>
+    <string name="lblGenero">Género</string>
+    <string name="lblNacionalidad">Nacionalidad</string>
+    <string name="lblNacionalidad_especifique">Especifique</string>
+    <string name="lblFechaNacimiento">Fecha de Nacimiento</string>
+
+    <string name="lblEntidad">Entidad</string>
+    <string name="lblMunicipio">Municipio</string>
+    <string name="lblColonia">Colonia/Localidad</string>
+    <string name="lblCalle">Calle/Tramo carretero</string>
+    <string name="lblNumeroExterior">Número exterior</string>
+    <string name="lblNumeroInterior">Número interior</string>
+    <string name="lblCodigoPostal">Código Postal</string>
+    <string name="lblReferencias">Referencias del lugar</string>
+
+    <string name="subtitulo_apartado_A3">Apartado A.3 Datos del lugar del traslado de la persona detenida</string>
+
+    <string name="subtitulo_apartado_A4">Apartado A.4 Datos del primer respondiente que realizó la detención</string>
+
+    <string name="lblAdscripcion">Adscripción</string>
+    <string name="lblCargo">¿Cuál es su grado o cargo?</string>
+    <string name="lblFirma">Firma</string>
+
+    <!--Anexo B:Detenciones Administrativo -->
+    <string name="lblTipoVehiculo">Tipo de Vehículo</string>
+    <string name="lblProcedenciaVehiculo">Procedencia del Vehículo</string>
+    <string name="lblMarcaVehiculo">Marca</string>
+    <string name="lblSubmarcaVehiculo">Submarca</string>
+    <string name="lblModeloVehiculo">Modelo</string>
+    <string name="lblColorVehiculo">Color</string>
+    <string name="lblUsoVehiculo">Uso</string>
+    <string name="lblPlacaVehiculo">Placa/Matrícula</string>
+    <string name="lblSerieVehiculo">Serie</string>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </resources>

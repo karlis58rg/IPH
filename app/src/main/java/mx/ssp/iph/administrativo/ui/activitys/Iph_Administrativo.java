@@ -1,13 +1,11 @@
 package mx.ssp.iph.administrativo.ui.activitys;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,10 +15,13 @@ import java.util.ArrayList;
 
 import mx.ssp.iph.R;
 import mx.ssp.iph.administrativo.model.CustomExpandableListAdapter;
+import mx.ssp.iph.administrativo.ui.fragmets.DescripcionVehiculo;
+import mx.ssp.iph.administrativo.ui.fragmets.Detenciones;
+import mx.ssp.iph.administrativo.ui.fragmets.LugarDeIntervencion;
+import mx.ssp.iph.administrativo.ui.fragmets.NarrativaHechos;
+import mx.ssp.iph.administrativo.ui.fragmets.NoReferencia_Administrativo;
+import mx.ssp.iph.administrativo.ui.fragmets.ProbableInfraccion;
 import mx.ssp.iph.administrativo.ui.fragmets.PuestaDisposicion_Administrativo;
-import mx.ssp.iph.administrativo.ui.fragmets.fragment1;
-import mx.ssp.iph.administrativo.ui.fragmets.fragment2;
-import mx.ssp.iph.administrativo.ui.fragmets.fragment3;
 
 public class Iph_Administrativo extends AppCompatActivity {
 
@@ -121,25 +122,25 @@ public class Iph_Administrativo extends AppCompatActivity {
 
         switch (posicion){
             case 0:
-                addFragment(new PuestaDisposicion_Administrativo());
+                addFragment(new NoReferencia_Administrativo());
                 break;
             case 1:
-                addFragment(new fragment2());
+                addFragment(new PuestaDisposicion_Administrativo());
                 break;
             case 2:
-                addFragment(new fragment3());
+                addFragment(new ProbableInfraccion());
                 break;
             case 3:
-                addFragment(new fragment1());
+                addFragment(new LugarDeIntervencion());
                 break;
             case 4:
-                addFragment(new fragment2());
+                addFragment(new NarrativaHechos());
                 break;
             case 5:
-                addFragment(new fragment3());
+                addFragment(new Detenciones());
                 break;
             case 6:
-                addFragment(new fragment1());
+                addFragment(new DescripcionVehiculo());
                 break;
         }
     }

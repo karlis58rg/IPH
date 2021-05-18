@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".administrativo.ui.fragmets.NarrativaHechos">
+
+
+    <ScrollView
+        android:id="@+id/scrollTransporte"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:id="@+id/principalLinear"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:id="@+id/lyHeaderDescripciondelosHechos"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="@color/background_section">
+                    <TextView
+                        android:id="@+id/lblDescripciondelosHechos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="@string/apartado_4_1_descripcion_de_los_hechos" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/segundoLinear"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/lblAnexosEntregadosAdministrativo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="italic"
+                        android:text="@string/apartado_4_1_Instrucciones_descripcion_de_los_hechos" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/tercerLinear"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/txtNarrativaHechos"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:inputType="text|textMultiLine"
+                        android:gravity="top"/>
+
+                    <ImageView
+                        android:id="@+id/imgMicrofonoNarrativaHechos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="25dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignEnd="@+id/txtNarrativaHechos"
+                        android:src="@drawable/ic_micro"
+                        />
+
+                    <TextView
+                        android:id="@+id/lblmax3000"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txtNarrativaHechos"
+                        android:text="@string/max3000caracteres"
+                        android:textStyle="italic" />
+
+                </RelativeLayout>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/cuartoLinear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/lyGuardarNarrativaHechos"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:weightSum="1"
+                    android:layout_weight="0.12">
+                    <Button
+                        android:id="@+id/btnGuardarNarrativaHechos"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/guardar_datos" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                </LinearLayout>
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>
