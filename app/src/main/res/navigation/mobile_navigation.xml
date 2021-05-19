@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/nav_inicio">
+    <fragment
+        android:id="@+id/nav_inicio"
+        android:name="mx.ssp.iph.principal.ui.fragments.PrincipalDelictivo"
+        android:label="principal_delictivo_fragment"
+        tools:layout="@layout/principal_delictivo_fragment" />
+    <fragment
+        android:id="@+id/nav_quees"
+        android:name="mx.ssp.iph.principal.ui.fragments.MenuQueEs"
+        android:label="menu_que_es_fragment"
+        tools:layout="@layout/menu_que_es_fragment" />
+    <fragment
+        android:id="@+id/nav_como_funciona"
+        android:name="mx.ssp.iph.principal.ui.fragments.MenuComoFunciona"
+        android:label="menu_como_funciona_fragment"
+        tools:layout="@layout/menu_como_funciona_fragment" />
+    <fragment
+        android:id="@+id/nav_protocolo"
+        android:name="mx.ssp.iph.principal.ui.fragments.MenuProtocoloIntervencion"
+        android:label="menu_protocolo_intervencion_fragment"
+        tools:layout="@layout/menu_protocolo_intervencion_fragment" />
+</navigation>

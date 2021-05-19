@@ -88,24 +88,25 @@ preguntas: ¿Quién? (personas), ¿Qué? (hechos), ¿Cómo? (circunstancias), ¿
     <string name="lblUsoVehiculo">Uso</string>
     <string name="lblPlacaVehiculo">Placa/Matrícula</string>
     <string name="lblSerieVehiculo">Serie</string>
+    <string name="title_activity_principal">Principal</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Informe Policial Homologado</string>
+    <string name="nav_header_subtitle">Secretaría de Seguridad Pública</string>
+    <string name="nav_header_desc">Secretaría de Seguridad Pública</string>
 
 
 
+    <!-- Items Menu Principal -->
+    <string name="navigation_delictivo">Delictivo</string>
+    <string name="navigation_administrativo">Administrativo</string>
+    <string name="navigation_emergencias">Emergencias</string>
+    <string name="navigation_buscar">Buscar IPH</string>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <string name="menu_inicio">Inicio</string>
+    <string name="menu_que_es">¿Qué es?</string>
+    <string name="menu_como_usarla">¿Cómo usarla?</string>
+    <string name="menu_protocolo_intervencion">Protocolo de Intervención</string>
 
 
 </resources>

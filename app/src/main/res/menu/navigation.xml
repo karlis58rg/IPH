@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_delictivo"
+        android:icon="@drawable/ic_delictivo"
+        android:title="@string/navigation_delictivo" />
+
+    <item
+        android:id="@+id/navigation_administrativo"
+        android:icon="@drawable/ic_administrativo"
+        android:title="@string/navigation_administrativo" />
+
+    <item
+        android:id="@+id/navigation_emergencias"
+        android:icon="@drawable/ic_911"
+        android:title="@string/navigation_emergencias" />
+
+    <item
+        android:id="@+id/navigation_buscar"
+        android:icon="@drawable/ic_buscar"
+        android:title="@string/navigation_buscar" />
+
+</menu>

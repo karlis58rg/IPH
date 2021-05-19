@@ -78,6 +78,8 @@ public class Iph_Administrativo_Up extends AppCompatActivity {
         //Lleno la lista con la clase adaptador
         final SlidingUpPanelLayout slidingUpPanelLayout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
         ActualizarListaEsttus();
+        addFragment(referencia);
+
 
         //clisk de los elementos de las listas para cambiar de fragmentos
         lvSeccionesAdministrativo.setClickable(true);

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_inicio"
+            android:icon="@drawable/ic_home"
+            android:title="@string/menu_inicio" />
+        <item
+            android:id="@+id/nav_quees"
+            android:icon="@drawable/ic_quees"
+            android:title="@string/menu_que_es" />
+        <item
+            android:id="@+id/nav_como_funciona"
+            android:icon="@drawable/ic_guia_uso"
+            android:title="@string/menu_como_usarla" />
+        <item
+            android:id="@+id/nav_protocolo"
+            android:icon="@drawable/ic_guia"
+            android:title="@string/menu_protocolo_intervencion" />
+    </group>
+</menu>
