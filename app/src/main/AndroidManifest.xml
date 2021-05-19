@@ -11,11 +11,14 @@
         android:theme="@style/Theme.IPH">
         <activity android:name=".Splash">
         </activity>
-        <activity android:name=".administrativo.ui.activitys.Iph_Administrativo">
+        <activity android:name=".administrativo.ui.activitys.Iph_Administrativo"></activity>
+
+        <activity android:name=".administrativo.ui.activitys.Iph_Administrativo_Up">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 </manifest>

@@ -60,6 +60,13 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
             convertView = layoutInflater.inflate(R.layout.list_group, null);
 
         }
+
+        //Establece la imagen con flecha arriba o abajo dependiendo si la lista está expandida o no
+        ImageView img_selection=(ImageView) convertView.findViewById(R.id.imgExpandAdministrativo);
+        int imageResourceId = isExpanded ? R.drawable.ic_expand_less : R.drawable.ic_expand_more;
+        img_selection.setImageResource(imageResourceId);
+
+
         TextView txtNombre = convertView.findViewById(R.id.lblSecctionAdministrativo);
         ImageView imgIndicadorAdministrativo = convertView.findViewById(R.id.imgIndicadorAdministrativo);
         imgIndicadorAdministrativo.setImageResource(listaColorStatus.get(groupPosition));
