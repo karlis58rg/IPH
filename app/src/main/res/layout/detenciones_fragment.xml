@@ -357,9 +357,9 @@
                                 android:orientation="vertical"
                                 android:weightSum="1"
                                 android:layout_weight="0.80">
-                                <EditText
-                                    android:id="@+id/txtFirmaDetenido"
-                                    android:enabled="false"
+                                <TextView
+                                    android:id="@+id/lblFirmadelDetenido"
+                                    android:enabled="true"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"/>
                             </LinearLayout>
@@ -1109,10 +1109,35 @@
                     </LinearLayout>
 
                 </LinearLayout>
-
-
-
             </LinearLayout>
+
+            <!-- linear Oculto Firma del Detenido -->
+            <LinearLayout
+                android:id="@+id/oculto1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:visibility="invisible">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10"
+                    android:visibility="gone">
+                    <TextView
+                        android:id="@+id/lblFirmaOcultaDetenidoBase64"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text=""/>
+                </LinearLayout>
+            </LinearLayout>
+            <!-- linear Oculto Firma del Detenido -->
+
 
             <!--======== BOTÓN y ListView============ -->
             <LinearLayout

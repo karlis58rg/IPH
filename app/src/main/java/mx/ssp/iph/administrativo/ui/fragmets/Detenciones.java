@@ -1,10 +1,7 @@
 package mx.ssp.iph.administrativo.ui.fragmets;
-
 import androidx.lifecycle.ViewModelProvider;
-
 import android.content.Intent;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -22,15 +19,14 @@ import java.util.Locale;
 
 import mx.ssp.iph.administrativo.viewModel.DetencionesViewModel;
 import mx.ssp.iph.R;
-
 import static android.app.Activity.RESULT_OK;
 
-public class Detenciones extends Fragment {
+public class Detenciones extends Fragment  {
 
     private DetencionesViewModel mViewModel;
     private static final  int REQ_CODE_SPEECH_INPUT=100;
     private TextView txtDescripciondelDetenido;
-    private ImageView img_microfonoDescripcionDetenido;
+    private ImageView img_microfonoDescripcionDetenido,imgFirmaAutoridadAdministrativo;
 
     public static Detenciones newInstance() {
         return new Detenciones();
@@ -43,11 +39,23 @@ public class Detenciones extends Fragment {
         txtDescripciondelDetenido = (TextView)view.findViewById(R.id.txtDescripciondelDetenido);
         img_microfonoDescripcionDetenido = (ImageView) view.findViewById(R.id.img_microfonoDescripcionDetenido);
 
+        //Firma del Detenido
+        imgFirmaAutoridadAdministrativo = (ImageView) view.findViewById(R.id.imgFirmaAutoridadAdministrativo);
+
         //Imagen que funciona para activar la grabación de voz
         img_microfonoDescripcionDetenido.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 iniciarEntradadeVoz();
+            }
+        });
+
+        //Imagen que funciona para activar la firma
+        imgFirmaAutoridadAdministrativo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ContenedorFirma dialog = new ContenedorFirma(R.id.lblFirmadelDetenido,R.id.lblFirmaOcultaDetenidoBase64);
+                dialog.show( getActivity().getSupportFragmentManager(),"Dia");
             }
         });
 

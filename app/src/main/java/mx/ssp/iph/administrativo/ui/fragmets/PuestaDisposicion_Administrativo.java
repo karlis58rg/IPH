@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import mx.ssp.iph.R;
 import mx.ssp.iph.administrativo.viewModel.PuestaDisposicionAdministrativoViewModel;
@@ -18,6 +19,7 @@ import mx.ssp.iph.administrativo.viewModel.PuestaDisposicionAdministrativoViewMo
 public class PuestaDisposicion_Administrativo extends Fragment {
 
     private PuestaDisposicionAdministrativoViewModel mViewModel;
+    private ImageView imgFirmaAutoridadAdministrativo;
 
     public static PuestaDisposicion_Administrativo newInstance() {
         return new PuestaDisposicion_Administrativo();
@@ -26,7 +28,19 @@ public class PuestaDisposicion_Administrativo extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.puesta_disposicion_administrativo_fragment, container, false);
+        View view = inflater.inflate(R.layout.puesta_disposicion_administrativo_fragment, container, false);
+        imgFirmaAutoridadAdministrativo = (ImageView) view.findViewById(R.id.imgFirmaAutoridadAdministrativo);
+
+        imgFirmaAutoridadAdministrativo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ContenedorFirma dialog = new ContenedorFirma(R.id.lblFirmaAutoridadRealizadaAdministrativo,R.id.lblFirmaOcultaAutoridadBase64);
+                dialog.show( getActivity().getSupportFragmentManager(),"Dia");
+            }
+        });
+
+
+        return view;
     }
 
     @Override
