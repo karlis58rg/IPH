@@ -21,6 +21,7 @@ import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import java.util.ArrayList;
 
 import mx.ssp.iph.R;
+import mx.ssp.iph.administrativo.ui.fragmets.DescripcionVehiculo;
 import mx.ssp.iph.administrativo.ui.fragmets.Detenciones;
 import mx.ssp.iph.administrativo.ui.fragmets.LugarDeIntervencion;
 import mx.ssp.iph.administrativo.ui.fragmets.NarrativaHechos;
@@ -49,7 +50,7 @@ public class Iph_Administrativo_Up extends AppCompatActivity {
         seccion3 = new LugarDeIntervencion();
         seccion4 = new NarrativaHechos();
         anexoa = new Detenciones();
-        anexob  = new PuestaDisposicion_Administrativo();
+        anexob  = new DescripcionVehiculo();
 
         //Instancio las listas
         listaSecciones = new ArrayList<String>(); //Item completo

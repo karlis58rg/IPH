@@ -45,17 +45,18 @@ public class NarrativaHechos extends Fragment {
         txtNarrativaHechos = (TextView)view.findViewById(R.id.txtNarrativaHechos);
         imgMicrofonoNarrativaHechos = (ImageView) view.findViewById(R.id.imgMicrofonoNarrativaHechos);
 
+        //Imagen que funciona para activar la grabación de voz
         imgMicrofonoNarrativaHechos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 iniciarEntradadeVoz();
-                Toast.makeText(getContext(),"Hola",Toast.LENGTH_SHORT).show();
             }
         });
 
         return view;
     }
 
+    //Método que inicia el intent para de grabar la voz
     private void iniciarEntradadeVoz() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
@@ -76,6 +77,7 @@ public class NarrativaHechos extends Fragment {
         // TODO: Use the ViewModel
     }
 
+    //Almacena la Respuesta de la lectura de voz y la coloca en el Cuadro de Texto Correspondiente
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
