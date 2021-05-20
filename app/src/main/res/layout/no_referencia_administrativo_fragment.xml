@@ -109,7 +109,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/institucion" />
                 <Spinner
-                    android:id="@+id/spinnerInstitucionReferenciaAdministrativo"
+                    android:id="@+id/spInstitucionReferenciaAdministrativo"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>
             </LinearLayout>
@@ -152,7 +152,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/municipio_en_donde_se_entrega_el_iph" />
                 <Spinner
-                    android:id="@+id/spinnerMunicipioReferenciaAdministrativo"
+                    android:id="@+id/spMunicipioReferenciaAdministrativo"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>
             </LinearLayout>
