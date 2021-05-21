@@ -2,6 +2,7 @@ package mx.ssp.iph.administrativo.ui.fragmets;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -37,6 +38,9 @@ public class NoReferencia_Administrativo extends Fragment {
     EditText txtFolioInternoAdministrativo,txtFolioSistemaAdministrativo,txtNoReferenciaAdministrativo,txtEstadoReferenciaAdministrativo,txtGobiernoReferenciaAdministrativo,txtFechaEntregaReferenciaAdministrativo,txtHoraEntregaReferenciaAdministrativo;
     Spinner spInstitucionReferenciaAdministrativo,spMunicipioReferenciaAdministrativo;
     Button btnGuardarReferenciaAdministrativo;
+    SharedPreferences share;
+    SharedPreferences.Editor editor;
+    String guardarIdFaltaAdmin,guardarNumReferencia,guardarNumFolio;
 
     public static NoReferencia_Administrativo newInstance() {
         return new NoReferencia_Administrativo();
@@ -63,6 +67,7 @@ public class NoReferencia_Administrativo extends Fragment {
         btnGuardarReferenciaAdministrativo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Toast.makeText(getContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS ", Toast.LENGTH_LONG).show();
                 insertNoReferenciaAdministrativa();
             }
         });
@@ -85,6 +90,10 @@ public class NoReferencia_Administrativo extends Fragment {
                         txtFolioInternoAdministrativo.getText().toString(),
                         txtFechaEntregaReferenciaAdministrativo.getText().toString(),
                         txtHoraEntregaReferenciaAdministrativo.getText().toString());
+
+        guardarIdFaltaAdmin = modeloNoReferencia.getIdFaltaAdmin();
+        guardarNumReferencia = modeloNoReferencia.getNumReferencia();
+        guardarNumFolio = modeloNoReferencia.getNumFolioInterno();
 
         OkHttpClient client = new OkHttpClient();
         RequestBody body = new FormBody.Builder()
@@ -118,6 +127,14 @@ public class NoReferencia_Administrativo extends Fragment {
                             if(resp.equals("true")){
                                 System.out.println("EL DATO SE ENVIO CORRECTAMENTE");
                                 Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+                                guardarFolios();
+                                txtFolioInternoAdministrativo.setText("");
+                                txtFolioSistemaAdministrativo.setText("");
+                                txtNoReferenciaAdministrativo.setText("");
+                                txtEstadoReferenciaAdministrativo.setText("");
+                                txtGobiernoReferenciaAdministrativo.setText("");
+                                txtFechaEntregaReferenciaAdministrativo.setText("");
+                                txtHoraEntregaReferenciaAdministrativo.setText("");
                             }else{
                                 Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_SHORT).show();
                             }
@@ -127,6 +144,16 @@ public class NoReferencia_Administrativo extends Fragment {
                 }
             }
         });
+    }
+
+    private void guardarFolios() {
+        share = getContext().getSharedPreferences("main", getContext().MODE_PRIVATE);
+        editor = share.edit();
+        editor.putString("IDFALTAADMIN", guardarIdFaltaAdmin );
+        editor.putString("NOREFERENCIA", guardarNumReferencia);
+        editor.putString("NUMFOLIO", guardarNumFolio);
+        editor.commit();
+
     }
 
 }

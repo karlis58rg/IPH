@@ -154,8 +154,8 @@ public class ModeloPuestaDisposicion_Administrativo {
     public void setOtro(String otro) {
         Otro = otro;
     }
-
-    public ModeloPuestaDisposicion_Administrativo(String idFaltaAdmin, String numReferencia, String numFolio, String fecha,
+    /*
+        public ModeloPuestaDisposicion_Administrativo(String idFaltaAdmin, String numReferencia, String numFolio, String fecha,
                                                   String hora, String numExpediente, String narrativa, String detenciones,
                                                   String numDetenciones, String vehiculos, String numVehiculos, String sinAnexos,
                                                   String idPoliciaPrimerRespondiente, String idUnidad, String idConocimiento, String telefono911, String otro) {
@@ -176,5 +176,16 @@ public class ModeloPuestaDisposicion_Administrativo {
         IdConocimiento = idConocimiento;
         Telefono911 = telefono911;
         Otro = otro;
+    }
+     */
+
+    public ModeloPuestaDisposicion_Administrativo(String idFaltaAdmin, String numReferencia, String numFolio, String fecha,
+                                                  String hora, String numExpediente) {
+        IdFaltaAdmin = idFaltaAdmin;
+        NumReferencia = numReferencia;
+        NumFolio = numFolio;
+        Fecha = fecha;
+        Hora = hora;
+        NumExpediente = numExpediente;
     }
 }
