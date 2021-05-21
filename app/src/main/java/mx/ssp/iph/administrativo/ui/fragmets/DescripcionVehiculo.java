@@ -13,6 +13,7 @@ import android.speech.RecognizerIntent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +23,7 @@ import java.util.Locale;
 
 import mx.ssp.iph.administrativo.viewModel.DescripcionVehiculoViewModel;
 import mx.ssp.iph.R;
+import mx.ssp.iph.utilidades.ui.Funciones;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -31,6 +33,8 @@ public class DescripcionVehiculo extends Fragment {
     private static final  int REQ_CODE_SPEECH_INPUT=100;
     private TextView txtObservacionesdelVehiculo;
     private ImageView imgMicrofonoObservacionesdelVehiculo;
+    private EditText txthoraRetencion,txtFechaRetencion;
+    private Funciones funciones;
 
     public static DescripcionVehiculo newInstance() {
         return new DescripcionVehiculo();
@@ -39,9 +43,13 @@ public class DescripcionVehiculo extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.descripcion_vehiculo_fragment, container, false);
-        txtObservacionesdelVehiculo = (TextView)view.findViewById(R.id.txtObservacionesdelVehiculo);
-        imgMicrofonoObservacionesdelVehiculo = (ImageView) view.findViewById(R.id.imgMicrofonoObservacionesdelVehiculo);
+        View root = inflater.inflate(R.layout.descripcion_vehiculo_fragment, container, false);
+        funciones = new Funciones();
+        txtObservacionesdelVehiculo = (TextView)root.findViewById(R.id.txtObservacionesdelVehiculo);
+        imgMicrofonoObservacionesdelVehiculo = (ImageView) root.findViewById(R.id.imgMicrofonoObservacionesdelVehiculo);
+        txthoraRetencion = (EditText)root.findViewById(R.id.txthoraRetencion);
+        txtFechaRetencion = (EditText)root.findViewById(R.id.txtFechaRetencion);
+
 
         //Imagen que funciona para activar la grabación de voz
         imgMicrofonoObservacionesdelVehiculo.setOnClickListener(new View.OnClickListener() {
@@ -51,8 +59,24 @@ public class DescripcionVehiculo extends Fragment {
             }
         });
 
+        //FEcha
+        txthoraRetencion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                funciones.calendar(R.id.txthoraRetencion,getContext(),getActivity());
+            }
+        });
 
-        return view;
+        //FEcha
+        txthoraRetencion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                funciones.Time(R.id.txthoraRetencion,getContext(),getActivity());
+            }
+        });
+
+
+        return root;
     }
 
     @Override
