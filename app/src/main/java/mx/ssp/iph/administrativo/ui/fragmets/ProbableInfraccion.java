@@ -39,7 +39,7 @@ public class ProbableInfraccion extends Fragment {
     EditText txtOtroProbableInfraccionAdministrativo,txt911FolioProbableInfraccionAdministrativo;
     Button btnGuardarProbableInfraccionAdministrativo;
     SharedPreferences share;
-    String cargarIdFaltaAdmin,cargarNumReferencia,cargarNumFolio;
+    String cargarIdFaltaAdmin,cargarNumReferencia;
 
     public static ProbableInfraccion newInstance() {
         return new ProbableInfraccion();
@@ -84,7 +84,6 @@ public class ProbableInfraccion extends Fragment {
         RequestBody body = new FormBody.Builder()
                 .add("IdFaltaAdmin", cargarIdFaltaAdmin)
                 .add("NumReferencia", cargarNumReferencia)
-                .add("NumFolio", cargarNumFolio)
                 .add("Telefono911", probableInfraccion.getTelefono911())
                 .add("Otro", probableInfraccion.getOtro())
                 .build();
@@ -129,8 +128,6 @@ public class ProbableInfraccion extends Fragment {
         share = getContext().getSharedPreferences("main", Context.MODE_PRIVATE);
         cargarIdFaltaAdmin = share.getString("IDFALTAADMIN", "");
         cargarNumReferencia = share.getString("NOREFERENCIA", "");
-        cargarNumFolio = share.getString("NUMFOLIO", "");
-        System.out.println(cargarIdFaltaAdmin+cargarNumReferencia+cargarNumFolio);
     }
 
 }
