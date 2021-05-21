@@ -285,6 +285,56 @@ preguntas: ¿Quién? (personas), ¿Qué? (hechos), ¿Cómo? (circunstancias), ¿
         <item>010</item>
     </string-array>
 
+    <!-- PROCEDENCIA -->
+    <string-array name="arrayProcedencia">
+        <item>--Selecciona--</item>
+        <item>NACIONAL</item>
+        <item>EXTRANJERA</item>
+    </string-array>
+
+
+    <!-- AÑO VEHICULO -->
+    <string-array name="arrayAnioVehi">
+        <item>--Selecciona--</item>
+        <item>2000</item>
+        <item>2003</item>
+        <item>2006</item>
+        <item>2012</item>
+        <item>2020</item>
+    </string-array>
+
+
+
+    <!-- USO VEHICULO -->
+    <string-array name="arrayUsoVehi">
+        <item>--Selecciona--</item>
+        <item>PRIVADO</item>
+        <item>TRANSPORTE</item>
+        <item>COMERCIAL</item>
+        <item>POLICIAL</item>
+    </string-array>
+
+
+    <!-- COLOR -->
+    <string-array name="arrayColor">
+        <item>--Selecciona--</item>
+        <item>GRIS</item>
+        <item>AMARILLO</item>
+        <item>NEGRO</item>
+        <item>AZUL</item>
+        <item>VERDE</item>
+        <item>APERLADO</item>
+    </string-array>
+
+    <!-- TIPO VEHICULO -->
+    <string-array name="arrayTipo">
+        <item>--Selecciona--</item>
+        <item>TERRESTRE</item>
+        <item>ACUATICO</item>
+        <item>AERONAUTICO</item>
+        <item>ESPACIAL</item>
+    </string-array>
+
     <string name="latitud">Latitud</string>
     <string name="longitud">Longitud</string>
 

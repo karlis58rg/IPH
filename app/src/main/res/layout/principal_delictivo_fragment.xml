@@ -13,4 +13,12 @@
         android:layout_gravity="center_horizontal"
         android:textSize="20dp"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="AQUÍ PODRÁS VISUALIZAR LOS REPORTES DE FALTAS DELICTIVAS, ASÍ COMO SU ESTATUS DE SU LLENADO.\n\nTAMBIÉN PODRÁS AGREGAR REPORTES DE FALTAS DELICTIVAS."
+        android:layout_gravity="center"
+        android:textSize="15dp"/>
+
 </FrameLayout>

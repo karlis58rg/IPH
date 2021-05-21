@@ -73,12 +73,14 @@
                         android:text="@string/fecha_de_la_detencion" />
 
                     <EditText
-                        android:id="@+id/txtFechaDetencion"
+                        android:id="@+id/txtFechaDetenido"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:focusable="false"
                         android:drawableRight="@drawable/ic_calendar"
-                        android:hint="DD/MM/AAAA"/>
+                        android:hint="DD/MM/AAAA">
+
+                    </EditText>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/lyHoraDetencion"
@@ -1090,7 +1092,7 @@
                             android:id="@+id/lblFirmaDetenidoRespondiente"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Firma del Detenido" />
+                            android:text="Firma" />
 
                         <LinearLayout
                             android:layout_width="match_parent"

@@ -31,7 +31,7 @@ public class Detenciones extends Fragment  {
     private static final  int REQ_CODE_SPEECH_INPUT=100;
     private TextView txtDescripciondelDetenido;
     private ImageView img_microfonoDescripcionDetenido,imgFirmaAutoridadAdministrativo;
-    private EditText txtFechaDetencion,txthoraDetencion,txtFechaNacimientoDetenido;
+    private EditText txtFechaDetenido,txthoraDetencion,txtFechaNacimientoDetenido;
     private Funciones funciones;
 
     public static Detenciones newInstance() {
@@ -45,7 +45,7 @@ public class Detenciones extends Fragment  {
         funciones = new Funciones();
         txtDescripciondelDetenido = (TextView)view.findViewById(R.id.txtDescripciondelDetenido);
         img_microfonoDescripcionDetenido = (ImageView) view.findViewById(R.id.img_microfonoDescripcionDetenido);
-        txtFechaDetencion = (EditText)view.findViewById(R.id.txtFechaDetencion);
+        txtFechaDetenido = (EditText)view.findViewById(R.id.txtFechaDetenido);
         txthoraDetencion = (EditText)view.findViewById(R.id.txthoraDetencion);
         txtFechaNacimientoDetenido = (EditText) view.findViewById(R.id.txtFechaNacimientoDetenido);
 
@@ -58,10 +58,11 @@ public class Detenciones extends Fragment  {
         });
 
         //Fecha
-        txtFechaDetencion.setOnClickListener(new View.OnClickListener() {
+        txtFechaDetenido.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                funciones.calendar(R.id.txtFechaDetencion,getContext(),getActivity());
+                Toast.makeText(getContext(),"CLick",Toast.LENGTH_SHORT).show();
+                funciones.calendar(R.id.txtFechaDetenido,getContext(),getActivity());
             }
         });
 

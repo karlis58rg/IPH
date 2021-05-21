@@ -60,10 +60,10 @@ public class DescripcionVehiculo extends Fragment {
         });
 
         //FEcha
-        txthoraRetencion.setOnClickListener(new View.OnClickListener() {
+        txtFechaRetencion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                funciones.calendar(R.id.txthoraRetencion,getContext(),getActivity());
+                funciones.calendar(R.id.txtFechaRetencion,getContext(),getActivity());
             }
         });
 

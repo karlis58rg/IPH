@@ -162,6 +162,7 @@
                         android:id="@+id/spTipoVehiculo"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:entries="@array/arrayTipo"
                         />
                 </LinearLayout>
 
@@ -247,6 +248,7 @@
                         android:id="@+id/spModeloVehiculo"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:entries="@array/arrayAnioVehi"
                         />
                 </LinearLayout>
 
@@ -266,6 +268,7 @@
                         android:id="@+id/spColorVehiculo"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:entries="@array/arrayColor"
                         />
                 </LinearLayout>
             </LinearLayout>
@@ -294,6 +297,7 @@
                         android:id="@+id/spUsoVehiculo"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:entries="@array/arrayUsoVehi"
                         />
                 </LinearLayout>
 
