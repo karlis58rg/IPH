@@ -41,7 +41,7 @@ public class NoReferencia_Administrativo extends Fragment {
     private EditText txtHoraEntregaReferenciaAdministrativo,txtFechaEntregaReferenciaAdministrativo;
     Funciones funciones;
 
-    EditText txtFolioInternoAdministrativo,txtFolioSistemaAdministrativo,txtNoReferenciaAdministrativo,txtEstadoReferenciaAdministrativo,txtGobiernoReferenciaAdministrativo,txtFechaEntregaReferenciaAdministrativo,txtHoraEntregaReferenciaAdministrativo;
+    EditText txtFolioInternoAdministrativo,txtFolioSistemaAdministrativo,txtNoReferenciaAdministrativo,txtEstadoReferenciaAdministrativo,txtGobiernoReferenciaAdministrativo;
     Spinner spInstitucionReferenciaAdministrativo,spMunicipioReferenciaAdministrativo;
     Button btnGuardarReferenciaAdministrativo;
     SharedPreferences share;
@@ -71,7 +71,6 @@ public class NoReferencia_Administrativo extends Fragment {
 
         btnGuardarReferenciaAdministrativo = root.findViewById(R.id.btnGuardarReferenciaAdministrativo);
         funciones = new Funciones();
-        txtFechaEntregaReferenciaAdministrativo =  root.findViewById(R.id.txtFechaEntregaReferenciaAdministrativo);
         txtHoraEntregaReferenciaAdministrativo = (EditText) root.findViewById(R.id.txtHoraEntregaReferenciaAdministrativo);
 
         //FEcha

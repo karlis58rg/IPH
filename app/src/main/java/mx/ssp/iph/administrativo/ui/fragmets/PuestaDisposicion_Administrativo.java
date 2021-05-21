@@ -29,6 +29,8 @@ import mx.ssp.iph.R;
 import mx.ssp.iph.administrativo.model.ModeloNoReferencia_Administrativo;
 import mx.ssp.iph.administrativo.model.ModeloPuestaDisposicion_Administrativo;
 import mx.ssp.iph.administrativo.viewModel.PuestaDisposicionAdministrativoViewModel;
+import mx.ssp.iph.utilidades.ui.ContenedorFirma;
+import mx.ssp.iph.utilidades.ui.Funciones;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -36,8 +38,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import mx.ssp.iph.utilidades.ui.ContenedorFirma;
-import mx.ssp.iph.utilidades.ui.Funciones;
 
 public class PuestaDisposicion_Administrativo extends Fragment {
 
@@ -50,7 +50,6 @@ public class PuestaDisposicion_Administrativo extends Fragment {
     SharedPreferences share;
     String cargarIdFaltaAdmin,cargarNumReferencia,cargarNumFolio;
     Funciones funciones;
-
     public static PuestaDisposicion_Administrativo newInstance() {
         return new PuestaDisposicion_Administrativo();
     }
@@ -59,11 +58,9 @@ public class PuestaDisposicion_Administrativo extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.puesta_disposicion_administrativo_fragment, container, false);
-        funciones = new Funciones();
-
-
 
         //************************************** ACCIONES DE LA VISTA **************************************//
+        funciones = new Funciones();
         cargarFolios();
         txtFechaPuestaDisposicionAdministrativo = root.findViewById(R.id.txtFechaPuestaDisposicionAdministrativo);
         txthoraPuestaDisposicionAdministrativo = root.findViewById(R.id.txthoraPuestaDisposicionAdministrativo);
@@ -81,8 +78,15 @@ public class PuestaDisposicion_Administrativo extends Fragment {
         btnGuardarPuestaDisposicioAdministrativo = root.findViewById(R.id.btnGuardarPuestaDisposicioAdministrativo);
 
         imgFirmaAutoridadAdministrativo = (ImageView) root.findViewById(R.id.imgFirmaAutoridadAdministrativo);
-        txtFechaPuestaDisposicionAdministrativo = (EditText)root.findViewById(R.id.txtFechaPuestaDisposicionAdministrativo);
-        txthoraPuestaDisposicionAdministrativo = (EditText)root.findViewById(R.id.txthoraPuestaDisposicionAdministrativo);
+        imgFirmaAutoridadAdministrativo = (ImageView) root.findViewById(R.id.imgFirmaAutoridadAdministrativo);
+
+        imgFirmaAutoridadAdministrativo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ContenedorFirma dialog = new ContenedorFirma(R.id.lblFirmaAutoridadRealizadaAdministrativo,R.id.lblFirmaOcultaAutoridadBase64);
+                dialog.show( getActivity().getSupportFragmentManager(),"Dia");
+            }
+        });
 
         txtFechaPuestaDisposicionAdministrativo.setOnClickListener(new View.OnClickListener() {
             @Override
