@@ -13,4 +13,12 @@
         android:layout_gravity="center_horizontal"
         android:textSize="20dp"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="EN ESTA PARTE PODRÁS REALIZAR BÚSQUEDAS DE REPORTES TANTO DE FALTAS DELICTIVAS COMO ADMINISTRATIVAS, CON FILTROS COMO EL TIPO DE FALTA, LA FECHA EN QUE SE REALIZARON Y ESTATUS DEL REPORTE."
+        android:layout_gravity="center"
+        android:textSize="15dp"/>
+
 </FrameLayout>

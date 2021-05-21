@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,12 +45,13 @@ public class PuestaDisposicion_Administrativo extends Fragment {
     private PuestaDisposicionAdministrativoViewModel mViewModel;
     private ImageView imgFirmaAutoridadAdministrativo;
     EditText txtFechaPuestaDisposicionAdministrativo,txthoraPuestaDisposicionAdministrativo,txtNoExpedienteAdmministrativo,txtPrimerApellidoAdministrativo,txtSegundoApellidoAdministrativo,txtNombresAdministrativo,
-            txtInstitucionAdscripcionAdministrativo,txtGradoCargoAdministrativo,txtUnidadDeArriboAdministrativo,txtFiscaliaAutoridadAdministrativo,txtAdscripcionAdministrativo,txtCargoAdministrativo;
+    txtFiscaliaAutoridadAdministrativo,txtAdscripcionAdministrativo;
     TextView lblFirmaAutoridadRealizadaAdministrativo;
     Button btnGuardarPuestaDisposicioAdministrativo;
     SharedPreferences share;
     String cargarIdFaltaAdmin,cargarNumReferencia,cargarNumFolio;
     Funciones funciones;
+    Spinner txtInstitucionAdscripcionAdministrativo,txtGradoCargoAdministrativo,txtCargoAdministrativo,txtUnidadDeArriboAdministrativo;
     public static PuestaDisposicion_Administrativo newInstance() {
         return new PuestaDisposicion_Administrativo();
     }
@@ -97,7 +99,7 @@ public class PuestaDisposicion_Administrativo extends Fragment {
         txthoraPuestaDisposicionAdministrativo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                funciones.calendar(R.id.txthoraPuestaDisposicionAdministrativo,getContext(),getActivity());
+                funciones.Time(R.id.txthoraPuestaDisposicionAdministrativo,getContext(),getActivity());
             }
         });
         imgFirmaAutoridadAdministrativo.setOnClickListener(new View.OnClickListener() {
@@ -174,12 +176,8 @@ public class PuestaDisposicion_Administrativo extends Fragment {
                                 txtPrimerApellidoAdministrativo.setText("");
                                 txtSegundoApellidoAdministrativo.setText("");
                                 txtNombresAdministrativo.setText("");
-                                txtInstitucionAdscripcionAdministrativo.setText("");
-                                txtGradoCargoAdministrativo.setText("");
-                                txtUnidadDeArriboAdministrativo.setText("");
                                 txtFiscaliaAutoridadAdministrativo.setText("");
                                 txtAdscripcionAdministrativo.setText("");
-                                txtCargoAdministrativo.setText("");
 
                             }else{
                                 Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_SHORT).show();

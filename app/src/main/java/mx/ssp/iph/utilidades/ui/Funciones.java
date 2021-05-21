@@ -27,7 +27,7 @@ public class Funciones {
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 EditText CajadeTextoCalendario;
                 CajadeTextoCalendario = (EditText) activity.findViewById(idCajadeTextoCalendario);
-                CajadeTextoCalendario.setText(dayOfMonth+"/"+(month+1)+"/"+year);
+                CajadeTextoCalendario.setText(year+"/"+(month+1)+"/"+dayOfMonth);
             }
         },year,month,day);
         dpd.show();

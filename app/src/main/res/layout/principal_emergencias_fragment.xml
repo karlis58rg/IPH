@@ -13,4 +13,12 @@
         android:layout_gravity="center_horizontal"
         android:textSize="20dp"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="PUEDES LLAMAR AL 911 EN CASO DE EMERGENCIA Y/O NECESITAR APOYO.\n\nPUEDES LLAMAR AL 089 PARA REALIZAR UNA DENUNCIA ANÓNIMA.\n\nRECUERDA UTILIZAR CON RESPONSABILIDAD ESTOS NÚMEROS QUE PUEDES LLAMAR DE FORMA GRATUITA."
+        android:layout_gravity="center"
+        android:textSize="15dp"/>
+
 </FrameLayout>
