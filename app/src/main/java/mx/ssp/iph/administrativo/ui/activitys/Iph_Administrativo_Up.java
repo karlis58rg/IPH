@@ -10,7 +10,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,7 +21,6 @@ import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import java.util.ArrayList;
 
 import mx.ssp.iph.R;
-import mx.ssp.iph.administrativo.ui.fragmets.ContenedorFirma;
 import mx.ssp.iph.administrativo.ui.fragmets.DescripcionVehiculo;
 import mx.ssp.iph.administrativo.ui.fragmets.Detenciones;
 import mx.ssp.iph.administrativo.ui.fragmets.LugarDeIntervencion;
@@ -44,7 +42,6 @@ public class Iph_Administrativo_Up extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_iph_administrativo_up);
 
-
         //Instancio los Fragmentos
         referencia = new NoReferencia_Administrativo();
         seccion1 = new PuestaDisposicion_Administrativo();
@@ -58,7 +55,6 @@ public class Iph_Administrativo_Up extends AppCompatActivity{
         listaSecciones = new ArrayList<String>(); //Item completo
         listaColorStatus = new ArrayList<Integer>(); //Item completo
         lvSeccionesAdministrativo = findViewById(R.id.lvSeccionesAdministrativo);
-
 
         //Agrego los colores de las listas
         listaColorStatus.add(R.drawable.indicador_amarillo);

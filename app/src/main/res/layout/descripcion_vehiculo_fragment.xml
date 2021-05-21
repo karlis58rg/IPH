@@ -75,7 +75,10 @@
                     <EditText
                         android:id="@+id/txtFechaRetencion"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:drawableRight="@drawable/ic_calendar"
+                        android:hint="DD/MM/AAAA"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/lyHoraRetencion"
@@ -92,7 +95,11 @@
                     <EditText
                         android:id="@+id/txthoraRetencion"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:drawableRight="@drawable/ic_time"
+                        android:hint="HH:MM"
+                        />
                 </LinearLayout>
             </LinearLayout>
 
@@ -154,7 +161,8 @@
                     <Spinner
                         android:id="@+id/spTipoVehiculo"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent"
+                        />
                 </LinearLayout>
 
                 <LinearLayout
@@ -172,7 +180,8 @@
                     <Spinner
                         android:id="@+id/spProcedenciaVehiculo"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent"
+                        android:entries="@array/arrayNacionalidad"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -199,7 +208,8 @@
                     <Spinner
                         android:id="@+id/spMarcaVehiculo"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent"
+                        android:entries="@array/arrayMarcaVehiculos"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -217,7 +227,8 @@
                     <Spinner
                         android:id="@+id/spSubmarcaVehiculo"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent"
+                        android:entries="@array/arraySubMarcaVehiculos"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -235,7 +246,8 @@
                     <Spinner
                         android:id="@+id/spModeloVehiculo"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent"
+                        />
                 </LinearLayout>
 
                 <LinearLayout
@@ -253,7 +265,8 @@
                     <Spinner
                         android:id="@+id/spColorVehiculo"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent"
+                        />
                 </LinearLayout>
             </LinearLayout>
 
@@ -280,7 +293,8 @@
                     <Spinner
                         android:id="@+id/spUsoVehiculo"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent"
+                        />
                 </LinearLayout>
 
                 <LinearLayout
@@ -520,7 +534,8 @@
                     <Spinner
                         android:id="@+id/spAdscripcionPrimerRespondienteVehiculo"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent"
+                        android:entries="@array/arrayInstitucion"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="0dp"
@@ -537,7 +552,8 @@
                     <Spinner
                         android:id="@+id/spCargoPrimerRespondienteVehiculo"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent"
+                        android:entries="@array/arrayCargo"/>
 
                 </LinearLayout>
 

@@ -59,7 +59,8 @@
                     <Spinner
                         android:id="@+id/spEntidadUbicacionGeograficaAdministrativo"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent"
+                        android:entries="@array/arrayEntidadFederativa"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/lyMunicipioUbicacionGeograficaAdministrativo"
@@ -77,7 +78,8 @@
                     <Spinner
                         android:id="@+id/spMunicipioUbicacionGeograficaAdministrativo"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent"
+                        android:entries="@array/arrayMunicipios"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/lyColoniaUbicacionGeograficaAdministrativo"
@@ -95,7 +97,8 @@
                     <Spinner
                         android:id="@+id/spColoniaUbicacionGeograficaAdministrativo"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent"
+                        android:entries="@array/arrayColonias"/>
                 </LinearLayout>
             </LinearLayout>
 

@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import android.widget.TextView;
 
 import mx.ssp.iph.R;
 import mx.ssp.iph.administrativo.model.ModeloNoReferencia_Administrativo;
@@ -34,6 +36,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import mx.ssp.iph.utilidades.ui.ContenedorFirma;
+import mx.ssp.iph.utilidades.ui.Funciones;
 
 public class PuestaDisposicion_Administrativo extends Fragment {
 
@@ -45,6 +49,7 @@ public class PuestaDisposicion_Administrativo extends Fragment {
     Button btnGuardarPuestaDisposicioAdministrativo;
     SharedPreferences share;
     String cargarIdFaltaAdmin,cargarNumReferencia,cargarNumFolio;
+    Funciones funciones;
 
     public static PuestaDisposicion_Administrativo newInstance() {
         return new PuestaDisposicion_Administrativo();
@@ -53,20 +58,11 @@ public class PuestaDisposicion_Administrativo extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.puesta_disposicion_administrativo_fragment, container, false);
-        imgFirmaAutoridadAdministrativo = (ImageView) view.findViewById(R.id.imgFirmaAutoridadAdministrativo);
-
-        imgFirmaAutoridadAdministrativo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ContenedorFirma dialog = new ContenedorFirma(R.id.lblFirmaAutoridadRealizadaAdministrativo,R.id.lblFirmaOcultaAutoridadBase64);
-                dialog.show( getActivity().getSupportFragmentManager(),"Dia");
-            }
-        });
-
-
-        return view;
         View root = inflater.inflate(R.layout.puesta_disposicion_administrativo_fragment, container, false);
+        funciones = new Funciones();
+
+
+
         //************************************** ACCIONES DE LA VISTA **************************************//
         cargarFolios();
         txtFechaPuestaDisposicionAdministrativo = root.findViewById(R.id.txtFechaPuestaDisposicionAdministrativo);
@@ -84,6 +80,29 @@ public class PuestaDisposicion_Administrativo extends Fragment {
         lblFirmaAutoridadRealizadaAdministrativo  = root.findViewById(R.id.lblFirmaAutoridadRealizadaAdministrativo);
         btnGuardarPuestaDisposicioAdministrativo = root.findViewById(R.id.btnGuardarPuestaDisposicioAdministrativo);
 
+        imgFirmaAutoridadAdministrativo = (ImageView) root.findViewById(R.id.imgFirmaAutoridadAdministrativo);
+        txtFechaPuestaDisposicionAdministrativo = (EditText)root.findViewById(R.id.txtFechaPuestaDisposicionAdministrativo);
+        txthoraPuestaDisposicionAdministrativo = (EditText)root.findViewById(R.id.txthoraPuestaDisposicionAdministrativo);
+
+        txtFechaPuestaDisposicionAdministrativo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                funciones.calendar(R.id.txtFechaPuestaDisposicionAdministrativo,getContext(),getActivity());
+            }
+        });
+        txthoraPuestaDisposicionAdministrativo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                funciones.calendar(R.id.txthoraPuestaDisposicionAdministrativo,getContext(),getActivity());
+            }
+        });
+        imgFirmaAutoridadAdministrativo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ContenedorFirma dialog = new ContenedorFirma(R.id.lblFirmaAutoridadRealizadaAdministrativo,R.id.lblFirmaOcultaAutoridadBase64);
+                dialog.show( getActivity().getSupportFragmentManager(),"Dia");
+            }
+        });
         btnGuardarPuestaDisposicioAdministrativo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

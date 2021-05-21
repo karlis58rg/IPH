@@ -1,4 +1,4 @@
-package mx.ssp.iph.administrativo.model;
+package mx.ssp.iph.utilidades.model;
 
 import android.content.Context;
 import android.graphics.Canvas;

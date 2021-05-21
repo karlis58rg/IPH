@@ -16,6 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -24,6 +26,7 @@ import java.io.IOException;
 import mx.ssp.iph.R;
 import mx.ssp.iph.administrativo.model.ModeloNoReferencia_Administrativo;
 import mx.ssp.iph.administrativo.viewModel.NoReferencia_Administrativo_ViewModel;
+import mx.ssp.iph.utilidades.ui.Funciones;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -35,6 +38,9 @@ import okhttp3.Response;
 public class NoReferencia_Administrativo extends Fragment {
 
     private NoReferencia_Administrativo_ViewModel mViewModel;
+    private EditText txtHoraEntregaReferenciaAdministrativo,txtFechaEntregaReferenciaAdministrativo;
+    Funciones funciones;
+
     EditText txtFolioInternoAdministrativo,txtFolioSistemaAdministrativo,txtNoReferenciaAdministrativo,txtEstadoReferenciaAdministrativo,txtGobiernoReferenciaAdministrativo,txtFechaEntregaReferenciaAdministrativo,txtHoraEntregaReferenciaAdministrativo;
     Spinner spInstitucionReferenciaAdministrativo,spMunicipioReferenciaAdministrativo;
     Button btnGuardarReferenciaAdministrativo;
@@ -50,6 +56,7 @@ public class NoReferencia_Administrativo extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.no_referencia_administrativo_fragment, container, false);
+
         //************************************** ACCIONES DE LA VISTA **************************************//
         txtFolioInternoAdministrativo = root.findViewById(R.id.txtFolioInternoAdministrativo);
         txtFolioSistemaAdministrativo = root.findViewById(R.id.txtFolioSistemaAdministrativo);
@@ -63,6 +70,25 @@ public class NoReferencia_Administrativo extends Fragment {
         spMunicipioReferenciaAdministrativo = root.findViewById(R.id.spMunicipioReferenciaAdministrativo);
 
         btnGuardarReferenciaAdministrativo = root.findViewById(R.id.btnGuardarReferenciaAdministrativo);
+        funciones = new Funciones();
+        txtFechaEntregaReferenciaAdministrativo =  root.findViewById(R.id.txtFechaEntregaReferenciaAdministrativo);
+        txtHoraEntregaReferenciaAdministrativo = (EditText) root.findViewById(R.id.txtHoraEntregaReferenciaAdministrativo);
+
+        //FEcha
+        txtFechaEntregaReferenciaAdministrativo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                funciones.calendar(R.id.txtFechaEntregaReferenciaAdministrativo,getContext(),getActivity());
+            }
+        });
+
+        //Hora
+        txtHoraEntregaReferenciaAdministrativo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                funciones.Time(R.id.txtHoraEntregaReferenciaAdministrativo,getContext(),getActivity());
+            }
+        });
 
         btnGuardarReferenciaAdministrativo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,6 +107,28 @@ public class NoReferencia_Administrativo extends Fragment {
         mViewModel = new ViewModelProvider(this).get(NoReferencia_Administrativo_ViewModel.class);
         // TODO: Use the ViewModel
     }
+
+/*
+    public void calendar(Integer idCajadeTextoCalendario){
+        Calendar c;
+        DatePickerDialog dpd;
+
+        c = Calendar.getInstance();
+        int day = c.get(Calendar.DAY_OF_MONTH);
+        int month = c.get(Calendar.MONTH);
+        int year = c.get(Calendar.YEAR);
+
+        dpd = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener(){
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                EditText CajadeTextoCalendario;
+                CajadeTextoCalendario = (EditText) getActivity().findViewById(idCajadeTextoCalendario);
+                CajadeTextoCalendario.setText(dayOfMonth+"/"+(month+1)+"/"+year);
+            }
+        },day,month,year);
+        dpd.show();
+    }
+*/
 
     //***************** INSERTA A LA BD MEDIANTE EL WS **************************//
     private void insertNoReferenciaAdministrativa() {

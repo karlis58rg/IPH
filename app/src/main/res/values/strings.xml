@@ -107,6 +107,184 @@ preguntas: ¿Quién? (personas), ¿Qué? (hechos), ¿Cómo? (circunstancias), ¿
     <string name="menu_que_es">¿Qué es?</string>
     <string name="menu_como_usarla">¿Cómo usarla?</string>
     <string name="menu_protocolo_intervencion">Protocolo de Intervención</string>
+
+    <!--INSTITUCIÓN -->
+    <string-array name="arrayInstitucion">
+        <item>--Selecciona--</item>
+        <item>INSTITUTO FEDERAL DE DEFENSORÍA PÚBLICA</item>
+        <item>PROCURADURÍA GENERAL DE LA REPÚBLICA (PGR)</item>
+        <item>AGENCIA FEDERAL DE INVESTIGACIONES (AFI)</item>
+        <item>CENTRO DE INVESTIGACIÓN Y SEGURIDAD NACIONAL (CISEN)</item>
+    </string-array>
+
+
+    <!--CARGO DEL OFICIAL O PRIMER RESPONDIENTE -->
+    <string-array name="arrayCargo">
+        <item>--Selecciona--</item>
+        <item>SUBTENIENTE</item>
+        <item>TENIENTE</item>
+        <item>COMISARIO</item>
+        <item>INSPECTOR</item>
+        <item>OFICIAL</item>
+    </string-array>
+
+    <!--UNIDAD EN QUE ARRIBO EL OFICIAL -->
+    <string-array name="arrayUnidad">
+        <item>--Selecciona--</item>
+        <item>HL-045 DODGE CHARGER 2019 BLANCO CON AZUL</item>
+        <item>HL-046 JEEP WRANGLER 2010 ROJO CON DESCAPOTABLE</item>
+        <item>HL-047 DODGE CHARGER 2019 BLANCO CON AZUL</item>
+        <item>HL-048 HONDA CIVIC 2020	BLANCO CON RAYAS</item>
+        <item>HL-049 HONDA CIVIC 2020	BLANCO CON RAYAS</item>
+    </string-array>
+
+
+
+
+    <!--CONOCIMIENTO DE LA FALTA -->
+    <string-array name="arrayConocimientoInfraccion">
+        <item>--Selecciona--</item>
+        <item>LLAMADA 911</item>
+        <item>PRESENCIAL</item>
+        <item>BOTON DE EMERGENCIA</item>
+        <item>DENUNCIA CIUDADANA</item>
+    </string-array>
+
+
+    <!--CALLES -->
+    <string-array name="arrayCalle">
+        <item>--Selecciona--</item>
+        <item>MIGUEL HIDALGO</item>
+        <item>BENITO JUAREZ</item>
+        <item>FRANCIA</item>
+        <item>OLIVOS</item>
+        <item>LANSEROS</item>
+    </string-array>
+
+
+    <!--COLONIAS -->
+    <string-array name="arrayColonias">
+        <item>--Selecciona--</item>
+        <item>JUAN C DORIA</item>
+        <item>TUZOS</item>
+        <item>SAN ANTONIO</item>
+        <item>TULIPANES</item>
+        <item>FORJADORES</item>
+    </string-array>
+
+
+    <!--MUNICIPIOS -->
+    <string-array name="arrayMunicipios">
+        <item>--Selecciona--</item>
+        <item>ACTOPAN</item>
+        <item>PACHUCA DE SOTO</item>
+        <item>TEPEAPULCO</item>
+        <item>TULANCINGO</item>
+        <item>ZEMPOALA</item>
+    </string-array>
+
+
+
+    <!--ENTIDAD FEDERATIVA -->
+    <string-array name="arrayEntidadFederativa">
+        <item>--Selecciona--</item>
+        <item>HIDALGO</item>
+        <item>GUERRERO</item>
+        <item>VERAZCRUZ</item>
+        <item>ESTADO DE MÉXICO</item>
+        <item>OAXACA</item>
+    </string-array>
+
+
+    <!--PADECIMIENTOS -->
+    <string-array name="arrayPadecimientos">
+        <item>--Selecciona--</item>
+        <item>DOLOR DE GARGANTA</item>
+        <item>DOLOR DE OÍDO</item>
+        <item>INFECCIÓN DE LAS VÍAS URINARIAS</item>
+        <item>INFECCIÓN DE LA PIEL</item>
+        <item>BRONQUITIS</item>
+    </string-array>
+
+
+    <!--GRUPO VULNERABLE -->
+    <string-array name="arrayGpoVulnerable">
+        <item>--Selecciona--</item>
+        <item>COMUNIDAD LGBTTTI</item>
+        <item>MIGRANTES</item>
+        <item>MUJERES</item>
+        <item>PERSONA CON DISCAPACIDAD</item>
+        <item>PERSONA INDIGENTE</item>
+    </string-array>
+
+
+    <!--LUGAR TRASLADO -->
+    <string-array name="arrayLugarTraslado">
+        <item>--Selecciona--</item>
+        <item>MINISTERIO PÚBLICO</item>
+        <item>C2 MUNICIPAL</item>
+        <item>CERESO</item>
+        <item>RETENCIÓN</item>
+        <item>TORITO</item>
+    </string-array>
+
+
+    <!--MARCA -->
+
+    <string-array name="arrayMarcaVehiculos">
+        <item>--Selecciona--</item>
+        <item>ACURA</item>
+        <item>CADILLAC</item>
+        <item>DINA</item>
+        <item>MCLAREN</item>
+        <item>PORSCHE</item>
+    </string-array>
+
+    <!--MODELO -->
+    <string-array name="arraySubMarcaVehiculos">
+        <item>--Selecciona--</item>
+        <item>S8 SEDAN</item>
+        <item>CONTINENTAL GT V8 S</item>
+        <item>M6 COUPE</item>
+        <item>ATS SEDAN</item>
+        <item>AVEO</item>
+    </string-array>
+
+
+
+    <!--NACIONALIDAD -->
+    <string-array name="arrayNacionalidad">
+        <item>--Selecciona--</item>
+        <item>MEXICANO</item>
+        <item>HONDUREÑO</item>
+        <item>AHITIANO</item>
+        <item>ESPAÑOL</item>
+        <item>ITALIANO</item>
+    </string-array>
+
+
+    <!-- SEXO - -->
+    <string-array name="arraySexo">
+        <item>--Selecciona--</item>
+        <item>HOMBRE</item>
+        <item>MUJER</item>
+    </string-array>
+
+    <!-- SEXO - -->
+    <string-array name="arrayTotalesAnexos">
+        <item>--Selecciona--</item>
+        <item>001</item>
+        <item>002</item>
+        <item>003</item>
+        <item>004</item>
+        <item>005</item>
+        <item>006</item>
+        <item>007</item>
+        <item>009</item>
+        <item>009</item>
+        <item>010</item>
+    </string-array>
+
     <string name="latitud">Latitud</string>
     <string name="longitud">Longitud</string>
 

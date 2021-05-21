@@ -114,7 +114,8 @@
                 <Spinner
                     android:id="@+id/spInstitucionReferenciaAdministrativo"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    android:entries="@array/arrayInstitucion"/>
             </LinearLayout>
         </LinearLayout>
         <LinearLayout
@@ -183,7 +184,10 @@
                 <EditText
                     android:id="@+id/txtFechaEntregaReferenciaAdministrativo"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:drawableRight="@drawable/ic_calendar"
+                    android:hint="DD/MM/AAAA" />
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/lyHoraEntregaReferenciaAdministrativo"
@@ -200,7 +204,10 @@
                 <EditText
                     android:id="@+id/txtHoraEntregaReferenciaAdministrativo"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:drawableRight="@drawable/ic_time"
+                    android:hint="HH:MM"/>
             </LinearLayout>
         </LinearLayout>
         <LinearLayout
