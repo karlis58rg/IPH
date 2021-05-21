@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,6 +22,8 @@ import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import java.util.ArrayList;
 
 import mx.ssp.iph.R;
+import mx.ssp.iph.administrativo.ui.fragmets.ContenedorFirma;
+import mx.ssp.iph.administrativo.ui.fragmets.DescripcionVehiculo;
 import mx.ssp.iph.administrativo.ui.fragmets.Detenciones;
 import mx.ssp.iph.administrativo.ui.fragmets.LugarDeIntervencion;
 import mx.ssp.iph.administrativo.ui.fragmets.NarrativaHechos;
@@ -28,7 +31,7 @@ import mx.ssp.iph.administrativo.ui.fragmets.NoReferencia_Administrativo;
 import mx.ssp.iph.administrativo.ui.fragmets.ProbableInfraccion;
 import mx.ssp.iph.administrativo.ui.fragmets.PuestaDisposicion_Administrativo;
 
-public class Iph_Administrativo_Up extends AppCompatActivity {
+public class Iph_Administrativo_Up extends AppCompatActivity{
 
     ArrayList<String> listaSecciones;
     ArrayList<Integer> listaColorStatus;
@@ -49,7 +52,7 @@ public class Iph_Administrativo_Up extends AppCompatActivity {
         seccion3 = new LugarDeIntervencion();
         seccion4 = new NarrativaHechos();
         anexoa = new Detenciones();
-        anexob  = new PuestaDisposicion_Administrativo();
+        anexob  = new DescripcionVehiculo();
 
         //Instancio las listas
         listaSecciones = new ArrayList<String>(); //Item completo

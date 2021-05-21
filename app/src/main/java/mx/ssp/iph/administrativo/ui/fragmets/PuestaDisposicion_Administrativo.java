@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -37,6 +38,7 @@ import okhttp3.Response;
 public class PuestaDisposicion_Administrativo extends Fragment {
 
     private PuestaDisposicionAdministrativoViewModel mViewModel;
+    private ImageView imgFirmaAutoridadAdministrativo;
     EditText txtFechaPuestaDisposicionAdministrativo,txthoraPuestaDisposicionAdministrativo,txtNoExpedienteAdmministrativo,txtPrimerApellidoAdministrativo,txtSegundoApellidoAdministrativo,txtNombresAdministrativo,
             txtInstitucionAdscripcionAdministrativo,txtGradoCargoAdministrativo,txtUnidadDeArriboAdministrativo,txtFiscaliaAutoridadAdministrativo,txtAdscripcionAdministrativo,txtCargoAdministrativo;
     TextView lblFirmaAutoridadRealizadaAdministrativo;
@@ -51,6 +53,19 @@ public class PuestaDisposicion_Administrativo extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.puesta_disposicion_administrativo_fragment, container, false);
+        imgFirmaAutoridadAdministrativo = (ImageView) view.findViewById(R.id.imgFirmaAutoridadAdministrativo);
+
+        imgFirmaAutoridadAdministrativo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ContenedorFirma dialog = new ContenedorFirma(R.id.lblFirmaAutoridadRealizadaAdministrativo,R.id.lblFirmaOcultaAutoridadBase64);
+                dialog.show( getActivity().getSupportFragmentManager(),"Dia");
+            }
+        });
+
+
+        return view;
         View root = inflater.inflate(R.layout.puesta_disposicion_administrativo_fragment, container, false);
         //************************************** ACCIONES DE LA VISTA **************************************//
         cargarFolios();
