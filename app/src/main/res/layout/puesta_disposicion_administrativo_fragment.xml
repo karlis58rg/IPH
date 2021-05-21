@@ -60,7 +60,10 @@
                 <EditText
                     android:id="@+id/txtFechaPuestaDisposicionAdministrativo"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:drawableRight="@drawable/ic_calendar"
+                    android:hint="DD/MM/AAAA"/>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/lyPuestaDisposicionAdministrativo"
@@ -77,7 +80,10 @@
                 <EditText
                     android:id="@+id/txthoraPuestaDisposicionAdministrativo"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:drawableRight="@drawable/ic_time"
+                    android:hint="HH:MM"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -148,7 +154,8 @@
                 <Spinner
                     android:id="@+id/spDetencionesAnexoAAdministrativo"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    android:entries="@array/arrayTotalesAnexos"/>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/lyAnexosEDescripcionVehiculosAdministrativo"
@@ -179,7 +186,8 @@
                 <Spinner
                     android:id="@+id/spDetencionesAnexoBAdministrativo"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    android:entries="@array/arrayTotalesAnexos"/>
 
             </LinearLayout>
         </LinearLayout>
@@ -219,7 +227,8 @@
                 <Spinner
                     android:id="@+id/spSinAnexosAdministrativo"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    android:entries="@array/arrayTotalesAnexos"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="0dp"
@@ -382,10 +391,11 @@
                     android:layout_height="wrap_content"
                     android:text="@string/institucion_entidad_federativa_o_municipio_de_adscripcion" />
 
-                <EditText
+                <Spinner
                     android:id="@+id/txtInstitucionAdscripcionAdministrativo"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:entries="@array/arrayInstitucion"/>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/lyGradoCargoAdministrativo"
@@ -399,10 +409,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="¿Cúal es su grado o cargo?" />
-                <EditText
+                <Spinner
                     android:id="@+id/txtGradoCargoAdministrativo"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:entries="@array/arrayCargo"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -426,10 +437,11 @@
                     android:layout_height="wrap_content"
                     android:text="@string/en_que_unidad_arribo_al_lugar_de_la_intervencion" />
 
-                <EditText
+                <Spinner
                     android:id="@+id/txtUnidadDeArriboAdministrativo"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:entries="@array/arrayUnidad"/>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/lyNoAplicaUnidadDeArriboAdministrativo"
@@ -550,10 +562,11 @@
                     android:layout_height="wrap_content"
                     android:text="@string/cargo" />
 
-                <EditText
+                <Spinner
                     android:id="@+id/txtCargoAdministrativo"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:entries="@array/arrayCargo"/>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/lyFirmaAutoridadAdministrativo"

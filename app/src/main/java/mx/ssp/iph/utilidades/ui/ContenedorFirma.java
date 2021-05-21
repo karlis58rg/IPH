@@ -1,4 +1,4 @@
-package mx.ssp.iph.administrativo.ui.fragmets;
+package mx.ssp.iph.utilidades.ui;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Base64;
@@ -14,7 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import java.io.ByteArrayOutputStream;
 import mx.ssp.iph.R;
-import mx.ssp.iph.administrativo.model.Modelo_ContenedorFirma;
+import mx.ssp.iph.utilidades.model.Modelo_ContenedorFirma;
 
 public class ContenedorFirma extends DialogFragment {
         private Button btnCancelar,btnLimpiar,btnGuardar;

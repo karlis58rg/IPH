@@ -10,6 +10,7 @@ import android.speech.RecognizerIntent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +20,9 @@ import java.util.Locale;
 
 import mx.ssp.iph.administrativo.viewModel.DetencionesViewModel;
 import mx.ssp.iph.R;
+import mx.ssp.iph.utilidades.ui.ContenedorFirma;
+import mx.ssp.iph.utilidades.ui.Funciones;
+
 import static android.app.Activity.RESULT_OK;
 
 public class Detenciones extends Fragment  {
@@ -27,6 +31,8 @@ public class Detenciones extends Fragment  {
     private static final  int REQ_CODE_SPEECH_INPUT=100;
     private TextView txtDescripciondelDetenido;
     private ImageView img_microfonoDescripcionDetenido,imgFirmaAutoridadAdministrativo;
+    private EditText txtFechaDetencion,txthoraDetencion,txtFechaNacimientoDetenido;
+    private Funciones funciones;
 
     public static Detenciones newInstance() {
         return new Detenciones();
@@ -36,8 +42,37 @@ public class Detenciones extends Fragment  {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view  = inflater.inflate(R.layout.detenciones_fragment, container, false);
+        funciones = new Funciones();
         txtDescripciondelDetenido = (TextView)view.findViewById(R.id.txtDescripciondelDetenido);
         img_microfonoDescripcionDetenido = (ImageView) view.findViewById(R.id.img_microfonoDescripcionDetenido);
+        txtFechaDetencion = (EditText)view.findViewById(R.id.txtFechaDetencion);
+        txthoraDetencion = (EditText)view.findViewById(R.id.txthoraDetencion);
+        txtFechaNacimientoDetenido = (EditText) view.findViewById(R.id.txtFechaNacimientoDetenido);
+
+        //Fecha
+        txtFechaNacimientoDetenido.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                funciones.calendar(R.id.txtFechaNacimientoDetenido,getContext(),getActivity());
+            }
+        });
+
+        //Fecha
+        txtFechaDetencion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                funciones.calendar(R.id.txtFechaDetencion,getContext(),getActivity());
+            }
+        });
+
+        //Hora
+        txthoraDetencion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                funciones.Time(R.id.txthoraDetencion,getContext(),getActivity());
+            }
+        });
+
 
         //Firma del Detenido
         imgFirmaAutoridadAdministrativo = (ImageView) view.findViewById(R.id.imgFirmaAutoridadAdministrativo);

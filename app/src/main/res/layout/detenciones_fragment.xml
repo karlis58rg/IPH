@@ -75,7 +75,10 @@
                     <EditText
                         android:id="@+id/txtFechaDetencion"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:drawableRight="@drawable/ic_calendar"
+                        android:hint="DD/MM/AAAA"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/lyHoraDetencion"
@@ -92,7 +95,10 @@
                     <EditText
                         android:id="@+id/txthoraDetencion"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:drawableRight="@drawable/ic_time"
+                        android:hint="HH:MM"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -233,7 +239,8 @@
                     <Spinner
                         android:id="@+id/spGeneroDetenido"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent"
+                        android:entries="@array/arraySexo"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -256,10 +263,11 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/font"
                         android:text="@string/lblNacionalidad"/>
-                    <EditText
+                    <Spinner
                         android:id="@+id/txtNacionalidadDetenido"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:entries="@array/arrayNacionalidad"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -295,7 +303,10 @@
                     <EditText
                         android:id="@+id/txtFechaNacimientoDetenido"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:drawableRight="@drawable/ic_calendar"
+                        android:hint="DD/MM/AAAA"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -418,10 +429,11 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/font"
                         android:text="@string/lblEntidad"/>
-                    <EditText
+                    <Spinner
                         android:id="@+id/txtEntidadDetenido"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:entries="@array/arrayEntidadFederativa"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -436,10 +448,11 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/font"
                         android:text="@string/lblMunicipio"/>
-                    <EditText
+                    <Spinner
                         android:id="@+id/txtMunicipioDetenido"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:entries="@array/arrayMunicipios"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -454,10 +467,11 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/font"
                         android:text="@string/lblColonia"/>
-                    <EditText
+                    <Spinner
                         android:id="@+id/txtColoniaDetenido"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:entries="@array/arrayColonias"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -746,11 +760,11 @@
                     android:weightSum="1"
                     android:layout_weight="0.10">
 
-                    <EditText
+                    <Spinner
                         android:id="@+id/txtCualPadecimiento"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="¿Cuál?"/>
+                        android:entries="@array/arrayPadecimientos"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -812,11 +826,12 @@
                     android:weightSum="1"
                     android:layout_weight="0.10">
 
-                    <EditText
+                    <Spinner
                         android:id="@+id/txtCualGrupoVulnerable"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="¿Cuál?"/>
+                        android:entries="@array/arrayGpoVulnerable"
+                        />
                 </LinearLayout>
             </LinearLayout>
 
@@ -879,7 +894,9 @@
                     <Spinner
                         android:id="@+id/spLugarTrasladoPersonaDetenida"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent"
+                        android:entries="@array/arrayLugarTraslado"
+                        />
                 </LinearLayout>
 
             </LinearLayout>
@@ -1030,7 +1047,8 @@
                     <Spinner
                         android:id="@+id/spAdscripcionPrimerRespondienteDetencion"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent"
+                        android:entries="@array/arrayInstitucion"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="0dp"
@@ -1047,7 +1065,8 @@
                     <Spinner
                         android:id="@+id/spCargoPrimerRespondienteDetencion"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent"
+                        android:entries="@array/arrayCargo"/>
 
                 </LinearLayout>
 
