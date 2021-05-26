@@ -37,16 +37,21 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="68dp">
+            android:layout_height="68dp"
+            android:background="@color/background_section">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="15dp"
-                android:textSize="16sp"
+                android:textSize="20sp"
+                android:gravity="center_vertical"
                 android:text="SECCIONES JUSTICIA CÍVICA"
                 android:paddingStart="15dp"
-                android:layout_centerVertical="true"/>
+                android:paddingEnd="15dp"
+                android:layout_centerVertical="true"
+                android:drawableRight="@drawable/ic_expand_less"
+                android:textStyle="bold"/>
 
         </RelativeLayout>
 

@@ -12,7 +12,8 @@
         android:layout_height="wrap_content"
         android:text="IPH JUSTICIA CÍVICA"
         android:layout_gravity="center_horizontal"
-        android:textSize="20dp"/>
+        android:textSize="20dp"
+        android:layout_marginTop="@dimen/title_margin_top"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -31,8 +32,6 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@drawable/ic_plus"
-        android:backgroundTint="@color/backgroud_header_toolbar"
-
-        />
+        android:backgroundTint="@color/background_float"        />
 
 </FrameLayout>
