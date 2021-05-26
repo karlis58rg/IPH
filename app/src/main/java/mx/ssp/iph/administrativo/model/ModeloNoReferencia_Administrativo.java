@@ -3,7 +3,7 @@ package mx.ssp.iph.administrativo.model;
 public class ModeloNoReferencia_Administrativo {
     private String IdFaltaAdmin;
     private String NumReferencia;
-    private String NumFolioInterno;
+    private String NumSistema;
     private String IdEntidadFederativa;
     private String IdMunicipio;
     private String IdInstitucion;
@@ -20,8 +20,8 @@ public class ModeloNoReferencia_Administrativo {
         NumReferencia = numReferencia;
     }
 
-    public void setNumFolioInterno(String numFolioInterno) {
-        NumFolioInterno = numFolioInterno;
+    public void setNumSistema(String numSistema) {
+        NumSistema = numSistema;
     }
 
     public void setIdEntidadFederativa(String idEntidadFederativa) {
@@ -61,8 +61,8 @@ public class ModeloNoReferencia_Administrativo {
         return NumReferencia;
     }
 
-    public String getNumFolioInterno() {
-        return NumFolioInterno;
+    public String getNumSistema() {
+        return NumSistema;
     }
 
     public String getIdEntidadFederativa() {
@@ -106,10 +106,9 @@ public class ModeloNoReferencia_Administrativo {
         Hora = hora;
     }*/
 
-    public ModeloNoReferencia_Administrativo(String idFaltaAdmin, String numReferencia, String numFolioInterno, String fecha, String hora) {
+    public ModeloNoReferencia_Administrativo(String idFaltaAdmin, String numReferencia,String fecha, String hora) {
         IdFaltaAdmin = idFaltaAdmin;
         NumReferencia = numReferencia;
-        NumFolioInterno = numFolioInterno;
         Fecha = fecha;
         Hora = hora;
     }
