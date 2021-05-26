@@ -14,16 +14,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Random;
 
 import mx.ssp.iph.R;
+import mx.ssp.iph.SqLite.DataHelper;
 import mx.ssp.iph.administrativo.model.ModeloNoReferencia_Administrativo;
 import mx.ssp.iph.administrativo.viewModel.NoReferencia_Administrativo_ViewModel;
 import mx.ssp.iph.utilidades.ui.Funciones;
@@ -46,7 +48,9 @@ public class NoReferencia_Administrativo extends Fragment {
     Button btnGuardarReferenciaAdministrativo;
     SharedPreferences share;
     SharedPreferences.Editor editor;
-    String guardarIdFaltaAdmin,guardarNumReferencia,guardarNumFolio;
+    String guardarIdFaltaAdmin,codigoVerifi,randomCodigoVerifi;
+    int numberRandom;
+
 
     public static NoReferencia_Administrativo newInstance() {
         return new NoReferencia_Administrativo();
@@ -72,6 +76,7 @@ public class NoReferencia_Administrativo extends Fragment {
         btnGuardarReferenciaAdministrativo = root.findViewById(R.id.btnGuardarReferenciaAdministrativo);
         funciones = new Funciones();
         txtHoraEntregaReferenciaAdministrativo = (EditText) root.findViewById(R.id.txtHoraEntregaReferenciaAdministrativo);
+        ListInstitucion();
 
         //FEcha
         txtFechaEntregaReferenciaAdministrativo.setOnClickListener(new View.OnClickListener() {
@@ -107,46 +112,20 @@ public class NoReferencia_Administrativo extends Fragment {
         // TODO: Use the ViewModel
     }
 
-/*
-    public void calendar(Integer idCajadeTextoCalendario){
-        Calendar c;
-        DatePickerDialog dpd;
-
-        c = Calendar.getInstance();
-        int day = c.get(Calendar.DAY_OF_MONTH);
-        int month = c.get(Calendar.MONTH);
-        int year = c.get(Calendar.YEAR);
-
-        dpd = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener(){
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                EditText CajadeTextoCalendario;
-                CajadeTextoCalendario = (EditText) getActivity().findViewById(idCajadeTextoCalendario);
-                CajadeTextoCalendario.setText(dayOfMonth+"/"+(month+1)+"/"+year);
-            }
-        },day,month,year);
-        dpd.show();
-    }
-*/
-
     //***************** INSERTA A LA BD MEDIANTE EL WS **************************//
     private void insertNoReferenciaAdministrativa() {
         ModeloNoReferencia_Administrativo modeloNoReferencia = new ModeloNoReferencia_Administrativo
-                (txtFolioSistemaAdministrativo.getText().toString(),
+                (txtFolioInternoAdministrativo.getText().toString(),
                         txtNoReferenciaAdministrativo.getText().toString(),
-                        txtFolioInternoAdministrativo.getText().toString(),
                         txtFechaEntregaReferenciaAdministrativo.getText().toString(),
                         txtHoraEntregaReferenciaAdministrativo.getText().toString());
 
         guardarIdFaltaAdmin = modeloNoReferencia.getIdFaltaAdmin();
-        guardarNumReferencia = modeloNoReferencia.getNumReferencia();
-        guardarNumFolio = modeloNoReferencia.getNumFolioInterno();
 
         OkHttpClient client = new OkHttpClient();
         RequestBody body = new FormBody.Builder()
                 .add("IdFaltaAdmin", modeloNoReferencia.getIdFaltaAdmin())
-                .add("NumReferencia", modeloNoReferencia.getNumReferencia())
-                .add("NumFolioInterno", modeloNoReferencia.getNumFolioInterno())
+                .add("NumReferencia", modeloNoReferencia.getIdGobierno())
                 .add("Fecha", modeloNoReferencia.getFecha())
                 .add("Hora", modeloNoReferencia.getHora())
                 .build();
@@ -197,10 +176,33 @@ public class NoReferencia_Administrativo extends Fragment {
         share = getContext().getSharedPreferences("main", getContext().MODE_PRIVATE);
         editor = share.edit();
         editor.putString("IDFALTAADMIN", guardarIdFaltaAdmin );
-        editor.putString("NOREFERENCIA", guardarNumReferencia);
-        editor.putString("NUMFOLIO", guardarNumFolio);
         editor.commit();
-
     }
 
+    public void Random()
+    {
+        Random random = new Random();
+        numberRandom = random.nextInt(9000)*99;
+        codigoVerifi = String.valueOf(numberRandom);
+        randomCodigoVerifi = codigoVerifi;
+    }
+
+    private void ListInstitucion() {
+        DataHelper dataHelper = new DataHelper(getContext());
+        ArrayList<String> list = dataHelper.getAllInstitucion();
+        if (list.size() > 0) {
+            System.out.println("YA EXISTE INFORMACIÓN");
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_layout, R.id.txt, list);
+            spInstitucionReferenciaAdministrativo.setAdapter(adapter);
+        } else {
+            dataHelper.insertCatInstitucion(1, "GUARDIA NACIONAL");
+            dataHelper.insertCatInstitucion(2, "POLICIA FEDERAL MINISTERIAL");
+            dataHelper.insertCatInstitucion(3, "POLICIA MINISTERIAL");
+            dataHelper.insertCatInstitucion(4, "POLICIA MANDO UNICO");
+            dataHelper.insertCatInstitucion(5, "POLICIA ESTATAL");
+            dataHelper.insertCatInstitucion(6, "POLICIA MUNICIPAL");
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_layout, R.id.txt, list);
+            spInstitucionReferenciaAdministrativo.setAdapter(adapter);
+        }
+    }
 }
