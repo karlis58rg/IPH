@@ -7,20 +7,35 @@
     tools:context=".principal.ui.fragments.PrincipalAdministrativo"
     android:background="#FAFAFA">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/Linear1"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="IPH JUSTICIA CÍVICA"
-        android:layout_gravity="center_horizontal"
-        android:textSize="20dp"/>
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="IPH JUSTICIA CÍVICA"
+            android:layout_gravity="center_horizontal"
+            android:textSize="20dp"
+            android:layout_marginTop="@dimen/title_margin_top"/>
+    </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/Linear2"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:text="AQUÍ PODRÁS VISUALIZAR LOS REPORTES DE FALTAS ADMINISTRATIVAS, ASÍ COMO SU ESTATUS DE SU LLENADO.\n\nTAMBIÉN PODRÁS AGREGAR REPORTES DE FALTAS ADMINISTRATIVAS."
-        android:layout_gravity="center"
-        android:textSize="15dp"/>
+        android:orientation="vertical"
+        android:layout_marginTop="60dp">
+        <ListView
+            android:id="@+id/lvPrincipalFolioInternoAdministrativo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+    </LinearLayout>
+
+
+
 
 
 
@@ -31,8 +46,8 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@drawable/ic_plus"
-        android:backgroundTint="@color/backgroud_header_toolbar"
+        android:backgroundTint="@color/background_float"        />
 
-        />
+
 
 </FrameLayout>

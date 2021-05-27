@@ -2,6 +2,7 @@ package mx.ssp.iph.administrativo.ui.fragmets;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -20,14 +21,20 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.IllegalFormatCodePointException;
 import java.util.Random;
+import java.util.regex.Pattern;
 
 import mx.ssp.iph.R;
 import mx.ssp.iph.SqLite.DataHelper;
 import mx.ssp.iph.administrativo.model.ModeloNoReferencia_Administrativo;
 import mx.ssp.iph.administrativo.viewModel.NoReferencia_Administrativo_ViewModel;
+import mx.ssp.iph.principal.ui.fragments.PrincipalAdministrativo;
 import mx.ssp.iph.utilidades.ui.Funciones;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -48,9 +55,14 @@ public class NoReferencia_Administrativo extends Fragment {
     Button btnGuardarReferenciaAdministrativo;
     SharedPreferences share;
     SharedPreferences.Editor editor;
-    String guardarIdFaltaAdmin,codigoVerifi,randomCodigoVerifi;
-    int numberRandom;
+    String guardarIdFaltaAdmin,IDFALTAADMIN;
 
+
+    String codigoVerifi,randomCodigoVerifi,respuestaJson,descripcionMunicipio;
+    int numberRandom;
+    private int idEntidadFederativa;
+    private int idMunicipio;
+    private String municipio;
 
     public static NoReferencia_Administrativo newInstance() {
         return new NoReferencia_Administrativo();
@@ -77,8 +89,14 @@ public class NoReferencia_Administrativo extends Fragment {
         funciones = new Funciones();
         txtHoraEntregaReferenciaAdministrativo = (EditText) root.findViewById(R.id.txtHoraEntregaReferenciaAdministrativo);
         ListInstitucion();
+        ListMunicipios();
+        //getMunicipios();
 
-        //FEcha
+        //***************** Cargar Datos si es que existen  **************************//
+        CargarDatos();
+
+
+        //***************** FECHA  **************************//
         txtFechaEntregaReferenciaAdministrativo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,7 +104,7 @@ public class NoReferencia_Administrativo extends Fragment {
             }
         });
 
-        //Hora
+        //***************** HORA **************************//
         txtHoraEntregaReferenciaAdministrativo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,6 +112,7 @@ public class NoReferencia_Administrativo extends Fragment {
             }
         });
 
+        //***************** Boton Guardar Datos  **************************//
         btnGuardarReferenciaAdministrativo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -114,6 +133,11 @@ public class NoReferencia_Administrativo extends Fragment {
 
     //***************** INSERTA A LA BD MEDIANTE EL WS **************************//
     private void insertNoReferenciaAdministrativa() {
+        DataHelper dataHelper = new DataHelper(getContext());
+        descripcionMunicipio = (String) spMunicipioReferenciaAdministrativo.getSelectedItem();
+        int idDescMunicipio = dataHelper.getIdMunicipio(descripcionMunicipio);
+        String idMunicipio = String.valueOf(idDescMunicipio);
+
         ModeloNoReferencia_Administrativo modeloNoReferencia = new ModeloNoReferencia_Administrativo
                 (txtFolioInternoAdministrativo.getText().toString(),
                         txtNoReferenciaAdministrativo.getText().toString(),
@@ -125,9 +149,13 @@ public class NoReferencia_Administrativo extends Fragment {
         OkHttpClient client = new OkHttpClient();
         RequestBody body = new FormBody.Builder()
                 .add("IdFaltaAdmin", modeloNoReferencia.getIdFaltaAdmin())
-                .add("NumReferencia", modeloNoReferencia.getIdGobierno())
+                .add("NumReferencia", modeloNoReferencia.getNumReferencia())
+                .add("IdEntidadFederativa","12")
+                .add("IdMunicipio", idMunicipio)
+                .add("IdInstitucion", "3")
                 .add("Fecha", modeloNoReferencia.getFecha())
                 .add("Hora", modeloNoReferencia.getHora())
+                .add("Usuario", "IPH001")
                 .build();
         Request request = new Request.Builder()
                 .url("http://189.254.7.167/WebServiceIPH/api/NoReferenciaAdministrativa/")
@@ -144,7 +172,9 @@ public class NoReferencia_Administrativo extends Fragment {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                if (response.isSuccessful()) {
+                if(response.code() == 500){
+                    Toast.makeText(getContext(), "EXISTIÓ UN ERROR EN SU CONEXIÓN A INTERNET, INTÉNTELO NUEVAMENTE", Toast.LENGTH_SHORT).show();
+                }else if (response.isSuccessful()) {
                     final String myResponse = response.body().string();
                     NoReferencia_Administrativo.this.getActivity().runOnUiThread(new Runnable() {
                         @Override
@@ -153,7 +183,7 @@ public class NoReferencia_Administrativo extends Fragment {
                             if(resp.equals("true")){
                                 System.out.println("EL DATO SE ENVIO CORRECTAMENTE");
                                 Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
-                                guardarFolios();
+                                //guardarFolios();
                                 txtFolioInternoAdministrativo.setText("");
                                 txtFolioSistemaAdministrativo.setText("");
                                 txtNoReferenciaAdministrativo.setText("");
@@ -172,6 +202,65 @@ public class NoReferencia_Administrativo extends Fragment {
         });
     }
 
+    public void getMunicipios() {
+        DataHelper dataHelper = new DataHelper(getContext());
+
+        final OkHttpClient client = new OkHttpClient();
+        final Request request = new Request.Builder()
+                .url("http://189.254.7.167/WebServiceIPH/api/CatMunicipios")
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Looper.prepare();
+                Toast.makeText(getActivity(), "ERROR AL OBTENER LA INFORMACIÓN, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_SHORT).show();
+                Looper.loop();
+            }
+
+            @Override
+            public void onResponse(Call call, final Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    final String myResponse = response.body().string();
+                    NoReferencia_Administrativo.this.getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                respuestaJson = "null";
+                                if (myResponse.equals(respuestaJson)) {
+                                    Toast.makeText(getActivity(), "NO SE CUENTA CON INFORMACIÓN", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    JSONArray ja = null;
+                                    try {
+                                        ja = new JSONArray("" + myResponse + "");
+                                        for (int i = 0; i < ja.length(); i++) {
+                                            try {
+                                                idEntidadFederativa = (ja.getJSONObject(i).getInt("IdEntidadFederativa"));
+                                                idMunicipio = (ja.getJSONObject(i).getInt("IdMunicipio"));
+                                                municipio = (ja.getJSONObject(i).getString("Municipio"));
+                                                dataHelper.insertCatMunicipios(idEntidadFederativa,idMunicipio,municipio);
+                                                System.out.println(ja);
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                }
+            }
+
+        });
+    }
+
     private void guardarFolios() {
         share = getContext().getSharedPreferences("main", getContext().MODE_PRIVATE);
         editor = share.edit();
@@ -186,12 +275,15 @@ public class NoReferencia_Administrativo extends Fragment {
         codigoVerifi = String.valueOf(numberRandom);
         randomCodigoVerifi = codigoVerifi;
     }
+    //***************** CONSULTA A LA BD MEDIANTE EL WS **************************//
+    //BENY
 
+    /********* SPINNER INSTITUCION ****************/
     private void ListInstitucion() {
         DataHelper dataHelper = new DataHelper(getContext());
         ArrayList<String> list = dataHelper.getAllInstitucion();
         if (list.size() > 0) {
-            System.out.println("YA EXISTE INFORMACIÓN");
+            System.out.println("YA EXISTE INFORMACIÓN DE INSTITUCIONES");
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_layout, R.id.txt, list);
             spInstitucionReferenciaAdministrativo.setAdapter(adapter);
         } else {
@@ -203,6 +295,39 @@ public class NoReferencia_Administrativo extends Fragment {
             dataHelper.insertCatInstitucion(6, "POLICIA MUNICIPAL");
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_layout, R.id.txt, list);
             spInstitucionReferenciaAdministrativo.setAdapter(adapter);
+        }
+    }
+
+    //***************** SE RECUPERA EL FOLIO INTERNO **************************//
+    private void CargarDatos() {
+        share = getContext().getSharedPreferences("main", Context.MODE_PRIVATE);
+        IDFALTAADMIN= share.getString("IDFALTAADMIN", "");
+
+        if (IDFALTAADMIN.equals(""))
+        {
+            Toast.makeText(getContext(), "EL FOLIO INTERNO NO EXISTE. POR FAVOR REINCICIE LA APP CREE UN NUEVO INFORME.", Toast.LENGTH_LONG).show();
+        }
+        else
+        {
+            //Consulta si hay conexión a internet y realiza la peticion al ws de consulta de los datos.
+            if (funciones.ping(getContext()))
+            {
+                Toast.makeText(getContext(), "cargarNoReferenciaAdministrativa()", Toast.LENGTH_LONG).show();
+                //cargarNoReferenciaAdministrativa();
+            }
+        }
+
+    }
+
+
+    /**************** SPINNER MUNICIPIOS **************************************/
+    private void ListMunicipios() {
+        DataHelper dataHelper = new DataHelper(getContext());
+        ArrayList<String> list = dataHelper.getAllMunicipios();
+        if (list.size() > 0) {
+            System.out.println("YA EXISTE INFORMACIÓN DE MUNICIPIOS");
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_layout, R.id.txt, list);
+            spMunicipioReferenciaAdministrativo.setAdapter(adapter);
         }
     }
 }

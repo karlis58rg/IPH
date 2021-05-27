@@ -11,6 +11,7 @@ public class ModeloNoReferencia_Administrativo {
     private String OtraAutoridad;
     private String Fecha;
     private String Hora;
+    private String Usuario;
 
     public void setIdFaltaAdmin(String idFaltaAdmin) {
         IdFaltaAdmin = idFaltaAdmin;
@@ -52,6 +53,10 @@ public class ModeloNoReferencia_Administrativo {
         Hora = hora;
     }
 
+    public void setUsuario(String usuario) {
+        Usuario = usuario;
+    }
+
 
     public String getIdFaltaAdmin() {
         return IdFaltaAdmin;
@@ -91,6 +96,10 @@ public class ModeloNoReferencia_Administrativo {
 
     public String getHora() {
         return Hora;
+    }
+
+    public String getUsuario() {
+        return Usuario;
     }
 
     /*public ModeloNoReferencia_Administrativo(String idFaltaAdmin, String numReferencia, String numFolioInterno, String idEntidadFederativa, String idMunicipio, String idInstitucion, String idGobierno, String otraAutoridad, String fecha, String hora) {
