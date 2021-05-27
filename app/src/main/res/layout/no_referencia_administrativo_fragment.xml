@@ -37,7 +37,11 @@
                 <EditText
                     android:id="@+id/txtFolioInternoAdministrativo"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:maxLength="25"
+                    android:inputType="textCapCharacters"
+                    android:digits="@string/validacion_notas"/>
+
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/lyFolioSistemaAdministrativo"
@@ -54,7 +58,10 @@
                 <EditText
                     android:id="@+id/txtFolioSistemaAdministrativo"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:maxLength="21"
+                    android:inputType="textCapCharacters"
+                    android:digits="@string/validacion_notas"/>
             </LinearLayout>
         </LinearLayout>
         <LinearLayout
@@ -72,7 +79,10 @@
             <EditText
                 android:id="@+id/txtNoReferenciaAdministrativo"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:maxLength="21"
+                android:inputType="textCapCharacters"
+                android:digits="@string/validacion_notas"/>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/secundarioLinear"

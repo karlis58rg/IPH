@@ -47,7 +47,7 @@
     <string name="apartado_4_1_Instrucciones_descripcion_de_los_hechos">Relate cronológicamente las acciones realizadas durante su intervención desde el conocimiento del hecho, hasta su conclusión o la puesta a disposición. En su
 caso, explique las circunstancias de modo, tiempo y lugar que motivaron cada uno de los niveles de contacto y la detención. Tome como base las siguientes
 preguntas: ¿Quién? (personas), ¿Qué? (hechos), ¿Cómo? (circunstancias), ¿Cuándo? (tiempo) y ¿Dónde? (lugar).</string>
-    <string name="max3000caracteres">Max 3,000 caracteres</string>
+    <string name="max3000caracteres">Max. 3,000 Caracteres.</string>
 
     <!--Anexo A:Detenciones Administrativo -->
     <string name="subtitulo_apartado_A1">Apartado A.1 Fecha y hora de la detención </string>
@@ -68,7 +68,7 @@ preguntas: ¿Quién? (personas), ¿Qué? (hechos), ¿Cómo? (circunstancias), ¿
     <string name="lblNumeroExterior">Número exterior</string>
     <string name="lblNumeroInterior">Número interior</string>
     <string name="lblCodigoPostal">Código Postal</string>
-    <string name="lblReferencias">Referencias del lugar</string>
+    <string name="lblReferencias">Referencias del Lugar</string>
 
     <string name="subtitulo_apartado_A3">Apartado A.3 Datos del lugar del traslado de la persona detenida</string>
 
@@ -341,5 +341,10 @@ preguntas: ¿Quién? (personas), ¿Qué? (hechos), ¿Cómo? (circunstancias), ¿
     <string name="menu_como_usarla_des">EN ESTA APLICACIÓN, EL USUARIO PODRÁ CONSULTAR REPORTES DE FALTAS DELICTIVAS O ADMINISTRATIVAS. POR CADA INCIDENTE EN QUE EL OFICIAL INTERVENGA, EL PRIMER RESPONDIENTE DEBERÁ LLENAR EL FORMULARIO SEGÚN CORRESPONDA LA FALTA, SI ES DELICTIVA O ADMINISTRATIVA. DEBERÁ POSICIONARSE EN LA CATEGORÍA ADECUADA PARA EL TIPO DE REPORTE QUE REALIZARÁ. A CONTINUACIÓN, DEBERÁ DE IR LLENANDO LOS DATOS QUE SE LE SOLICITAN, PROCURANDO SER LO MÁS CLARO POSIBLE EN LOS CAMPOS DE TEXTO ABIERTO. TAMBIÉN PODRÁ CONOCER MEDIANTE LA CONSULTA EL ESTATUS DE CADA UNO DE LOS REPORTES QUE HA REALIZADO, PARA DARLES CONTINUIDAD Y REGISTRARLOS EN EL SISTEMA NACIONAL</string>
 
     <string name="menu_que_es_des">ES UNA APLICACIÓN MÓVIL QUE PERMITE LA CONSULTA Y REGISTRO DE REPORTES DEL POLICÍA HOMOLOGADO QUE, RECABADA LOS DATOS DE LA FALTA DELICTIVA O ADMINISTRATIVA, PARA SU POSTERIOR REGISTRO EN LA PLATAFORMA NACIONAL, AGILIZANDO Y GARANTIZANDO LA INTEGRIDAD DEL REGISTRO DE LA INFORMACIÓN.</string>
+
+    <!-- VALIDACIONES -->
+    <string name="validacion_notas">ABCDEFGHIJKLMNÑOPQRSTUVWXYZ 0123456789</string>
+    <string name="validacion_nombre">ABCDEFGHIJKLMNÑOPQRSTUVWXYZ</string>
+    <string name="validacion_numero">0123456789</string>
 
 </resources>

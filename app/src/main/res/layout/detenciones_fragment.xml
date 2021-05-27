@@ -6,6 +6,7 @@
     tools:context=".administrativo.ui.fragmets.Detenciones"
     android:background="#FFF">
 
+
     <ScrollView
         android:id="@+id/scrollTransporte"
         android:layout_width="match_parent"
@@ -146,7 +147,10 @@
                     <EditText
                         android:id="@+id/txtPrimerApellidoDetenido"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="0dp"
@@ -163,7 +167,10 @@
                     <EditText
                         android:id="@+id/txtSegundoApellidoDetenido"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="0dp"
@@ -180,7 +187,10 @@
                     <EditText
                         android:id="@+id/txtNombresDetenido"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -202,11 +212,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/font"
-                        android:text="@string/lblApodoDetenido"/>
+                        android:text="@string/lblApodoDetenido"
+                        />
                     <EditText
                         android:id="@+id/txtApodoDetenido"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_notas"
+                        android:maxLength="50"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -287,7 +301,11 @@
                     <EditText
                         android:id="@+id/txtNacionalidadEspecifiqueDetenido"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"
+                        android:maxLength="40"
+                        />
                 </LinearLayout>
 
                 <LinearLayout
@@ -499,7 +517,10 @@
                     <EditText
                         android:id="@+id/txtCalleDetenido"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_notas"
+                        android:maxLength="250"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -525,7 +546,9 @@
                     <EditText
                         android:id="@+id/txtNumeroExteriorDetenido"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -543,7 +566,9 @@
                     <EditText
                         android:id="@+id/txtNumeroInteriorDetenido"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -561,7 +586,10 @@
                     <EditText
                         android:id="@+id/txtCodigoPostalDetenido"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:inputType="numberPassword"
+                        android:digits="@string/validacion_numero"
+                        android:maxLength="5"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -587,7 +615,9 @@
                     <EditText
                         android:id="@+id/txtReferenciasdelLugarDetenido"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_notas"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -603,7 +633,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="italic"
-                    android:text="Describa brevemente a la persona detenida, incluyendo vestimenta y rasgos visibles (Barba, tatuajes, cicatrices, lunares, bigote, etcétera)" />
+                    android:text="Describa brevemente a la persona detenida, incluyendo vestimenta y rasgos visibles (Barba, tatuajes, cicatrices, lunares, bigote, etcétera)." />
             </LinearLayout>
 
             <LinearLayout
@@ -619,7 +649,9 @@
                         android:id="@+id/txtDescripciondelDetenido"
                         android:layout_width="match_parent"
                         android:layout_height="300dp"
-                        android:inputType="text|textMultiLine"
+                        android:inputType="text|textMultiLine|textCapCharacters"
+                        android:digits="@string/validacion_notas"
+                        android:maxLength="3000"
                         android:gravity="top"/>
 
                     <ImageView
@@ -987,7 +1019,10 @@
                     <EditText
                         android:id="@+id/txtPrimerApellidoAdministrativo"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/lySegundoApellido"
@@ -1005,7 +1040,10 @@
                     <EditText
                         android:id="@+id/txtSegundoApellidoAdministrativo"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/lyGuardarReferenciaAdministrativo"
@@ -1023,7 +1061,11 @@
                     <EditText
                         android:id="@+id/txtNombresAdministrativo"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"
+                    />
                 </LinearLayout>
             </LinearLayout>
 

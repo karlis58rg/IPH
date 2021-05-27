@@ -70,7 +70,7 @@
                         android:id="@+id/lblFechaRetencion"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Fecha en la que retuvo el vehículo" />
+                        android:text="Fecha de la retención del vehículo" />
 
                     <EditText
                         android:id="@+id/txtFechaRetencion"
@@ -91,7 +91,7 @@
                         android:id="@+id/lblHoraRetencion"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Hora de la retención del vehículo" />
+                        android:text="Hora de la retención del vehículo"/>
                     <EditText
                         android:id="@+id/txthoraRetencion"
                         android:layout_width="match_parent"
@@ -316,7 +316,10 @@
                     <EditText
                         android:id="@+id/txtPlacaVehiculo"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent"
+                        android:maxLength="10"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_notas"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -334,7 +337,10 @@
                     <EditText
                         android:id="@+id/txtSerieVehiculo"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_notas"/>
                 </LinearLayout>
 
 
@@ -366,8 +372,10 @@
                         android:id="@+id/txtObservacionesdelVehiculo"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
-                        android:inputType="text|textMultiLine"
-                        android:gravity="top"/>
+                        android:inputType="text|textMultiLine|textCapCharacters"
+                        android:gravity="top"
+                        android:maxLength="50"
+                        android:digits="@string/validacion_notas"/>
 
                     <ImageView
                         android:id="@+id/imgMicrofonoObservacionesdelVehiculo"
@@ -476,7 +484,10 @@
                     <EditText
                         android:id="@+id/txtPrimerApellidoAdministrativo"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/lySegundoApellidoVehiculo"
@@ -494,7 +505,10 @@
                     <EditText
                         android:id="@+id/txtSegundoApellidoVehiculo"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/lyNombreVehiculo"
@@ -512,7 +526,10 @@
                     <EditText
                         android:id="@+id/txtNombresVehiculo"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"/>
                 </LinearLayout>
             </LinearLayout>
 

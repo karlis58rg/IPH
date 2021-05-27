@@ -117,7 +117,10 @@
                 <EditText
                     android:id="@+id/txtCalleUbicacionGeograficaAdministrativo"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:maxLength="500"
+                    android:inputType="textCapCharacters"
+                    android:digits="@string/validacion_notas"/>
             </LinearLayout>
 
 
@@ -143,7 +146,10 @@
                     <EditText
                         android:id="@+id/txtNumeroExteriorUbicacionGeograficaAdministrativo"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_notas"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -161,7 +167,10 @@
                     <EditText
                         android:id="@+id/txtNumeroInteriorUbicacionGeograficaAdministrativo"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_notas"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -179,7 +188,10 @@
                     <EditText
                         android:id="@+id/txtCodigoPostalUbicacionGeograficaAdministrativo"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:maxLength="5"
+                        android:inputType="phone"
+                        android:digits="@string/validacion_numero"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -205,7 +217,10 @@
                     <EditText
                         android:id="@+id/txtReferenciasdelLugarUbicacionGeograficaAdministrativo"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:maxLength="500"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_notas"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -231,7 +246,8 @@
                     <EditText
                         android:id="@+id/txtLatitudUbicacionGeograficaAdministrativo"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:maxLength="20"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -249,7 +265,8 @@
                     <EditText
                         android:id="@+id/txtLongitudUbicacionGeograficaAdministrativo"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:maxLength="20"/>
                 </LinearLayout>
             </LinearLayout>
 
