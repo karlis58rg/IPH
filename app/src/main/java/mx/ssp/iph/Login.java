@@ -1,6 +1,7 @@
 package mx.ssp.iph;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Looper;
 import android.util.Log;
@@ -29,6 +30,8 @@ import okhttp3.Response;
 public class Login extends AppCompatActivity {
     Button btnLogin;
     EditText txtUsuario,txtContrasena;
+    SharedPreferences share;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,6 +61,13 @@ public class Login extends AppCompatActivity {
         });
     }
 
+    private void guardarUsuario(String Usuario) {
+        share = getSharedPreferences("main", MODE_PRIVATE);
+        editor = share.edit();
+        editor.putString("Usuario", Usuario );
+        editor.commit();
+    }
+
     private void getUsuaio() {
         ModeloUsuarios_Administrativo modeloUsuarios = new ModeloUsuarios_Administrativo(
                 txtUsuario.getText().toString(),
@@ -85,6 +95,7 @@ public class Login extends AppCompatActivity {
                         public void run() {
                             String resp = myResponse;
                             if(resp.equals("true")){
+                                guardarUsuario(txtUsuario.getText().toString());
                                 System.out.println("EL DATO SE ENVIO CORRECTAMENTE");
                                 Toast.makeText(getApplicationContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
                                 txtUsuario.setText("");

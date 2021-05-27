@@ -7,7 +7,9 @@ import android.content.Context;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.Calendar;
 
 public class Funciones {
@@ -50,6 +52,31 @@ public class Funciones {
             }
         }, hour, minute, true);//Yes 24 hour time
         tpd.show();
-
     }
+
+    //Ping
+    public boolean ping(Context context){
+        Runtime runtime = Runtime.getRuntime();
+        try
+        {
+            Process  mIpAddrProcess = runtime.exec("/system/bin/ping -c 1 8.8.8.8");
+            int mExitValue = mIpAddrProcess.waitFor();
+            if(mExitValue==0){
+                return true;
+            }else{
+                Toast.makeText(context, "POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                return false;
+            }
+        }
+        catch (InterruptedException ignore)
+        {
+            ignore.printStackTrace();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 }

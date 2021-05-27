@@ -2,6 +2,7 @@ package mx.ssp.iph.administrativo.ui.fragmets;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -20,14 +21,20 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.IllegalFormatCodePointException;
 import java.util.Random;
+import java.util.regex.Pattern;
 
 import mx.ssp.iph.R;
 import mx.ssp.iph.SqLite.DataHelper;
 import mx.ssp.iph.administrativo.model.ModeloNoReferencia_Administrativo;
 import mx.ssp.iph.administrativo.viewModel.NoReferencia_Administrativo_ViewModel;
+import mx.ssp.iph.principal.ui.fragments.PrincipalAdministrativo;
 import mx.ssp.iph.utilidades.ui.Funciones;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -48,8 +55,8 @@ public class NoReferencia_Administrativo extends Fragment {
     Button btnGuardarReferenciaAdministrativo;
     SharedPreferences share;
     SharedPreferences.Editor editor;
-    String guardarIdFaltaAdmin,codigoVerifi,randomCodigoVerifi;
-    int numberRandom;
+    String guardarIdFaltaAdmin,IDFALTAADMIN;
+
 
 
     public static NoReferencia_Administrativo newInstance() {
@@ -78,7 +85,11 @@ public class NoReferencia_Administrativo extends Fragment {
         txtHoraEntregaReferenciaAdministrativo = (EditText) root.findViewById(R.id.txtHoraEntregaReferenciaAdministrativo);
         ListInstitucion();
 
-        //FEcha
+        //***************** Cargar Datos si es que existen  **************************//
+        CargarDatos();
+
+
+        //***************** FECHA  **************************//
         txtFechaEntregaReferenciaAdministrativo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,7 +97,7 @@ public class NoReferencia_Administrativo extends Fragment {
             }
         });
 
-        //Hora
+        //***************** HORA **************************//
         txtHoraEntregaReferenciaAdministrativo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,6 +105,7 @@ public class NoReferencia_Administrativo extends Fragment {
             }
         });
 
+        //***************** Boton Guardar Datos  **************************//
         btnGuardarReferenciaAdministrativo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -153,7 +165,7 @@ public class NoReferencia_Administrativo extends Fragment {
                             if(resp.equals("true")){
                                 System.out.println("EL DATO SE ENVIO CORRECTAMENTE");
                                 Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
-                                guardarFolios();
+                                //guardarFolios();
                                 txtFolioInternoAdministrativo.setText("");
                                 txtFolioSistemaAdministrativo.setText("");
                                 txtNoReferenciaAdministrativo.setText("");
@@ -172,20 +184,8 @@ public class NoReferencia_Administrativo extends Fragment {
         });
     }
 
-    private void guardarFolios() {
-        share = getContext().getSharedPreferences("main", getContext().MODE_PRIVATE);
-        editor = share.edit();
-        editor.putString("IDFALTAADMIN", guardarIdFaltaAdmin );
-        editor.commit();
-    }
-
-    public void Random()
-    {
-        Random random = new Random();
-        numberRandom = random.nextInt(9000)*99;
-        codigoVerifi = String.valueOf(numberRandom);
-        randomCodigoVerifi = codigoVerifi;
-    }
+    //***************** CONSULTA A LA BD MEDIANTE EL WS **************************//
+    //BENY
 
     private void ListInstitucion() {
         DataHelper dataHelper = new DataHelper(getContext());
@@ -205,4 +205,26 @@ public class NoReferencia_Administrativo extends Fragment {
             spInstitucionReferenciaAdministrativo.setAdapter(adapter);
         }
     }
+
+    //***************** SE RECUPERA EL FOLIO INTERNO **************************//
+    private void CargarDatos() {
+        share = getContext().getSharedPreferences("main", Context.MODE_PRIVATE);
+        IDFALTAADMIN= share.getString("IDFALTAADMIN", "");
+
+        if (IDFALTAADMIN.equals(""))
+        {
+            Toast.makeText(getContext(), "EL FOLIO INTERNO NO EXISTE. POR FAVOR REINCICIE LA APP CREE UN NUEVO INFORME.", Toast.LENGTH_LONG).show();
+        }
+        else
+        {
+            //Consulta si hay conexión a internet y realiza la peticion al ws de consulta de los datos.
+            if (funciones.ping(getContext()))
+            {
+                Toast.makeText(getContext(), "cargarNoReferenciaAdministrativa()", Toast.LENGTH_LONG).show();
+                //cargarNoReferenciaAdministrativa();
+            }
+        }
+
+    }
+
 }

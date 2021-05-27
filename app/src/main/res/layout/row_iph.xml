@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,48 +8,83 @@
     android:orientation="horizontal"
     android:padding="16dp">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cvRowIPH"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="25dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
-            android:orientation="horizontal"
-            android:layout_marginLeft="10dp">
 
-            <TextView
-                android:id="@+id/txv_mititulo"
+    <LinearLayout
+        android:id="@+id/principalLinear"
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:elevation="50dp">
+
+        <!--Barra color -->
+        <LinearLayout
+            android:id="@+id/lyIndicadorStatusIPHEstatusAdministrativo"
+            android:layout_width="10dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:background="@color/status_por_completar_background">
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight=".1"
+            android:orientation="vertical">
+
+            <!--Folio interno -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="0dp"
-                android:text="Main Title"
-                android:textColor="#000"
-                android:textSize="14sp" />
-            <!--so our layout is set-->
+                android:layout_marginEnd="24dp"
+                android:orientation="horizontal"
+                android:paddingLeft="18dp">
+
+                <TextView
+                    android:id="@+id/lblPrincipalFolioInternoAdministrativo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Folio Interno:"
+                    android:textColor="#000"
+                    android:textSize="20sp" />
+            </LinearLayout>
+            <!--Numero de Regrencia -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:orientation="horizontal"
+                android:paddingLeft="18dp">
+
+                <TextView
+                    android:id="@+id/lblPrincipalNoRegrenciaAdministrativo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="No. Referencia:"
+                    android:textColor="#000"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
         </LinearLayout>
+
 
         <LinearLayout
             android:id="@+id/linearLayout2"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:gravity="right"
-            app:layout_constraintBottom_toBottomOf="@+id/cvRowIPH"
-            app:layout_constraintEnd_toEndOf="@+id/cvRowIPH"
-            app:layout_constraintTop_toTopOf="@id/cvRowIPH">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight=".9"
+            android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/imgVisualizarIPH"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/ic_expand_more" />
+                app:srcCompat="@drawable/ic_eye" />
         </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+</LinearLayout>
