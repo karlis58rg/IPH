@@ -256,6 +256,6 @@ public class PrincipalAdministrativo extends Fragment {
     //***************** Obtiene el Usuario de las preferencias **************************//
     public void cargarUsuario(){
         share = getContext().getSharedPreferences("main", Context.MODE_PRIVATE);
-         Usuario= share.getString("Usuario", "");
+         Usuario = share.getString("Usuario", "");
     }
 }

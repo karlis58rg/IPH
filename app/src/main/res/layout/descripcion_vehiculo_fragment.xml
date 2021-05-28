@@ -138,6 +138,9 @@
                     android:text="Datos generales del vehículo retenido." />
             </LinearLayout>
 
+
+
+
             <LinearLayout
                 android:id="@+id/quintoLinear"
                 android:layout_width="match_parent"
@@ -145,25 +148,19 @@
                 android:layout_weight="1"
                 android:orientation="horizontal"
                 android:layout_marginTop="20dp">
-
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:weightSum="1"
-                    android:layout_weight="0.10">
+                    android:layout_weight="0.09"
+                    android:gravity="center_vertical">
                     <TextView
                         android:id="@+id/lblTipoVehiculo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/font"
                         android:text="@string/lblTipoVehiculo"/>
-                    <Spinner
-                        android:id="@+id/spTipoVehiculo"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:entries="@array/arrayTipo"
-                        />
                 </LinearLayout>
 
                 <LinearLayout
@@ -172,19 +169,153 @@
                     android:orientation="vertical"
                     android:weightSum="1"
                     android:layout_weight="0.10">
+                    <RadioGroup
+                        android:id="@+id/rgTipoVehiculoAdministrativo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+                        <RadioButton
+                            android:id="@+id/rbTerrestre"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:text="@string/terrestre" />
+                        <RadioButton
+                            android:id="@+id/rbOtro"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:text="@string/otro" />
+                    </RadioGroup>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <EditText
+                        android:id="@+id/txtOtroVehiculo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="¿Cuál?"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.04"
+                    android:gravity="center_vertical">
                     <TextView
                         android:id="@+id/lblProcedenciaVehiculo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/font"
-                        android:text="@string/lblProcedenciaVehiculo"/>
-                    <Spinner
-                        android:id="@+id/spProcedenciaVehiculo"
+                        android:text="@string/procedencia"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+
+                    <RadioGroup
+                        android:id="@+id/rgProcedenciaVehiculoAdministrativo"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:entries="@array/arrayNacionalidad"/>
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/rbNacional"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:text="@string/nacional" />
+
+                        <RadioButton
+                            android:id="@+id/rbExtranjero"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:text="@string/extranjero" />
+                    </RadioGroup>
                 </LinearLayout>
+
             </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.02"
+                    android:gravity="center_vertical">
+                    <TextView
+                        android:id="@+id/Uso"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="@string/uso"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+
+                    <RadioGroup
+                        android:id="@+id/rgUsoVehiculoAdministrativo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/rbParticular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:text="Particular" />
+
+                        <RadioButton
+                            android:id="@+id/rbTransportePublico"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:text="Transporte Publico" />
+                        <RadioButton
+                            android:id="@+id/rbCarga"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:text="Carga" />
+                    </RadioGroup>
+                </LinearLayout>
+
+            </LinearLayout>
+
+
 
             <LinearLayout
                 android:id="@+id/sextoLinear"
@@ -244,12 +375,10 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/font"
                         android:text="@string/lblModeloVehiculo"/>
-                    <Spinner
-                        android:id="@+id/spModeloVehiculo"
+                    <EditText
+                        android:id="@+id/txtModeloVehiculo"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:entries="@array/arrayAnioVehi"
-                        />
+                        android:layout_height="match_parent" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -264,11 +393,10 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/font"
                         android:text="@string/lblColorVehiculo"/>
-                    <Spinner
-                        android:id="@+id/spColorVehiculo"
+                    <EditText
+                        android:id="@+id/txtColorVehiculo"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:entries="@array/arrayColor"
                         />
                 </LinearLayout>
             </LinearLayout>
@@ -280,26 +408,6 @@
                 android:layout_weight="1"
                 android:orientation="horizontal"
                 android:layout_marginTop="20dp">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:weightSum="1"
-                    android:layout_weight="0.10">
-                    <TextView
-                        android:id="@+id/lblUsoVehiculo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/font"
-                        android:text="@string/lblUsoVehiculo"/>
-                    <Spinner
-                        android:id="@+id/spUsoVehiculo"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:entries="@array/arrayUsoVehi"
-                        />
-                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -388,240 +496,6 @@
                         android:textStyle="italic" />
 
                 </RelativeLayout>
-            </LinearLayout>
-
-            <!--======== APARTADO B3 ============ -->
-
-            <!--======== APARTADO A4 ============ -->
-            <LinearLayout
-                android:id="@+id/decimoLinear"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:background="@color/background_section">
-                    <TextView
-                        android:id="@+id/lblApartadoB3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/font"
-                        android:text="Apartado B.3 Datos del primer respondiente que realizó el resguardo" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/onceavoLinear"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp">
-                <LinearLayout
-                    android:id="@+id/lyPrimerRespondiente"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-                    <TextView
-                        android:id="@+id/lblPrimerRespondienteVehiculo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/font"
-                        android:text="¿El usuario que inició sesión es el primer respondiente que realizó el resguardo del vehículo?"/>
-                    <RadioGroup
-                        android:id="@+id/rgPrimerRespondienteVehiculo"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
-
-                        <RadioButton
-                            android:id="@+id/rbSiPrimerRespondienteVehiculo"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
-                            android:text="@string/si" />
-
-                        <RadioButton
-                            android:id="@+id/rbNoPrimerRespondienteVehiculo"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
-                            android:layout_marginLeft="20dp"
-                            android:text="@string/no" />
-                    </RadioGroup>
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/doceavoLinear"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="horizontal"
-                android:layout_marginTop="20dp">
-                <LinearLayout
-                    android:id="@+id/lyPrimerApellido"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:weightSum="1"
-                    android:layout_weight="0.10">
-                    <TextView
-                        android:id="@+id/lblPrimerApellidoRes"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/font"
-                        android:text="@string/primer_apellido"/>
-                    <EditText
-                        android:id="@+id/txtPrimerApellidoAdministrativo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/lySegundoApellidoVehiculo"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:weightSum="1"
-                    android:layout_weight="0.10">
-                    <TextView
-                        android:id="@+id/lblSegundoApellidoVehiculo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/font"
-                        android:text="@string/segundo_apellido"/>
-                    <EditText
-                        android:id="@+id/txtSegundoApellidoVehiculo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/lyNombreVehiculo"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:weightSum="1"
-                    android:layout_weight="0.10">
-                    <TextView
-                        android:id="@+id/lblNombreVehiculo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/font"
-                        android:text="@string/nombres"/>
-                    <EditText
-                        android:id="@+id/txtNombresVehiculo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/treceavoLinear"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="horizontal"
-                android:layout_marginTop="20dp">
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:weightSum="1"
-                    android:layout_weight="0.10">
-                    <TextView
-                        android:id="@+id/lblAdscripcionVehiculo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/font"
-                        android:text="@string/lblAdscripcion"/>
-                    <Spinner
-                        android:id="@+id/spAdscripcionPrimerRespondienteVehiculo"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:entries="@array/arrayInstitucion"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:weightSum="1"
-                    android:layout_weight="0.10">
-                    <TextView
-                        android:id="@+id/lblCargoVehiculo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/font"
-                        android:text="@string/lblCargo"/>
-                    <Spinner
-                        android:id="@+id/spCargoPrimerRespondienteVehiculo"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:entries="@array/arrayCargo"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/lyFirmaRespondienteVehiculo"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    android:weightSum="1"
-                    android:layout_weight="0.12">
-
-                    <LinearLayout
-                        android:id="@+id/lyFirmaDetenidoRespondienteVehiculo"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:weightSum="1"
-                        android:layout_weight="0.5">
-                        <TextView
-                            android:id="@+id/lblFirmaDetenidoRespondienteVehiculo"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Firma" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:weightSum="1"
-                            android:layout_weight="0.5">
-
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:orientation="vertical"
-                                android:weightSum="1"
-                                android:layout_weight="0.80">
-                                <EditText
-                                    android:id="@+id/txtFirmaVehiculoRespondiente"
-                                    android:enabled="false"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"/>
-                            </LinearLayout>
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:orientation="horizontal"
-                                android:weightSum="1"
-                                android:layout_weight="0.20">
-                                <ImageView
-                                    android:id="@+id/imgFirmaVehiculoRespondiente"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@drawable/ic_firma" />
-                            </LinearLayout>
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-
-
             </LinearLayout>
 
             <!--======== BOTÓN y ListView============ -->

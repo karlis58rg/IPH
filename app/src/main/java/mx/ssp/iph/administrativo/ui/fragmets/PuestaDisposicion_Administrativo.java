@@ -15,21 +15,28 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import mx.ssp.iph.R;
+import mx.ssp.iph.SqLite.DataHelper;
 import mx.ssp.iph.administrativo.model.ModeloNoReferencia_Administrativo;
 import mx.ssp.iph.administrativo.model.ModeloPuestaDisposicion_Administrativo;
 import mx.ssp.iph.administrativo.viewModel.PuestaDisposicionAdministrativoViewModel;
@@ -47,14 +54,17 @@ public class PuestaDisposicion_Administrativo extends Fragment {
 
     private PuestaDisposicionAdministrativoViewModel mViewModel;
     private ImageView imgFirmaAutoridadAdministrativo;
+    CheckBox chDetencionesAnexoAAdministrativo,chDetencionesAnexoBAdministrativo,chSinAnexosAdministrativo,chNoAplicaUnidadDeArriboAdministrativo;
+    RadioGroup rgPrimerRespondienteAdministrativo;
     EditText txtFechaPuestaDisposicionAdministrativo,txthoraPuestaDisposicionAdministrativo,txtNoExpedienteAdmministrativo,txtPrimerApellidoAdministrativo,txtSegundoApellidoAdministrativo,txtNombresAdministrativo,
     txtFiscaliaAutoridadAdministrativo,txtAdscripcionAdministrativo;
     TextView lblFirmaAutoridadRealizadaAdministrativo;
     Button btnGuardarPuestaDisposicioAdministrativo;
     SharedPreferences share;
-    String cargarIdFaltaAdmin,cargarNumReferencia,cargarNumFolio;
+    String cargarIdFaltaAdmin,cargarNumReferencia,cargarNumFolio,cargarUsuario,varRBPrimerRespondiente,varAnexoA = "NO",varNoDetenidos = "000",varAnexoB = "NO",varNoVehiculos = "000",varSinAnexos = "NO",varNoAplicaUnidad,descUnidad;
     Funciones funciones;
-    Spinner txtInstitucionAdscripcionAdministrativo,txtGradoCargoAdministrativo,txtCargoAdministrativo,txtUnidadDeArriboAdministrativo;
+    Spinner txtCargoAdministrativo,txtUnidadDeArriboAdministrativo,
+            spDetencionesAnexoAAdministrativo,spDetencionesAnexoBAdministrativo;
     public static PuestaDisposicion_Administrativo newInstance() {
         return new PuestaDisposicion_Administrativo();
     }
@@ -73,17 +83,27 @@ public class PuestaDisposicion_Administrativo extends Fragment {
         txtPrimerApellidoAdministrativo = root.findViewById(R.id.txtPrimerApellidoAdministrativo);
         txtSegundoApellidoAdministrativo = root.findViewById(R.id.txtSegundoApellidoAdministrativo);
         txtNombresAdministrativo = root.findViewById(R.id.txtNombresAdministrativo);
-        txtInstitucionAdscripcionAdministrativo = root.findViewById(R.id.txtInstitucionAdscripcionAdministrativo);
-        txtGradoCargoAdministrativo = root.findViewById(R.id.txtGradoCargoAdministrativo);
         txtUnidadDeArriboAdministrativo = root.findViewById(R.id.txtUnidadDeArriboAdministrativo);
         txtFiscaliaAutoridadAdministrativo = root.findViewById(R.id.txtFiscaliaAutoridadAdministrativo);
         txtAdscripcionAdministrativo = root.findViewById(R.id.txtAdscripcionAdministrativo);
         txtCargoAdministrativo = root.findViewById(R.id.txtCargoAdministrativo);
+        spDetencionesAnexoAAdministrativo = root.findViewById(R.id.spDetencionesAnexoAAdministrativo);
+        spDetencionesAnexoBAdministrativo = root.findViewById(R.id.spDetencionesAnexoBAdministrativo);
         lblFirmaAutoridadRealizadaAdministrativo  = root.findViewById(R.id.lblFirmaAutoridadRealizadaAdministrativo);
         btnGuardarPuestaDisposicioAdministrativo = root.findViewById(R.id.btnGuardarPuestaDisposicioAdministrativo);
 
+        chDetencionesAnexoAAdministrativo = root.findViewById(R.id.chDetencionesAnexoAAdministrativo);
+        chDetencionesAnexoBAdministrativo = root.findViewById(R.id.chDetencionesAnexoBAdministrativo);
+        chSinAnexosAdministrativo = root.findViewById(R.id.chSinAnexosAdministrativo);
+        chNoAplicaUnidadDeArriboAdministrativo = root.findViewById(R.id.chNoAplicaUnidadDeArriboAdministrativo);
+
+        rgPrimerRespondienteAdministrativo = root.findViewById(R.id.rgPrimerRespondienteAdministrativo);
+
         imgFirmaAutoridadAdministrativo = (ImageView) root.findViewById(R.id.imgFirmaAutoridadAdministrativo);
         imgFirmaAutoridadAdministrativo = (ImageView) root.findViewById(R.id.imgFirmaAutoridadAdministrativo);
+
+        ListCargo();
+        ListUnidad();
 
         //***************** Cargar Datos si es que existen  **************************//
         CargarDatos();
@@ -115,6 +135,19 @@ public class PuestaDisposicion_Administrativo extends Fragment {
                 dialog.show( getActivity().getSupportFragmentManager(),"Dia");
             }
         });
+
+        rgPrimerRespondienteAdministrativo.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == R.id.rbSiPrimerRespondienteAdministrativo) {
+                    varRBPrimerRespondiente = "SI";
+                } else if (checkedId == R.id.rbNoPrimerRespondienteAdministrativo) {
+                    varRBPrimerRespondiente = "NO";
+                }
+
+            }
+        });
+
         btnGuardarPuestaDisposicioAdministrativo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -137,8 +170,36 @@ public class PuestaDisposicion_Administrativo extends Fragment {
 
     //***************** INSERTA A LA BD MEDIANTE EL WS **************************//
     private void insertPuestaDisposicion() {
+        DataHelper dataHelper = new DataHelper(getContext());
+        descUnidad = (String) txtUnidadDeArriboAdministrativo.getSelectedItem();
+        String idUnidad = dataHelper.getIdUnidad(descUnidad);
+
+        if(chDetencionesAnexoAAdministrativo.isChecked()){
+            varAnexoA = "SI";
+            varNoDetenidos = (String) spDetencionesAnexoAAdministrativo.getSelectedItem();
+        }else{
+            varAnexoA = "NO";
+            varNoDetenidos = "000";
+        }
+        if(chDetencionesAnexoBAdministrativo.isChecked()){
+            varAnexoB = "SI";
+            varNoVehiculos = (String) spDetencionesAnexoBAdministrativo.getSelectedItem();
+        }else{
+            varAnexoB = "NO";
+            varNoVehiculos = "000";
+        }
+
+        if(chSinAnexosAdministrativo.isChecked()){
+            varSinAnexos = "NA";
+        }
+
+        if(chNoAplicaUnidadDeArriboAdministrativo.isChecked()){
+            txtUnidadDeArriboAdministrativo.setEnabled(false);
+            varNoAplicaUnidad = "NA";
+        }
+
         ModeloPuestaDisposicion_Administrativo puestaDisposicion = new ModeloPuestaDisposicion_Administrativo
-                (cargarIdFaltaAdmin,cargarNumReferencia,cargarNumFolio,
+                (cargarIdFaltaAdmin,cargarNumReferencia,
                         txtFechaPuestaDisposicionAdministrativo.getText().toString(),
                         txthoraPuestaDisposicionAdministrativo.getText().toString(),
                         txtNoExpedienteAdmministrativo.getText().toString());
@@ -151,6 +212,13 @@ public class PuestaDisposicion_Administrativo extends Fragment {
                 .add("Fecha", puestaDisposicion.getFecha())
                 .add("Hora", puestaDisposicion.getHora())
                 .add("NumExpediente", puestaDisposicion.getNumExpediente())
+                .add("Detenciones", varAnexoA)
+                .add("NumDetenciones", varNoDetenidos)
+                .add("Vehiculos", varAnexoB)
+                .add("NumVehiculos", varNoVehiculos)
+                .add("SinAnexos", varSinAnexos)
+                .add("IdPoliciaPrimerRespondiente", cargarUsuario)
+                .add("IdUnidad", idUnidad)
                 .build();
         Request request = new Request.Builder()
                 .url("http://189.254.7.167/WebServiceIPH/api/FaltaAdministrativa/")
@@ -334,6 +402,26 @@ public class PuestaDisposicion_Administrativo extends Fragment {
         cargarNumReferencia = share.getString("NOREFERENCIA", "");
         cargarNumFolio = share.getString("NUMFOLIO", "");
         System.out.println(cargarIdFaltaAdmin+cargarNumReferencia+cargarNumFolio);
+    }
+
+    /*****************************************************************************/
+    private void ListUnidad() {
+        DataHelper dataHelper = new DataHelper(getContext());
+        ArrayList<String> list = dataHelper.getAllUnidad();
+        if (list.size() > 0) {
+            System.out.println("YA EXISTE INFORMACIÓN DE UNIDAD");
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_layout, R.id.txt, list);
+            txtUnidadDeArriboAdministrativo.setAdapter(adapter);
+        }
+    }
+    private void ListCargo() {
+        DataHelper dataHelper = new DataHelper(getContext());
+        ArrayList<String> list = dataHelper.getAllCargos();
+        if (list.size() > 0) {
+            System.out.println("YA EXISTE INFORMACIÓN DE CARGOS");
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_layout, R.id.txt, list);
+            txtCargoAdministrativo.setAdapter(adapter);
+        }
     }
 
     //***************** SE RECUPERA EL FOLIO INTERNO **************************//

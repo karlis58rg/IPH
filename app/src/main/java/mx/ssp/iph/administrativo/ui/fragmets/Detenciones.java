@@ -1,6 +1,8 @@
 package mx.ssp.iph.administrativo.ui.fragmets;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Context;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -12,17 +14,25 @@ import androidx.fragment.app.Fragment;
 
 import android.os.Looper;
 import android.speech.RecognizerIntent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -32,11 +42,20 @@ import java.util.List;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
+import mx.ssp.iph.SqLite.DataHelper;
+import mx.ssp.iph.administrativo.model.ModeloNoReferencia_Administrativo;
 import mx.ssp.iph.administrativo.viewModel.DetencionesViewModel;
 import mx.ssp.iph.R;
 import mx.ssp.iph.principal.ui.fragments.PrincipalAdministrativo;
 import mx.ssp.iph.utilidades.ui.ContenedorFirma;
 import mx.ssp.iph.utilidades.ui.Funciones;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -50,14 +69,21 @@ public class Detenciones extends Fragment  {
     private DetencionesViewModel mViewModel;
     private static final  int REQ_CODE_SPEECH_INPUT=100;
     private TextView txtDescripciondelDetenido;
-    private ImageView img_microfonoDescripcionDetenido,imgFirmaAutoridadAdministrativo;
-    private EditText txtFechaDetenido,txthoraDetencion,txtFechaNacimientoDetenido;
+    ImageView img_microfonoDescripcionDetenido,imgFirmaAutoridadAdministrativo;
+    EditText txtFechaDetenido,txthoraDetencion,txtFechaNacimientoDetenido,txtPrimerApellidoDetenido,txtSegundoApellidoDetenido,txtNombresDetenido,txtApodoDetenido,txtEntidadDetenido,
+            txtColoniaDetenido,txtCalleDetenido,txtNumeroExteriorDetenido,txtNumeroInteriorDetenido,txtCodigoPostalDetenido,txtReferenciasdelLugarDetenido,txtCualGrupoVulnerable,txtCualPadecimiento;
+    CheckBox chNoAplicaAliasDetenido;
+    Spinner spGeneroDetenido,txtNacionalidadDetenido,txtMunicipioDetenido,spLugarTrasladoPersonaDetenida;
+    RadioGroup rgLesiones,rgPadecimiento,rgGrupoVulnerable;
+    Button btnGuardarPuestaDisposicioAdministrativo;
     private Funciones funciones;
     SharedPreferences share;
-    String cargarIdFaltaAdmin,cargarNumReferencia;
+    String cargarNumReferencia;
     private ListView lvDetenidos;
     ArrayList<String> ListaIdDetenido,ListaNombreDetenido;
 
+    String cargarIdFaltaAdmin,cargarUsuario,descripcionLugarTraslado,descripcionMunicipio,descripcionNacionalidad,descripcionSexo,
+            varLesiones = "NO",varPadecimiento = "NO",varGrupoVulnerable = "NO",varNoAlias = "NA";
 
     public static Detenciones newInstance() {
         return new Detenciones();
@@ -66,15 +92,46 @@ public class Detenciones extends Fragment  {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View root  = inflater.inflate(R.layout.detenciones_fragment, container, false);
+        View view  = inflater.inflate(R.layout.detenciones_fragment, container, false);
+        /********************************************************************************************/
         funciones = new Funciones();
-        txtDescripciondelDetenido = (TextView)root.findViewById(R.id.txtDescripciondelDetenido);
-        img_microfonoDescripcionDetenido = (ImageView) root.findViewById(R.id.img_microfonoDescripcionDetenido);
-        txtFechaDetenido = (EditText)root.findViewById(R.id.txtFechaDetenido);
-        txthoraDetencion = (EditText)root.findViewById(R.id.txthoraDetencion);
-        txtFechaNacimientoDetenido = (EditText) root.findViewById(R.id.txtFechaNacimientoDetenido);
-        lvDetenidos = (ListView) root.findViewById(R.id.lvDetenidos);
+        lvDetenidos = (ListView) view.findViewById(R.id.lvDetenidos);
 
+        txtDescripciondelDetenido = (TextView)view.findViewById(R.id.txtDescripciondelDetenido);
+        img_microfonoDescripcionDetenido = (ImageView) view.findViewById(R.id.img_microfonoDescripcionDetenido);
+        txtFechaDetenido = (EditText)view.findViewById(R.id.txtFechaDetenido);
+        txthoraDetencion = (EditText)view.findViewById(R.id.txthoraDetencion);
+        txtFechaNacimientoDetenido = (EditText) view.findViewById(R.id.txtFechaNacimientoDetenido);
+        txtPrimerApellidoDetenido = view.findViewById(R.id.txtPrimerApellidoDetenido);
+        txtSegundoApellidoDetenido = view.findViewById(R.id.txtSegundoApellidoDetenido);
+        txtNombresDetenido = view.findViewById(R.id.txtNombresDetenido);
+        txtApodoDetenido = view.findViewById(R.id.txtApodoDetenido);
+        txtEntidadDetenido = view.findViewById(R.id.txtEntidadDetenido);
+        txtColoniaDetenido = view.findViewById(R.id.txtColoniaDetenido);
+        txtCalleDetenido = view.findViewById(R.id.txtCalleDetenido);
+        txtNumeroExteriorDetenido = view.findViewById(R.id.txtNumeroExteriorDetenido);
+        txtNumeroInteriorDetenido = view.findViewById(R.id.txtNumeroInteriorDetenido);
+        txtCodigoPostalDetenido = view.findViewById(R.id.txtCodigoPostalDetenido);
+        txtReferenciasdelLugarDetenido = view.findViewById(R.id.txtReferenciasdelLugarDetenido);
+        txtCualGrupoVulnerable = view.findViewById(R.id.txtCualGrupoVulnerable);
+        txtCualPadecimiento = view.findViewById(R.id.txtCualPadecimiento);
+        chNoAplicaAliasDetenido = view.findViewById(R.id.chNoAplicaAliasDetenido);
+        spGeneroDetenido = view.findViewById(R.id.spGeneroDetenido);
+        txtNacionalidadDetenido = view.findViewById(R.id.txtNacionalidadDetenido);
+        txtMunicipioDetenido = view.findViewById(R.id.txtMunicipioDetenido);
+        spLugarTrasladoPersonaDetenida = view.findViewById(R.id.spLugarTrasladoPersonaDetenida);
+        rgLesiones = view.findViewById(R.id.rgLesiones);
+        rgPadecimiento = view.findViewById(R.id.rgPadecimiento);
+        rgGrupoVulnerable = view.findViewById(R.id.rgGrupoVulnerable);
+        btnGuardarPuestaDisposicioAdministrativo = view.findViewById(R.id.btnGuardarPuestaDisposicioAdministrativo);
+        ListLugarTraslado();
+        ListMunicipios();
+        ListNacionalidad();
+        ListSexo();
+
+        txtEntidadDetenido.setEnabled(false);
+        txtCualPadecimiento.setEnabled(false);
+        txtCualGrupoVulnerable.setEnabled(false);
 
 
 
@@ -108,7 +165,7 @@ public class Detenciones extends Fragment  {
 
 
         //Firma del Detenido
-        imgFirmaAutoridadAdministrativo = (ImageView) root.findViewById(R.id.imgFirmaAutoridadAdministrativo);
+        imgFirmaAutoridadAdministrativo = (ImageView) view.findViewById(R.id.imgFirmaAutoridadAdministrativo);
 
         //Imagen que funciona para activar la grabación de voz
         img_microfonoDescripcionDetenido.setOnClickListener(new View.OnClickListener() {
@@ -127,7 +184,58 @@ public class Detenciones extends Fragment  {
             }
         });
 
-        return root;
+        btnGuardarPuestaDisposicioAdministrativo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS ", Toast.LENGTH_LONG).show();
+                insertDetenciones();
+            }
+        });
+
+        rgLesiones.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == R.id.rbSiLesiones) {
+                    varLesiones = "SI";
+                } else if (checkedId == R.id.rbNoLesiones) {
+                    varLesiones = "NO";
+                }
+
+            }
+        });
+        rgPadecimiento.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == R.id.rbSiPadecimiento) {
+                    txtCualPadecimiento.setEnabled(true);
+                    varPadecimiento = "SI";
+                    txtCualPadecimiento.setText("");
+                } else if (checkedId == R.id.rbPadecimiento) {
+                    varPadecimiento = "NO";
+                    txtCualPadecimiento.setText("NA");
+                    txtCualPadecimiento.setEnabled(false);
+                }
+
+            }
+        });
+        rgGrupoVulnerable.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == R.id.rbSiGrupoVulnerable) {
+                    txtCualGrupoVulnerable.setEnabled(true);
+                    varGrupoVulnerable = "SI";
+                    txtCualGrupoVulnerable.setText("");
+                } else if (checkedId == R.id.rbNoGrupoVulnerable) {
+                    varGrupoVulnerable = "NO";
+                    txtCualGrupoVulnerable.setText("NA");
+                    txtCualGrupoVulnerable.setEnabled(false);
+                }
+
+            }
+        });
+        /*********************************************************************************************************/
+
+        return view;
     }
 
     @Override
@@ -169,11 +277,7 @@ public class Detenciones extends Fragment  {
         }
     }
 
-    public void cargarFolios(){
-        share = getContext().getSharedPreferences("main", Context.MODE_PRIVATE);
-        cargarIdFaltaAdmin = share.getString("IDFALTAADMIN", "");
-        cargarNumReferencia = share.getString("NOREFERENCIA", "");
-    }
+
 
     //***************** CONSULTA A LA BD MEDIANTE EL WS **************************//
     private void cargarDetenidos() {
@@ -301,6 +405,181 @@ public class Detenciones extends Fragment  {
 
             return row;
         }
+    }
+
+    //***************** INSERTA A LA BD MEDIANTE EL WS **************************//
+    private void insertDetenciones() {
+        DataHelper dataHelper = new DataHelper(getContext());
+
+        descripcionLugarTraslado = (String) spLugarTrasladoPersonaDetenida.getSelectedItem();
+        int idDesLugarTraslado = dataHelper.getIdLugarTraslado(descripcionLugarTraslado);
+        String idLugarTraslado = String.valueOf(idDesLugarTraslado);
+
+        descripcionMunicipio = (String) txtMunicipioDetenido.getSelectedItem();
+        int idDescMunicipio = dataHelper.getIdMunicipio(descripcionMunicipio);
+        String idMunicipio = String.valueOf(idDescMunicipio);
+
+        descripcionNacionalidad = (String) txtNacionalidadDetenido.getSelectedItem();
+        int idDescNacionalidad = dataHelper.getIdNacionalidad(descripcionNacionalidad);
+        String idNacionalidad = String.valueOf(idDescNacionalidad);
+
+        descripcionSexo = (String) spGeneroDetenido.getSelectedItem();
+        int idDescSexo = dataHelper.getIdSexo(descripcionSexo);
+        String idSexo = String.valueOf(idDescSexo);
+
+        if(chNoAplicaAliasDetenido.isChecked()){
+            txtApodoDetenido.setText("NA");
+        }
+
+        if(txtNumeroExteriorDetenido.getText().toString().isEmpty()){
+            txtNumeroExteriorDetenido.setText("SN");
+        }
+        if(txtNumeroInteriorDetenido.getText().toString().isEmpty()){
+            txtNumeroInteriorDetenido.setText("NA");
+        }
+
+
+        ModeloDetenciones_Administrativo modeloDetenciones = new ModeloDetenciones_Administrativo
+                (cargarIdFaltaAdmin, "1",
+                        txtFechaDetenido.getText().toString(), txthoraDetencion.getText().toString(),
+                        txtPrimerApellidoDetenido.getText().toString(), txtSegundoApellidoDetenido.getText().toString(),
+                        txtNombresDetenido.getText().toString(),txtApodoDetenido.getText().toString(), txtDescripciondelDetenido.getText().toString(),
+                        idNacionalidad, idSexo, txtFechaNacimientoDetenido.getText().toString(),
+                        "SIN INFORMACION","12",idMunicipio,
+                        txtColoniaDetenido.getText().toString(), txtCalleDetenido.getText().toString(),
+                        txtNumeroExteriorDetenido.getText().toString(), txtNumeroInteriorDetenido.getText().toString(),
+                        txtCodigoPostalDetenido.getText().toString(), txtReferenciasdelLugarDetenido.getText().toString(),
+                        varLesiones, varPadecimiento, txtCualPadecimiento.getText().toString(),
+                        varGrupoVulnerable, txtCualGrupoVulnerable.getText().toString(), idLugarTraslado, cargarUsuario);
+
+
+        OkHttpClient client = new OkHttpClient();
+        RequestBody body = new FormBody.Builder()
+                .add("IdFaltaAdmin", modeloDetenciones.getIdFaltaAdmin())
+                .add("NumDetencion", modeloDetenciones.getNumDetencion())
+                .add("Fecha",modeloDetenciones.getFecha())
+                .add("Hora", modeloDetenciones.getHora())
+                .add("APDetenido", modeloDetenciones.getAPDetenido())
+                .add("AMDetenido", modeloDetenciones.getAMDetenido())
+                .add("NomDetenido", modeloDetenciones.getNomDetenido())
+                .add("ApodoAlias", modeloDetenciones.getApodoAlias())
+                .add("DescripcionDetenido", modeloDetenciones.getDescripcionDetenido())
+                .add("IdNacionalidad", modeloDetenciones.getIdNacionalidad())
+                .add("IdSexo", modeloDetenciones.getIdSexo())
+                .add("FechaNacimiento",modeloDetenciones.getFechaNacimiento())
+                .add("UrlFirmaDetenido", modeloDetenciones.getUrlFirmaDetenido())
+                .add("IdEntidadFederativa", modeloDetenciones.getIdEntidadFederativa())
+                .add("IdMunicipio", modeloDetenciones.getIdMunicipio())
+                .add("ColoniaLocalidad", modeloDetenciones.getColoniaLocalidad())
+                .add("CalleTramo", modeloDetenciones.getCalleTramo())
+                .add("NoExterior", modeloDetenciones.getNoExterior())
+                .add("NoInterior", modeloDetenciones.getNoInterior())
+                .add("Cp", modeloDetenciones.getCp())
+                .add("Referencia",modeloDetenciones.getReferencia())
+                .add("Lesiones", modeloDetenciones.getLesiones())
+                .add("Padecimientos", modeloDetenciones.getPadecimientos())
+                .add("DescPadecimientos", modeloDetenciones.getDescPadecimientos())
+                .add("GrupoVulnerable", modeloDetenciones.getGrupoVulnerable())
+                .add("DescGrupoVulnerable", modeloDetenciones.getDescGrupoVulnerable())
+                .add("IdLugarTraslado", modeloDetenciones.getIdLugarTraslado())
+                .add("IdPoliciaPrimerRespondiente", modeloDetenciones.getIdPoliciaPrimerRespondiente())
+                .build();
+        Request request = new Request.Builder()
+                .url("http://189.254.7.167/WebServiceIPH/api/DetencionesAdministrativa/")
+                .post(body)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Looper.prepare(); // to be able to make toast
+                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if(response.code() == 500){
+                    Toast.makeText(getContext(), "EXISTIÓ UN ERROR EN SU CONEXIÓN A INTERNET, INTÉNTELO NUEVAMENTE", Toast.LENGTH_SHORT).show();
+                }else if (response.isSuccessful()) {
+                    final String myResponse = response.body().string();
+                    Detenciones.this.getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            String resp = myResponse;
+                            if(resp.equals("true")){
+                                System.out.println("EL DATO SE ENVIO CORRECTAMENTE");
+                                Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+                                //guardarFolios();
+                                txtFechaDetenido.setText("");
+                                txthoraDetencion.setText("");
+                                txtFechaNacimientoDetenido.setText("");
+                                txtPrimerApellidoDetenido.setText("");
+                                txtSegundoApellidoDetenido.setText("");
+                                txtNombresDetenido.setText("");
+                                txtApodoDetenido.setText("");
+                                txtColoniaDetenido.setText("");
+                                txtCalleDetenido.setText("");
+                                txtNumeroExteriorDetenido.setText("");
+                                txtNumeroInteriorDetenido.setText("");
+                                txtCodigoPostalDetenido.setText("");
+                                txtReferenciasdelLugarDetenido.setText("");
+                                txtCualGrupoVulnerable.setText("");
+                                txtCualPadecimiento.setText("");
+                            }else{
+                                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_SHORT).show();
+                            }
+                            Log.i("HERE", resp);
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    /***************************** SPINNER *************************************************************/
+    private void ListLugarTraslado() {
+        DataHelper dataHelper = new DataHelper(getContext());
+        ArrayList<String> list = dataHelper.getAllLugarTraslado();
+        if (list.size() > 0) {
+            System.out.println("YA EXISTE INFORMACIÓN DE LUGAR TRASLADO");
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_layout, R.id.txt, list);
+            spLugarTrasladoPersonaDetenida.setAdapter(adapter);
+        }
+    }
+    private void ListMunicipios() {
+        DataHelper dataHelper = new DataHelper(getContext());
+        ArrayList<String> list = dataHelper.getAllMunicipios();
+        if (list.size() > 0) {
+            System.out.println("YA EXISTE INFORMACIÓN DE MUNICIPIOS");
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_layout, R.id.txt, list);
+            txtMunicipioDetenido.setAdapter(adapter);
+        }
+    }
+    private void ListNacionalidad() {
+        DataHelper dataHelper = new DataHelper(getContext());
+        ArrayList<String> list = dataHelper.getAllNacionalidad();
+        if (list.size() > 0) {
+            System.out.println("YA EXISTE INFORMACIÓN DE NACIONALIDAD");
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_layout, R.id.txt, list);
+            txtNacionalidadDetenido.setAdapter(adapter);
+        }
+    }
+    private void ListSexo() {
+        DataHelper dataHelper = new DataHelper(getContext());
+        ArrayList<String> list = dataHelper.getAllSexo();
+        if (list.size() > 0) {
+            System.out.println("YA EXISTE INFORMACIÓN DE SEXO");
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_layout, R.id.txt, list);
+            spGeneroDetenido.setAdapter(adapter);
+        }
+    }
+
+    public void cargarFolios(){
+        share = getContext().getSharedPreferences("main", Context.MODE_PRIVATE);
+        cargarIdFaltaAdmin = share.getString("IDFALTAADMIN", "");
+        cargarUsuario = share.getString("Usuario", "");
+        cargarNumReferencia = share.getString("NOREFERENCIA", "");
     }
 
 }

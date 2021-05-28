@@ -241,8 +241,7 @@
                     <Spinner
                         android:id="@+id/spGeneroDetenido"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:entries="@array/arraySexo"/>
+                        android:layout_height="match_parent"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -267,25 +266,6 @@
                         android:text="@string/lblNacionalidad"/>
                     <Spinner
                         android:id="@+id/txtNacionalidadDetenido"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:entries="@array/arrayNacionalidad"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:weightSum="1"
-                    android:layout_weight="0.10">
-                    <TextView
-                        android:id="@+id/lblNacionalidad_especifique"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/font"
-                        android:text="@string/lblNacionalidad_especifique"/>
-                    <EditText
-                        android:id="@+id/txtNacionalidadEspecifiqueDetenido"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
                 </LinearLayout>
@@ -431,11 +411,11 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/font"
                         android:text="@string/lblEntidad"/>
-                    <Spinner
+                    <EditText
                         android:id="@+id/txtEntidadDetenido"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:entries="@array/arrayEntidadFederativa"/>
+                        android:text="GUERRERO"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -453,8 +433,7 @@
                     <Spinner
                         android:id="@+id/txtMunicipioDetenido"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:entries="@array/arrayMunicipios"/>
+                        android:layout_height="wrap_content"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -469,11 +448,10 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/font"
                         android:text="@string/lblColonia"/>
-                    <Spinner
+                    <EditText
                         android:id="@+id/txtColoniaDetenido"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:entries="@array/arrayColonias"/>
+                        android:layout_height="wrap_content"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -762,11 +740,11 @@
                     android:weightSum="1"
                     android:layout_weight="0.10">
 
-                    <Spinner
+                    <EditText
                         android:id="@+id/txtCualPadecimiento"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:entries="@array/arrayPadecimientos"/>
+                        android:hint="Especifica"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -828,11 +806,11 @@
                     android:weightSum="1"
                     android:layout_weight="0.10">
 
-                    <Spinner
+                    <EditText
                         android:id="@+id/txtCualGrupoVulnerable"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:entries="@array/arrayGpoVulnerable"
+                        android:hint="Especifica"
                         />
                 </LinearLayout>
             </LinearLayout>
@@ -897,239 +875,9 @@
                         android:id="@+id/spLugarTrasladoPersonaDetenida"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:entries="@array/arrayLugarTraslado"
                         />
                 </LinearLayout>
 
-            </LinearLayout>
-
-            <!--======== APARTADO A4 ============ -->
-            <LinearLayout
-                android:id="@+id/veintiuno"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:background="@color/background_section">
-                    <TextView
-                        android:id="@+id/lblApartadoA4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/font"
-                        android:text="@string/subtitulo_apartado_A4" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/veintidos"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp">
-                <LinearLayout
-                    android:id="@+id/lyPrimerRespondiente"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-                    <TextView
-                        android:id="@+id/lblPrimerRespondienteAdministrativo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/font"
-                        android:text="¿El usuario que inició sesión es el primer respondiente que realizó la detención?"/>
-                    <RadioGroup
-                        android:id="@+id/rgPrimerRespondienteAdministrativo"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
-
-                        <RadioButton
-                            android:id="@+id/rbSiPrimerRespondienteAdministrativo"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
-                            android:text="@string/si" />
-
-                        <RadioButton
-                            android:id="@+id/rbNoPrimerRespondienteAdministrativo"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
-                            android:layout_marginLeft="20dp"
-                            android:text="@string/no" />
-                    </RadioGroup>
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/veintitres"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="horizontal"
-                android:layout_marginTop="20dp">
-                <LinearLayout
-                    android:id="@+id/lyPrimerApellido"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:weightSum="1"
-                    android:layout_weight="0.10">
-                    <TextView
-                        android:id="@+id/lblPrimerApellidoRes"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/font"
-                        android:text="@string/primer_apellido"/>
-                    <EditText
-                        android:id="@+id/txtPrimerApellidoAdministrativo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/lySegundoApellido"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:weightSum="1"
-                    android:layout_weight="0.10">
-                    <TextView
-                        android:id="@+id/lblSegundoApellidoAdministrativo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/font"
-                        android:text="@string/segundo_apellido"/>
-                    <EditText
-                        android:id="@+id/txtSegundoApellidoAdministrativo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/lyGuardarReferenciaAdministrativo"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:weightSum="1"
-                    android:layout_weight="0.10">
-                    <TextView
-                        android:id="@+id/lblNombreAdministrativo2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/font"
-                        android:text="@string/nombres"/>
-                    <EditText
-                        android:id="@+id/txtNombresAdministrativo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/veinticuatro"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="horizontal"
-                android:layout_marginTop="20dp">
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:weightSum="1"
-                    android:layout_weight="0.10">
-                    <TextView
-                        android:id="@+id/lblAdscripcion"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/font"
-                        android:text="@string/lblAdscripcion"/>
-                    <Spinner
-                        android:id="@+id/spAdscripcionPrimerRespondienteDetencion"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:entries="@array/arrayInstitucion"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:weightSum="1"
-                    android:layout_weight="0.10">
-                    <TextView
-                        android:id="@+id/lblCargo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/font"
-                        android:text="@string/lblCargo"/>
-                    <Spinner
-                        android:id="@+id/spCargoPrimerRespondienteDetencion"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:entries="@array/arrayCargo"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/lyFirmaRespondiente"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    android:weightSum="1"
-                    android:layout_weight="0.12">
-
-                    <LinearLayout
-                        android:id="@+id/lyFirmaDetenidoRespondiente"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:weightSum="1"
-                        android:layout_weight="0.5">
-                        <TextView
-                            android:id="@+id/lblFirmaDetenidoRespondiente"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Firma" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:weightSum="1"
-                            android:layout_weight="0.5">
-
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:orientation="vertical"
-                                android:weightSum="1"
-                                android:layout_weight="0.80">
-                                <EditText
-                                    android:id="@+id/txtFirmaDetenidoRespondiente"
-                                    android:enabled="false"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"/>
-                            </LinearLayout>
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:orientation="horizontal"
-                                android:weightSum="1"
-                                android:layout_weight="0.20">
-                                <ImageView
-                                    android:id="@+id/imgFirmaDetenidoRespondiente"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@drawable/ic_firma" />
-                            </LinearLayout>
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                </LinearLayout>
             </LinearLayout>
 
             <!-- linear Oculto Firma del Detenido -->

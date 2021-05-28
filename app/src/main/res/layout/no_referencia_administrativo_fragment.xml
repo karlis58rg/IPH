@@ -97,7 +97,8 @@
                 <EditText
                     android:id="@+id/txtEstadoReferenciaAdministrativo"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:text="GUERRERO"/>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/lyInstitucionReferenciaAdministrativo"

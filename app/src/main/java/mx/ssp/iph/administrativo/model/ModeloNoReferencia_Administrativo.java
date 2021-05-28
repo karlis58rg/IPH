@@ -102,7 +102,7 @@ public class ModeloNoReferencia_Administrativo {
         return Usuario;
     }
 
-    /*public ModeloNoReferencia_Administrativo(String idFaltaAdmin, String numReferencia, String numFolioInterno, String idEntidadFederativa, String idMunicipio, String idInstitucion, String idGobierno, String otraAutoridad, String fecha, String hora) {
+    /*public ModeloNoReferencia_Administrativo(String idFaltaAdmin, String numReferencia, String numFolioInterno, String idEntidadFederativa, String idMunicipio, String idInstitucion, String Gobierno, String otraAutoridad, String fecha, String hora) {
         IdFaltaAdmin = idFaltaAdmin;
         NumReferencia = numReferencia;
         NumFolioInterno = numFolioInterno;
@@ -115,9 +115,9 @@ public class ModeloNoReferencia_Administrativo {
         Hora = hora;
     }*/
 
-    public ModeloNoReferencia_Administrativo(String idFaltaAdmin, String numReferencia,String fecha, String hora) {
-        IdFaltaAdmin = idFaltaAdmin;
+    public ModeloNoReferencia_Administrativo(String numReferencia,String Gobierno,String fecha, String hora) {
         NumReferencia = numReferencia;
+        IdGobierno = Gobierno;
         Fecha = fecha;
         Hora = hora;
     }

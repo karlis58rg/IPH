@@ -179,11 +179,10 @@ public class ModeloPuestaDisposicion_Administrativo {
     }
      */
 
-    public ModeloPuestaDisposicion_Administrativo(String idFaltaAdmin, String numReferencia, String numFolio, String fecha,
+    public ModeloPuestaDisposicion_Administrativo(String idFaltaAdmin, String numReferencia, String fecha,
                                                   String hora, String numExpediente) {
         IdFaltaAdmin = idFaltaAdmin;
         NumReferencia = numReferencia;
-        NumFolio = numFolio;
         Fecha = fecha;
         Hora = hora;
         NumExpediente = numExpediente;
