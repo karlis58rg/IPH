@@ -1,9 +1,13 @@
 package mx.ssp.iph.administrativo.ui.fragmets;
 
+import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -28,7 +33,10 @@ import mx.ssp.iph.R;
 import mx.ssp.iph.administrativo.model.ModelLugarIntervencion_Administrativo;
 import mx.ssp.iph.administrativo.model.ModeloNoReferencia_Administrativo;
 import mx.ssp.iph.administrativo.viewModel.LugarDeIntervencionViewModel;
+import mx.ssp.iph.utilidades.ui.ContenedorFirma;
+import mx.ssp.iph.utilidades.ui.ContenedorMaps;
 import mx.ssp.iph.utilidades.ui.Funciones;
+import mx.ssp.iph.utilidades.ui.MapsFragment;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -46,6 +54,8 @@ public class LugarDeIntervencion extends Fragment {
     SharedPreferences share;
     String cargarIdFaltaAdmin;
     private Funciones funciones;
+    ImageView imgMap;
+    final private int REQUEST_CODE_ASK_PERMISSION = 111;
 
     public static LugarDeIntervencion newInstance() {
         return new LugarDeIntervencion();
@@ -55,6 +65,7 @@ public class LugarDeIntervencion extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.lugar_de_intervencion_fragment, container, false);
+
         //************************************** ACCIONES DE LA VISTA **************************************//
         cargarFolios();
         txtCalleUbicacionGeograficaAdministrativo = root.findViewById(R.id.txtCalleUbicacionGeograficaAdministrativo);
@@ -64,9 +75,32 @@ public class LugarDeIntervencion extends Fragment {
         txtReferenciasdelLugarUbicacionGeograficaAdministrativo = root.findViewById(R.id.txtReferenciasdelLugarUbicacionGeograficaAdministrativo);
         txtLatitudUbicacionGeograficaAdministrativo = root.findViewById(R.id.txtLatitudUbicacionGeograficaAdministrativo);
         txtLongitudUbicacionGeograficaAdministrativo = root.findViewById(R.id.txtLongitudUbicacionGeograficaAdministrativo);
+        imgMap = (ImageView)root.findViewById(R.id.imgMap);
+
 
         btnGuardarPuestaDisposicioAdministrativo = root.findViewById(R.id.btnGuardarPuestaDisposicioAdministrativo);
         funciones= new Funciones();
+
+
+        //***************** Botón abrir maps  **************************//
+        imgMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int permisoubicacion = ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION);
+                if (permisoubicacion != PackageManager.PERMISSION_GRANTED) {
+                    if (Build.VERSION.SDK_INT >= 23) {
+                        requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE_ASK_PERMISSION);
+                    }
+                }
+                else
+                {
+                    ContenedorMaps dialog = new ContenedorMaps();
+                    dialog.show( getActivity().getSupportFragmentManager(),"Maps");
+                }
+            }
+        });
+
+
         //***************** Cargar Datos si es que existen  **************************//
         CargarDatos();
 
