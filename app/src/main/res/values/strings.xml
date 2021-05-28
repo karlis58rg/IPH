@@ -328,7 +328,6 @@ preguntas: ¿Quién? (personas), ¿Qué? (hechos), ¿Cómo? (circunstancias), ¿
 
     <!-- TIPO VEHICULO -->
     <string-array name="arrayTipo">
-        <item>--Selecciona--</item>
         <item>TERRESTRE</item>
         <item>ACUATICO</item>
         <item>AERONAUTICO</item>
@@ -341,6 +340,12 @@ preguntas: ¿Quién? (personas), ¿Qué? (hechos), ¿Cómo? (circunstancias), ¿
     <string name="menu_como_usarla_des">EN ESTA APLICACIÓN, EL USUARIO PODRÁ CONSULTAR REPORTES DE FALTAS DELICTIVAS O ADMINISTRATIVAS. POR CADA INCIDENTE EN QUE EL OFICIAL INTERVENGA, EL PRIMER RESPONDIENTE DEBERÁ LLENAR EL FORMULARIO SEGÚN CORRESPONDA LA FALTA, SI ES DELICTIVA O ADMINISTRATIVA. DEBERÁ POSICIONARSE EN LA CATEGORÍA ADECUADA PARA EL TIPO DE REPORTE QUE REALIZARÁ. A CONTINUACIÓN, DEBERÁ DE IR LLENANDO LOS DATOS QUE SE LE SOLICITAN, PROCURANDO SER LO MÁS CLARO POSIBLE EN LOS CAMPOS DE TEXTO ABIERTO. TAMBIÉN PODRÁ CONOCER MEDIANTE LA CONSULTA EL ESTATUS DE CADA UNO DE LOS REPORTES QUE HA REALIZADO, PARA DARLES CONTINUIDAD Y REGISTRARLOS EN EL SISTEMA NACIONAL</string>
 
     <string name="menu_que_es_des">ES UNA APLICACIÓN MÓVIL QUE PERMITE LA CONSULTA Y REGISTRO DE REPORTES DEL POLICÍA HOMOLOGADO QUE, RECABADA LOS DATOS DE LA FALTA DELICTIVA O ADMINISTRATIVA, PARA SU POSTERIOR REGISTRO EN LA PLATAFORMA NACIONAL, AGILIZANDO Y GARANTIZANDO LA INTEGRIDAD DEL REGISTRO DE LA INFORMACIÓN.</string>
+    <string name="nacional">Nacional</string>
+    <string name="extranjero">Extranjero</string>
+    <string name="terrestre">Terrestre</string>
+    <string name="otro">Otro</string>
+    <string name="procedencia">Procedencia</string>
+    <string name="uso">Uso</string>
 
     <!-- VALIDACIONES -->
     <string name="validacion_notas">ABCDEFGHIJKLMNÑOPQRSTUVWXYZ 0123456789</string>

@@ -54,8 +54,7 @@
                 <Spinner
                     android:id="@+id/spHechoProbableInfraccionAdministrativo"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:entries="@array/arrayConocimientoInfraccion"/>
+                    android:layout_height="match_parent"/>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/lyPuestaDisposicionAdministrativo"
