@@ -31,8 +31,5 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <include layout="@layout/content_main"/>
-    <include layout="@layout/principal_administrativo_fragment"/>
-    <include layout="@layout/principal_emergencias_fragment"/>
-    <include layout="@layout/principal_buscar_fragment"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
