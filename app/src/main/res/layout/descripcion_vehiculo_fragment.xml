@@ -506,247 +506,6 @@
                 </RelativeLayout>
             </LinearLayout>
 
-            <!--======== APARTADO B3 ============ -->
-
-            <!--======== APARTADO A4 ============ -->
-            <LinearLayout
-                android:id="@+id/decimoLinear"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:background="@color/background_section">
-                    <TextView
-                        android:id="@+id/lblApartadoB3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/font"
-                        android:text="Apartado B.3 Datos del primer respondiente que realizó el resguardo" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/onceavoLinear"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp">
-                <LinearLayout
-                    android:id="@+id/lyPrimerRespondiente"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-                    <TextView
-                        android:id="@+id/lblPrimerRespondienteVehiculo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/font"
-                        android:text="¿El usuario que inició sesión es el primer respondiente que realizó el resguardo del vehículo?"/>
-                    <RadioGroup
-                        android:id="@+id/rgPrimerRespondienteVehiculo"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
-
-                        <RadioButton
-                            android:id="@+id/rbSiPrimerRespondienteVehiculo"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
-                            android:text="@string/si" />
-
-                        <RadioButton
-                            android:id="@+id/rbNoPrimerRespondienteVehiculo"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
-                            android:layout_marginLeft="20dp"
-                            android:text="@string/no" />
-                    </RadioGroup>
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/doceavoLinear"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="horizontal"
-                android:layout_marginTop="20dp">
-                <LinearLayout
-                    android:id="@+id/lyPrimerApellido"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:weightSum="1"
-                    android:layout_weight="0.10">
-                    <TextView
-                        android:id="@+id/lblPrimerApellidoRes"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/font"
-                        android:text="@string/primer_apellido"/>
-                    <EditText
-                        android:id="@+id/txtPrimerApellidoAdministrativo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:maxLength="50"
-                        android:inputType="textCapCharacters"
-                        android:digits="@string/validacion_nombre"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/lySegundoApellidoVehiculo"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:weightSum="1"
-                    android:layout_weight="0.10">
-                    <TextView
-                        android:id="@+id/lblSegundoApellidoVehiculo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/font"
-                        android:text="@string/segundo_apellido"/>
-                    <EditText
-                        android:id="@+id/txtSegundoApellidoVehiculo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:maxLength="50"
-                        android:inputType="textCapCharacters"
-                        android:digits="@string/validacion_nombre"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/lyNombreVehiculo"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:weightSum="1"
-                    android:layout_weight="0.10">
-                    <TextView
-                        android:id="@+id/lblNombreVehiculo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/font"
-                        android:text="@string/nombres"/>
-                    <EditText
-                        android:id="@+id/txtNombresVehiculo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:maxLength="50"
-                        android:inputType="textCapCharacters"
-                        android:digits="@string/validacion_nombre"/>
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/treceavoLinear"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="horizontal"
-                android:layout_marginTop="20dp">
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:weightSum="1"
-                    android:layout_weight="0.10">
-                    <TextView
-                        android:id="@+id/lblAdscripcionVehiculo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/font"
-                        android:text="@string/lblAdscripcion"/>
-                    <Spinner
-                        android:id="@+id/spAdscripcionPrimerRespondienteVehiculo"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:entries="@array/arrayInstitucion"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:weightSum="1"
-                    android:layout_weight="0.10">
-                    <TextView
-                        android:id="@+id/lblCargoVehiculo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/font"
-                        android:text="@string/lblCargo"/>
-                    <Spinner
-                        android:id="@+id/spCargoPrimerRespondienteVehiculo"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:entries="@array/arrayCargo"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/lyFirmaRespondienteVehiculo"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    android:weightSum="1"
-                    android:layout_weight="0.12">
-
-                    <LinearLayout
-                        android:id="@+id/lyFirmaDetenidoRespondienteVehiculo"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:weightSum="1"
-                        android:layout_weight="0.5">
-                        <TextView
-                            android:id="@+id/lblFirmaDetenidoRespondienteVehiculo"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Firma" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:weightSum="1"
-                            android:layout_weight="0.5">
-
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:orientation="vertical"
-                                android:weightSum="1"
-                                android:layout_weight="0.80">
-                                <EditText
-                                    android:id="@+id/txtFirmaVehiculoRespondiente"
-                                    android:enabled="false"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"/>
-                            </LinearLayout>
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:orientation="horizontal"
-                                android:weightSum="1"
-                                android:layout_weight="0.20">
-                                <ImageView
-                                    android:id="@+id/imgFirmaVehiculoRespondiente"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@drawable/ic_firma" />
-                            </LinearLayout>
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
             <!--======== BOTÓN y ListView============ -->
             <LinearLayout
                 android:id="@+id/catorceavoLinear"
@@ -787,18 +546,43 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/listaLinear"
+                android:id="@+id/catorceavoLinear1"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:orientation="horizontal"
-                android:layout_gravity="center">
-                <TextView
-                    android:id="@+id/lblListaDetenidos"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/font"
-                    android:text="VEHÍCULOS AGREGADOS" />
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/lyGuardarVehiculo1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:weightSum="1"
+                    android:layout_weight="0.12">
+                    <Button
+                        android:id="@+id/btnGuardarVehiculo1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="AGREGAR VEHÍCULO" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                </LinearLayout>
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/quinceavoLinear"
                 android:layout_width="match_parent"
@@ -810,8 +594,11 @@
                 <ListView
                     android:id="@+id/lvVehiculos"
                     android:layout_width="match_parent"
-                    android:layout_height="350dp" />
+                    android:layout_height="match_parent" />
             </LinearLayout>
+
+
+
 
         </LinearLayout>
     </ScrollView>
