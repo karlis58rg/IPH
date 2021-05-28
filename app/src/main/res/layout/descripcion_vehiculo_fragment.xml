@@ -268,8 +268,7 @@
                         android:id="@+id/spColorVehiculo"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:entries="@array/arrayColor"
-                        />
+                        android:entries="@array/arrayColor"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -637,8 +636,6 @@
 
                 </LinearLayout>
 
-
-
             </LinearLayout>
 
             <!--======== BOTÓN y ListView============ -->
@@ -693,9 +690,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
             </LinearLayout>
-
-
-
 
         </LinearLayout>
     </ScrollView>

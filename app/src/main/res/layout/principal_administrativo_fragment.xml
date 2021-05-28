@@ -12,13 +12,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="IPH JUSTICIA CÍVICA"
             android:layout_gravity="center_horizontal"
-            android:textSize="20dp"
-            android:layout_marginTop="@dimen/title_margin_top"/>
+            android:layout_marginTop="@dimen/title_margin_top"
+            android:text="IPH JUSTICIA CÍVICA"
+            android:textSize="20dp" />
     </LinearLayout>
 
     <LinearLayout

@@ -150,7 +150,8 @@
                         android:layout_height="wrap_content"
                         android:maxLength="50"
                         android:inputType="textCapCharacters"
-                        android:digits="@string/validacion_nombre"/>
+                        android:digits="@string/validacion_nombre"
+                        android:imeOptions="actionNext"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="0dp"
@@ -170,7 +171,8 @@
                         android:layout_height="wrap_content"
                         android:maxLength="50"
                         android:inputType="textCapCharacters"
-                        android:digits="@string/validacion_nombre"/>
+                        android:digits="@string/validacion_nombre"
+                        android:imeOptions="actionNext"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="0dp"
@@ -190,7 +192,8 @@
                         android:layout_height="wrap_content"
                         android:maxLength="50"
                         android:inputType="textCapCharacters"
-                        android:digits="@string/validacion_nombre"/>
+                        android:digits="@string/validacion_nombre"
+                        android:imeOptions="actionNext"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -220,7 +223,8 @@
                         android:layout_height="wrap_content"
                         android:inputType="textCapCharacters"
                         android:digits="@string/validacion_notas"
-                        android:maxLength="50"/>
+                        android:maxLength="50"
+                        android:imeOptions="actionNext"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -305,7 +309,7 @@
                         android:inputType="textCapCharacters"
                         android:digits="@string/validacion_nombre"
                         android:maxLength="40"
-                        />
+                        android:imeOptions="actionNext"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -520,7 +524,8 @@
                         android:layout_height="wrap_content"
                         android:inputType="textCapCharacters"
                         android:digits="@string/validacion_notas"
-                        android:maxLength="250"/>
+                        android:maxLength="250"
+                        android:imeOptions="actionNext"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -548,7 +553,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:maxLength="50"
-                        android:inputType="textCapCharacters"/>
+                        android:inputType="textCapCharacters"
+                        android:imeOptions="actionNext"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -568,7 +574,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:maxLength="50"
-                        android:inputType="textCapCharacters"/>
+                        android:inputType="textCapCharacters"
+                        android:imeOptions="actionNext"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -589,7 +596,8 @@
                         android:layout_height="wrap_content"
                         android:inputType="phone"
                         android:digits="@string/validacion_numero"
-                        android:maxLength="5"/>
+                        android:maxLength="5"
+                        android:imeOptions="actionNext"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -617,7 +625,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textCapCharacters"
-                        android:digits="@string/validacion_notas"/>
+                        android:digits="@string/validacion_notas"
+                        android:imeOptions="actionNext"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -652,7 +661,8 @@
                         android:inputType="text|textMultiLine|textCapCharacters"
                         android:digits="@string/validacion_notas"
                         android:maxLength="3000"
-                        android:gravity="top"/>
+                        android:gravity="top"
+                        android:imeOptions="actionNext"/>
 
                     <ImageView
                         android:id="@+id/img_microfonoDescripcionDetenido"
@@ -1022,7 +1032,8 @@
                         android:layout_height="wrap_content"
                         android:maxLength="50"
                         android:inputType="textCapCharacters"
-                        android:digits="@string/validacion_nombre"/>
+                        android:digits="@string/validacion_nombre"
+                        android:imeOptions="actionNext"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/lySegundoApellido"
@@ -1043,7 +1054,8 @@
                         android:layout_height="wrap_content"
                         android:maxLength="50"
                         android:inputType="textCapCharacters"
-                        android:digits="@string/validacion_nombre"/>
+                        android:digits="@string/validacion_nombre"
+                        android:imeOptions="actionNext"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/lyGuardarReferenciaAdministrativo"
@@ -1065,7 +1077,7 @@
                         android:maxLength="50"
                         android:inputType="textCapCharacters"
                         android:digits="@string/validacion_nombre"
-                    />
+                        android:imeOptions="actionNext"/>
                 </LinearLayout>
             </LinearLayout>
 

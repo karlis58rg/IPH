@@ -40,6 +40,9 @@ public class DescripcionVehiculo extends Fragment {
         return new DescripcionVehiculo();
     }
 
+
+
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -74,7 +77,6 @@ public class DescripcionVehiculo extends Fragment {
                 funciones.Time(R.id.txthoraRetencion,getContext(),getActivity());
             }
         });
-
 
         return root;
     }
@@ -117,5 +119,4 @@ public class DescripcionVehiculo extends Fragment {
             }
         }
     }
-
 }
