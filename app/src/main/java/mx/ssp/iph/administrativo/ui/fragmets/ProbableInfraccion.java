@@ -22,6 +22,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -30,6 +33,7 @@ import mx.ssp.iph.SqLite.DataHelper;
 import mx.ssp.iph.administrativo.model.ModeloProbableInfraccion_Administrativo;
 import mx.ssp.iph.administrativo.model.ModeloPuestaDisposicion_Administrativo;
 import mx.ssp.iph.administrativo.viewModel.ProbableInfraccionViewModel;
+import mx.ssp.iph.utilidades.ui.Funciones;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -45,7 +49,9 @@ public class ProbableInfraccion extends Fragment {
     EditText txtOtroProbableInfraccionAdministrativo,txt911FolioProbableInfraccionAdministrativo;
     Button btnGuardarProbableInfraccionAdministrativo;
     SharedPreferences share;
-    String cargarIdFaltaAdmin,cargarNumReferencia,descConocimientoInfraccion;
+    String cargarIdFaltaAdmin,cargarNumReferencia;
+    Funciones funciones;
+    String descConocimientoInfraccion;
 
     public static ProbableInfraccion newInstance() {
         return new ProbableInfraccion();
@@ -63,6 +69,10 @@ public class ProbableInfraccion extends Fragment {
         btnGuardarProbableInfraccionAdministrativo = root.findViewById(R.id.btnGuardarProbableInfraccionAdministrativo);
         ListConocimientoInfraccion();
 
+        funciones= new Funciones();
+        //***************** Cargar Datos si es que existen  **************************//
+        CargarDatos();
+
         btnGuardarProbableInfraccionAdministrativo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,6 +82,8 @@ public class ProbableInfraccion extends Fragment {
         });
 
         //***************************************************************************//
+
+
         return root;
     }
 
@@ -143,6 +155,69 @@ public class ProbableInfraccion extends Fragment {
         });
     }
 
+    //***************** CONSULTA A LA BD MEDIANTE EL WS **************************//
+    private void cargarProbableInfraccion() {
+
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("http://189.254.7.167/WebServiceIPH/api/FaltaAdministrativa?folioInterno=="+cargarIdFaltaAdmin)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Looper.prepare(); // to be able to make toast
+                Toast.makeText(getContext(), "ERROR AL CONSULTAR SECCIÓN 3, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    final String myResponse = response.body().string();
+
+                    try {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                String resp = myResponse;
+
+                                //***************** RESPUESTA DEL WEBSERVICE **************************//
+
+                                //CONVERTIR ARREGLO DE JSON A OBJET JSON
+                                String ArregloJson = resp.replace("[", "");
+                                ArregloJson = ArregloJson.replace("]", "");
+
+                                if(ArregloJson.equals(""))
+                                {
+                                    //Sin Información. Todos los campos vacíos. Solo se llena
+                                }
+                                else{
+                                    //Deserializa el json y colcoa el dato correspondiente en cada campo si existe
+                                    try {
+                                        JSONObject jsonjObject = new JSONObject(ArregloJson);
+
+                                        txtOtroProbableInfraccionAdministrativo.setText((jsonjObject.getString("Telefono911")).equals("null")?"":jsonjObject.getString("Telefono911"));
+                                        txt911FolioProbableInfraccionAdministrativo.setText((jsonjObject.getString("Otro")).equals("null")?"":jsonjObject.getString("Otro"));
+
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                        Toast.makeText(getContext(), "ERROR AL DESEREALIZAR EL JSON. LLENE TODOS LOS CAMPOS", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                                //*************************
+                            }
+                        });
+                    }
+                    catch (Exception e){
+                        Toast.makeText(getContext(), "ERROR AL SOLICITAR INFORMACION NO DE REFERENCIA, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            }
+        });
+    }
+
     public void cargarFolios(){
         share = getContext().getSharedPreferences("main", Context.MODE_PRIVATE);
         cargarIdFaltaAdmin = share.getString("IDFALTAADMIN", "");
@@ -156,6 +231,25 @@ public class ProbableInfraccion extends Fragment {
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_layout, R.id.txt, list);
             spHechoProbableInfraccionAdministrativo.setAdapter(adapter);
         }
+    }
+
+    //***************** SE RECUPERA EL FOLIO INTERNO **************************//
+    private void CargarDatos() {
+        share = getContext().getSharedPreferences("main", Context.MODE_PRIVATE);
+        if (cargarIdFaltaAdmin.equals(""))
+        {
+            Toast.makeText(getContext(), "EL FOLIO INTERNO NO EXISTE. POR FAVOR REINCICIE LA APP CREE UN NUEVO INFORME.", Toast.LENGTH_LONG).show();
+        }
+        else
+        {
+            //Consulta si hay conexión a internet y realiza la peticion al ws de consulta de los datos.
+            if (funciones.ping(getContext()))
+            {
+                //Toast.makeText(getContext(), "cargarNoReferenciaAdministrativa()", Toast.LENGTH_LONG).show();
+                cargarProbableInfraccion();
+            }
+        }
+
     }
 
 }

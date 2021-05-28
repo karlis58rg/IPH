@@ -416,26 +416,6 @@
                     android:weightSum="1"
                     android:layout_weight="0.10">
                     <TextView
-                        android:id="@+id/lblUsoVehiculo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/font"
-                        android:text="@string/lblUsoVehiculo"/>
-                    <Spinner
-                        android:id="@+id/spUsoVehiculo"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:entries="@array/arrayUsoVehi"
-                        />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:weightSum="1"
-                    android:layout_weight="0.10">
-                    <TextView
                         android:id="@+id/lblPlacaVehiculo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -807,6 +787,19 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/listaLinear"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_gravity="center">
+                <TextView
+                    android:id="@+id/lblListaDetenidos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/font"
+                    android:text="VEHÍCULOS AGREGADOS" />
+            </LinearLayout>
+            <LinearLayout
                 android:id="@+id/quinceavoLinear"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -817,7 +810,7 @@
                 <ListView
                     android:id="@+id/lvVehiculos"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="350dp" />
             </LinearLayout>
 
         </LinearLayout>
