@@ -224,11 +224,6 @@
                     android:id="@+id/chSinAnexosAdministrativo"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"/>
-                <Spinner
-                    android:id="@+id/spSinAnexosAdministrativo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:entries="@array/arrayTotalesAnexos"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="0dp"
@@ -372,52 +367,6 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/decimoLinear"
-            android:layout_width="match_parent"
-            android:layout_weight="0.5"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:weightSum="1"
-            android:layout_marginTop="20dp">
-            <LinearLayout
-                android:id="@+id/lyInstitucionAdscripcionAdministrativo"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.5"
-                android:orientation="vertical">
-                <TextView
-                    android:id="@+id/lblInstitucionAdscripcionAdministrativo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/institucion_entidad_federativa_o_municipio_de_adscripcion" />
-
-                <Spinner
-                    android:id="@+id/txtInstitucionAdscripcionAdministrativo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:entries="@array/arrayInstitucion"/>
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/lyGradoCargoAdministrativo"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:weightSum="1"
-                android:layout_weight="0.5">
-                <TextView
-                    android:id="@+id/lblGradoCargoAdministrativo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="¿Cúal es su grado o cargo?" />
-                <Spinner
-                    android:id="@+id/txtGradoCargoAdministrativo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:entries="@array/arrayCargo"/>
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
             android:id="@+id/onceavoLinear"
             android:layout_width="match_parent"
             android:layout_weight="0.5"
@@ -440,8 +389,7 @@
                 <Spinner
                     android:id="@+id/txtUnidadDeArriboAdministrativo"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:entries="@array/arrayUnidad"/>
+                    android:layout_height="wrap_content"/>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/lyNoAplicaUnidadDeArriboAdministrativo"
@@ -565,8 +513,7 @@
                 <Spinner
                     android:id="@+id/txtCargoAdministrativo"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:entries="@array/arrayCargo"/>
+                    android:layout_height="wrap_content"/>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/lyFirmaAutoridadAdministrativo"
