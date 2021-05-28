@@ -34,6 +34,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
 import mx.ssp.iph.administrativo.model.ModeloNoReferencia_Administrativo;
@@ -114,7 +115,12 @@ public class PrincipalAdministrativo extends Fragment {
     //***************** CONSULTA BD TODOS LOS IPH ADMINISTRATIVOS PENDIENTES **************************//
     private void SelectIPHAdministrativo() {
 
-        OkHttpClient client = new OkHttpClient();
+        OkHttpClient client = new OkHttpClient.Builder()
+                .connectTimeout (10, TimeUnit.SECONDS) // Tiempo de espera de conexión agotado
+                .writeTimeout (10, TimeUnit.SECONDS) // Tiempo de espera de escritura de socket
+                .readTimeout (30, TimeUnit.SECONDS) // Tiempo de espera de lectura de socket
+                .build();
+
         Request request = new Request.Builder()
                 .url("http://189.254.7.167/WebServiceIPH/api/NoReferenciaAdministrativa?usuario="+Usuario)
                 .build();
@@ -123,7 +129,7 @@ public class PrincipalAdministrativo extends Fragment {
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
                 Looper.prepare(); // to be able to make toast
-                Toast.makeText(getContext(), "ERROR AL CONSULTAR FOLIOS IPH ADMINISTRATIVO, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), e.toString()+"ERROR AL CONSULTAR FOLIOS IPH ADMINISTRATIVO, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_LONG).show();
                 Looper.loop();
             }
 

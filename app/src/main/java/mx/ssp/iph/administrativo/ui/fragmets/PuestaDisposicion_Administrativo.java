@@ -26,6 +26,9 @@ import android.widget.Toast;
 import java.io.IOException;
 import android.widget.TextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import mx.ssp.iph.R;
 import mx.ssp.iph.administrativo.model.ModeloNoReferencia_Administrativo;
 import mx.ssp.iph.administrativo.model.ModeloPuestaDisposicion_Administrativo;
@@ -81,6 +84,9 @@ public class PuestaDisposicion_Administrativo extends Fragment {
 
         imgFirmaAutoridadAdministrativo = (ImageView) root.findViewById(R.id.imgFirmaAutoridadAdministrativo);
         imgFirmaAutoridadAdministrativo = (ImageView) root.findViewById(R.id.imgFirmaAutoridadAdministrativo);
+
+        //***************** Cargar Datos si es que existen  **************************//
+        CargarDatos();
 
         imgFirmaAutoridadAdministrativo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -190,12 +196,162 @@ public class PuestaDisposicion_Administrativo extends Fragment {
         });
     }
 
+    //***************** CONSULTA A LA BD MEDIANTE EL WS **************************//
+    private void cargarPuestaDisposicion() {
+
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("http://189.254.7.167/WebServiceIPH/api/FaltaAdministrativa?folioInterno="+cargarIdFaltaAdmin)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Looper.prepare(); // to be able to make toast
+                Toast.makeText(getContext(), "ERROR AL CONSULTAR SECCIÓN 1, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    final String myResponse = response.body().string();
+
+                    try {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                String resp = myResponse;
+
+                                //***************** RESPUESTA DEL WEBSERVICE **************************//
+
+                                //CONVERTIR ARREGLO DE JSON A OBJET JSON
+                                String ArregloJson = resp.replace("[", "");
+                                ArregloJson = ArregloJson.replace("]", "");
+
+                                if(ArregloJson.equals(""))
+                                {
+                                    //Sin Información. Todos los campos vacíos.
+                                }
+                                else{
+                                    //Deserializa el json y colcoa el dato correspondiente en cada campo si existe
+                                    try {
+                                        JSONObject jsonjObject = new JSONObject(ArregloJson);
+
+                                        String[] Fecha = (jsonjObject.getString("Fecha").replace("-","/")).split("T");
+                                        txtFechaPuestaDisposicionAdministrativo.setText((jsonjObject.getString("Fecha")).equals("null")?"":Fecha[0]);
+                                        txthoraPuestaDisposicionAdministrativo.setText((jsonjObject.getString("Hora")).equals("null")?"":jsonjObject.getString("Hora"));
+                                        txtNoExpedienteAdmministrativo.setText((jsonjObject.getString("NumExpediente")).equals("null")?"":jsonjObject.getString("NumExpediente"));
+
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                        Toast.makeText(getContext(), "ERROR AL DESEREALIZAR EL JSON. LLENE TODOS LOS CAMPOS", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                                //*************************
+                            }
+                        });
+                    }
+                    catch (Exception e){
+                        Toast.makeText(getContext(), "ERROR AL SOLICITAR INFORMACION NO DE REFERENCIA, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            }
+        });
+    }
+
+    private void cargarPuestaDisposicionFiscalia() {
+
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("http://189.254.7.167/WebServiceIPH/api/RecibeDisposicionAdministrativa?folioInterno="+cargarIdFaltaAdmin)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Looper.prepare(); // to be able to make toast
+                Toast.makeText(getContext(), "ERROR AL CONSULTAR SECCIÓN 1, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    final String myResponse = response.body().string();
+
+                    try {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                String resp = myResponse;
+
+                                //***************** RESPUESTA DEL WEBSERVICE **************************//
+
+                                //CONVERTIR ARREGLO DE JSON A OBJET JSON
+                                String ArregloJson = resp.replace("[", "");
+                                ArregloJson = ArregloJson.replace("]", "");
+
+                                if(ArregloJson.equals(""))
+                                {
+                                    //Sin Información. Todos los campos vacíos.
+
+                                }
+                                else{
+                                    //Deserializa el json y colcoa el dato correspondiente en cada campo si existe
+                                    try {
+                                        JSONObject jsonjObject = new JSONObject(ArregloJson);
+
+                                        txtPrimerApellidoAdministrativo.setText((jsonjObject.getString("APRecibePuestaDisp")).equals("null")?"":jsonjObject.getString("APRecibePuestaDisp"));
+                                        txtSegundoApellidoAdministrativo.setText((jsonjObject.getString("AMRecibePuestaDisp")).equals("null")?"":jsonjObject.getString("AMRecibePuestaDisp"));
+                                        txtNombresAdministrativo.setText((jsonjObject.getString("NomRecibePuestaDisp")).equals("null")?"":jsonjObject.getString("NomRecibePuestaDisp"));
+                                        lblFirmaAutoridadRealizadaAdministrativo.setText((jsonjObject.getString("UrlFirma")).equals("null")?"":"FIRMA CORRECTA");
+
+
+
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                        Toast.makeText(getContext(), "ERROR AL DESEREALIZAR EL JSON. LLENE TODOS LOS CAMPOS", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                                //*************************
+                            }
+                        });
+                    }
+                    catch (Exception e){
+                        Toast.makeText(getContext(), "ERROR AL SOLICITAR INFORMACION NO DE REFERENCIA, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            }
+        });
+    }
+
     public void cargarFolios(){
         share = getContext().getSharedPreferences("main", Context.MODE_PRIVATE);
         cargarIdFaltaAdmin = share.getString("IDFALTAADMIN", "");
         cargarNumReferencia = share.getString("NOREFERENCIA", "");
         cargarNumFolio = share.getString("NUMFOLIO", "");
         System.out.println(cargarIdFaltaAdmin+cargarNumReferencia+cargarNumFolio);
+    }
+
+    //***************** SE RECUPERA EL FOLIO INTERNO **************************//
+    private void CargarDatos() {
+        if (cargarIdFaltaAdmin.equals(""))
+        {
+            Toast.makeText(getContext(), "EL FOLIO INTERNO NO EXISTE. POR FAVOR REINCICIE LA APP CREE UN NUEVO INFORME.", Toast.LENGTH_LONG).show();
+        }
+        else
+        {
+            //Consulta si hay conexión a internet y realiza la peticion al ws de consulta de los datos.
+            if (funciones.ping(getContext()))
+            {
+                cargarPuestaDisposicion();
+                cargarPuestaDisposicionFiscalia();
+            }
+        }
+
     }
 
 }

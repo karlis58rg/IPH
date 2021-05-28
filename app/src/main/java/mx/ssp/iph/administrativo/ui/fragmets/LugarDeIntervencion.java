@@ -19,12 +19,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 
 import mx.ssp.iph.R;
 import mx.ssp.iph.administrativo.model.ModelLugarIntervencion_Administrativo;
 import mx.ssp.iph.administrativo.model.ModeloNoReferencia_Administrativo;
 import mx.ssp.iph.administrativo.viewModel.LugarDeIntervencionViewModel;
+import mx.ssp.iph.utilidades.ui.Funciones;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -41,6 +45,7 @@ public class LugarDeIntervencion extends Fragment {
     Button btnGuardarPuestaDisposicioAdministrativo;
     SharedPreferences share;
     String cargarIdFaltaAdmin;
+    private Funciones funciones;
 
     public static LugarDeIntervencion newInstance() {
         return new LugarDeIntervencion();
@@ -61,6 +66,9 @@ public class LugarDeIntervencion extends Fragment {
         txtLongitudUbicacionGeograficaAdministrativo = root.findViewById(R.id.txtLongitudUbicacionGeograficaAdministrativo);
 
         btnGuardarPuestaDisposicioAdministrativo = root.findViewById(R.id.btnGuardarPuestaDisposicioAdministrativo);
+        funciones= new Funciones();
+        //***************** Cargar Datos si es que existen  **************************//
+        CargarDatos();
 
         btnGuardarPuestaDisposicioAdministrativo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,9 +153,96 @@ public class LugarDeIntervencion extends Fragment {
         });
     }
 
+    //***************** CONSULTA A LA BD MEDIANTE EL WS **************************//
+    private void cargarLugarIntervencion() {
+
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("http://189.254.7.167/WebServiceIPH/api/LugarIntervencionAdministrativa?folioInterno="+cargarIdFaltaAdmin)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Looper.prepare(); // to be able to make toast
+                Toast.makeText(getContext(), "ERROR AL CONSULTAR SECCIÓN 3, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    final String myResponse = response.body().string();
+
+                    try {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                String resp = myResponse;
+
+                                //***************** RESPUESTA DEL WEBSERVICE **************************//
+
+                                //CONVERTIR ARREGLO DE JSON A OBJET JSON
+                                String ArregloJson = resp.replace("[", "");
+                                ArregloJson = ArregloJson.replace("]", "");
+
+                                if(ArregloJson.equals(""))
+                                {
+                                    //Sin Información. Todos los campos vacíos. Solo se llena
+                                }
+                                else{
+                                    //Deserializa el json y colcoa el dato correspondiente en cada campo si existe
+                                    try {
+                                        JSONObject jsonjObject = new JSONObject(ArregloJson);
+
+                                        txtCalleUbicacionGeograficaAdministrativo.setText((jsonjObject.getString("CalleTramo")).equals("null")?"":jsonjObject.getString("CalleTramo"));
+                                        txtNumeroExteriorUbicacionGeograficaAdministrativo.setText((jsonjObject.getString("NoExterior")).equals("null")?"":jsonjObject.getString("NoExterior"));
+                                        txtNumeroInteriorUbicacionGeograficaAdministrativo.setText((jsonjObject.getString("NoInterior")).equals("null")?"":jsonjObject.getString("NoInterior"));
+                                        txtCodigoPostalUbicacionGeograficaAdministrativo.setText((jsonjObject.getString("Cp")).equals("null")?"":jsonjObject.getString("Cp"));
+                                        txtReferenciasdelLugarUbicacionGeograficaAdministrativo.setText((jsonjObject.getString("Referencia")).equals("null")?"":jsonjObject.getString("Referencia"));
+                                        txtLatitudUbicacionGeograficaAdministrativo.setText((jsonjObject.getString("Latitud")).equals("null")?"":jsonjObject.getString("Latitud"));
+                                        txtLongitudUbicacionGeograficaAdministrativo.setText((jsonjObject.getString("Longitud")).equals("null")?"":jsonjObject.getString("Longitud"));
+
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                        Toast.makeText(getContext(), "ERROR AL DESEREALIZAR EL JSON. LLENE TODOS LOS CAMPOS", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                                //*************************
+                            }
+                        });
+                    }
+                    catch (Exception e){
+                        Toast.makeText(getContext(), "ERROR AL SOLICITAR INFORMACION NO DE REFERENCIA, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            }
+        });
+    }
+
     public void cargarFolios(){
         share = getContext().getSharedPreferences("main", Context.MODE_PRIVATE);
         cargarIdFaltaAdmin = share.getString("IDFALTAADMIN", "");
+    }
+
+    //***************** SE RECUPERA EL FOLIO INTERNO **************************//
+    private void CargarDatos() {
+        share = getContext().getSharedPreferences("main", Context.MODE_PRIVATE);
+        if (cargarIdFaltaAdmin.equals(""))
+        {
+            Toast.makeText(getContext(), "EL FOLIO INTERNO NO EXISTE. POR FAVOR REINCICIE LA APP CREE UN NUEVO INFORME.", Toast.LENGTH_LONG).show();
+        }
+        else
+        {
+            //Consulta si hay conexión a internet y realiza la peticion al ws de consulta de los datos.
+            if (funciones.ping(getContext()))
+            {
+                //Toast.makeText(getContext(), "cargarNoReferenciaAdministrativa()", Toast.LENGTH_LONG).show();
+                cargarLugarIntervencion();
+            }
+        }
+
     }
 
 }

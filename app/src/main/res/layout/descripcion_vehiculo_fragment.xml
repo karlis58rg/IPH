@@ -664,6 +664,19 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/listaLinear"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_gravity="center">
+                <TextView
+                    android:id="@+id/lblListaDetenidos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/font"
+                    android:text="VEHÍCULOS AGREGADOS" />
+            </LinearLayout>
+            <LinearLayout
                 android:id="@+id/quinceavoLinear"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -674,12 +687,8 @@
                 <ListView
                     android:id="@+id/lvVehiculos"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="350dp" />
             </LinearLayout>
-
-
-
-
         </LinearLayout>
     </ScrollView>
 </FrameLayout>

@@ -23,18 +23,17 @@ import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.IllegalFormatCodePointException;
 import java.util.Random;
-import java.util.regex.Pattern;
+
 
 import mx.ssp.iph.R;
 import mx.ssp.iph.SqLite.DataHelper;
 import mx.ssp.iph.administrativo.model.ModeloNoReferencia_Administrativo;
 import mx.ssp.iph.administrativo.viewModel.NoReferencia_Administrativo_ViewModel;
-import mx.ssp.iph.principal.ui.fragments.PrincipalAdministrativo;
 import mx.ssp.iph.utilidades.ui.Funciones;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -268,15 +267,83 @@ public class NoReferencia_Administrativo extends Fragment {
         editor.commit();
     }
 
-    public void Random()
-    {
+    public void Random() {
         Random random = new Random();
         numberRandom = random.nextInt(9000)*99;
         codigoVerifi = String.valueOf(numberRandom);
         randomCodigoVerifi = codigoVerifi;
     }
     //***************** CONSULTA A LA BD MEDIANTE EL WS **************************//
-    //BENY
+    private void cargarNoReferenciaAdministrativa() {
+
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("http://189.254.7.167/WebServiceIPH/api/NoReferenciaAdministrativa?folioInterno="+IDFALTAADMIN)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Looper.prepare(); // to be able to make toast
+                Toast.makeText(getContext(), "ERROR AL CONSULTAR SECCIÓN NÚMERO DE REFERENCIA, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    final String myResponse = response.body().string();
+
+                    try {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                String resp = myResponse;
+
+                                //***************** RESPUESTA DEL WEBSERVICE **************************//
+
+                                //CONVERTIR ARREGLO DE JSON A OBJET JSON
+                                String ArregloJson = resp.replace("[", "");
+                                ArregloJson = ArregloJson.replace("]", "");
+
+                                if(ArregloJson.equals(""))
+                                {
+                                    //Sin Información. Todos los campos vacíos. Solo se llena
+                                    txtFolioInternoAdministrativo.setText(IDFALTAADMIN);
+                                    txtEstadoReferenciaAdministrativo.setText("GUERRERO");
+
+                                }
+                                else{
+                                    //Deserializa el json y colcoa el dato correspondiente en cada campo si existe
+                                    try {
+                                        JSONObject jsonjObject = new JSONObject(ArregloJson);
+
+                                        txtFolioInternoAdministrativo.setText(jsonjObject.getString("IdFaltaAdmin"));
+                                        txtFolioSistemaAdministrativo.setText((jsonjObject.getString("NumSistema")).equals("null")?"":jsonjObject.getString("NumSistema"));
+                                        txtNoReferenciaAdministrativo.setText((jsonjObject.getString("NumReferencia")).equals("null")?"":jsonjObject.getString("NumReferencia"));
+                                        txtEstadoReferenciaAdministrativo.setText("GUERRERO");
+
+                                        String[] Fecha = (jsonjObject.getString("Fecha").replace("-","/")).split("T");
+                                        txtFechaEntregaReferenciaAdministrativo.setText((jsonjObject.getString("Fecha")).equals("null")?"":Fecha[0]);
+                                        txtHoraEntregaReferenciaAdministrativo.setText((jsonjObject.getString("Hora")).equals("null")?"":jsonjObject.getString("Hora"));
+
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                        Toast.makeText(getContext(), "ERROR AL DESEREALIZAR EL JSON. LLENE TODOS LOS CAMPOS", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                                //*************************
+                            }
+                        });
+                    }
+                    catch (Exception e){
+                        Toast.makeText(getContext(), "ERROR AL SOLICITAR INFORMACION NO DE REFERENCIA, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            }
+        });
+    }
 
     /********* SPINNER INSTITUCION ****************/
     private void ListInstitucion() {
@@ -312,8 +379,8 @@ public class NoReferencia_Administrativo extends Fragment {
             //Consulta si hay conexión a internet y realiza la peticion al ws de consulta de los datos.
             if (funciones.ping(getContext()))
             {
-                Toast.makeText(getContext(), "cargarNoReferenciaAdministrativa()", Toast.LENGTH_LONG).show();
-                //cargarNoReferenciaAdministrativa();
+                //Toast.makeText(getContext(), "cargarNoReferenciaAdministrativa()", Toast.LENGTH_LONG).show();
+                cargarNoReferenciaAdministrativa();
             }
         }
 

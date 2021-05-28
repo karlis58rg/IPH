@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
@@ -41,6 +42,7 @@ public class Iph_Administrativo_Up extends AppCompatActivity{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_iph_administrativo_up);
+
 
         //Instancio los Fragmentos
         referencia = new NoReferencia_Administrativo();
