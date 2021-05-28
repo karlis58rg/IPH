@@ -130,10 +130,9 @@ public class Detenciones extends Fragment  {
         ListNacionalidad();
         ListSexo();
 
-        txtEntidadDetenido.setEnabled(false);
         txtCualPadecimiento.setEnabled(false);
         txtCualGrupoVulnerable.setEnabled(false);
-
+        txtEntidadDetenido.setEnabled(false);
 
 
         cargarFolios();

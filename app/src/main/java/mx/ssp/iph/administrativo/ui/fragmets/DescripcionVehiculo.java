@@ -60,9 +60,6 @@ public class DescripcionVehiculo extends Fragment {
         return new DescripcionVehiculo();
     }
 
-
-
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
