@@ -43,6 +43,7 @@ import java.util.Locale;
 import java.util.regex.Pattern;
 
 import mx.ssp.iph.SqLite.DataHelper;
+import mx.ssp.iph.administrativo.model.ModeloDetenciones_Administrativo;
 import mx.ssp.iph.administrativo.model.ModeloNoReferencia_Administrativo;
 import mx.ssp.iph.administrativo.viewModel.DetencionesViewModel;
 import mx.ssp.iph.R;
