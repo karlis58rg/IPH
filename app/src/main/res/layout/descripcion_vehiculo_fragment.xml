@@ -546,44 +546,6 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/catorceavoLinear1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="horizontal"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp">
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:weightSum="1"
-                    android:layout_weight="0.10">
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/lyGuardarVehiculo1"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:weightSum="1"
-                    android:layout_weight="0.12">
-                    <Button
-                        android:id="@+id/btnGuardarVehiculo1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="AGREGAR VEHÍCULO" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:weightSum="1"
-                    android:layout_weight="0.10">
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
                 android:id="@+id/quinceavoLinear"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -596,10 +558,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
             </LinearLayout>
-
-
-
-
         </LinearLayout>
     </ScrollView>
 </FrameLayout>
