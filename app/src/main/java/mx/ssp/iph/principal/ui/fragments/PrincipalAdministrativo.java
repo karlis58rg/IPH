@@ -1,5 +1,6 @@
 package mx.ssp.iph.principal.ui.fragments;
 
+import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.annotation.SuppressLint;
@@ -53,6 +54,8 @@ import okhttp3.Response;
 
 public class PrincipalAdministrativo extends Fragment {
 
+    //***************** BENY ROMÁN GONZÁLEZ RUIZ. HASAT AQUÍ DEJA DE PRESIONAR CTRL + Z **************************//
+
     private ArrayList<String> ListaIdFaltaAdmin,ListaNumReferencia;
     private ArrayList<Integer> ListaColorEstatus;
     private PrincipalAdministrativoViewModel mViewModel;
@@ -63,25 +66,34 @@ public class PrincipalAdministrativo extends Fragment {
     private String Usuario = "";
     private String codigoVerifi,randomCodigoVerifi;
     int numberRandom;
+    int actualzarinformacion = 0;
 
 
     public static PrincipalAdministrativo newInstance() {
         return new PrincipalAdministrativo();
     }
 
+
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.principal_administrativo_fragment, container, false);
+        mViewModel = new ViewModelProvider(this).get(PrincipalAdministrativoViewModel.class);
         final FloatingActionButton fabNuevoIPHDelictivo = view.findViewById(R.id.fabNuevoIPHDelictivo);
         lvPrincipalFolioInternoAdministrativo = view.findViewById(R.id.lvPrincipalFolioInternoAdministrativo);
         funciones = new Funciones();
         cargarUsuario();
 
-        //Comprobamos acceso a intenet y ejecutamos la consulta al webservice
-        if (funciones.ping(getContext())){
-            SelectIPHAdministrativo();
+        //Actualiza solo al inicio o cuando se requiere recargar el fragmento
+        if (actualzarinformacion == 0)
+        {
+            //Comprobamos acceso a intenet y ejecutamos la consulta al webservice
+            if (funciones.ping(getContext())){
+                SelectIPHAdministrativo();
+            }
         }
+
 
         //Evento al pulsar sobre un elemento de la lista
         lvPrincipalFolioInternoAdministrativo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -96,9 +108,13 @@ public class PrincipalAdministrativo extends Fragment {
         fabNuevoIPHDelictivo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GenerarNumerodeReferencia();
+                    GenerarNumerodeReferencia();
                 //Enviamos el número de Refrerencia generado
-                guardarFolioInterno(randomCodigoVerifi);
+                    guardarFolioInterno(randomCodigoVerifi);
+
+
+
+                //=========Prueba
             }
         });
         return view;
@@ -107,7 +123,6 @@ public class PrincipalAdministrativo extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(PrincipalAdministrativoViewModel.class);
         // TODO: Use the ViewModel
     }
 
@@ -181,6 +196,10 @@ public class PrincipalAdministrativo extends Fragment {
                                 //AGREGA LOS DATOS AL LISTVIEW MEDIANTE EL ADAPTADOR
                                 MyAdapter adapter = new MyAdapter(getContext(), ListaIdFaltaAdmin, ListaNumReferencia,ListaColorEstatus);
                                 lvPrincipalFolioInternoAdministrativo.setAdapter(adapter);
+
+                                actualzarinformacion++;
+                                Log.i("SelectIPHAdministrativo", "Actualiza Información");
+
                                 //*************************
                             }
                         });
@@ -195,7 +214,7 @@ public class PrincipalAdministrativo extends Fragment {
     }
 
     //***************** ADAPTADOR PARA LLENAR LISTA DE IPH ADMINISTRATIVO **************************//
-    class MyAdapter extends ArrayAdapter<String> {
+    class MyAdapter extends ArrayAdapter<String>{
         Context context;
         ArrayList<String> ListaIdFaltaAdmin;
         ArrayList<String> ListaNumReferencia;
@@ -222,7 +241,7 @@ public class PrincipalAdministrativo extends Fragment {
 
             // Asigna los valores
               lblPrincipalFolioInternoAdministrativo.setText(ListaIdFaltaAdmin.get(position));
-            lblPrincipalNoRegrenciaAdministrativo.setText(ListaNumReferencia.get(position));
+              lblPrincipalNoRegrenciaAdministrativo.setText(ListaNumReferencia.get(position));
             //lyIndicadorStatusIPHEstatusAdministrativo.setBackgroundColor(R.color.status_completo_por_entregar_background);
 
             return row;

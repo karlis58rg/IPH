@@ -40,11 +40,13 @@ import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import mx.ssp.iph.principal.ui.fragments.ViewModelSumarActivity;
 
 public class Principal extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private DrawerLayout drawer;
+    private Fragment PrincipalDelictivo,PrincipalAdministrativo,PrincipalEmergencias,PrincipalBuscar;
 
 
     String respuestaJson;
@@ -120,6 +122,13 @@ public class Principal extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("titulo toolbar");
+
+        PrincipalDelictivo = new PrincipalDelictivo();
+        PrincipalAdministrativo= new PrincipalAdministrativo();
+        PrincipalEmergencias = new PrincipalEmergencias();
+        PrincipalBuscar = new PrincipalBuscar();
+
+
 
 
         //Bottom Navigation

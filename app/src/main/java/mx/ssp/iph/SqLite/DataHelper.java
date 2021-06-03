@@ -39,6 +39,7 @@ public class DataHelper extends SQLiteOpenHelper {
     public static final String Table_CatSexo = "CatSexo";
     public static final String Create_CatSexo = "CREATE TABLE IF NOT EXISTS " + Table_CatSexo +"(IdSexo INTEGER PRIMARY KEY, Sexo TEXT NOT NULL UNIQUE)";
 
+
     public static final String Table_CatUnidad = "CatUnidad";
     public static final String Create_CatUnidad = "CREATE TABLE IF NOT EXISTS " + Table_CatUnidad +"(IdUnidad TEXT PRIMARY KEY, Unidad TEXT NOT NULL, IdMarca TEXT NOT NULL, IdSubMarca INTEGER NOT NULL, Modelo INTEGER NOT NULL, Descripcion TEXT NOT NULL, IdInstitucion INTEGER NOT NULL)";
 

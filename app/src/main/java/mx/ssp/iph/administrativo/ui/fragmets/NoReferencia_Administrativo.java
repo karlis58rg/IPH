@@ -129,6 +129,36 @@ public class NoReferencia_Administrativo extends Fragment {
         // TODO: Use the ViewModel
     }
 
+    //private method of your class
+    private int getIndex(Spinner spinner, String myString){
+        for (int i=0;i<spinner.getCount();i++){
+            Toast.makeText(getContext(),""+spinner.getItemAtPosition(i).toString() + " - " + spinner.getItemIdAtPosition(i),Toast.LENGTH_SHORT).show();
+
+
+
+            if (spinner.getItemAtPosition(i).toString().equalsIgnoreCase(myString)){
+                return i;
+            }
+        }
+
+        return 0;
+    }
+
+    private void ConsultavalorSpinerconId(){
+
+    }
+
+    //private method of your class
+    private int getIndexbyId(Spinner spinner, int idSpiner){
+        for (int i=0;i<spinner.getCount();i++){
+            if (spinner.getItemIdAtPosition(i) == idSpiner)
+            {
+                return i;
+            }
+        }
+        return 0;
+    }
+
     //***************** INSERTA A LA BD MEDIANTE EL WS **************************//
     private void insertNoReferenciaAdministrativa() {
         DataHelper dataHelper = new DataHelper(getContext());
@@ -302,6 +332,7 @@ public class NoReferencia_Administrativo extends Fragment {
 
     //***************** SE RECUPERA EL FOLIO INTERNO **************************//
     private void CargarDatos() {
+
         share = getContext().getSharedPreferences("main", Context.MODE_PRIVATE);
         IDFALTAADMIN= share.getString("IDFALTAADMIN", "");
         GETUSUARIO = share.getString("Usuario", "");
@@ -320,6 +351,7 @@ public class NoReferencia_Administrativo extends Fragment {
             }
         }
 
+        //spInstitucionReferenciaAdministrativo.setSelection(getIndexbyId(spInstitucionReferenciaAdministrativo, 3));
     }
 
     private void ListCombos() {
