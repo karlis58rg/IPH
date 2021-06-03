@@ -102,8 +102,7 @@ public class PuestaDisposicion_Administrativo extends Fragment {
         imgFirmaAutoridadAdministrativo = (ImageView) root.findViewById(R.id.imgFirmaAutoridadAdministrativo);
         imgFirmaAutoridadAdministrativo = (ImageView) root.findViewById(R.id.imgFirmaAutoridadAdministrativo);
 
-        ListCargo();
-        ListUnidad();
+        ListCombos();
 
         //***************** Cargar Datos si es que existen  **************************//
         CargarDatos();
@@ -405,24 +404,26 @@ public class PuestaDisposicion_Administrativo extends Fragment {
     }
 
     /*****************************************************************************/
-    private void ListUnidad() {
+    private void ListCombos() {
         DataHelper dataHelper = new DataHelper(getContext());
-        ArrayList<String> list = dataHelper.getAllUnidad();
-        if (list.size() > 0) {
+        ArrayList<String> unidad = dataHelper.getAllUnidad();
+        ArrayList<String> cargos = dataHelper.getAllCargos();
+        if (unidad.size() > 0) {
             System.out.println("YA EXISTE INFORMACIÓN DE UNIDAD");
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_layout, R.id.txt, list);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_layout, R.id.txt, unidad);
             txtUnidadDeArriboAdministrativo.setAdapter(adapter);
+        }else{
+            Toast.makeText(getContext(), "LO SENTIMOS, NO CUENTA CON UNIDADES ACTIVAS.", Toast.LENGTH_LONG).show();
         }
-    }
-    private void ListCargo() {
-        DataHelper dataHelper = new DataHelper(getContext());
-        ArrayList<String> list = dataHelper.getAllCargos();
-        if (list.size() > 0) {
+        if (cargos.size() > 0) {
             System.out.println("YA EXISTE INFORMACIÓN DE CARGOS");
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_layout, R.id.txt, list);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_layout, R.id.txt, cargos);
             txtCargoAdministrativo.setAdapter(adapter);
+        }else{
+            Toast.makeText(getContext(), "LO SENTIMOS, NO CUENTA CON CARGOS ACTIVOS.", Toast.LENGTH_LONG).show();
         }
     }
+
 
     //***************** SE RECUPERA EL FOLIO INTERNO **************************//
     private void CargarDatos() {

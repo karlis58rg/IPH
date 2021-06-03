@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class DataHelper extends SQLiteOpenHelper {
     public static final String DataBase_Name = "IPH";
-    public static final int Database_Version = 8 ;
+    public static final int Database_Version = 12 ;
 
     public static final String Table_CatAutoridadAdmin = "CatAutoridadAdmin";
     public static final String Create_CatAutoridadAdmin = "CREATE TABLE IF NOT EXISTS " + Table_CatAutoridadAdmin +"(IdAutoridadAdmin INTEGER PRIMARY KEY, AutoridadAdmin TEXT NOT NULL UNIQUE)";
@@ -39,11 +39,17 @@ public class DataHelper extends SQLiteOpenHelper {
     public static final String Table_CatSexo = "CatSexo";
     public static final String Create_CatSexo = "CREATE TABLE IF NOT EXISTS " + Table_CatSexo +"(IdSexo INTEGER PRIMARY KEY, Sexo TEXT NOT NULL UNIQUE)";
 
-
     public static final String Table_CatUnidad = "CatUnidad";
     public static final String Create_CatUnidad = "CREATE TABLE IF NOT EXISTS " + Table_CatUnidad +"(IdUnidad TEXT PRIMARY KEY, Unidad TEXT NOT NULL, IdMarca TEXT NOT NULL, IdSubMarca INTEGER NOT NULL, Modelo INTEGER NOT NULL, Descripcion TEXT NOT NULL, IdInstitucion INTEGER NOT NULL)";
 
-    //public static final String Delete_CatUnidad = "DROP TABLE IF EXISTS "+ Table_CatUnidad;
+    public static final String Table_CatMarcaVehiculos = "CatMarcaVehiculos";
+    public static final String Create_CatMarcaVehiculos = "CREATE TABLE IF NOT EXISTS " + Table_CatMarcaVehiculos +"(IdMarca TEXT PRIMARY KEY, Marca TEXT NOT NULL UNIQUE)";
+
+    public static final String Table_CatSubMarcaVehiculos = "CatSubMarcaVehiculos";
+    public static final String Create_CatSubMarcaVehiculos = "CREATE TABLE IF NOT EXISTS " + Table_CatSubMarcaVehiculos +"(IdMarca TEXT NOT NULL, IdSubMarca INTEGER NOT NULL ,SubMarca TEXT NOT NULL, PRIMARY KEY (IdMarca, IdSubMarca))";
+
+
+    //public static final String Delete_CatSubMarcaVehiculos = "DROP TABLE IF EXISTS "+ Table_CatSubMarcaVehiculos;
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(Create_CatAutoridadAdmin);
@@ -56,10 +62,12 @@ public class DataHelper extends SQLiteOpenHelper {
         db.execSQL(Create_CatNacionalidad);
         db.execSQL(Create_CatSexo);
         db.execSQL(Create_CatUnidad);
+        db.execSQL(Create_CatMarcaVehiculos);
+        db.execSQL(Create_CatSubMarcaVehiculos);
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        //db.execSQL(Delete_CatUnidad);
+        //db.execSQL(Delete_CatSubMarcaVehiculos);
         onCreate(db);
     }
 
@@ -823,5 +831,180 @@ public class DataHelper extends SQLiteOpenHelper {
             }
         }
         return idUnidad;
+    }
+
+    /************************************************** CatMarcaVehiculos ********************************************************************/
+    public void insertCatVehiculos(String idMarca, String marca){
+        SQLiteDatabase dbSqLiteDatabase = this.getWritableDatabase();
+        dbSqLiteDatabase.beginTransaction();
+        ContentValues values;
+        try {
+            values = new ContentValues();
+            values.put("IdMarca",idMarca);
+            values.put("Marca",marca);
+            dbSqLiteDatabase.insert(Table_CatMarcaVehiculos,null,values);
+            dbSqLiteDatabase.setTransactionSuccessful();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        finally {
+            dbSqLiteDatabase.endTransaction();
+            dbSqLiteDatabase.close();
+        }
+    }
+    public ArrayList<String> getAllMarcaVehiculos(){
+        ArrayList<String> list = new ArrayList<String>();
+        SQLiteDatabase dbDatabase = this.getReadableDatabase();
+        dbDatabase.beginTransaction();
+        try{
+            String selectQuery = "SELECT * FROM " + Table_CatMarcaVehiculos;
+            String selectQuery2 = "SELECT COUNT(*) FROM " + Table_CatMarcaVehiculos;
+            Cursor mCount= dbDatabase.rawQuery(selectQuery2, null);
+            mCount.moveToFirst();
+            int count= mCount.getInt(0);
+            System.out.println(count);
+            Cursor cursor = dbDatabase.rawQuery(selectQuery, null);
+            if(cursor.getCount() > 0){
+                while (cursor.moveToNext()){
+                    String marca = cursor.getString(cursor.getColumnIndex("Marca"));
+                    list.add(marca);
+                }
+            }
+            dbDatabase.setTransactionSuccessful();
+        }catch (Exception e) {e.printStackTrace();}
+        finally {
+            {
+                dbDatabase.endTransaction();
+                dbDatabase.close();
+            }
+        }
+        return  list;
+    }
+    public String getIdMarcaVehiculo(String marca){
+        String idMarcaVehiculos = "";
+        SQLiteDatabase dbDatabase = this.getReadableDatabase();
+        dbDatabase.beginTransaction();
+        try{
+            String selectQuery2 = "SELECT COUNT(*) FROM " + Table_CatMarcaVehiculos;
+            Cursor mCount= dbDatabase.rawQuery(selectQuery2, null);
+            mCount.moveToFirst();
+            int count= mCount.getInt(0);
+            System.out.println(count);
+
+            String selectQuery = "SELECT IdMarca FROM " + Table_CatMarcaVehiculos +" WHERE Marca = '"+marca+"'";
+            Cursor mCount2= dbDatabase.rawQuery(selectQuery, null);
+            mCount2.moveToFirst();
+            String count2= mCount2.getString(0);
+            idMarcaVehiculos = count2;
+            System.out.println(count2);
+            dbDatabase.setTransactionSuccessful();
+        }catch (Exception e) {e.printStackTrace();}
+        finally {
+            {
+                dbDatabase.endTransaction();
+                dbDatabase.close();
+            }
+        }
+        return idMarcaVehiculos;
+    }
+
+    /************************************************** CatSubMarcaVehiculos ********************************************************************/
+    public void insertCatSubMarcaVehiculos(String idMarca, int idSubMarca, String subMarca){
+        SQLiteDatabase dbSqLiteDatabase = this.getWritableDatabase();
+        dbSqLiteDatabase.beginTransaction();
+        ContentValues values;
+        try {
+            values = new ContentValues();
+            values.put("IdMarca",idMarca);
+            values.put("IdSubMarca",idSubMarca);
+            values.put("SubMarca",subMarca);
+            dbSqLiteDatabase.insert(Table_CatSubMarcaVehiculos,null,values);
+            dbSqLiteDatabase.setTransactionSuccessful();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        finally {
+            dbSqLiteDatabase.endTransaction();
+            dbSqLiteDatabase.close();
+        }
+    }
+    public ArrayList<String> getAllSubMarcaVehiculos(){
+        ArrayList<String> list = new ArrayList<String>();
+        SQLiteDatabase dbDatabase = this.getReadableDatabase();
+        dbDatabase.beginTransaction();
+        try{
+            String selectQuery = "SELECT * FROM " + Table_CatSubMarcaVehiculos;
+            String selectQuery2 = "SELECT COUNT(*) FROM " + Table_CatSubMarcaVehiculos;
+            Cursor mCount= dbDatabase.rawQuery(selectQuery2, null);
+            mCount.moveToFirst();
+            int count= mCount.getInt(0);
+            System.out.println(count);
+            Cursor cursor = dbDatabase.rawQuery(selectQuery, null);
+            if(cursor.getCount() > 0){
+                while (cursor.moveToNext()){
+                    String subMarca = cursor.getString(cursor.getColumnIndex("SubMarca"));
+                    list.add(subMarca);
+                }
+            }
+            dbDatabase.setTransactionSuccessful();
+        }catch (Exception e) {e.printStackTrace();}
+        finally {
+            {
+                dbDatabase.endTransaction();
+                dbDatabase.close();
+            }
+        }
+        return  list;
+    }
+    public String getIdSubMarcaVehiculos(String subMarca){
+        String idSubMarca = "";
+        SQLiteDatabase dbDatabase = this.getReadableDatabase();
+        dbDatabase.beginTransaction();
+        try{
+            String selectQuery2 = "SELECT COUNT(*) FROM " + Table_CatSubMarcaVehiculos;
+            Cursor mCount= dbDatabase.rawQuery(selectQuery2, null);
+            mCount.moveToFirst();
+            int count= mCount.getInt(0);
+            System.out.println(count);
+
+            String selectQuery = "SELECT IdSubMarca FROM " + Table_CatSubMarcaVehiculos +" WHERE SubMarca = '"+subMarca+"'";
+            Cursor mCount2= dbDatabase.rawQuery(selectQuery, null);
+            mCount2.moveToFirst();
+            String count2= mCount2.getString(0);
+            idSubMarca = count2;
+            System.out.println(count2);
+            dbDatabase.setTransactionSuccessful();
+        }catch (Exception e) {e.printStackTrace();}
+        finally {
+            {
+                dbDatabase.endTransaction();
+                dbDatabase.close();
+            }
+        }
+        return idSubMarca;
+    }
+
+    public ArrayList<String> getValueByIdMarca(String idMarcaVehiculos){
+        ArrayList<String> list = new ArrayList<String>();
+        SQLiteDatabase dbDatabase = this.getReadableDatabase();
+        dbDatabase.beginTransaction();
+        try{
+            String selectQuery = "SELECT SubMarca FROM " + Table_CatSubMarcaVehiculos +" WHERE IdMarca = '"+idMarcaVehiculos+"'";
+            Cursor cursor = dbDatabase.rawQuery(selectQuery, null);
+            if(cursor.getCount() > 0){
+                while (cursor.moveToNext()){
+                    String subMarca = cursor.getString(cursor.getColumnIndex("SubMarca"));
+                    list.add(subMarca);
+                }
+            }
+            dbDatabase.setTransactionSuccessful();
+        }catch (Exception e) {e.printStackTrace();}
+        finally {
+            {
+                dbDatabase.endTransaction();
+                dbDatabase.close();
+            }
+        }
+        return  list;
     }
 }

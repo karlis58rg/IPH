@@ -340,8 +340,7 @@
                     <Spinner
                         android:id="@+id/spMarcaVehiculo"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:entries="@array/arrayMarcaVehiculos"/>
+                        android:layout_height="match_parent"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -359,8 +358,7 @@
                     <Spinner
                         android:id="@+id/spSubmarcaVehiculo"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:entries="@array/arraySubMarcaVehiculos"/>
+                        android:layout_height="match_parent"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -435,7 +433,7 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:weightSum="1"
-                    android:layout_weight="0.20">
+                    android:layout_weight="0.10">
                     <TextView
                         android:id="@+id/lblSerieVehiculo"
                         android:layout_width="wrap_content"
@@ -444,6 +442,27 @@
                         android:text="@string/lblSerieVehiculo"/>
                     <EditText
                         android:id="@+id/txtSerieVehiculo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_notas"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblDestino"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="@string/destino"/>
+                    <EditText
+                        android:id="@+id/txtDestinoVehiculo"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:maxLength="50"

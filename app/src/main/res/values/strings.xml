@@ -351,5 +351,6 @@ preguntas: ¿Quién? (personas), ¿Qué? (hechos), ¿Cómo? (circunstancias), ¿
     <string name="validacion_notas">ABCDEFGHIJKLMNÑOPQRSTUVWXYZ 0123456789</string>
     <string name="validacion_nombre">ABCDEFGHIJKLMNÑOPQRSTUVWXYZ</string>
     <string name="validacion_numero">0123456789</string>
+    <string name="destino">Destino</string>
 
 </resources>
