@@ -40,16 +40,16 @@ public class Principal extends AppCompatActivity {
 
                 switch (item.getItemId()) {
                     case R.id.navigation_delictivo:
-                        addFragment(PrincipalAdministrativo);
+                        addFragment(new PrincipalDelictivo());
                         return true;
                     case R.id.navigation_administrativo:
-                        addFragment(PrincipalAdministrativo);
+                        addFragment(new PrincipalAdministrativo());
                         return true;
                     case R.id.navigation_emergencias:
-                        addFragment(PrincipalEmergencias);
+                        addFragment(new PrincipalEmergencias());
                         return true;
                     case R.id.navigation_buscar:
-                        addFragment(PrincipalBuscar);
+                        addFragment(new PrincipalBuscar());
                         return true;
                 }
                 return false;
