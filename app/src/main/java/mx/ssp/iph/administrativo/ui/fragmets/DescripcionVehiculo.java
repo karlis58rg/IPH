@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 
 import android.os.Looper;
 import android.speech.RecognizerIntent;
+import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,6 +53,7 @@ public class DescripcionVehiculo extends Fragment {
     private EditText txthoraRetencion,txtFechaRetencion;
     private Funciones funciones;
 
+
     SharedPreferences share;
     String cargarIdFaltaAdmin,cargarNumReferencia;
     private ListView lvVehiculos;
@@ -66,6 +69,7 @@ public class DescripcionVehiculo extends Fragment {
         View root = inflater.inflate(R.layout.descripcion_vehiculo_fragment, container, false);
         funciones = new Funciones();
         txtObservacionesdelVehiculo = (TextView)root.findViewById(R.id.txtObservacionesdelVehiculo);
+        txtObservacionesdelVehiculo.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
         imgMicrofonoObservacionesdelVehiculo = (ImageView) root.findViewById(R.id.imgMicrofonoObservacionesdelVehiculo);
         txthoraRetencion = (EditText)root.findViewById(R.id.txthoraRetencion);
         txtFechaRetencion = (EditText)root.findViewById(R.id.txtFechaRetencion);
@@ -76,6 +80,25 @@ public class DescripcionVehiculo extends Fragment {
         cargarFolios();
         //***************** Cargar Datos si es que existen  **************************//
         CargarDatos();
+
+
+//        rgTipoVehiculoAdministrativo.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(RadioGroup group, int checkedId) {
+//                if (checkedId == R.id.rbTerrestre) {
+//                    txtOtroVehiculo.setEnabled(true);
+//                    varOtroTipoVehiculo = "TERRESTRE";
+//                    txtOtroVehiculo.setText("");
+//                } else if (checkedId == R.id.rbOtro) {
+//                    txtOtroVehiculo.setEnabled(false);
+//                    varOtroTipoVehiculo = "OTRO";
+//                    txtOtroVehiculo.setText("NA");
+//                }
+//
+//            }
+//        });
+
+
 
         //Imagen que funciona para activar la grabación de voz
         imgMicrofonoObservacionesdelVehiculo.setOnClickListener(new View.OnClickListener() {

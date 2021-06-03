@@ -121,6 +121,9 @@
                     android:maxLength="500"
                     android:inputType="textCapCharacters"
                     android:digits="@string/validacion_notas"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    android:lines="1"
                     android:imeOptions="actionNext"/>
             </LinearLayout>
 
@@ -151,6 +154,9 @@
                         android:maxLength="50"
                         android:inputType="textCapCharacters"
                         android:digits="@string/validacion_notas"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
                         android:imeOptions="actionNext"/>
                 </LinearLayout>
 
@@ -173,6 +179,9 @@
                         android:maxLength="50"
                         android:inputType="textCapCharacters"
                         android:digits="@string/validacion_notas"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
                         android:imeOptions="actionNext"/>
                 </LinearLayout>
 
@@ -195,6 +204,9 @@
                         android:maxLength="5"
                         android:inputType="phone"
                         android:digits="@string/validacion_numero"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
                         android:imeOptions="actionNext"/>
                 </LinearLayout>
             </LinearLayout>
@@ -225,6 +237,9 @@
                         android:maxLength="500"
                         android:inputType="textCapCharacters"
                         android:digits="@string/validacion_notas"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
                         android:imeOptions="actionNext"/>
                 </LinearLayout>
             </LinearLayout>
@@ -253,6 +268,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:maxLength="20"
+                        android:digits="@string/validacion_latitud"
+                        android:inputType="numberDecimal"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
                         android:imeOptions="actionNext"/>
                 </LinearLayout>
 
@@ -272,8 +292,13 @@
                         android:id="@+id/txtLongitudUbicacionGeograficaAdministrativo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:digits="@string/validacion_longitud"
                         android:maxLength="20"
-                        android:imeOptions="actionNext"/>
+                        android:inputType="numberDecimal"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionDone"/>
                 </LinearLayout>
 
                 <LinearLayout

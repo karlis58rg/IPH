@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.os.Looper;
+import android.text.InputFilter;
 import android.util.Log;
 import android.speech.RecognizerIntent;
 import android.view.LayoutInflater;
@@ -71,6 +72,7 @@ public class NarrativaHechos extends Fragment {
         cargarFolios();
         imgMicrofonoNarrativaHechos = root.findViewById(R.id.imgMicrofonoNarrativaHechos);
         txtNarrativaHechos = root.findViewById(R.id.txtNarrativaHechos);
+        txtNarrativaHechos.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
         btnGuardarNarrativaHechos = root.findViewById(R.id.btnGuardarNarrativaHechos);
         funciones = new Funciones();
 

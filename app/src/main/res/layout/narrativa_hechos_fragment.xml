@@ -64,8 +64,13 @@
                         android:id="@+id/txtNarrativaHechos"
                         android:layout_width="match_parent"
                         android:layout_height="300dp"
-                        android:inputType="text|textMultiLine"
-                        android:gravity="top"/>
+                        android:gravity="top"
+                        android:inputType="text|textMultiLine|textCapCharacters"
+                        android:digits="@string/validacion_notas"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionDone"/>
 
                     <ImageView
                         android:id="@+id/imgMicrofonoNarrativaHechos"

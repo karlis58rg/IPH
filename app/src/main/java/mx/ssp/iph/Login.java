@@ -1,11 +1,14 @@
 package mx.ssp.iph;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Looper;
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -38,8 +41,11 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         txtUsuario = findViewById(R.id.txtUsuario);
+        txtUsuario.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
         txtContrasena = findViewById(R.id.txtContrasena);
+        txtContrasena.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
         btnLogin = findViewById(R.id.btnLogin);
+
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,7 +62,6 @@ public class Login extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "ESTAMOS PROCESANDO SU SOLICITUD, UN MOMENTO POR FAVOR", Toast.LENGTH_SHORT).show();
                     getUsuaio();
                 }
-
             }
         });
     }
@@ -114,4 +119,7 @@ public class Login extends AppCompatActivity {
 
         });
     }
+
+
+
 }

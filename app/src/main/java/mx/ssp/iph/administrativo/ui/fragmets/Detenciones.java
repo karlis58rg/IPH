@@ -1,53 +1,48 @@
 package mx.ssp.iph.administrativo.ui.fragmets;
-import androidx.lifecycle.ViewModelProvider;
 
-import android.content.Context;
-
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.os.Looper;
 import android.speech.RecognizerIntent;
+import android.text.InputFilter;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RadioButton;
+import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.IOException;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
+import mx.ssp.iph.R;
 import mx.ssp.iph.SqLite.DataHelper;
 import mx.ssp.iph.administrativo.model.ModeloDetenciones_Administrativo;
-import mx.ssp.iph.administrativo.model.ModeloNoReferencia_Administrativo;
 import mx.ssp.iph.administrativo.viewModel.DetencionesViewModel;
-import mx.ssp.iph.R;
-import mx.ssp.iph.principal.ui.fragments.PrincipalAdministrativo;
 import mx.ssp.iph.utilidades.ui.ContenedorFirma;
 import mx.ssp.iph.utilidades.ui.Funciones;
 import okhttp3.Call;
@@ -56,11 +51,6 @@ import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
-import okhttp3.Response;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import okhttp3.Response;
 
 import static android.app.Activity.RESULT_OK;
@@ -72,7 +62,7 @@ public class Detenciones extends Fragment  {
     private TextView txtDescripciondelDetenido;
     ImageView img_microfonoDescripcionDetenido,imgFirmaAutoridadAdministrativo;
     EditText txtFechaDetenido,txthoraDetencion,txtFechaNacimientoDetenido,txtPrimerApellidoDetenido,txtSegundoApellidoDetenido,txtNombresDetenido,txtApodoDetenido,txtEntidadDetenido,
-            txtColoniaDetenido,txtCalleDetenido,txtNumeroExteriorDetenido,txtNumeroInteriorDetenido,txtCodigoPostalDetenido,txtReferenciasdelLugarDetenido,txtCualGrupoVulnerable,txtCualPadecimiento;
+            txtColoniaDetenido,txtCalleDetenido,txtNumeroExteriorDetenido,txtNumeroInteriorDetenido,txtCodigoPostalDetenido,txtReferenciasdelLugarDetenido,txtCualGrupoVulnerable,txtCualPadecimiento, txtNacionalidadEspecifiqueDetenido;
     CheckBox chNoAplicaAliasDetenido;
     Spinner spGeneroDetenido,txtNacionalidadDetenido,txtMunicipioDetenido,spLugarTrasladoPersonaDetenida;
     RadioGroup rgLesiones,rgPadecimiento,rgGrupoVulnerable;
@@ -86,6 +76,8 @@ public class Detenciones extends Fragment  {
     String cargarIdFaltaAdmin,cargarUsuario,descripcionLugarTraslado,descripcionMunicipio,descripcionNacionalidad,descripcionSexo,
             varLesiones = "NO",varPadecimiento = "NO",varGrupoVulnerable = "NO",varNoAlias = "NA";
 
+    String [] NacionalidadItems = {"Mexicano","Otra"};
+
     public static Detenciones newInstance() {
         return new Detenciones();
     }
@@ -93,32 +85,58 @@ public class Detenciones extends Fragment  {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+
+
+
         View view  = inflater.inflate(R.layout.detenciones_fragment, container, false);
         /********************************************************************************************/
         funciones = new Funciones();
         lvDetenidos = (ListView) view.findViewById(R.id.lvDetenidos);
 
         txtDescripciondelDetenido = (TextView)view.findViewById(R.id.txtDescripciondelDetenido);
+        txtDescripciondelDetenido.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
         img_microfonoDescripcionDetenido = (ImageView) view.findViewById(R.id.img_microfonoDescripcionDetenido);
         txtFechaDetenido = (EditText)view.findViewById(R.id.txtFechaDetenido);
         txthoraDetencion = (EditText)view.findViewById(R.id.txthoraDetencion);
         txtFechaNacimientoDetenido = (EditText) view.findViewById(R.id.txtFechaNacimientoDetenido);
+
         txtPrimerApellidoDetenido = view.findViewById(R.id.txtPrimerApellidoDetenido);
+        txtPrimerApellidoDetenido.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
+
+
         txtSegundoApellidoDetenido = view.findViewById(R.id.txtSegundoApellidoDetenido);
+        txtSegundoApellidoDetenido.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
+
         txtNombresDetenido = view.findViewById(R.id.txtNombresDetenido);
+        txtNombresDetenido.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
+
         txtApodoDetenido = view.findViewById(R.id.txtApodoDetenido);
+        txtApodoDetenido.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
+
         txtEntidadDetenido = view.findViewById(R.id.txtEntidadDetenido);
+
         txtColoniaDetenido = view.findViewById(R.id.txtColoniaDetenido);
+        txtColoniaDetenido.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
+
         txtCalleDetenido = view.findViewById(R.id.txtCalleDetenido);
+        txtCalleDetenido.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
+
         txtNumeroExteriorDetenido = view.findViewById(R.id.txtNumeroExteriorDetenido);
+        txtNumeroExteriorDetenido.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
         txtNumeroInteriorDetenido = view.findViewById(R.id.txtNumeroInteriorDetenido);
+        txtNumeroInteriorDetenido.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
         txtCodigoPostalDetenido = view.findViewById(R.id.txtCodigoPostalDetenido);
         txtReferenciasdelLugarDetenido = view.findViewById(R.id.txtReferenciasdelLugarDetenido);
+        txtReferenciasdelLugarDetenido.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
         txtCualGrupoVulnerable = view.findViewById(R.id.txtCualGrupoVulnerable);
+        txtCualGrupoVulnerable.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
         txtCualPadecimiento = view.findViewById(R.id.txtCualPadecimiento);
+        txtCualPadecimiento.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
         chNoAplicaAliasDetenido = view.findViewById(R.id.chNoAplicaAliasDetenido);
         spGeneroDetenido = view.findViewById(R.id.spGeneroDetenido);
         txtNacionalidadDetenido = view.findViewById(R.id.txtNacionalidadDetenido);
+
+
         txtMunicipioDetenido = view.findViewById(R.id.txtMunicipioDetenido);
         spLugarTrasladoPersonaDetenida = view.findViewById(R.id.spLugarTrasladoPersonaDetenida);
         rgLesiones = view.findViewById(R.id.rgLesiones);
@@ -138,6 +156,8 @@ public class Detenciones extends Fragment  {
         cargarFolios();
         //***************** Cargar Datos si es que existen  **************************//
         CargarDatos();
+
+
         //Fecha
         txtFechaNacimientoDetenido.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -160,6 +180,23 @@ public class Detenciones extends Fragment  {
             @Override
             public void onClick(View v) {
                 funciones.Time(R.id.txthoraDetencion,getContext(),getActivity());
+            }
+        });
+
+
+        //HABILITAR - DESHABILITAR EDITTEXT ALIAS O APODO
+        chNoAplicaAliasDetenido.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean chselect) {
+
+                if(chselect == true){
+                    txtApodoDetenido.setEnabled(false);
+                    varNoAlias = "NA";
+                } else if(chselect == false) {
+                    txtApodoDetenido.setEnabled(true);
+                    varNoAlias = "";
+                }
+
             }
         });
 
@@ -187,8 +224,11 @@ public class Detenciones extends Fragment  {
         btnGuardarPuestaDisposicioAdministrativo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS ", Toast.LENGTH_LONG).show();
-                insertDetenciones();
+                if (validarEditText(txtApodoDetenido)){
+                    Toast.makeText(getActivity().getApplicationContext(),"DATOS INSERTADOS",Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS ", Toast.LENGTH_LONG).show();
+                    //insertDetenciones();
+                }
             }
         });
 
@@ -237,6 +277,24 @@ public class Detenciones extends Fragment  {
 
         return view;
     }
+
+
+
+    //VALIDAR CAMPOS VACIOS O MENOR A TRES CARACTERES
+    public boolean validarEditText(EditText editText){
+        if(editText.getText().toString().isEmpty()){
+            Toast.makeText(getActivity().getApplicationContext(),"EL CAMPO" + editText.getId() + "ES OBLIGATORIO",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(editText.getText().length() < 3) {
+            Toast.makeText(getActivity().getApplicationContext(),"EL CAMPO" + editText + "NO DEBE SER MENOR A TRES CARACTERES",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {

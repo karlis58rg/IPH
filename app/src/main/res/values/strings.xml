@@ -27,7 +27,8 @@
     <string name="nombres">Nombre(s)</string>
     <string name="institucion_entidad_federativa_o_municipio_de_adscripcion">Institución, entidad federativa o municipio de adscripción</string>
     <string name="en_que_unidad_arribo_al_lugar_de_la_intervencion">¿En qué unidad arribó al lugar de la intervención?</string>
-    <string name="no_aplica">No Aplica</string>
+    <string name="no_aplicaApodoAlias">Sin Apodo o Alias</string>
+    <string name="no_aplicaUnidad">Sin Unidad de Arribo</string>
     <string name="apartado_1_3_datos_de_quien_recibe_la_puesta_a_disposicion">Apartado 1.3 Datos de quien recibe la puesta a disposición</string>
     <string name="fiscal_autoridad_que_recibe_la_puesta_a_disposicion">Fiscal/Autoridad que recibe la puesta a disposición</string>
     <string name="fiscalia_autoridad">Fiscalia/Autoridad</string>
@@ -48,6 +49,7 @@
 caso, explique las circunstancias de modo, tiempo y lugar que motivaron cada uno de los niveles de contacto y la detención. Tome como base las siguientes
 preguntas: ¿Quién? (personas), ¿Qué? (hechos), ¿Cómo? (circunstancias), ¿Cuándo? (tiempo) y ¿Dónde? (lugar).</string>
     <string name="max3000caracteres">Max. 3,000 Caracteres.</string>
+    <string name="max50caracteres">Max. 50 Caracteres.</string>
 
     <!--Anexo A:Detenciones Administrativo -->
     <string name="subtitulo_apartado_A1">Apartado A.1 Fecha y hora de la detención </string>
@@ -58,7 +60,7 @@ preguntas: ¿Quién? (personas), ¿Qué? (hechos), ¿Cómo? (circunstancias), ¿
     <string name="lblApodoDetenido">Apodo o Alias</string>
     <string name="lblGenero">Género</string>
     <string name="lblNacionalidad">Nacionalidad</string>
-    <string name="lblNacionalidad_especifique">Especifique</string>
+    <string name="lblNacionalidad_especifique">Especifique Ncionalidad</string>
     <string name="lblFechaNacimiento">Fecha de Nacimiento</string>
 
     <string name="lblEntidad">Entidad</string>
@@ -256,10 +258,7 @@ preguntas: ¿Quién? (personas), ¿Qué? (hechos), ¿Cómo? (circunstancias), ¿
     <string-array name="arrayNacionalidad">
         <item>--Selecciona--</item>
         <item>MEXICANO</item>
-        <item>HONDUREÑO</item>
-        <item>AHITIANO</item>
-        <item>ESPAÑOL</item>
-        <item>ITALIANO</item>
+        <item>OTRO</item>
     </string-array>
 
 
@@ -347,9 +346,13 @@ preguntas: ¿Quién? (personas), ¿Qué? (hechos), ¿Cómo? (circunstancias), ¿
     <string name="procedencia">Procedencia</string>
     <string name="uso">Uso</string>
 
-    <!-- VALIDACIONES -->
-    <string name="validacion_notas">ABCDEFGHIJKLMNÑOPQRSTUVWXYZ 0123456789</string>
-    <string name="validacion_nombre">ABCDEFGHIJKLMNÑOPQRSTUVWXYZ</string>
+    <!-- VALIDACIONES CARACTERES -->
+    <string name="validacion_notas">ABCDEFGHIJKLMNÑOPQRSTUVWXYZ ÁÉÍÓÚÜ 0123456789</string>
+    <string name="validacion_nombre">ABCDEFGHIJKLMNÑOPQRSTUVWXYZ ÁÉÍÓÚÜ</string>
+    <string name="validacion_folios">ABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789</string>
     <string name="validacion_numero">0123456789</string>
+    <string name="validacion_latitud">0123456789.</string>
+    <string name="validacion_longitud">0123456789.-</string>
+    <string name="validacion_numexpediente">ABCDEFGHIJKLMNÑOPQRSTUVWXYZ 0123456789-/</string>
 
 </resources>

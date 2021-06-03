@@ -62,7 +62,13 @@
                 android:id="@+id/txtUsuario"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textCapCharacters"
+                android:digits="@string/validacion_notas"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:lines="1"
                 android:imeOptions="actionNext"/>
+
 
             <TextView
                 android:id="@+id/lblUsuario"
@@ -99,18 +105,26 @@
             android:orientation="vertical"
             app:passwordToggleEnabled="true">
 
+            <!--android:imeOptions="actionNext"-->
+
+
+
             <EditText
                 android:id="@+id/txtContrasena"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:imeOptions="actionNext"
-                android:inputType="textPassword"/>
+                android:digits="@string/validacion_notas"
+                android:inputType="textPassword|textCapCharacters"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:lines="1"
+                android:imeOptions="actionDone"/>
 
             <TextView
                 android:id="@+id/lblContrasena"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="CONTRASEÑA" />
+                android:text="CONTRASEÑA"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
