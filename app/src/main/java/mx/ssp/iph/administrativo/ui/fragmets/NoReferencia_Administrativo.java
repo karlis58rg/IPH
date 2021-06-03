@@ -109,7 +109,7 @@ public class NoReferencia_Administrativo extends Fragment {
         ListSexo();
         ListUnidad();
 
-        /*
+/*
         getAutoridadAdmin();
         getCargo();
         getConocimientoInfraccion();
@@ -119,8 +119,8 @@ public class NoReferencia_Administrativo extends Fragment {
         getMunicipios();
         getNacionalidad();
         getSexo();
-        getUnidad();*/
-
+        getUnidad();
+*/
         //***************** Cargar Datos si es que existen  **************************//
         CargarDatos();
 
@@ -160,6 +160,32 @@ public class NoReferencia_Administrativo extends Fragment {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(NoReferencia_Administrativo_ViewModel.class);
         // TODO: Use the ViewModel
+    }
+
+    //private method of your class
+    private int getIndex(Spinner spinner, String myString){
+        for (int i=0;i<spinner.getCount();i++){
+            Toast.makeText(getContext(),""+spinner.getItemAtPosition(i).toString() + " - " + spinner.getItemIdAtPosition(i),Toast.LENGTH_SHORT).show();
+
+
+
+            if (spinner.getItemAtPosition(i).toString().equalsIgnoreCase(myString)){
+                return i;
+            }
+        }
+
+        return 0;
+    }
+
+    //private method of your class
+    private int getIndexbyId(Spinner spinner, int idSpiner){
+        for (int i=0;i<spinner.getCount();i++){
+            if (spinner.getItemIdAtPosition(i) == idSpiner)
+            {
+                return i;
+            }
+        }
+        return 0;
     }
 
     //***************** INSERTA A LA BD MEDIANTE EL WS **************************//
@@ -353,6 +379,7 @@ public class NoReferencia_Administrativo extends Fragment {
 
     //***************** SE RECUPERA EL FOLIO INTERNO **************************//
     private void CargarDatos() {
+
         share = getContext().getSharedPreferences("main", Context.MODE_PRIVATE);
         IDFALTAADMIN= share.getString("IDFALTAADMIN", "");
         GETUSUARIO = share.getString("Usuario", "");
@@ -371,6 +398,7 @@ public class NoReferencia_Administrativo extends Fragment {
             }
         }
 
+        //spInstitucionReferenciaAdministrativo.setSelection(getIndexbyId(spInstitucionReferenciaAdministrativo, 3));
     }
 
     /**************** SPINNER **************************************/
