@@ -326,6 +326,7 @@
                         android:maxLines="1"
                         android:lines="1"
                         android:imeOptions="actionNext"/>
+
                 </LinearLayout>
 
                 <LinearLayout

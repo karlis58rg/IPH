@@ -69,14 +69,13 @@ public class Detenciones extends Fragment  {
     Button btnGuardarPuestaDisposicioAdministrativo;
     private Funciones funciones;
     SharedPreferences share;
-    String cargarNumReferencia;
     private ListView lvDetenidos;
     ArrayList<String> ListaIdDetenido,ListaNombreDetenido;
     ArrayList<JSONObject> ListaDetenidos;
 
 
     String cargarIdFaltaAdmin,cargarUsuario,descripcionLugarTraslado,descripcionMunicipio,descripcionNacionalidad,descripcionSexo,
-            varLesiones = "NO",varPadecimiento = "NO",varGrupoVulnerable = "NO",varNoAlias = "NA";
+            varLesiones = "NO",varPadecimiento = "NO",varGrupoVulnerable = "NO";
 
     String [] NacionalidadItems = {"Mexicano","Otra"};
 
@@ -153,7 +152,6 @@ public class Detenciones extends Fragment  {
         txtCualPadecimiento.setEnabled(false);
         txtCualGrupoVulnerable.setEnabled(false);
         txtEntidadDetenido.setEnabled(false);
-
 
         cargarFolios();
         //***************** Cargar Datos si es que existen  **************************//
@@ -640,7 +638,6 @@ public class Detenciones extends Fragment  {
         share = getContext().getSharedPreferences("main", Context.MODE_PRIVATE);
         cargarIdFaltaAdmin = share.getString("IDFALTAADMIN", "");
         cargarUsuario = share.getString("Usuario", "");
-        cargarNumReferencia = share.getString("NOREFERENCIA", "");
     }
 
 }
