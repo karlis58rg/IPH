@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class DataHelper extends SQLiteOpenHelper {
     public static final String DataBase_Name = "IPH";
-    public static final int Database_Version = 8 ;
+    public static final int Database_Version = 9 ;
 
     public static final String Table_CatAutoridadAdmin = "CatAutoridadAdmin";
     public static final String Create_CatAutoridadAdmin = "CREATE TABLE IF NOT EXISTS " + Table_CatAutoridadAdmin +"(IdAutoridadAdmin INTEGER PRIMARY KEY, AutoridadAdmin TEXT NOT NULL UNIQUE)";

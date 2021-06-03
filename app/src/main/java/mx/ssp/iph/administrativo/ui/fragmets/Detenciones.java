@@ -72,6 +72,8 @@ public class Detenciones extends Fragment  {
     String cargarNumReferencia;
     private ListView lvDetenidos;
     ArrayList<String> ListaIdDetenido,ListaNombreDetenido;
+    ArrayList<JSONObject> ListaDetenidos;
+
 
     String cargarIdFaltaAdmin,cargarUsuario,descripcionLugarTraslado,descripcionMunicipio,descripcionNacionalidad,descripcionSexo,
             varLesiones = "NO",varPadecimiento = "NO",varGrupoVulnerable = "NO",varNoAlias = "NA";
@@ -387,6 +389,7 @@ public class Detenciones extends Fragment  {
                                         try {
                                             JSONObject jsonjObject = new JSONObject(ArrayIPHAdministrativo[contadordeDetenido] + "}");
 
+                                            //ListaDetenidos.add(jsonjObject);
                                             ListaIdDetenido.add(jsonjObject.getString("NumDetencion"));
                                             ListaNombreDetenido.add(((jsonjObject.getString("APDetenido")).equals("null")?"":jsonjObject.getString("APDetenido")) +
                                                     " "+((jsonjObject.getString("AMDetenido")).equals("null")?"":jsonjObject.getString("AMDetenido")) +

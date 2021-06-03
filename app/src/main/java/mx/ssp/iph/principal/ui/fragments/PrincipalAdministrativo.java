@@ -63,6 +63,7 @@ public class PrincipalAdministrativo extends Fragment {
     private String Usuario = "";
     private String codigoVerifi,randomCodigoVerifi;
     int numberRandom;
+    int actualzarinformacion = 0;
 
 
     public static PrincipalAdministrativo newInstance() {
@@ -78,10 +79,16 @@ public class PrincipalAdministrativo extends Fragment {
         funciones = new Funciones();
         cargarUsuario();
 
-        //Comprobamos acceso a intenet y ejecutamos la consulta al webservice
-        if (funciones.ping(getContext())){
-            SelectIPHAdministrativo();
+        //Actualiza solo al inicio o cuando se requiere recargar el fragmento
+        if (actualzarinformacion == 0)
+        {
+            //Comprobamos acceso a intenet y ejecutamos la consulta al webservice
+            if (funciones.ping(getContext())){
+                SelectIPHAdministrativo();
+            }
+
         }
+
 
         //Evento al pulsar sobre un elemento de la lista
         lvPrincipalFolioInternoAdministrativo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -181,6 +188,9 @@ public class PrincipalAdministrativo extends Fragment {
                                 //AGREGA LOS DATOS AL LISTVIEW MEDIANTE EL ADAPTADOR
                                 MyAdapter adapter = new MyAdapter(getContext(), ListaIdFaltaAdmin, ListaNumReferencia,ListaColorEstatus);
                                 lvPrincipalFolioInternoAdministrativo.setAdapter(adapter);
+                                actualzarinformacion++;
+                                Log.i("SelectIPHAdministrativo", "Actualiza Información");
+
                                 //*************************
                             }
                         });
