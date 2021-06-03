@@ -23,11 +23,13 @@ import mx.ssp.iph.principal.ui.fragments.PrincipalAdministrativo;
 import mx.ssp.iph.principal.ui.fragments.PrincipalBuscar;
 import mx.ssp.iph.principal.ui.fragments.PrincipalDelictivo;
 import mx.ssp.iph.principal.ui.fragments.PrincipalEmergencias;
+import mx.ssp.iph.principal.ui.fragments.ViewModelSumarActivity;
 
 public class Principal extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private DrawerLayout drawer;
+    private Fragment PrincipalDelictivo,PrincipalAdministrativo,PrincipalEmergencias,PrincipalBuscar;
 
     //Menu inferior
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener;
@@ -38,16 +40,16 @@ public class Principal extends AppCompatActivity {
 
                 switch (item.getItemId()) {
                     case R.id.navigation_delictivo:
-                        addFragment(new PrincipalDelictivo());
+                        addFragment(PrincipalAdministrativo);
                         return true;
                     case R.id.navigation_administrativo:
-                        addFragment(new PrincipalAdministrativo());
+                        addFragment(PrincipalAdministrativo);
                         return true;
                     case R.id.navigation_emergencias:
-                        addFragment(new PrincipalEmergencias());
+                        addFragment(PrincipalEmergencias);
                         return true;
                     case R.id.navigation_buscar:
-                        addFragment(new PrincipalBuscar());
+                        addFragment(PrincipalBuscar);
                         return true;
                 }
                 return false;
@@ -73,6 +75,13 @@ public class Principal extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("titulo toolbar");
+
+        PrincipalDelictivo = new PrincipalDelictivo();
+        PrincipalAdministrativo= new PrincipalAdministrativo();
+        PrincipalEmergencias = new PrincipalEmergencias();
+        PrincipalBuscar = new PrincipalBuscar();
+
+
 
 
         //Bottom Navigation

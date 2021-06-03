@@ -179,6 +179,10 @@ public class NoReferencia_Administrativo extends Fragment {
         return 0;
     }
 
+    private void ConsultavalorSpinerconId(){
+
+    }
+
     //private method of your class
     private int getIndexbyId(Spinner spinner, int idSpiner){
         for (int i=0;i<spinner.getCount();i++){
