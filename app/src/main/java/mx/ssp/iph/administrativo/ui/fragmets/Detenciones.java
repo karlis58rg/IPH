@@ -75,7 +75,7 @@ public class Detenciones extends Fragment  {
 
 
     String cargarIdFaltaAdmin,cargarUsuario,descripcionLugarTraslado,descripcionMunicipio,descripcionNacionalidad,descripcionSexo,
-            varLesiones = "NO",varPadecimiento = "NO",varGrupoVulnerable = "NO";
+            varLesiones = "NO",varPadecimiento = "NO",varGrupoVulnerable = "NO",varNoAlias;
 
     String [] NacionalidadItems = {"Mexicano","Otra"};
 
@@ -102,22 +102,22 @@ public class Detenciones extends Fragment  {
         txtFechaNacimientoDetenido = (EditText) view.findViewById(R.id.txtFechaNacimientoDetenido);
 
         txtPrimerApellidoDetenido = view.findViewById(R.id.txtPrimerApellidoDetenido);
-        txtPrimerApellidoDetenido.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
+        txtPrimerApellidoDetenido.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
 
 
         txtSegundoApellidoDetenido = view.findViewById(R.id.txtSegundoApellidoDetenido);
-        txtSegundoApellidoDetenido.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
+        txtSegundoApellidoDetenido.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
 
         txtNombresDetenido = view.findViewById(R.id.txtNombresDetenido);
-        txtNombresDetenido.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
+        txtNombresDetenido.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
 
         txtApodoDetenido = view.findViewById(R.id.txtApodoDetenido);
-        txtApodoDetenido.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
+        txtApodoDetenido.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
 
         txtEntidadDetenido = view.findViewById(R.id.txtEntidadDetenido);
 
         txtColoniaDetenido = view.findViewById(R.id.txtColoniaDetenido);
-        txtColoniaDetenido.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
+        txtColoniaDetenido.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(250)});
 
         txtCalleDetenido = view.findViewById(R.id.txtCalleDetenido);
         txtCalleDetenido.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
@@ -224,11 +224,15 @@ public class Detenciones extends Fragment  {
         btnGuardarPuestaDisposicioAdministrativo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (validarEditText(txtApodoDetenido)){
+                Toast.makeText(getContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS ", Toast.LENGTH_LONG).show();
+                insertDetenciones();
+                /*if (validarEditText(txtApodoDetenido)){
                     Toast.makeText(getActivity().getApplicationContext(),"DATOS INSERTADOS",Toast.LENGTH_SHORT).show();
                     //Toast.makeText(getContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS ", Toast.LENGTH_LONG).show();
-                    //insertDetenciones();
+                    insertDetenciones();
                 }
+
+                 */
             }
         });
 

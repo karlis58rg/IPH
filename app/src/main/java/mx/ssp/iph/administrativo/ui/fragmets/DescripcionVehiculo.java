@@ -83,23 +83,29 @@ public class DescripcionVehiculo extends Fragment {
         View root = inflater.inflate(R.layout.descripcion_vehiculo_fragment, container, false);
         funciones = new Funciones();
         txtObservacionesdelVehiculo = (TextView)root.findViewById(R.id.txtObservacionesdelVehiculo);
-        txtObservacionesdelVehiculo.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
+        txtObservacionesdelVehiculo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         imgMicrofonoObservacionesdelVehiculo = (ImageView) root.findViewById(R.id.imgMicrofonoObservacionesdelVehiculo);
         txthoraRetencion = (EditText)root.findViewById(R.id.txthoraRetencion);
         txtFechaRetencion = (EditText)root.findViewById(R.id.txtFechaRetencion);
         lvVehiculos = (ListView) root.findViewById(R.id.lvVehiculos);
 
         txtOtroVehiculo = root.findViewById(R.id.txtOtroVehiculo);
+        txtOtroVehiculo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(150)});
         txtModeloVehiculo = root.findViewById(R.id.txtModeloVehiculo);
+        txtModeloVehiculo.setFilters(new InputFilter[]{new InputFilter.LengthFilter(4)});
         txtColorVehiculo = root.findViewById(R.id.txtColorVehiculo);
+        txtColorVehiculo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(150)});
         txtPlacaVehiculo = root.findViewById(R.id.txtPlacaVehiculo);
+        txtPlacaVehiculo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(10)});
         txtSerieVehiculo = root.findViewById(R.id.txtSerieVehiculo);
+        txtSerieVehiculo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         rgTipoVehiculoAdministrativo = root.findViewById(R.id.rgTipoVehiculoAdministrativo);
         rgProcedenciaVehiculoAdministrativo = root.findViewById(R.id.rgProcedenciaVehiculoAdministrativo);
         rgUsoVehiculoAdministrativo = root.findViewById(R.id.rgUsoVehiculoAdministrativo);
         spMarcaVehiculo = root.findViewById(R.id.spMarcaVehiculo);
         spSubmarcaVehiculo = root.findViewById(R.id.spSubmarcaVehiculo);
         txtDestinoVehiculo = root.findViewById(R.id.txtDestinoVehiculo);
+        txtDestinoVehiculo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         btnGuardarVehiculo = root.findViewById(R.id.btnGuardarVehiculo);
 
         cargarFolios();

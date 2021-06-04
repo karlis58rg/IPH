@@ -37,7 +37,12 @@
             android:text="Guardar"
             tools:layout_editor_absoluteX="197dp"
             tools:layout_editor_absoluteY="657dp"
-            android:layout_marginRight="10dp"/>
+            android:layout_marginRight="10dp"
+            android:textColor="@color/white"
+            android:drawableLeft="@drawable/ic_save_white"
+            android:background="@color/backgroud_header_toolbar"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"/>
         <Button
             android:id="@+id/btnCancelar"
             android:layout_width="wrap_content"
@@ -45,7 +50,12 @@
             android:text="Cancelar"
             tools:layout_editor_absoluteX="51dp"
             tools:layout_editor_absoluteY="660dp"
-            android:layout_marginRight="10dp"/>
+            android:layout_marginRight="10dp"
+            android:textColor="@color/white"
+            android:drawableLeft="@drawable/ic_cancelar"
+            android:background="@color/backgroud_header_toolbar"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"/>
         <Button
             android:id="@+id/btnLimpiar"
             android:layout_width="wrap_content"
@@ -53,6 +63,9 @@
             android:text="Limpiar"
             tools:layout_editor_absoluteX="197dp"
             tools:layout_editor_absoluteY="657dp"
+            android:textColor="@color/white"
+            android:drawableLeft="@drawable/ic_limpiar"
+            android:background="@color/backgroud_header_toolbar"
             />
 
     </LinearLayout>

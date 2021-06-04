@@ -128,7 +128,6 @@ public class NarrativaHechos extends Fragment {
         OkHttpClient client = new OkHttpClient();
         RequestBody body = new FormBody.Builder()
                 .add("IdFaltaAdmin", cargarIdFaltaAdmin)
-                .add("NumReferencia", cargarNumReferencia)
                 .add("Narrativa", narrativaAdministrativo.getNarrativa())
                 .build();
         Request request = new Request.Builder()
@@ -140,7 +139,8 @@ public class NarrativaHechos extends Fragment {
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
                 Looper.prepare(); // to be able to make toast
-                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), ""+ e.toString(), Toast.LENGTH_LONG).show();
+                Log.i("log",e.toString());
                 Looper.loop();
             }
 
@@ -155,9 +155,9 @@ public class NarrativaHechos extends Fragment {
                             if(resp.equals("true")){
                                 System.out.println("EL DATO SE ENVIO CORRECTAMENTE");
                                 Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
-                                txtNarrativaHechos.setText("");
+                                //txtNarrativaHechos.setText("");
                             }else{
-                                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO", Toast.LENGTH_SHORT).show();
                             }
                             Log.i("HERE", resp);
                         }

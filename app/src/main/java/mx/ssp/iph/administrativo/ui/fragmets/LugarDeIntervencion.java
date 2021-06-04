@@ -90,6 +90,7 @@ public class LugarDeIntervencion extends Fragment {
                 if (permisoubicacion != PackageManager.PERMISSION_GRANTED) {
                     if (Build.VERSION.SDK_INT >= 23) {
                         requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE_ASK_PERMISSION);
+                        Toast.makeText(getContext(),"POR FAVOR ACTIVA LOS PERMISOS DE UBICACIÓN",Toast.LENGTH_SHORT).show();
                     }
                 }
                 else
@@ -138,6 +139,13 @@ public class LugarDeIntervencion extends Fragment {
         RequestBody body = new FormBody.Builder()
                 .add("IdFaltaAdmin",cargarIdFaltaAdmin)
                 .add("CalleTramo", modeloIntervencion.getCalleTramo())
+
+                .add("IdLugar", "1")
+                .add("IdEntidadFederativa", "1")
+                .add("IdMunicipio", "1")
+
+
+
                 .add("NoExterior", modeloIntervencion.getNoExterior())
                 .add("NoInterior", modeloIntervencion.getNoInterior())
                 .add("Cp", modeloIntervencion.getCp())
@@ -147,7 +155,7 @@ public class LugarDeIntervencion extends Fragment {
                 .build();
         Request request = new Request.Builder()
                 .url("http://189.254.7.167/WebServiceIPH/api/LugarIntervencionAdministrativa/")
-                .post(body)
+                .put(body)
                 .build();
         client.newCall(request).enqueue(new Callback() {
             @Override
@@ -169,6 +177,7 @@ public class LugarDeIntervencion extends Fragment {
                             if(resp.equals("true")){
                                 System.out.println("EL DATO SE ENVIO CORRECTAMENTE");
                                 Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+                                /*
                                 txtCalleUbicacionGeograficaAdministrativo.setText("");
                                 txtNumeroExteriorUbicacionGeograficaAdministrativo.setText("");
                                 txtNumeroInteriorUbicacionGeograficaAdministrativo.setText("");
@@ -176,8 +185,9 @@ public class LugarDeIntervencion extends Fragment {
                                 txtReferenciasdelLugarUbicacionGeograficaAdministrativo.setText("");
                                 txtLatitudUbicacionGeograficaAdministrativo.setText("");
                                 txtLongitudUbicacionGeograficaAdministrativo.setText("");
+                                 */
                             }else{
-                                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO", Toast.LENGTH_SHORT).show();
                             }
                             Log.i("HERE", resp);
                         }

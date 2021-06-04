@@ -115,7 +115,7 @@ public class Principal extends AppCompatActivity {
         ListSexo();
         ListUnidad();
         ListMarca();
-        ListSubMarca();
+        //ListSubMarca();
 
         /**********************************************************/
 

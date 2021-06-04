@@ -64,7 +64,7 @@ public class PrincipalAdministrativo extends Fragment {
     SharedPreferences share;
     SharedPreferences.Editor editor;
     private String Usuario = "";
-    private String codigoVerifi,randomCodigoVerifi;
+    private String codigoVerifi,randomCodigoVerifi,randomReferencia;
     int numberRandom;
     int actualzarinformacion = 0;
 
@@ -108,13 +108,19 @@ public class PrincipalAdministrativo extends Fragment {
         fabNuevoIPHDelictivo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    GenerarNumerodeReferencia();
+                //Abre Dialog de por favor espere
+                funciones.mensajeAlertDialog("GENERANDO NO. DE FOLIO...","Aceptar","Procesando",getContext());
+
+                //Genera número de folio aleatorio
+                 GenerarNumerodeReferencia();
+
                 //Enviamos el número de Refrerencia generado
-                    guardarFolioInterno(randomCodigoVerifi);
+                //guardarFolioInterno(randomCodigoVerifi);
 
 
+                 //Consume el webservice
+                 GeneraIPHAdministrativo();
 
-                //=========Prueba
             }
         });
         return view;
@@ -270,11 +276,70 @@ public class PrincipalAdministrativo extends Fragment {
         numberRandom = random.nextInt(9000)*99;
         codigoVerifi = String.valueOf(numberRandom);
         randomCodigoVerifi = Integer.toString(año) + codigoVerifi;
+
+        randomReferencia = Integer.toString(año);
     }
 
     //***************** Obtiene el Usuario de las preferencias **************************//
     public void cargarUsuario(){
         share = getContext().getSharedPreferences("main", Context.MODE_PRIVATE);
          Usuario = share.getString("Usuario", "");
+    }
+
+    //***************** AGREGA UN NUEVO IPH A LA BASE MEDIANTE EL WEB SERVICE **************************//
+    private void GeneraIPHAdministrativo() {
+
+        OkHttpClient client = new OkHttpClient();
+        RequestBody body = new FormBody.Builder()
+                .add("IdFaltaAdmin",randomCodigoVerifi)
+                .add("NumReferencia",randomReferencia)
+                .add("Usuario",Usuario)
+                .build();
+
+        Request request = new Request.Builder()
+                .url("http://189.254.7.167/WebServiceIPH/api/IPH")
+                .post(body)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Looper.prepare(); // to be able to make toast
+                Toast.makeText(getContext(), "ERROR AL GENERAR NÚMERO DE FOLIO INTERNO, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    final String myResponse = response.body().string();
+
+                    try {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                String resp = myResponse;
+
+                                //***************** RESPUESTA DEL WEBSERVICE **************************//
+
+                                if(resp.equals("true")) {
+                                    //Enviamos el número de Refrerencia generado
+                                    guardarFolioInterno(randomCodigoVerifi);
+                                }
+                                else
+                                {
+                                    Toast.makeText(getContext(), "NO FUE POSIBLE GENERAR EL NÚMERO DE FOLIO, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_SHORT).show();
+                                }
+                                //*************************
+                            }
+                        });
+                    }
+                    catch (Exception e){
+                        Toast.makeText(getContext(), "ERROR, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            }
+        });
     }
 }

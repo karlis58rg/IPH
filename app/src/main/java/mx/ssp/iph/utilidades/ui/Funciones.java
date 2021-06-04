@@ -5,17 +5,22 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 
 import java.io.IOException;
 import java.util.Calendar;
+
+import mx.ssp.iph.R;
 
 public class Funciones {
 
@@ -83,6 +88,43 @@ public class Funciones {
         }
         return false;
     }
+
+    //Método que abre un alert dialog perzonalizado
+    public void mensajeAlertDialog(String Mensaje, String TextoBoton, String TipoMensaje, Context context){
+        ImageView image = new ImageView(context);
+
+        if (TipoMensaje == "Error"){
+            image.setImageResource(R.drawable.ic_information);
+        }
+        if (TipoMensaje == "Alerta"){
+            image.setImageResource(R.drawable.ic_information);
+        }
+        if (TipoMensaje == "Correcto"){
+            image.setImageResource(R.drawable.ic_information);
+        }
+        if (TipoMensaje == "Informacion"){
+            image.setImageResource(R.drawable.ic_information);
+        }
+        if (TipoMensaje == "Conexion"){
+            image.setImageResource(R.drawable.ic_information);
+        }
+        if (TipoMensaje == "Procesando"){
+            image.setImageResource(R.drawable.ic_information);
+        }
+
+        AlertDialog.Builder builder =
+                new AlertDialog.Builder(context).
+                        setMessage(Mensaje).
+                        setPositiveButton( TextoBoton, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+        builder.create().show();
+    }
+
+
 
 
 

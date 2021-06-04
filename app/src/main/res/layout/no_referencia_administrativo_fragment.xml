@@ -88,9 +88,9 @@
                 android:imeOptions="actionNext"
                 android:inputType="textCapCharacters"
                 android:lines="1"
-                android:maxLength="21"
                 android:maxLines="1"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:maxLength="21"/>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/secundarioLinear"

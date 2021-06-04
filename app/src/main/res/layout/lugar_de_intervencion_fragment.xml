@@ -344,7 +344,10 @@
                         android:id="@+id/btnGuardarPuestaDisposicioAdministrativo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/guardar_datos" />
+                        android:text="@string/guardar_datos"
+                        android:textColor="@color/white"
+                        android:drawableLeft="@drawable/ic_save_white"
+                        android:background="@color/backgroud_header_toolbar"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="0dp"

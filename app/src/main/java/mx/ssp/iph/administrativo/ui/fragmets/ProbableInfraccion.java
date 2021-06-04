@@ -65,6 +65,7 @@ public class ProbableInfraccion extends Fragment {
         cargarFolios();
         spHechoProbableInfraccionAdministrativo = root.findViewById(R.id.spHechoProbableInfraccionAdministrativo);
         txtOtroProbableInfraccionAdministrativo = root.findViewById(R.id.txtOtroProbableInfraccionAdministrativo);
+
         txt911FolioProbableInfraccionAdministrativo = root.findViewById(R.id.txt911FolioProbableInfraccionAdministrativo);
         btnGuardarProbableInfraccionAdministrativo = root.findViewById(R.id.btnGuardarProbableInfraccionAdministrativo);
         ListConocimientoInfraccion();
@@ -142,8 +143,9 @@ public class ProbableInfraccion extends Fragment {
                             if(resp.equals("true")){
                                 System.out.println("EL DATO SE ENVIO CORRECTAMENTE");
                                 Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+                                /*
                                 txtOtroProbableInfraccionAdministrativo.setText("");
-                                txt911FolioProbableInfraccionAdministrativo.setText("");
+                                txt911FolioProbableInfraccionAdministrativo.setText("");*/
                             }else{
                                 Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_SHORT).show();
                             }

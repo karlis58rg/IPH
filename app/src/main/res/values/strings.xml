@@ -49,7 +49,7 @@
 caso, explique las circunstancias de modo, tiempo y lugar que motivaron cada uno de los niveles de contacto y la detención. Tome como base las siguientes
 preguntas: ¿Quién? (personas), ¿Qué? (hechos), ¿Cómo? (circunstancias), ¿Cuándo? (tiempo) y ¿Dónde? (lugar).</string>
     <string name="max3000caracteres">Max. 3,000 Caracteres.</string>
-
+    <string name="max50caracteres">Max. 50 Caracteres.</string>
     <!--Anexo A:Detenciones Administrativo -->
     <string name="subtitulo_apartado_A1">Apartado A.1 Fecha y hora de la detención </string>
     <string name="fecha_de_la_detencion">Fecha de la Detención</string>
@@ -354,5 +354,6 @@ preguntas: ¿Quién? (personas), ¿Qué? (hechos), ¿Cómo? (circunstancias), ¿
     <string name="validacion_latitud">0123456789.</string>
     <string name="validacion_longitud">0123456789.-</string>
     <string name="validacion_numexpediente">ABCDEFGHIJKLMNÑOPQRSTUVWXYZ 0123456789-/</string>
+    <string name="validacion_usuariocontrasena">ABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789</string>
 
 </resources>

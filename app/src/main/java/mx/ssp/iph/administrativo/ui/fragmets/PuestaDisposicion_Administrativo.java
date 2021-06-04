@@ -291,7 +291,6 @@ public class PuestaDisposicion_Administrativo extends Fragment {
         RequestBody body = new FormBody.Builder()
                 .add("IdFaltaAdmin", puestaDisposicion.getIdFaltaAdmin())
                 .add("NumReferencia", puestaDisposicion.getNumReferencia())
-                .add("NumFolio", puestaDisposicion.getNumFolio())
                 .add("Fecha", puestaDisposicion.getFecha())
                 .add("Hora", puestaDisposicion.getHora())
                 .add("NumExpediente", puestaDisposicion.getNumExpediente())
@@ -305,7 +304,7 @@ public class PuestaDisposicion_Administrativo extends Fragment {
                 .build();
         Request request = new Request.Builder()
                 .url("http://189.254.7.167/WebServiceIPH/api/FaltaAdministrativa/")
-                .post(body)
+                .put(body)
                 .build();
         client.newCall(request).enqueue(new Callback() {
             @Override
@@ -327,6 +326,7 @@ public class PuestaDisposicion_Administrativo extends Fragment {
                             if(resp.equals("true")){
                                 System.out.println("EL DATO SE ENVIO CORRECTAMENTE");
                                 Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+                                /*
                                 txtFechaPuestaDisposicionAdministrativo.setText("");
                                 txthoraPuestaDisposicionAdministrativo.setText("");
                                 txtNoExpedienteAdmministrativo.setText("");
@@ -335,6 +335,7 @@ public class PuestaDisposicion_Administrativo extends Fragment {
                                 txtNombresAdministrativo.setText("");
                                 txtFiscaliaAutoridadAdministrativo.setText("");
                                 txtAdscripcionAdministrativo.setText("");
+                                */
 
                             }else{
                                 Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_SHORT).show();
@@ -483,8 +484,8 @@ public class PuestaDisposicion_Administrativo extends Fragment {
         share = getContext().getSharedPreferences("main", Context.MODE_PRIVATE);
         cargarIdFaltaAdmin = share.getString("IDFALTAADMIN", "");
         cargarNumReferencia = share.getString("NOREFERENCIA", "");
-        cargarNumFolio = share.getString("NUMFOLIO", "");
-        System.out.println(cargarIdFaltaAdmin+cargarNumReferencia+cargarNumFolio);
+        cargarUsuario = share.getString("Usuario", "");
+
     }
 
     /*****************************************************************************/

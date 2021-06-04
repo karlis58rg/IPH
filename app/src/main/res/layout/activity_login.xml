@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/ic_login">
+    android:layout_height="match_parent">
+    <!-- android:background="@drawable/ic_login" -->
 
     <!--LOGO-->
     <LinearLayout
@@ -63,7 +63,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textCapCharacters"
-                android:digits="@string/validacion_notas"
+                android:maxLength="20"
+                android:digits="@string/validacion_usuariocontrasena"
                 android:singleLine="true"
                 android:maxLines="1"
                 android:lines="1"
@@ -113,7 +114,8 @@
                 android:id="@+id/txtContrasena"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:digits="@string/validacion_notas"
+                android:maxLength="20"
+                android:digits="@string/validacion_usuariocontrasena"
                 android:inputType="textPassword|textCapCharacters"
                 android:singleLine="true"
                 android:maxLines="1"

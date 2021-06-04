@@ -23,7 +23,10 @@
         android:text="SELECCIONAR UBICACIÓN"
         app:layout_constraintBottom_toBottomOf="@+id/fragment"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/white"
+        android:drawableLeft="@drawable/ic_gps"
+        android:background="@color/backgroud_header_toolbar"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
