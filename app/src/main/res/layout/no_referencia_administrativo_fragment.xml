@@ -84,13 +84,14 @@
                 android:id="@+id/txtNoReferenciaAdministrativo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:maxLength="21"
                 android:digits="@string/validacion_folios"
                 android:imeOptions="actionNext"
                 android:inputType="textCapCharacters"
                 android:lines="1"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:maxLength="21"/>
+                />
         </LinearLayout>
         <LinearLayout
             android:id="@+id/secundarioLinear"

@@ -72,7 +72,7 @@ public class NarrativaHechos extends Fragment {
         cargarFolios();
         imgMicrofonoNarrativaHechos = root.findViewById(R.id.imgMicrofonoNarrativaHechos);
         txtNarrativaHechos = root.findViewById(R.id.txtNarrativaHechos);
-        txtNarrativaHechos.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
+        txtNarrativaHechos.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(8000)});
         btnGuardarNarrativaHechos = root.findViewById(R.id.btnGuardarNarrativaHechos);
         funciones = new Funciones();
 

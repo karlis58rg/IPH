@@ -84,18 +84,19 @@ public class PuestaDisposicion_Administrativo extends Fragment {
         txtFechaPuestaDisposicionAdministrativo = root.findViewById(R.id.txtFechaPuestaDisposicionAdministrativo);
         txthoraPuestaDisposicionAdministrativo = root.findViewById(R.id.txthoraPuestaDisposicionAdministrativo);
         txtNoExpedienteAdmministrativo = root.findViewById(R.id.txtNoExpedienteAdmministrativo);
-        txtNoExpedienteAdmministrativo.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
+        txtNoExpedienteAdmministrativo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(25)});
+
         txtPrimerApellidoAdministrativo = root.findViewById(R.id.txtPrimerApellidoAdministrativo);
-        txtPrimerApellidoAdministrativo.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
+        txtPrimerApellidoAdministrativo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         txtSegundoApellidoAdministrativo = root.findViewById(R.id.txtSegundoApellidoAdministrativo);
-        txtSegundoApellidoAdministrativo.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
+        txtSegundoApellidoAdministrativo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         txtNombresAdministrativo = root.findViewById(R.id.txtNombresAdministrativo);
-        txtNombresAdministrativo.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
+        txtNombresAdministrativo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         txtUnidadDeArriboAdministrativo = root.findViewById(R.id.txtUnidadDeArriboAdministrativo);
         txtFiscaliaAutoridadAdministrativo = root.findViewById(R.id.txtFiscaliaAutoridadAdministrativo);
-        txtFiscaliaAutoridadAdministrativo.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
+        txtFiscaliaAutoridadAdministrativo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         txtAdscripcionAdministrativo = root.findViewById(R.id.txtAdscripcionAdministrativo);
-        txtAdscripcionAdministrativo.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
+        txtAdscripcionAdministrativo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         txtCargoAdministrativo = root.findViewById(R.id.txtCargoAdministrativo);
         spDetencionesAnexoAAdministrativo = root.findViewById(R.id.spDetencionesAnexoAAdministrativo);
         spDetencionesAnexoBAdministrativo = root.findViewById(R.id.spDetencionesAnexoBAdministrativo);

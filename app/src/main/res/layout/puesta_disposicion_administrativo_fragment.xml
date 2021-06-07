@@ -103,6 +103,7 @@
                 android:id="@+id/txtNoExpedienteAdmministrativo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:maxLength="25"
                 android:inputType="textCapCharacters"
                 android:digits="@string/validacion_numexpediente"
                 android:singleLine="true"

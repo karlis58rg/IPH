@@ -64,6 +64,7 @@
                         android:id="@+id/txtNarrativaHechos"
                         android:layout_width="match_parent"
                         android:layout_height="300dp"
+                        android:maxLength="8000"
                         android:gravity="top"
                         android:inputType="text|textMultiLine|textCapCharacters"
                         android:digits="@string/validacion_notas"
@@ -87,12 +88,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/txtNarrativaHechos"
-                        android:text="@string/max3000caracteres"
+                        android:text="@string/max8000caracteres"
                         android:textStyle="italic" />
-
                 </RelativeLayout>
             </LinearLayout>
-
 
             <LinearLayout
                 android:id="@+id/cuartoLinear"

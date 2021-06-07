@@ -95,7 +95,8 @@ public class Detenciones extends Fragment  {
         lvDetenidos = (ListView) view.findViewById(R.id.lvDetenidos);
 
         txtDescripciondelDetenido = (TextView)view.findViewById(R.id.txtDescripciondelDetenido);
-        txtDescripciondelDetenido.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
+        txtDescripciondelDetenido.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(8000)});
+
         img_microfonoDescripcionDetenido = (ImageView) view.findViewById(R.id.img_microfonoDescripcionDetenido);
         txtFechaDetenido = (EditText)view.findViewById(R.id.txtFechaDetenido);
         txthoraDetencion = (EditText)view.findViewById(R.id.txthoraDetencion);
@@ -120,19 +121,20 @@ public class Detenciones extends Fragment  {
         txtColoniaDetenido.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(250)});
 
         txtCalleDetenido = view.findViewById(R.id.txtCalleDetenido);
-        txtCalleDetenido.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
+        txtCalleDetenido.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(250)});
 
         txtNumeroExteriorDetenido = view.findViewById(R.id.txtNumeroExteriorDetenido);
-        txtNumeroExteriorDetenido.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
+        txtNumeroExteriorDetenido.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         txtNumeroInteriorDetenido = view.findViewById(R.id.txtNumeroInteriorDetenido);
-        txtNumeroInteriorDetenido.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
+        txtNumeroInteriorDetenido.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         txtCodigoPostalDetenido = view.findViewById(R.id.txtCodigoPostalDetenido);
+        txtCodigoPostalDetenido.setFilters(new InputFilter[]{new InputFilter.LengthFilter(5)});
         txtReferenciasdelLugarDetenido = view.findViewById(R.id.txtReferenciasdelLugarDetenido);
-        txtReferenciasdelLugarDetenido.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
+        txtReferenciasdelLugarDetenido.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(8000)});
         txtCualGrupoVulnerable = view.findViewById(R.id.txtCualGrupoVulnerable);
-        txtCualGrupoVulnerable.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
+        txtCualGrupoVulnerable.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(250)});
         txtCualPadecimiento = view.findViewById(R.id.txtCualPadecimiento);
-        txtCualPadecimiento.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
+        txtCualPadecimiento.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(250)});
         chNoAplicaAliasDetenido = view.findViewById(R.id.chNoAplicaAliasDetenido);
         spGeneroDetenido = view.findViewById(R.id.spGeneroDetenido);
         txtNacionalidadDetenido = view.findViewById(R.id.txtNacionalidadDetenido);

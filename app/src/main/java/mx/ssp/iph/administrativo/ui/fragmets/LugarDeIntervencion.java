@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.os.Looper;
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -68,13 +69,22 @@ public class LugarDeIntervencion extends Fragment {
 
         //************************************** ACCIONES DE LA VISTA **************************************//
         cargarFolios();
+
         txtCalleUbicacionGeograficaAdministrativo = root.findViewById(R.id.txtCalleUbicacionGeograficaAdministrativo);
+        txtCalleUbicacionGeograficaAdministrativo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(500)});
         txtNumeroExteriorUbicacionGeograficaAdministrativo = root.findViewById(R.id.txtNumeroExteriorUbicacionGeograficaAdministrativo);
+        txtNumeroExteriorUbicacionGeograficaAdministrativo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         txtNumeroInteriorUbicacionGeograficaAdministrativo = root.findViewById(R.id.txtNumeroInteriorUbicacionGeograficaAdministrativo);
+        txtNumeroInteriorUbicacionGeograficaAdministrativo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         txtCodigoPostalUbicacionGeograficaAdministrativo = root.findViewById(R.id.txtCodigoPostalUbicacionGeograficaAdministrativo);
+        txtCodigoPostalUbicacionGeograficaAdministrativo.setFilters(new InputFilter[]{new InputFilter.LengthFilter(5)});
+
         txtReferenciasdelLugarUbicacionGeograficaAdministrativo = root.findViewById(R.id.txtReferenciasdelLugarUbicacionGeograficaAdministrativo);
+        txtReferenciasdelLugarUbicacionGeograficaAdministrativo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(500)});
         txtLatitudUbicacionGeograficaAdministrativo = root.findViewById(R.id.txtLatitudUbicacionGeograficaAdministrativo);
+        txtLatitudUbicacionGeograficaAdministrativo.setFilters(new InputFilter[]{new InputFilter.LengthFilter(20)});
         txtLongitudUbicacionGeograficaAdministrativo = root.findViewById(R.id.txtLongitudUbicacionGeograficaAdministrativo);
+        txtLongitudUbicacionGeograficaAdministrativo.setFilters(new InputFilter[]{new InputFilter.LengthFilter(20)});
         imgMap = (ImageView)root.findViewById(R.id.imgMap);
 
 

@@ -153,7 +153,7 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:weightSum="1"
-                    android:layout_weight="0.09"
+                    android:layout_weight="0.08"
                     android:gravity="center_vertical">
                     <TextView
                         android:id="@+id/lblTipoVehiculo"
@@ -180,18 +180,18 @@
                             android:layout_height="match_parent"
                             android:layout_marginTop="0dp"
                             android:text="@string/terrestre"
-                            android:textSize="10dp"
-                            android:scaleX="0.70"
-                            android:scaleY="0.70"/>
+                            android:textSize="15dp"
+                            android:scaleX="0.60"
+                            android:scaleY="0.60"/>
                         <RadioButton
                             android:id="@+id/rbOtro"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginTop="0dp"
                             android:text="@string/otro"
-                            android:textSize="10dp"
-                            android:scaleX="0.70"
-                            android:scaleY="0.70"/>
+                            android:textSize="15dp"
+                            android:scaleX="0.60"
+                            android:scaleY="0.60"/>
                     </RadioGroup>
                 </LinearLayout>
 
@@ -201,19 +201,20 @@
                     android:orientation="vertical"
                     android:weightSum="1"
                     android:layout_weight="0.10">
+
                     <EditText
                         android:id="@+id/txtOtroVehiculo"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:hint="Tipo de vehículo"
-                        android:maxLength="150"
-                        android:inputType="textCapCharacters"
                         android:digits="@string/validacion_nombre"
-                        android:singleLine="true"
-                        android:maxLines="1"
-                        android:lines="1"
+                        android:enabled="true"
+                        android:hint="Tipo de vehículo"
                         android:imeOptions="actionNext"
-                        android:enabled="true"/>
+                        android:inputType="textCapCharacters"
+                        android:lines="1"
+                        android:maxLength="150"
+                        android:maxLines="1"
+                        android:singleLine="true"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -478,12 +479,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:digits="@string/validacion_notas"
-                        android:imeOptions="actionNext"
                         android:inputType="textCapCharacters"
+                        android:imeOptions="actionNext"
                         android:lines="1"
                         android:maxLength="50"
                         android:maxLines="1"
-                        android:singleLine="true" />
+                        android:singleLine="true"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -504,7 +505,11 @@
                         android:layout_height="match_parent"
                         android:maxLength="50"
                         android:inputType="textCapCharacters"
-                        android:digits="@string/validacion_notas"/>
+                        android:digits="@string/validacion_notas"
+                        android:imeOptions="actionNext"
+                        android:lines="1"
+                        android:maxLines="1"
+                        android:singleLine="true"/>
                 </LinearLayout>
 
 
