@@ -10,6 +10,24 @@ public class ModelLugarIntervencion_Administrativo {
     private String NoExterior;
     private String NoInterior;
     private String Cp;
+    private String Latitud;
+    private String Longitud;
+
+    public ModelLugarIntervencion_Administrativo(String idFaltaAdmin,String idEntidadFederativa, String idMunicipio, String idColoniaLocalidad,
+                                                 String calleTramo, String noExterior, String noInterior, String cp, String referencia, String latitud, String longitud) {
+        IdFaltaAdmin = idFaltaAdmin;
+        IdEntidadFederativa = idEntidadFederativa;
+        IdMunicipio = idMunicipio;
+        IdColoniaLocalidad = idColoniaLocalidad;
+        CalleTramo = calleTramo;
+        NoExterior = noExterior;
+        NoInterior = noInterior;
+        Cp = cp;
+        Referencia = referencia;
+        Latitud = latitud;
+        Longitud = longitud;
+    }
+
 
     public void setIdFaltaAdmin(String idFaltaAdmin) {
         IdFaltaAdmin = idFaltaAdmin;
@@ -109,35 +127,8 @@ public class ModelLugarIntervencion_Administrativo {
         return Longitud;
     }
 
-    private String Latitud;
-    private String Longitud;
 
-    public ModelLugarIntervencion_Administrativo(String calleTramo,
-                                                 String noExterior, String noInterior, String cp, String referencia, String latitud, String longitud) {
 
-        CalleTramo = calleTramo;
-        NoExterior = noExterior;
-        NoInterior = noInterior;
-        Cp = cp;
-        Referencia = referencia;
-        Latitud = latitud;
-        Longitud = longitud;
-    }
 
-    /*    public ModelLugarIntervencion(String idFaltaAdmin, String idLugar, String idEntidadFederativa,
-                                  String idMunicipio, String idColoniaLocalidad, String calleTramo,
-                                  String noExterior, String noInterior, String cp, String referencia, String latitud, String longitud) {
-        IdFaltaAdmin = idFaltaAdmin;
-        IdLugar = idLugar;
-        IdEntidadFederativa = idEntidadFederativa;
-        IdMunicipio = idMunicipio;
-        IdColoniaLocalidad = idColoniaLocalidad;
-        CalleTramo = calleTramo;
-        NoExterior = noExterior;
-        NoInterior = noInterior;
-        Cp = cp;
-        Referencia = referencia;
-        Latitud = latitud;
-        Longitud = longitud;
-    }*/
 }
+

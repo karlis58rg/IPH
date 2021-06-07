@@ -923,6 +923,7 @@ public class DataHelper extends SQLiteOpenHelper {
             dbSqLiteDatabase.setTransactionSuccessful();
         }catch (Exception e){
             e.printStackTrace();
+
         }
         finally {
             dbSqLiteDatabase.endTransaction();

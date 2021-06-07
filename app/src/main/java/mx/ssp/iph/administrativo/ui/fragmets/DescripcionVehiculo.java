@@ -101,9 +101,32 @@ public class DescripcionVehiculo extends Fragment {
         cargarFolios();
         //***************** Cargar Datos si es que existen  **************************//
         CargarDatos();
-        ListCombos();
-        ListSubmarcaByID();
 
+        DataHelper dataHelper = new DataHelper(getContext());
+        ArrayList<String> marca = dataHelper.getAllMarcaVehiculos();
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_layout, R.id.txt, marca);
+        adapter.setDropDownViewResource(R.layout.spinner_layout);
+        spMarcaVehiculo.setAdapter(adapter);
+
+        spMarcaVehiculo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                //Toast.makeText(getContext(), "CLICK VEHICULOS", Toast.LENGTH_LONG).show();
+                descripcionMarca = (String) spMarcaVehiculo.getSelectedItem();
+                String idmarca = dataHelper.getIdMarcaVehiculo(descripcionMarca);
+
+                ArrayList<String> submarcaVehiculos = dataHelper.getValueByIdMarca(idmarca);
+                ArrayAdapter<String> adapterSubMarca = new ArrayAdapter<String>(getActivity(), R.layout.spinner_layout, R.id.txt, submarcaVehiculos);
+                adapterSubMarca.setDropDownViewResource(R.layout.spinner_layout);
+                spSubmarcaVehiculo.setAdapter(adapterSubMarca);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         txtOtroVehiculo.setEnabled(false);
         //Imagen que funciona para activar la grabación de voz
@@ -172,7 +195,6 @@ public class DescripcionVehiculo extends Fragment {
         btnGuardarVehiculo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Toast.makeText(getContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS ", Toast.LENGTH_LONG).show();
                 insertDescripcionVehiculos();
             }
@@ -359,32 +381,6 @@ public class DescripcionVehiculo extends Fragment {
         }
     }
 
-    /***************************** SPINNER *************************************************************/
-    private void ListCombos() {
-        DataHelper dataHelper = new DataHelper(getContext());
-        ArrayList<String> marca = dataHelper.getAllMarcaVehiculos();
-
-        //ArrayList<String> submarca = dataHelper.getAllSubMarcaVehiculos();
-        if (marca.size() > 0) {
-            System.out.println("YA EXISTE INFORMACIÓN DE MARCAS VEHICULOS");
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_layout, R.id.txt, marca);
-            spMarcaVehiculo.setAdapter(adapter);
-        }
-        /*if (submarca.size() > 0) {
-            System.out.println("YA EXISTE INFORMACIÓN DE SUBMARCAS");
-            //ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_layout, R.id.txt, submarca);
-            //spSubmarcaVehiculo.setAdapter(adapter);
-        }*/
-
-    }
-
-    private void ListSubmarcaByID(){
-        DataHelper dataHelper = new DataHelper(getContext());
-        ArrayList<String> submarcaVehiculos = dataHelper.getValueByIdMarca("CHEV");
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_layout, R.id.txt, submarcaVehiculos);
-        spSubmarcaVehiculo.setAdapter(adapter);
-
-    }
 
     //***************** INSERTA A LA BD MEDIANTE EL WS **************************//
     private void insertDescripcionVehiculos() {
