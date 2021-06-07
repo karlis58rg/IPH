@@ -13,7 +13,7 @@
 
     <item
         android:id="@+id/navigation_emergencias"
-        android:icon="@drawable/ic_911"
+        android:icon="@drawable/ic_911_50"
         android:title="@string/navigation_emergencias" />
 
     <item

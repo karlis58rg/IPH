@@ -18,7 +18,7 @@
         android:layout_height="120dp"
         android:padding="24dp"
         android:contentDescription="@string/nav_header_desc"
-        app:srcCompat="@drawable/ic_logo_png" />
+        app:srcCompat="@drawable/ic_avatarhm" />
 
     <TextView
         android:layout_width="match_parent"

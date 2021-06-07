@@ -74,6 +74,9 @@ public class ProbableInfraccion extends Fragment {
         ListConocimientoInfraccion();
 
         funciones= new Funciones();
+        //Cambia el título de acuerdo a la sección seleccionada
+
+        funciones.CambiarTituloSecciones("SECCIÓN 2: DATOS DE LA PROBABLE INFRACCIÓN",getContext(),getActivity());
         //***************** Cargar Datos si es que existen  **************************//
         CargarDatos();
 

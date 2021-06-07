@@ -108,6 +108,10 @@ preguntas: ¿Quién? (personas), ¿Qué? (hechos), ¿Cómo? (circunstancias), ¿
     <string name="menu_que_es">¿Qué es?</string>
     <string name="menu_como_usarla">¿Cómo usarla?</string>
     <string name="menu_protocolo_intervencion">Protocolo de Intervención</string>
+    <string name="menu_terminos">Términos y Condiciones</string>
+    <string name="menu_cerrarSession">Cerrar Sesión</string>
+
+
 
     <!--INSTITUCIÓN -->
     <string-array name="arrayInstitucion">

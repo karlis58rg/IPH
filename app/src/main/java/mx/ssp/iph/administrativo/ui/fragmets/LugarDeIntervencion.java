@@ -92,6 +92,9 @@ public class LugarDeIntervencion extends Fragment {
         funciones= new Funciones();
 
 
+        //Cambia el título de acuerdo a la sección seleccionada
+        funciones.CambiarTituloSecciones("SECCIÓN 3: LUGAR DE LA INTERVENSIÓN",getContext(),getActivity());
+
         //***************** Botón abrir maps  **************************//
         imgMap.setOnClickListener(new View.OnClickListener() {
             @Override

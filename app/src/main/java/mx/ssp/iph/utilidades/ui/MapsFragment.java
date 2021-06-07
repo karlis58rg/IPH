@@ -70,6 +70,14 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
             LatLng sydney = new LatLng(17.5443558, -99.4979757 );
             float cameraZoom = 15;
 
+            //============ COLOCA LOS VALORE POR DEFECTO
+            EditText latitud,longitud;
+            latitud = getActivity().findViewById(R.id.txtLatitudUbicacionGeograficaAdministrativo);
+            longitud = getActivity().findViewById(R.id.txtLongitudUbicacionGeograficaAdministrativo);
+            latitud.setText("17.5443558");
+            longitud.setText("-99.4979757");
+            //============ COLOCA LOS VALORE POR DEFECTO
+
             marker = mMap.addMarker(new MarkerOptions()
                     .position(sydney)
                     .title("Miubicacion")

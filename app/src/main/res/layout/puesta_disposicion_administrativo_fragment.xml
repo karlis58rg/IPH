@@ -250,6 +250,7 @@
                 android:layout_weight="0.10"/>
         </LinearLayout>
 
+        <!-- Se quita primer Respondiente -->
         <LinearLayout
             android:id="@+id/septimoLinear"
             android:layout_width="match_parent"
@@ -277,7 +278,7 @@
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:layout_marginTop="10dp">
-            <LinearLayout
+             <!-- <LinearLayout
                 android:id="@+id/lyPrimerRespondiente"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -309,10 +310,10 @@
                         android:layout_marginLeft="20dp"
                         android:text="@string/no" />
                 </RadioGroup>
-            </LinearLayout>
+            </LinearLayout> -->
         </LinearLayout>
 
-        <LinearLayout
+        <!-- <LinearLayout
             android:id="@+id/novenoLinear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -394,7 +395,7 @@
                     android:lines="1"
                     android:imeOptions="actionNext"/>
             </LinearLayout>
-        </LinearLayout>
+        </LinearLayout> -->
 
         <LinearLayout
             android:id="@+id/onceavoLinear"
@@ -441,6 +442,7 @@
 
             </LinearLayout>
         </LinearLayout>
+
 
         <LinearLayout
             android:id="@+id/doceavoLinear"

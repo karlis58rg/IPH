@@ -24,4 +24,13 @@
         android:name="mx.ssp.iph.principal.ui.fragments.MenuProtocoloIntervencion"
         android:label="menu_protocolo_intervencion_fragment"
         tools:layout="@layout/menu_protocolo_intervencion_fragment" />
+    <fragment
+        android:id="@+id/nav_terminos"
+        android:name="mx.ssp.iph.principal.ui.fragments.MenuTerminos"
+        android:label="menu_terminos_fragment"
+        tools:layout="@layout/menu_terminos_fragment" />
+    <fragment
+        android:id="@+id/nav_sesion"
+        android:name="mx.ssp.iph.principal.ui.fragments.CerrarSesion"
+        android:label="CerrarSesion" />
 </navigation>

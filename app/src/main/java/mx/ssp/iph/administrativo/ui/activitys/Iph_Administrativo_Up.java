@@ -1,15 +1,18 @@
 package mx.ssp.iph.administrativo.ui.activitys;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,6 +24,7 @@ import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.util.ArrayList;
 
+import mx.ssp.iph.Login;
 import mx.ssp.iph.R;
 import mx.ssp.iph.administrativo.ui.fragmets.DescripcionVehiculo;
 import mx.ssp.iph.administrativo.ui.fragmets.Detenciones;
@@ -29,6 +33,7 @@ import mx.ssp.iph.administrativo.ui.fragmets.NarrativaHechos;
 import mx.ssp.iph.administrativo.ui.fragmets.NoReferencia_Administrativo;
 import mx.ssp.iph.administrativo.ui.fragmets.ProbableInfraccion;
 import mx.ssp.iph.administrativo.ui.fragmets.PuestaDisposicion_Administrativo;
+import mx.ssp.iph.principal.ui.activitys.Principal;
 
 public class Iph_Administrativo_Up extends AppCompatActivity{
 
@@ -36,6 +41,7 @@ public class Iph_Administrativo_Up extends AppCompatActivity{
     ArrayList<Integer> listaColorStatus;
     ListView lvSeccionesAdministrativo;
     Fragment referencia,seccion1,seccion2,seccion3,seccion4,anexoa,anexob;
+    ImageButton imgbtnVolverFlecha;
 
 
     @Override
@@ -44,6 +50,14 @@ public class Iph_Administrativo_Up extends AppCompatActivity{
         super.setContentView(R.layout.activity_iph_administrativo_up);
 
 
+        imgbtnVolverFlecha = findViewById(R.id.imgbtnVolverFlecha);
+        imgbtnVolverFlecha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Iph_Administrativo_Up.this, Principal.class);
+                startActivity(intent);
+            }
+        });
         //Instancio los Fragmentos
         referencia = new NoReferencia_Administrativo();
         seccion1 = new PuestaDisposicion_Administrativo();
@@ -61,7 +75,7 @@ public class Iph_Administrativo_Up extends AppCompatActivity{
         //Agrego los colores de las listas
         listaColorStatus.add(R.drawable.indicador_amarillo);
         listaColorStatus.add(R.drawable.indicador_amarillo);
-        listaColorStatus.add(R.drawable.indicador_verde);
+        listaColorStatus.add(R.drawable.indicador_amarillo);
         listaColorStatus.add(R.drawable.indicador_amarillo);
         listaColorStatus.add(R.drawable.indicador_amarillo);
         listaColorStatus.add(R.drawable.indicador_amarillo);
@@ -135,6 +149,14 @@ public class Iph_Administrativo_Up extends AppCompatActivity{
                 }
             }
         });
+    }
+
+    //Desactivar el botón Atrás en android
+    @Override
+    public void onBackPressed()
+    {
+        Toast.makeText(this,"PARA SALIR PRESIONE LA FLECHA SUPERIOR IZQUIERDA", Toast.LENGTH_SHORT).show();
+        return;
     }
 
     //Instancia el Adptador para recrear la lista de secciones. El menú de secciones.

@@ -6,11 +6,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:textSize="18dp"
+        android:text="MUEVE EL MAPA PARA COLOCAR EL PUNTERO EN LA UBICACIÓN DEL EVENTO"
+        app:layout_constraintBottom_toTopOf="@+id/fragment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:gravity="center">
+    </TextView>
+
     <fragment
         android:id="@+id/fragment"
         android:name="mx.ssp.iph.utilidades.ui.MapsFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="65dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

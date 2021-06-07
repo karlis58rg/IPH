@@ -48,7 +48,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textStyle="italic"
-                        android:text="@string/apartado_4_1_Instrucciones_descripcion_de_los_hechos" />
+                        android:text="" />
             </LinearLayout>
 
             <LinearLayout
@@ -63,7 +63,7 @@
                     <EditText
                         android:id="@+id/txtNarrativaHechos"
                         android:layout_width="match_parent"
-                        android:layout_height="300dp"
+                        android:layout_height="200dp"
                         android:maxLength="8000"
                         android:gravity="top"
                         android:inputType="text|textMultiLine|textCapCharacters"
@@ -88,7 +88,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/txtNarrativaHechos"
-                        android:text="@string/max8000caracteres"
+                        android:text="@string/apartado_4_1_Instrucciones_descripcion_de_los_hechos"
                         android:textStyle="italic" />
                 </RelativeLayout>
             </LinearLayout>

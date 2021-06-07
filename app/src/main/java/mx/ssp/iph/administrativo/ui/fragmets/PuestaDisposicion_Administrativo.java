@@ -86,12 +86,12 @@ public class PuestaDisposicion_Administrativo extends Fragment {
         txtNoExpedienteAdmministrativo = root.findViewById(R.id.txtNoExpedienteAdmministrativo);
         txtNoExpedienteAdmministrativo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(25)});
 
-        txtPrimerApellidoAdministrativo = root.findViewById(R.id.txtPrimerApellidoAdministrativo);
-        txtPrimerApellidoAdministrativo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
-        txtSegundoApellidoAdministrativo = root.findViewById(R.id.txtSegundoApellidoAdministrativo);
-        txtSegundoApellidoAdministrativo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
-        txtNombresAdministrativo = root.findViewById(R.id.txtNombresAdministrativo);
-        txtNombresAdministrativo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
+        //txtPrimerApellidoAdministrativo = root.findViewById(R.id.txtPrimerApellidoAdministrativo);
+        //txtPrimerApellidoAdministrativo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
+        //txtSegundoApellidoAdministrativo = root.findViewById(R.id.txtSegundoApellidoAdministrativo);
+        //txtSegundoApellidoAdministrativo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
+        //txtNombresAdministrativo = root.findViewById(R.id.txtNombresAdministrativo);
+        //txtNombresAdministrativo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         txtUnidadDeArriboAdministrativo = root.findViewById(R.id.txtUnidadDeArriboAdministrativo);
         txtFiscaliaAutoridadAdministrativo = root.findViewById(R.id.txtFiscaliaAutoridadAdministrativo);
         txtFiscaliaAutoridadAdministrativo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
@@ -108,7 +108,7 @@ public class PuestaDisposicion_Administrativo extends Fragment {
         chSinAnexosAdministrativo = root.findViewById(R.id.chSinAnexosAdministrativo);
         chNoAplicaUnidadDeArriboAdministrativo = root.findViewById(R.id.chNoAplicaUnidadDeArriboAdministrativo);
 
-        rgPrimerRespondienteAdministrativo = root.findViewById(R.id.rgPrimerRespondienteAdministrativo);
+        //rgPrimerRespondienteAdministrativo = root.findViewById(R.id.rgPrimerRespondienteAdministrativo);
 
         imgFirmaAutoridadAdministrativo = (ImageView) root.findViewById(R.id.imgFirmaAutoridadAdministrativo);
         imgFirmaAutoridadAdministrativo = (ImageView) root.findViewById(R.id.imgFirmaAutoridadAdministrativo);
@@ -118,7 +118,8 @@ public class PuestaDisposicion_Administrativo extends Fragment {
 
 
 
-
+        //Cambia el título de acuerdo a la sección seleccionada
+        funciones.CambiarTituloSecciones("SECCIÓN 1: PUESTA A DISPOSICIÓN",getContext(),getActivity());
 
         //HABILITAR - DESHABILITAR EDITTEXT ANEXO A
         chDetencionesAnexoAAdministrativo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -220,6 +221,7 @@ public class PuestaDisposicion_Administrativo extends Fragment {
             }
         });
 
+        /*
         rgPrimerRespondienteAdministrativo.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -231,6 +233,8 @@ public class PuestaDisposicion_Administrativo extends Fragment {
 
             }
         });
+
+         */
 
         btnGuardarPuestaDisposicioAdministrativo.setOnClickListener(new View.OnClickListener() {
             @Override

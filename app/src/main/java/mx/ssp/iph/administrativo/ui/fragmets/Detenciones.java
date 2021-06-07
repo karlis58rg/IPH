@@ -155,6 +155,9 @@ public class Detenciones extends Fragment  {
         txtCualGrupoVulnerable.setEnabled(false);
         txtEntidadDetenido.setEnabled(false);
 
+        //Cambia el título de acuerdo a la sección seleccionada
+        funciones.CambiarTituloSecciones("ANEXO A: DETENCIÓN (ES)",getContext(),getActivity());
+
         cargarFolios();
         //***************** Cargar Datos si es que existen  **************************//
         CargarDatos();

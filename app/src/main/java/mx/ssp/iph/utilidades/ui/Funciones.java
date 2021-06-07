@@ -11,6 +11,7 @@ import android.os.Build;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -125,7 +126,11 @@ public class Funciones {
     }
 
 
-
-
+    //Cambia el título de acuerdo a la seccion seleccionada
+    public void CambiarTituloSecciones(String titulo,Context context, Activity activity){
+                TextView tituloSecciones;
+                tituloSecciones = (TextView) activity.findViewById(R.id.lblTituloSecciones);
+                tituloSecciones.setText(titulo);
+    }
 
 }

@@ -14,11 +14,19 @@
             android:title="@string/menu_que_es" />
         <item
             android:id="@+id/nav_como_funciona"
-            android:icon="@drawable/ic_guia_uso"
+            android:icon="@drawable/ic_libreta"
             android:title="@string/menu_como_usarla" />
         <item
+            android:id="@+id/nav_terminos"
+            android:icon="@drawable/ic_terminos"
+            android:title="@string/menu_terminos" />
+        <item
             android:id="@+id/nav_protocolo"
-            android:icon="@drawable/ic_guia"
+            android:icon="@drawable/ic_reglamento"
             android:title="@string/menu_protocolo_intervencion" />
+        <item
+            android:id="@+id/nav_sesion"
+            android:icon="@drawable/ic_cerrar_sesion"
+            android:title="@string/menu_cerrarSession" />
     </group>
 </menu>

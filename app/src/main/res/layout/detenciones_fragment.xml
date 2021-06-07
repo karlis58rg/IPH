@@ -684,7 +684,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="italic"
-                    android:text="Describa brevemente a la persona detenida, incluyendo vestimenta y rasgos visibles (Barba, tatuajes, cicatrices, lunares, bigote, etcétera)." />
+                    android:text="" />
             </LinearLayout>
 
             <LinearLayout
@@ -710,7 +710,7 @@
                         android:id="@+id/img_microfonoDescripcionDetenido"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingBottom="25dp"
+                        android:paddingBottom="35dp"
                         android:layout_alignParentBottom="true"
                         android:layout_alignEnd="@+id/txtDescripciondelDetenido"
                         android:src="@drawable/ic_micro"
@@ -721,7 +721,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/txtDescripciondelDetenido"
-                        android:text="@string/max8000caracteres"
+                        android:text="Describa brevemente a la persona detenida, incluyendo vestimenta y rasgos visibles (Barba, tatuajes, cicatrices, lunares, bigote, etcétera)."
                         android:textStyle="italic"/>
 
                 </RelativeLayout>
@@ -730,10 +730,11 @@
             <LinearLayout
                 android:id="@+id/quinceavoLinear"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="90dp"
                 android:layout_weight="1"
                 android:orientation="horizontal"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="20dp"
+                android:background="@drawable/ic_borde_radio">
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -746,6 +747,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/font"
+                        android:layout_gravity="center"
                         android:text="¿La persona detenida presenta lesiones visibles?"/>
 
                 </LinearLayout>
@@ -760,20 +762,23 @@
                         android:id="@+id/rgLesiones"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:layout_gravity="center">
                         <RadioButton
                             android:id="@+id/rbNoLesiones"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
                             android:layout_marginLeft="20dp"
+                            android:layout_gravity="center"
+                            android:padding="10dp"
                             android:text="@string/no"/>
 
                         <RadioButton
                             android:id="@+id/rbSiLesiones"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
+                            android:padding="10dp"
+                            android:layout_gravity="center"
                             android:text="@string/si" />
                     </RadioGroup>
                 </LinearLayout>
@@ -791,23 +796,25 @@
             <LinearLayout
                 android:id="@+id/dieciseisLinear"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="horizontal"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="20dp"
+                android:background="@drawable/ic_borde_radio"
+                android:layout_height="90dp">
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:weightSum="1"
                     android:layout_weight="0.15"
-                    android:gravity="center_vertical">
+                    android:gravity="center">
                     <TextView
                         android:id="@+id/lblpregunta2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/font"
-                        android:text="¿Manifiesta tener algún padecimiento?"/>
+                        android:text="¿Manifiesta tener algún padecimiento?"
+                        android:layout_gravity="center"/>
 
                 </LinearLayout>
 
@@ -826,15 +833,17 @@
                             android:id="@+id/rbPadecimiento"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
                             android:layout_marginLeft="20dp"
+                            android:layout_gravity="center"
+                            android:padding="10dp"
                             android:text="@string/no" />
 
                         <RadioButton
                             android:id="@+id/rbSiPadecimiento"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
+                            android:layout_gravity="center"
+                            android:padding="10dp"
                             android:text="@string/si" />
                     </RadioGroup>
                 </LinearLayout>
@@ -844,12 +853,17 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:weightSum="1"
-                    android:layout_weight="0.10">
+                    android:layout_weight="0.10"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    >
 
                     <EditText
                         android:id="@+id/txtCualPadecimiento"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
                         android:hint="Padecimiento"
                         android:maxLength="50"
                         android:inputType="textCapCharacters"
@@ -864,10 +878,12 @@
             <LinearLayout
                 android:id="@+id/diecisietelinear"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="90dp"
                 android:layout_weight="1"
                 android:orientation="horizontal"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/ic_borde_radio">
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -880,6 +896,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/font"
+                        android:gravity="center"
                         android:text="¿La persona detenida se identificó como miembro de algún grupo vulnerable?"/>
 
                 </LinearLayout>
@@ -889,7 +906,8 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:weightSum="1"
-                    android:layout_weight="0.1">
+                    android:layout_weight="0.1"
+                    android:layout_marginBottom="24dp">
                     <RadioGroup
                         android:id="@+id/rgGrupoVulnerable"
                         android:layout_width="match_parent"
@@ -899,7 +917,8 @@
                             android:id="@+id/rbNoGrupoVulnerable"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
+                            android:layout_gravity="center"
+                            android:padding="10dp"
                             android:layout_marginLeft="20dp"
                             android:text="@string/no" />
 
@@ -907,7 +926,8 @@
                             android:id="@+id/rbSiGrupoVulnerable"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
+                            android:layout_gravity="center"
+                            android:padding="10dp"
                             android:text="@string/si" />
                     </RadioGroup>
                 </LinearLayout>
@@ -917,7 +937,10 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:weightSum="1"
-                    android:layout_weight="0.10">
+                    android:layout_weight="0.10"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    >
 
                     <EditText
                         android:id="@+id/txtCualGrupoVulnerable"
@@ -931,6 +954,7 @@
                         android:maxLines="1"
                         android:lines="1"
                         android:imeOptions="actionDone"
+                        android:gravity="center"
                         />
                 </LinearLayout>
             </LinearLayout>

@@ -135,6 +135,8 @@ public class Principal extends AppCompatActivity {
         //Bottom Navigation
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.setItemIconTintList(null);
+
         addFragment(new PrincipalDelictivo());
 
         // Menu lateral
@@ -144,7 +146,7 @@ public class Principal extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_inicio, R.id.nav_quees, R.id.nav_como_funciona, R.id.nav_protocolo)
+                R.id.nav_inicio, R.id.nav_quees, R.id.nav_como_funciona, R.id.nav_protocolo,R.id.nav_terminos)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);

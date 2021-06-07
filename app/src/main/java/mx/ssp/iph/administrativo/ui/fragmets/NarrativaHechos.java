@@ -76,6 +76,9 @@ public class NarrativaHechos extends Fragment {
         btnGuardarNarrativaHechos = root.findViewById(R.id.btnGuardarNarrativaHechos);
         funciones = new Funciones();
 
+        //Cambia el título de acuerdo a la sección seleccionada
+        funciones.CambiarTituloSecciones("SECCIÓN 4: NARRATIVA DE LOS HECHOS",getContext(),getActivity());
+
         //***************** Cargar Datos si es que existen  **************************//
         CargarDatos();
 

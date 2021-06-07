@@ -91,6 +91,9 @@ public class NoReferencia_Administrativo extends Fragment {
         funciones = new Funciones();
         txtHoraEntregaReferenciaAdministrativo = (EditText) root.findViewById(R.id.txtHoraEntregaReferenciaAdministrativo);
 
+        //Cambia el título de acuerdo a la sección seleccionada
+        funciones.CambiarTituloSecciones("JUSTICIA CÍVICA - NÚMERO DE REFERENCIA",getContext(),getActivity());
+
         //***************** Cargar Datos si es que existen  **************************//
         CargarDatos();
         ListCombos();
@@ -137,7 +140,6 @@ public class NoReferencia_Administrativo extends Fragment {
     private int getIndex(Spinner spinner, String myString){
         for (int i=0;i<spinner.getCount();i++){
             Toast.makeText(getContext(),""+spinner.getItemAtPosition(i).toString() + " - " + spinner.getItemIdAtPosition(i),Toast.LENGTH_SHORT).show();
-
 
 
             if (spinner.getItemAtPosition(i).toString().equalsIgnoreCase(myString)){

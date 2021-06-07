@@ -108,6 +108,10 @@ public class DescripcionVehiculo extends Fragment {
         txtDestinoVehiculo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         btnGuardarVehiculo = root.findViewById(R.id.btnGuardarVehiculo);
 
+
+        //Cambia el título de acuerdo a la sección seleccionada
+        funciones.CambiarTituloSecciones("ANEXO B: DESCRIPCIÓN DEL VEHÍCULO",getContext(),getActivity());
+
         cargarFolios();
         //***************** Cargar Datos si es que existen  **************************//
         CargarDatos();
