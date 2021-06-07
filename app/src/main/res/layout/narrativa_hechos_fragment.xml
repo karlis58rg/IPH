@@ -88,7 +88,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/txtNarrativaHechos"
-                        android:text="@string/max8000caracteres"
                         android:textStyle="italic" />
                 </RelativeLayout>
             </LinearLayout>

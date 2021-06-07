@@ -82,12 +82,19 @@ public class NarrativaHechos extends Fragment {
 
         btnGuardarNarrativaHechos.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Toast.makeText(getContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS ", Toast.LENGTH_LONG).show();
-                updateNarrativa();
-
+            public void onClick(View v) {
+                if(txtNarrativaHechos.getText().toString().isEmpty()){
+                    Toast.makeText(getActivity().getApplicationContext(),"INGRESA LA DESCRIPCIÓN DE LOS HECHOS",Toast.LENGTH_SHORT).show();
+                }else if(txtNarrativaHechos.getText().length() < 3){
+                    Toast.makeText(getActivity().getApplicationContext(),"AGREGAR EN LA DESCRIPCIÓN DE LOS HECHOS AL MENOS 3 CARACTERES",Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
+                    updateNarrativa();
+                }
             }
         });
+
+
         //Imagen que funciona para activar la grabación de voz
         imgMicrofonoNarrativaHechos.setOnClickListener(new View.OnClickListener() {
             @Override
