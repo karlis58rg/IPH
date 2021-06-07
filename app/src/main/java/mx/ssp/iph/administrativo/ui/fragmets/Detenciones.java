@@ -10,9 +10,11 @@ import android.speech.RecognizerIntent;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -217,6 +219,17 @@ public class Detenciones extends Fragment  {
             }
         });
 
+        txtDescripciondelDetenido.setOnEditorActionListener(new EditText.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    //do here your stuff f
+                    return true;
+                }
+                return false;
+            }
+        });
+
         //Imagen que funciona para activar la firma
         imgFirmaAutoridadAdministrativo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -228,9 +241,19 @@ public class Detenciones extends Fragment  {
 
         btnGuardarPuestaDisposicioAdministrativo.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Toast.makeText(getContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS ", Toast.LENGTH_LONG).show();
-                insertDetenciones();
+            public void onClick(View v) {
+                if(txtFechaDetenido.getText().toString().isEmpty()){
+                    Toast.makeText(getActivity().getApplicationContext(),"INGRESA LA FECHA DE LA DETENCIÓN",Toast.LENGTH_SHORT).show();
+                }else if(txthoraDetencion.getText().toString().isEmpty()){
+                    Toast.makeText(getActivity().getApplicationContext(),"INGRESA LA HORA DE LA DETENCIÓN",Toast.LENGTH_SHORT).show();
+                }else if(txtDescripciondelDetenido.getText().toString().isEmpty()){
+                    Toast.makeText(getActivity().getApplicationContext(),"INGRESA DESCRIPCIÓN DEL DETENIDO",Toast.LENGTH_SHORT).show();
+                }else if(txtDescripciondelDetenido.getText().length() < 3){
+                    Toast.makeText(getActivity().getApplicationContext(),"AGREGAR EN DESCRIPCIÓN DEL DETENIDO AL MENOS 3 CARACTERES",Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
+                    insertDetenciones();
+
                 /*if (validarEditText(txtApodoDetenido)){
                     Toast.makeText(getActivity().getApplicationContext(),"DATOS INSERTADOS",Toast.LENGTH_SHORT).show();
                     //Toast.makeText(getContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS ", Toast.LENGTH_LONG).show();
@@ -238,6 +261,9 @@ public class Detenciones extends Fragment  {
                 }
 
                  */
+
+
+                }
             }
         });
 

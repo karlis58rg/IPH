@@ -90,7 +90,7 @@ public class DescripcionVehiculo extends Fragment {
         lvVehiculos = (ListView) root.findViewById(R.id.lvVehiculos);
 
         txtOtroVehiculo = root.findViewById(R.id.txtOtroVehiculo);
-        txtOtroVehiculo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(150)});
+        txtOtroVehiculo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(15)});
         txtModeloVehiculo = root.findViewById(R.id.txtModeloVehiculo);
         txtModeloVehiculo.setFilters(new InputFilter[]{new InputFilter.LengthFilter(4)});
         txtColorVehiculo = root.findViewById(R.id.txtColorVehiculo);
@@ -117,24 +117,6 @@ public class DescripcionVehiculo extends Fragment {
         CargarDatos();
         ListCombos();
         ListSubmarcaByID();
-
-
-//        rgTipoVehiculoAdministrativo.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(RadioGroup group, int checkedId) {
-//                if (checkedId == R.id.rbTerrestre) {
-//                    txtOtroVehiculo.setEnabled(true);
-//                    varOtroTipoVehiculo = "TERRESTRE";
-//                    txtOtroVehiculo.setText("");
-//                } else if (checkedId == R.id.rbOtro) {
-//                    txtOtroVehiculo.setEnabled(false);
-//                    varOtroTipoVehiculo = "OTRO";
-//                    txtOtroVehiculo.setText("NA");
-//                }
-//
-//            }
-//        });
-
 
 
 
@@ -202,12 +184,20 @@ public class DescripcionVehiculo extends Fragment {
         });
 
 
+
         btnGuardarVehiculo.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-
-                Toast.makeText(getContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS ", Toast.LENGTH_LONG).show();
-                insertDescripcionVehiculos();
+            public void onClick(View v) {
+                if(txtFechaRetencion.getText().toString().isEmpty()){
+                    Toast.makeText(getActivity().getApplicationContext(),"INGRESA LA FECHA DE RETENCIÓN DEL VEHÍCULO",Toast.LENGTH_SHORT).show();
+                }else if(txthoraRetencion.getText().toString().isEmpty()){
+                    Toast.makeText(getActivity().getApplicationContext(),"INGRESA LA HORA DE RETENCIÓN DEL VEHÍCULO",Toast.LENGTH_SHORT).show();
+                }else if(txtObservacionesdelVehiculo.getText().length() < 3){
+                    Toast.makeText(getActivity().getApplicationContext(),"AGREGAR EN OBSERVACIONES AL MENOS 3 CARACTERES",Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
+                    insertDescripcionVehiculos();
+                }
             }
         });
 

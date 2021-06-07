@@ -700,7 +700,7 @@
                         android:id="@+id/txtDescripciondelDetenido"
                         android:layout_width="match_parent"
                         android:layout_height="300dp"
-                        android:inputType="text|textMultiLine|textCapCharacters"
+                        android:inputType="textMultiLine|textCapCharacters"
                         android:digits="@string/validacion_notas"
                         android:maxLength="8000"
                         android:gravity="top"
