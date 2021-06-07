@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import android.os.Looper;
 import android.speech.RecognizerIntent;
 import android.util.Log;
+import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -65,6 +67,7 @@ public class DescripcionVehiculo extends Fragment {
     TextView txtOtroVehiculo,txtModeloVehiculo,txtColorVehiculo,txtPlacaVehiculo,txtSerieVehiculo,txtDestinoVehiculo;
     Button btnGuardarVehiculo;
 
+
     SharedPreferences share;
     String cargarIdFaltaAdmin,cargarUsuario,varTipoVehiculo,varTipoOtro,varProcedencia,varUso,idMarca,idSubMarca,descripcionMarca,descripcionSubMarca;
     private ListView lvVehiculos;
@@ -80,22 +83,29 @@ public class DescripcionVehiculo extends Fragment {
         View root = inflater.inflate(R.layout.descripcion_vehiculo_fragment, container, false);
         funciones = new Funciones();
         txtObservacionesdelVehiculo = (TextView)root.findViewById(R.id.txtObservacionesdelVehiculo);
+        txtObservacionesdelVehiculo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         imgMicrofonoObservacionesdelVehiculo = (ImageView) root.findViewById(R.id.imgMicrofonoObservacionesdelVehiculo);
         txthoraRetencion = (EditText)root.findViewById(R.id.txthoraRetencion);
         txtFechaRetencion = (EditText)root.findViewById(R.id.txtFechaRetencion);
         lvVehiculos = (ListView) root.findViewById(R.id.lvVehiculos);
 
         txtOtroVehiculo = root.findViewById(R.id.txtOtroVehiculo);
+        txtOtroVehiculo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(15)});
         txtModeloVehiculo = root.findViewById(R.id.txtModeloVehiculo);
+        txtModeloVehiculo.setFilters(new InputFilter[]{new InputFilter.LengthFilter(4)});
         txtColorVehiculo = root.findViewById(R.id.txtColorVehiculo);
+        txtColorVehiculo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(150)});
         txtPlacaVehiculo = root.findViewById(R.id.txtPlacaVehiculo);
+        txtPlacaVehiculo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(10)});
         txtSerieVehiculo = root.findViewById(R.id.txtSerieVehiculo);
+        txtSerieVehiculo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         rgTipoVehiculoAdministrativo = root.findViewById(R.id.rgTipoVehiculoAdministrativo);
         rgProcedenciaVehiculoAdministrativo = root.findViewById(R.id.rgProcedenciaVehiculoAdministrativo);
         rgUsoVehiculoAdministrativo = root.findViewById(R.id.rgUsoVehiculoAdministrativo);
         spMarcaVehiculo = root.findViewById(R.id.spMarcaVehiculo);
         spSubmarcaVehiculo = root.findViewById(R.id.spSubmarcaVehiculo);
         txtDestinoVehiculo = root.findViewById(R.id.txtDestinoVehiculo);
+        txtDestinoVehiculo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         btnGuardarVehiculo = root.findViewById(R.id.btnGuardarVehiculo);
 
         cargarFolios();
@@ -127,6 +137,7 @@ public class DescripcionVehiculo extends Fragment {
 
             }
         });
+
 
         txtOtroVehiculo.setEnabled(false);
         //Imagen que funciona para activar la grabación de voz
@@ -192,11 +203,20 @@ public class DescripcionVehiculo extends Fragment {
         });
 
 
+
         btnGuardarVehiculo.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Toast.makeText(getContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS ", Toast.LENGTH_LONG).show();
-                insertDescripcionVehiculos();
+            public void onClick(View v) {
+                if(txtFechaRetencion.getText().toString().isEmpty()){
+                    Toast.makeText(getActivity().getApplicationContext(),"INGRESA LA FECHA DE RETENCIÓN DEL VEHÍCULO",Toast.LENGTH_SHORT).show();
+                }else if(txthoraRetencion.getText().toString().isEmpty()){
+                    Toast.makeText(getActivity().getApplicationContext(),"INGRESA LA HORA DE RETENCIÓN DEL VEHÍCULO",Toast.LENGTH_SHORT).show();
+                }else if(txtObservacionesdelVehiculo.getText().length() < 3){
+                    Toast.makeText(getActivity().getApplicationContext(),"AGREGAR EN OBSERVACIONES AL MENOS 3 CARACTERES",Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
+                    insertDescripcionVehiculos();
+                }
             }
         });
 

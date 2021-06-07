@@ -9,42 +9,50 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:orientation="vertical">
+
         <LinearLayout
             android:id="@+id/principalLinear"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
+
             <LinearLayout
                 android:id="@+id/lyHeaderProbableInfraccionAdministrativo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:background="@color/background_section">
+                android:background="@color/background_section"
+                android:orientation="vertical">
+
                 <TextView
                     android:id="@+id/lblProbableInfraccionAdministrativo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/font"
-                    android:text="@string/apartado_2_1_conocimiento_de_la_probable_infraccion_administrativa_por_el_primer_respondiente" />
+                    android:text="@string/apartado_2_1_conocimiento_de_la_probable_infraccion_administrativa_por_el_primer_respondiente"
+                    android:textColor="@color/font" />
             </LinearLayout>
         </LinearLayout>
+
+
 
         <LinearLayout
             android:id="@+id/segundoLinear"
             android:layout_width="match_parent"
-            android:layout_weight="0.5"
             android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:minWidth="40dp"
+            android:minHeight="40dp"
             android:orientation="horizontal"
-            android:weightSum="1"
-            android:layout_marginTop="20dp">
+            android:weightSum="1">
+
             <LinearLayout
                 android:id="@+id/lyHechoProbableInfraccionAdministrativo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"
                 android:orientation="vertical">
+
                 <TextView
                     android:id="@+id/lblHechoProbableInfraccionAdministrativo"
                     android:layout_width="wrap_content"
@@ -54,33 +62,44 @@
                 <Spinner
                     android:id="@+id/spHechoProbableInfraccionAdministrativo"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent" />
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/lyPuestaDisposicionAdministrativo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_weight="0.5"
                 android:orientation="vertical"
-                android:weightSum="1"
-                android:layout_weight="0.5">
+                android:weightSum="1">
+
                 <TextView
                     android:id="@+id/lblOtroProbableInfraccionAdministrativo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/otro_especifique" />
+
                 <EditText
                     android:id="@+id/txtOtroProbableInfraccionAdministrativo"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:digits="@string/validacion_notas"
+                    android:imeOptions="actionNext"
+                    android:inputType="textCapCharacters"
+                    android:lines="1"
+                    android:maxLength="250"
+                    android:maxLines="1"
+                    android:singleLine="true" />
             </LinearLayout>
         </LinearLayout>
+
 
         <LinearLayout
             android:id="@+id/tercerLinear"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_marginTop="20dp">
+            android:orientation="vertical">
+
             <TextView
                 android:id="@+id/lbl911FolioProbableInfraccionAdministrativo"
                 android:layout_width="wrap_content"
@@ -90,50 +109,60 @@
             <EditText
                 android:id="@+id/txt911FolioProbableInfraccionAdministrativo"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:digits="@string/validacion_numero"
+                android:imeOptions="actionDone"
+                android:inputType="numberDecimal"
+                android:lines="1"
+                android:maxLength="10"
+                android:maxLines="1"
+                android:singleLine="true" />
         </LinearLayout>
+
 
         <LinearLayout
             android:id="@+id/cuartoLinear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
             android:layout_weight="1"
-            android:orientation="horizontal"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp">
+            android:orientation="horizontal">
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="0.10"
                 android:orientation="vertical"
-                android:weightSum="1"
-                android:layout_weight="0.10">
-            </LinearLayout>
+                android:weightSum="1"></LinearLayout>
+
             <LinearLayout
                 android:id="@+id/lyGuardarProbableInfraccionAdministrativo"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
+                android:layout_weight="0.5"
                 android:gravity="center"
-                android:weightSum="1"
-                android:layout_weight="0.5">
+                android:orientation="vertical"
+                android:weightSum="1">
+
                 <Button
                     android:id="@+id/btnGuardarProbableInfraccionAdministrativo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:drawableLeft="@drawable/ic_save_white"
+                    android:layout_marginTop="30dp"
                     android:background="@color/backgroud_header_toolbar"
+                    android:drawableLeft="@drawable/ic_save_white"
                     android:paddingLeft="12dp"
                     android:paddingRight="12dp"
-                    android:text="@string/guardar_datos" />
+                    android:text="@string/guardar_datos"
+                    android:textColor="@color/white" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="0.10"
                 android:orientation="vertical"
-                android:weightSum="1"
-                android:layout_weight="0.10">
-            </LinearLayout>
+                android:weightSum="1"></LinearLayout>
         </LinearLayout>
 
 

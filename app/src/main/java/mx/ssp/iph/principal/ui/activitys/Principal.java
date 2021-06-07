@@ -41,6 +41,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import mx.ssp.iph.principal.ui.fragments.ViewModelSumarActivity;
+import mx.ssp.iph.principal.ui.fragments.ViewModelSumarActivity;
 
 public class Principal extends AppCompatActivity {
 
@@ -114,7 +115,7 @@ public class Principal extends AppCompatActivity {
         ListSexo();
         ListUnidad();
         ListMarca();
-        ListSubMarca();
+        //ListSubMarca();
 
         /**********************************************************/
 
@@ -139,6 +140,7 @@ public class Principal extends AppCompatActivity {
         // Menu lateral
         drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setItemIconTintList(null);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(

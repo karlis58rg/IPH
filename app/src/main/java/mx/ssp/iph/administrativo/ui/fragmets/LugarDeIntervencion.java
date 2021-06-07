@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.os.Looper;
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -73,16 +74,25 @@ public class LugarDeIntervencion extends Fragment {
 
         //************************************** ACCIONES DE LA VISTA **************************************//
         cargarFolios();
+
         txtCalleUbicacionGeograficaAdministrativo = root.findViewById(R.id.txtCalleUbicacionGeograficaAdministrativo);
+        txtCalleUbicacionGeograficaAdministrativo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(500)});
         txtNumeroExteriorUbicacionGeograficaAdministrativo = root.findViewById(R.id.txtNumeroExteriorUbicacionGeograficaAdministrativo);
+        txtNumeroExteriorUbicacionGeograficaAdministrativo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         txtNumeroInteriorUbicacionGeograficaAdministrativo = root.findViewById(R.id.txtNumeroInteriorUbicacionGeograficaAdministrativo);
+        txtNumeroInteriorUbicacionGeograficaAdministrativo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         txtCodigoPostalUbicacionGeograficaAdministrativo = root.findViewById(R.id.txtCodigoPostalUbicacionGeograficaAdministrativo);
+        txtCodigoPostalUbicacionGeograficaAdministrativo.setFilters(new InputFilter[]{new InputFilter.LengthFilter(5)});
+
         txtReferenciasdelLugarUbicacionGeograficaAdministrativo = root.findViewById(R.id.txtReferenciasdelLugarUbicacionGeograficaAdministrativo);
+        txtReferenciasdelLugarUbicacionGeograficaAdministrativo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(500)});
         txtLatitudUbicacionGeograficaAdministrativo = root.findViewById(R.id.txtLatitudUbicacionGeograficaAdministrativo);
+        txtLatitudUbicacionGeograficaAdministrativo.setFilters(new InputFilter[]{new InputFilter.LengthFilter(20)});
         txtLongitudUbicacionGeograficaAdministrativo = root.findViewById(R.id.txtLongitudUbicacionGeograficaAdministrativo);
         txtEntidadUbicacionGeograficaAdministrativo = root.findViewById(R.id.txtEntidadUbicacionGeograficaAdministrativo);
         txtColoniaUbicacionGeograficaAdministrativo  = root.findViewById(R.id.txtColoniaUbicacionGeograficaAdministrativo);
         spMunicipioUbicacionGeograficaAdministrativo = root.findViewById(R.id.spMunicipioUbicacionGeograficaAdministrativo);
+        txtLongitudUbicacionGeograficaAdministrativo.setFilters(new InputFilter[]{new InputFilter.LengthFilter(20)});
         imgMap = (ImageView)root.findViewById(R.id.imgMap);
 
 
@@ -101,6 +111,7 @@ public class LugarDeIntervencion extends Fragment {
                 if (permisoubicacion != PackageManager.PERMISSION_GRANTED) {
                     if (Build.VERSION.SDK_INT >= 23) {
                         requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE_ASK_PERMISSION);
+                        Toast.makeText(getContext(),"POR FAVOR ACTIVA LOS PERMISOS DE UBICACIÓN",Toast.LENGTH_SHORT).show();
                     }
                 }
                 else
@@ -168,7 +179,7 @@ public class LugarDeIntervencion extends Fragment {
                 .build();
         Request request = new Request.Builder()
                 .url("http://189.254.7.167/WebServiceIPH/api/LugarIntervencionAdministrativa/")
-                .post(body)
+                .put(body)
                 .build();
         client.newCall(request).enqueue(new Callback() {
             @Override
@@ -190,6 +201,7 @@ public class LugarDeIntervencion extends Fragment {
                             if(resp.equals("true")){
                                 System.out.println("EL DATO SE ENVIO CORRECTAMENTE");
                                 Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+                                /*
                                 txtCalleUbicacionGeograficaAdministrativo.setText("");
                                 txtNumeroExteriorUbicacionGeograficaAdministrativo.setText("");
                                 txtNumeroInteriorUbicacionGeograficaAdministrativo.setText("");
@@ -197,8 +209,9 @@ public class LugarDeIntervencion extends Fragment {
                                 txtReferenciasdelLugarUbicacionGeograficaAdministrativo.setText("");
                                 txtLatitudUbicacionGeograficaAdministrativo.setText("");
                                 txtLongitudUbicacionGeograficaAdministrativo.setText("");
+                                 */
                             }else{
-                                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO", Toast.LENGTH_SHORT).show();
                             }
                             Log.i("HERE", resp);
                         }

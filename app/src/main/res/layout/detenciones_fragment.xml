@@ -150,6 +150,9 @@
                         android:maxLength="50"
                         android:inputType="textCapCharacters"
                         android:digits="@string/validacion_nombre"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
                         android:imeOptions="actionNext"/>
                 </LinearLayout>
                 <LinearLayout
@@ -171,6 +174,9 @@
                         android:maxLength="50"
                         android:inputType="textCapCharacters"
                         android:digits="@string/validacion_nombre"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
                         android:imeOptions="actionNext"/>
                 </LinearLayout>
                 <LinearLayout
@@ -192,6 +198,9 @@
                         android:maxLength="50"
                         android:inputType="textCapCharacters"
                         android:digits="@string/validacion_nombre"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
                         android:imeOptions="actionNext"/>
                 </LinearLayout>
             </LinearLayout>
@@ -223,6 +232,9 @@
                         android:inputType="textCapCharacters"
                         android:digits="@string/validacion_notas"
                         android:maxLength="50"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
                         android:imeOptions="actionNext"/>
                 </LinearLayout>
 
@@ -232,15 +244,17 @@
                     android:orientation="horizontal"
                     android:weightSum="1"
                     android:layout_weight="0.10">
+                    <CheckBox
+                        android:id="@+id/chNoAplicaAliasDetenido"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:scaleX="0.85"
+                        android:scaleY="0.85"/>
                     <TextView
                         android:id="@+id/lblNoAplicaAlias"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/no_aplica" />
-                    <CheckBox
-                        android:id="@+id/chNoAplicaAliasDetenido"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:text="@string/no_aplicaApodoAlias" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -304,11 +318,15 @@
                         android:id="@+id/txtNacionalidadEspecifiqueDetenido"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:enabled="false"
                         android:inputType="textCapCharacters"
                         android:digits="@string/validacion_nombre"
                         android:maxLength="40"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
                         android:imeOptions="actionNext"/>
-                    android:layout_height="wrap_content"/>
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -492,7 +510,14 @@
                     <EditText
                         android:id="@+id/txtColoniaDetenido"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionNext"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -522,6 +547,9 @@
                         android:inputType="textCapCharacters"
                         android:digits="@string/validacion_notas"
                         android:maxLength="250"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
                         android:imeOptions="actionNext"/>
                 </LinearLayout>
             </LinearLayout>
@@ -549,8 +577,12 @@
                         android:id="@+id/txtNumeroExteriorDetenido"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:digits="@string/validacion_notas"
                         android:maxLength="50"
-                        android:inputType="textCapCharacters"
+                        android:inputType="numberSigned"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
                         android:imeOptions="actionNext"/>
                 </LinearLayout>
 
@@ -570,31 +602,40 @@
                         android:id="@+id/txtNumeroInteriorDetenido"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:digits="@string/validacion_notas"
                         android:maxLength="50"
                         android:inputType="textCapCharacters"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
                         android:imeOptions="actionNext"/>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_weight="0.10"
                     android:orientation="vertical"
-                    android:weightSum="1"
-                    android:layout_weight="0.10">
+                    android:weightSum="1">
+
                     <TextView
                         android:id="@+id/lblCodigoPostal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/font"
-                        android:text="@string/lblCodigoPostal"/>
+                        android:text="@string/lblCodigoPostal"
+                        android:textColor="@color/font" />
+
                     <EditText
                         android:id="@+id/txtCodigoPostalDetenido"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="phone"
                         android:digits="@string/validacion_numero"
+                        android:imeOptions="actionNext"
+                        android:inputType="numberDecimal"
+                        android:lines="1"
                         android:maxLength="5"
-                        android:imeOptions="actionNext"/>
+                        android:maxLines="1"
+                        android:singleLine="true" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -621,8 +662,12 @@
                         android:id="@+id/txtReferenciasdelLugarDetenido"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:maxLength="500"
                         android:inputType="textCapCharacters"
                         android:digits="@string/validacion_notas"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
                         android:imeOptions="actionNext"/>
                 </LinearLayout>
             </LinearLayout>
@@ -655,11 +700,11 @@
                         android:id="@+id/txtDescripciondelDetenido"
                         android:layout_width="match_parent"
                         android:layout_height="300dp"
-                        android:inputType="text|textMultiLine|textCapCharacters"
+                        android:inputType="textMultiLine|textCapCharacters"
                         android:digits="@string/validacion_notas"
-                        android:maxLength="3000"
+                        android:maxLength="8000"
                         android:gravity="top"
-                        android:imeOptions="actionNext"/>
+                        android:imeOptions="actionDone"/>
 
                     <ImageView
                         android:id="@+id/img_microfonoDescripcionDetenido"
@@ -676,8 +721,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/txtDescripciondelDetenido"
-                        android:text="@string/max3000caracteres"
-                        android:textStyle="italic" />
+                        android:textStyle="italic"/>
 
                 </RelativeLayout>
             </LinearLayout>
@@ -722,7 +766,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="15dp"
                             android:layout_marginLeft="20dp"
-                            android:text="@string/no" />
+                            android:text="@string/no"/>
 
                         <RadioButton
                             android:id="@+id/rbSiLesiones"
@@ -805,7 +849,14 @@
                         android:id="@+id/txtCualPadecimiento"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Especifica"/>
+                        android:hint="Padecimiento"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionNext"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -871,7 +922,14 @@
                         android:id="@+id/txtCualGrupoVulnerable"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Especifica"
+                        android:hint="Grupo Vulnerable"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionDone"
                         />
                 </LinearLayout>
             </LinearLayout>

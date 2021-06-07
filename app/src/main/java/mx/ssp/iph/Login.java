@@ -1,11 +1,17 @@
 package mx.ssp.iph;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -13,6 +19,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import java.io.IOException;
 
@@ -32,14 +39,28 @@ public class Login extends AppCompatActivity {
     EditText txtUsuario,txtContrasena;
     SharedPreferences share;
     SharedPreferences.Editor editor;
+    final private int REQUEST_CODE_ASK_PERMISSION = 111;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         txtUsuario = findViewById(R.id.txtUsuario);
+        txtUsuario.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(10)});
         txtContrasena = findViewById(R.id.txtContrasena);
+        txtContrasena.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(10)});
         btnLogin = findViewById(R.id.btnLogin);
+
+
+        int permisoubicacion = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
+        if (permisoubicacion != PackageManager.PERMISSION_GRANTED) {
+            if (Build.VERSION.SDK_INT >= 23) {
+                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE_ASK_PERMISSION);
+                Toast.makeText(this,"POR FAVOR ACTIVA LOS PERMISOS DE UBICACIÓN",Toast.LENGTH_SHORT).show();
+            }
+        }
+
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,7 +77,6 @@ public class Login extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "ESTAMOS PROCESANDO SU SOLICITUD, UN MOMENTO POR FAVOR", Toast.LENGTH_SHORT).show();
                     getUsuaio();
                 }
-
             }
         });
     }
@@ -114,4 +134,7 @@ public class Login extends AppCompatActivity {
 
         });
     }
+
+
+
 }

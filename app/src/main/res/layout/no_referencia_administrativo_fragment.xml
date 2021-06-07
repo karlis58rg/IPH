@@ -61,7 +61,11 @@
                     android:layout_height="wrap_content"
                     android:maxLength="21"
                     android:inputType="textCapCharacters"
-                    android:digits="@string/validacion_notas"/>
+                    android:digits="@string/validacion_folios"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    android:lines="1"
+                    android:imeOptions="actionNext"/>
             </LinearLayout>
         </LinearLayout>
         <LinearLayout
@@ -81,8 +85,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLength="21"
+                android:digits="@string/validacion_folios"
+                android:imeOptions="actionNext"
                 android:inputType="textCapCharacters"
-                android:digits="@string/validacion_notas"/>
+                android:lines="1"
+                android:maxLines="1"
+                android:singleLine="true"
+                />
         </LinearLayout>
         <LinearLayout
             android:id="@+id/secundarioLinear"
@@ -151,7 +160,14 @@
                 <EditText
                     android:id="@+id/txtGobiernoReferenciaAdministrativo"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:maxLength="150"
+                    android:digits="@string/validacion_nombre"
+                    android:inputType="textCapCharacters"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    android:lines="1"
+                    android:imeOptions="actionDone"/>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/lyMunicipioReferenciaAdministrativo"

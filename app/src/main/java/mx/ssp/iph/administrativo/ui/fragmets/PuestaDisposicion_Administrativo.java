@@ -11,12 +11,14 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.os.Looper;
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Button;
@@ -29,6 +31,8 @@ import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.lang.Object;
+
 
 import android.widget.TextView;
 
@@ -102,6 +106,80 @@ public class PuestaDisposicion_Administrativo extends Fragment {
         imgFirmaAutoridadAdministrativo = (ImageView) root.findViewById(R.id.imgFirmaAutoridadAdministrativo);
 
         ListCombos();
+
+
+
+
+
+
+        //HABILITAR - DESHABILITAR EDITTEXT ANEXO A
+        chDetencionesAnexoAAdministrativo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean chselect) {
+
+                if(chselect == true){
+                    spDetencionesAnexoAAdministrativo.setVisibility(buttonView.VISIBLE);
+                } else if(chselect == false) {
+                    spDetencionesAnexoAAdministrativo.setVisibility(buttonView.INVISIBLE);
+                }
+
+            }
+        });
+
+
+        //HABILITAR - DESHABILITAR EDITTEXT ANEXO B
+        chDetencionesAnexoBAdministrativo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean chselect) {
+
+                if(chselect == true){
+                    spDetencionesAnexoBAdministrativo.setVisibility(buttonView.VISIBLE);
+                } else if(chselect == false) {
+                    spDetencionesAnexoBAdministrativo.setVisibility(buttonView.INVISIBLE);
+
+                }
+
+            }
+        });
+
+        //HABILITAR - DESHABILITAR CHECKBOX ANEXOS
+        chSinAnexosAdministrativo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean chselect) {
+
+                if(chselect == true){
+                    chDetencionesAnexoAAdministrativo.setEnabled(false);
+                    spDetencionesAnexoAAdministrativo.setEnabled(false);
+                    chDetencionesAnexoBAdministrativo.setEnabled(false);
+                    spDetencionesAnexoBAdministrativo.setEnabled(false);
+                    chDetencionesAnexoAAdministrativo.setChecked(false);
+                    chDetencionesAnexoBAdministrativo.setChecked(false);
+                    varNoDetenidos = "000";
+                    varNoVehiculos = "000";
+                } else if(chselect == false) {
+                    chDetencionesAnexoAAdministrativo.setEnabled(true);
+                    spDetencionesAnexoAAdministrativo.setEnabled(true);
+                    chDetencionesAnexoBAdministrativo.setEnabled(true);
+                    spDetencionesAnexoBAdministrativo.setEnabled(true);
+                }
+            }
+        });
+
+
+        //DESHABILITAR SPPINER UNIDAD DE ARRIBO
+        chNoAplicaUnidadDeArriboAdministrativo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean chselect) {
+
+                if(chselect == true){
+                    txtUnidadDeArriboAdministrativo.setEnabled(false);
+                    varNoAplicaUnidad = "NA";
+                } else if(chselect == false) {
+                    txtUnidadDeArriboAdministrativo.setEnabled(true);
+                }
+            }
+        });
+
 
         //***************** Cargar Datos si es que existen  **************************//
         CargarDatos();
@@ -313,13 +391,17 @@ public class PuestaDisposicion_Administrativo extends Fragment {
                             if(resp.equals("true")){
                                 System.out.println("EL DATO SE ENVIO CORRECTAMENTE");
                                 Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
-                                /*txtFechaPuestaDisposicionAdministrativo.setText("");
+                                /*
+                                txtFechaPuestaDisposicionAdministrativo.setText("");
                                 txthoraPuestaDisposicionAdministrativo.setText("");
                                 txtNoExpedienteAdmministrativo.setText("");
                                 txtPrimerApellidoAdministrativo.setText("");
                                 txtSegundoApellidoAdministrativo.setText("");
                                 txtNombresAdministrativo.setText("");
-                                txtFiscaliaAutoridadAdministrativo.setText("");*/
+                                txtFiscaliaAutoridadAdministrativo.setText("");
+                                txtAdscripcionAdministrativo.setText("");
+                                */
+
                             }else{
                                 Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_SHORT).show();
                             }

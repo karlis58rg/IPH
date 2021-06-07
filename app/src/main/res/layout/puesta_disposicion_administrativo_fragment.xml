@@ -102,7 +102,14 @@
             <EditText
                 android:id="@+id/txtNoExpedienteAdmministrativo"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:maxLength="25"
+                android:inputType="textCapCharacters"
+                android:digits="@string/validacion_numexpediente"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:lines="1"
+                android:imeOptions="actionNext"/>
         </LinearLayout>
 
         <LinearLayout
@@ -155,7 +162,8 @@
                     android:id="@+id/spDetencionesAnexoAAdministrativo"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:entries="@array/arrayTotalesAnexos"/>
+                    android:entries="@array/arrayTotalesAnexos"
+                    android:visibility="invisible"/>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/lyAnexosEDescripcionVehiculosAdministrativo"
@@ -187,7 +195,8 @@
                     android:id="@+id/spDetencionesAnexoBAdministrativo"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:entries="@array/arrayTotalesAnexos"/>
+                    android:entries="@array/arrayTotalesAnexos"
+                    android:visibility="invisible"/>
 
             </LinearLayout>
         </LinearLayout>
@@ -306,18 +315,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:gravity="bottom"
+                android:gravity="center"
                 android:weightSum="1"
                 android:layout_weight="0.5">
+                <CheckBox
+                    android:id="@+id/chNoAplicaUnidadDeArriboAdministrativo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
                 <TextView
                     android:id="@+id/lblNoAplicaUnidadDeArriboAdministrativo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/no_aplica" />
-                <CheckBox
-                    android:id="@+id/chNoAplicaUnidadDeArriboAdministrativo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:text="@string/no_aplicaUnidad"/>
+
             </LinearLayout>
         </LinearLayout>
 
@@ -379,7 +389,14 @@
                 <EditText
                     android:id="@+id/txtFiscaliaAutoridadAdministrativo"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:maxLength="50"
+                    android:inputType="textCapCharacters"
+                    android:digits="@string/validacion_nombre"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    android:lines="1"
+                    android:imeOptions="actionNext"/>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/lyAdscripcionAdministrativo"

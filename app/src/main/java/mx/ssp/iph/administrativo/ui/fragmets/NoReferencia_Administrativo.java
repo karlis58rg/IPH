@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.os.Looper;
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -74,9 +75,12 @@ public class NoReferencia_Administrativo extends Fragment {
         //************************************** ACCIONES DE LA VISTA **************************************//
         txtFolioInternoAdministrativo = root.findViewById(R.id.txtFolioInternoAdministrativo);
         txtFolioSistemaAdministrativo = root.findViewById(R.id.txtFolioSistemaAdministrativo);
+        txtFolioSistemaAdministrativo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(21)});
         txtNoReferenciaAdministrativo = root.findViewById(R.id.txtNoReferenciaAdministrativo);
+        txtNoReferenciaAdministrativo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(21)});
         txtEstadoReferenciaAdministrativo = root.findViewById(R.id.txtEstadoReferenciaAdministrativo);
         txtGobiernoReferenciaAdministrativo = root.findViewById(R.id.txtGobiernoReferenciaAdministrativo);
+        txtGobiernoReferenciaAdministrativo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(150)});
         txtFechaEntregaReferenciaAdministrativo = root.findViewById(R.id.txtFechaEntregaReferenciaAdministrativo);
         txtHoraEntregaReferenciaAdministrativo = root.findViewById(R.id.txtHoraEntregaReferenciaAdministrativo);
 
@@ -192,7 +196,7 @@ public class NoReferencia_Administrativo extends Fragment {
                 .build();
         Request request = new Request.Builder()
                 .url("http://189.254.7.167/WebServiceIPH/api/NoReferenciaAdministrativa/")
-                .post(body)
+                .put(body)
                 .build();
         client.newCall(request).enqueue(new Callback() {
             @Override
@@ -218,6 +222,7 @@ public class NoReferencia_Administrativo extends Fragment {
                                 Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
                                 //guardarFolios();
                                 guardarNoReferencia();
+                                /*
                                 txtFolioInternoAdministrativo.setText("");
                                 txtFolioSistemaAdministrativo.setText("");
                                 txtNoReferenciaAdministrativo.setText("");
@@ -225,6 +230,8 @@ public class NoReferencia_Administrativo extends Fragment {
                                 txtGobiernoReferenciaAdministrativo.setText("");
                                 txtFechaEntregaReferenciaAdministrativo.setText("");
                                 txtHoraEntregaReferenciaAdministrativo.setText("");
+
+                                 */
                             }else{
                                 Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_SHORT).show();
                             }
@@ -332,7 +339,6 @@ public class NoReferencia_Administrativo extends Fragment {
 
     //***************** SE RECUPERA EL FOLIO INTERNO **************************//
     private void CargarDatos() {
-
         share = getContext().getSharedPreferences("main", Context.MODE_PRIVATE);
         IDFALTAADMIN= share.getString("IDFALTAADMIN", "");
         GETUSUARIO = share.getString("Usuario", "");

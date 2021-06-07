@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.os.Looper;
+import android.text.InputFilter;
 import android.util.Log;
 import android.speech.RecognizerIntent;
 import android.view.LayoutInflater;
@@ -71,6 +72,7 @@ public class NarrativaHechos extends Fragment {
         cargarFolios();
         imgMicrofonoNarrativaHechos = root.findViewById(R.id.imgMicrofonoNarrativaHechos);
         txtNarrativaHechos = root.findViewById(R.id.txtNarrativaHechos);
+        txtNarrativaHechos.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(8000)});
         btnGuardarNarrativaHechos = root.findViewById(R.id.btnGuardarNarrativaHechos);
         funciones = new Funciones();
 
@@ -80,12 +82,19 @@ public class NarrativaHechos extends Fragment {
 
         btnGuardarNarrativaHechos.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Toast.makeText(getContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS ", Toast.LENGTH_LONG).show();
-                updateNarrativa();
-
+            public void onClick(View v) {
+                if(txtNarrativaHechos.getText().toString().isEmpty()){
+                    Toast.makeText(getActivity().getApplicationContext(),"INGRESA LA DESCRIPCIÓN DE LOS HECHOS",Toast.LENGTH_SHORT).show();
+                }else if(txtNarrativaHechos.getText().length() < 3){
+                    Toast.makeText(getActivity().getApplicationContext(),"AGREGAR EN LA DESCRIPCIÓN DE LOS HECHOS AL MENOS 3 CARACTERES",Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
+                    updateNarrativa();
+                }
             }
         });
+
+
         //Imagen que funciona para activar la grabación de voz
         imgMicrofonoNarrativaHechos.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,7 +135,6 @@ public class NarrativaHechos extends Fragment {
         OkHttpClient client = new OkHttpClient();
         RequestBody body = new FormBody.Builder()
                 .add("IdFaltaAdmin", cargarIdFaltaAdmin)
-                .add("NumReferencia", cargarNumReferencia)
                 .add("Narrativa", narrativaAdministrativo.getNarrativa())
                 .build();
         Request request = new Request.Builder()
@@ -138,7 +146,8 @@ public class NarrativaHechos extends Fragment {
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
                 Looper.prepare(); // to be able to make toast
-                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), ""+ e.toString(), Toast.LENGTH_LONG).show();
+                Log.i("log",e.toString());
                 Looper.loop();
             }
 
@@ -153,9 +162,9 @@ public class NarrativaHechos extends Fragment {
                             if(resp.equals("true")){
                                 System.out.println("EL DATO SE ENVIO CORRECTAMENTE");
                                 Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
-                                txtNarrativaHechos.setText("");
+                                //txtNarrativaHechos.setText("");
                             }else{
-                                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO", Toast.LENGTH_SHORT).show();
                             }
                             Log.i("HERE", resp);
                         }

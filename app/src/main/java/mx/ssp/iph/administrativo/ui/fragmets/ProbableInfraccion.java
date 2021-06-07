@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.os.Looper;
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -65,7 +66,10 @@ public class ProbableInfraccion extends Fragment {
         cargarFolios();
         spHechoProbableInfraccionAdministrativo = root.findViewById(R.id.spHechoProbableInfraccionAdministrativo);
         txtOtroProbableInfraccionAdministrativo = root.findViewById(R.id.txtOtroProbableInfraccionAdministrativo);
+        txtOtroProbableInfraccionAdministrativo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(250)});
+
         txt911FolioProbableInfraccionAdministrativo = root.findViewById(R.id.txt911FolioProbableInfraccionAdministrativo);
+        txt911FolioProbableInfraccionAdministrativo.setFilters(new InputFilter[]{new InputFilter.LengthFilter(10)});
         btnGuardarProbableInfraccionAdministrativo = root.findViewById(R.id.btnGuardarProbableInfraccionAdministrativo);
         ListConocimientoInfraccion();
 
@@ -142,8 +146,9 @@ public class ProbableInfraccion extends Fragment {
                             if(resp.equals("true")){
                                 System.out.println("EL DATO SE ENVIO CORRECTAMENTE");
                                 Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+                                /*
                                 txtOtroProbableInfraccionAdministrativo.setText("");
-                                txt911FolioProbableInfraccionAdministrativo.setText("");
+                                txt911FolioProbableInfraccionAdministrativo.setText("");*/
                             }else{
                                 Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_SHORT).show();
                             }
