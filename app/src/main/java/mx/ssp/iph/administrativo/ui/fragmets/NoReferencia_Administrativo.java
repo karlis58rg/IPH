@@ -296,7 +296,6 @@ public class NoReferencia_Administrativo extends Fragment {
 
                                      //Llenar spiners
                                         spInstitucionReferenciaAdministrativo.setSelection(funciones.getIndexSpiner(spInstitucionReferenciaAdministrativo, jsonjObject.getString("Institucion")));
-                                        spMunicipioReferenciaAdministrativo.setSelection(funciones.getIndexSpiner(spMunicipioReferenciaAdministrativo, jsonjObject.getString("Municipio")));
 
                                     } catch (JSONException e) {
                                         e.printStackTrace();

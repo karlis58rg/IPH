@@ -1,8 +1,10 @@
 package mx.ssp.iph.administrativo.ui.fragmets;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -225,6 +227,35 @@ public class DescripcionVehiculo extends Fragment {
         });
 
         /**************************************************************************************/
+        /*********************************************************************************************************/
+        //Clic a la lista
+        lvVehiculos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+
+                AlertDialog.Builder builder =
+                        new AlertDialog.Builder(getContext()).
+                                setMessage("¿DESEA ELIMINAR EL VEHÍCULO "+ ListaIdVehiculo.get(position) + "" ).
+                                setPositiveButton( "ACEPTAR", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        //CONSUME WEB SERVICE PARA ELIMINAR DB
+                                        String IdDetenido = ListaIdVehiculo.get(position);
+                                        EliminarVehiculo(IdDetenido);
+                                        dialog.dismiss();
+                                    }
+                                })
+                                .setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        // User cancelled the dialog
+                                        dialog.dismiss();
+                                    }
+                                });
+
+                builder.create().show();
+            }
+        });
         return root;
     }
 
@@ -398,7 +429,7 @@ public class DescripcionVehiculo extends Fragment {
             TextView lblDatosVehiculo = row.findViewById(R.id.lblDatosVehiculo);
 
             // Asigna los valores
-            lblNumeroVehiculo.setText("VEHÍCULO NÚMERO "+ListaIdVehiculo.get(position));
+            lblNumeroVehiculo.setText("VEHÍCULO:");
             lblDatosVehiculo.setText(ListaDatosVehiculo.get(position));
 
             return row;
@@ -487,6 +518,67 @@ public class DescripcionVehiculo extends Fragment {
                 }
             }
         });
+    }
+
+    //***************** CONSULTA A LA BD MEDIANTE EL WS **************************//
+    private void EliminarVehiculo(String IdVehiculo) {
+
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("http://189.254.7.167/WebServiceIPH/api/VehiculosInvolucradosAdministrativa?folioInterno="+cargarIdFaltaAdmin+"&idVehiculo="+IdVehiculo)
+                .delete()
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Looper.prepare(); // to be able to make toast
+                Toast.makeText(getContext(), "ERROR AL ELIMINAR Vehículo, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    final String myResponse = response.body().string();
+
+                    try {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                String resp = myResponse;
+
+                                //***************** RESPUESTA DEL WEBSERVICE **************************//
+                                //CONVERTIR ARREGLO DE JSON A OBJET JSON
+                                if(resp.equals("true"))
+                                {
+                                    //***************** MENSAJE MÁS ACTUALIZAR LISTA (Recargando el Fragmento xoxo) **************************//
+                                    Toast.makeText(getContext(), "SE ELIMINÓ CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+                                    addFragment(new DescripcionVehiculo());
+                                }
+                                else{
+                                    Toast.makeText(getContext(), "PROBLEMA AL ELIMINAR", Toast.LENGTH_SHORT).show();
+                                }
+                                //*************************
+                            }
+                        });
+                    }
+                    catch (Exception e){
+                        Toast.makeText(getContext(), "ERROR AL ELIMINAR VEHÍCULO, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            }
+        });
+    }
+
+    //Intercambia los Fragmentos
+    private void addFragment(Fragment fragment) {
+        getActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragmentContenedorJusticiacivica, fragment)
+                //.addToBackStack(null) //Se quita la pila de fragments. Botón atrás
+                .commit();
     }
 
 }

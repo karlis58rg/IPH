@@ -277,6 +277,10 @@ public class LugarDeIntervencion extends Fragment {
                                         txtLatitudUbicacionGeograficaAdministrativo.setText((jsonjObject.getString("Latitud")).equals("null")?"":jsonjObject.getString("Latitud"));
                                         txtLongitudUbicacionGeograficaAdministrativo.setText((jsonjObject.getString("Longitud")).equals("null")?"":jsonjObject.getString("Longitud"));
 
+                                        txtColoniaUbicacionGeograficaAdministrativo.setText((jsonjObject.getString("IdColoniaLocalidad")).equals("null")?"":jsonjObject.getString("IdColoniaLocalidad"));
+                                        //Spiner
+                                        spMunicipioUbicacionGeograficaAdministrativo.setSelection(funciones.getIndexSpiner(spMunicipioUbicacionGeograficaAdministrativo, jsonjObject.getString("IdMunicipio")));
+
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                         Toast.makeText(getContext(), "ERROR AL DESEREALIZAR EL JSON. LLENE TODOS LOS CAMPOS", Toast.LENGTH_SHORT).show();

@@ -61,8 +61,7 @@ public class PuestaDisposicion_Administrativo extends Fragment {
     private ImageView imgFirmaAutoridadAdministrativo;
     CheckBox chDetencionesAnexoAAdministrativo,chDetencionesAnexoBAdministrativo,chSinAnexosAdministrativo,chNoAplicaUnidadDeArriboAdministrativo;
     RadioGroup rgPrimerRespondienteAdministrativo;
-    EditText txtFechaPuestaDisposicionAdministrativo,txthoraPuestaDisposicionAdministrativo,txtNoExpedienteAdmministrativo,txtPrimerApellidoAdministrativo,txtSegundoApellidoAdministrativo,txtNombresAdministrativo,
-    txtFiscaliaAutoridadAdministrativo;
+    EditText txtFechaPuestaDisposicionAdministrativo,txthoraPuestaDisposicionAdministrativo,txtNoExpedienteAdmministrativo,txtFiscaliaAutoridadAdministrativo;
     TextView lblFirmaAutoridadRealizadaAdministrativo;
     Button btnGuardarPuestaDisposicioAdministrativo;
     SharedPreferences share;
@@ -344,7 +343,6 @@ public class PuestaDisposicion_Administrativo extends Fragment {
                                 txtSegundoApellidoAdministrativo.setText("");
                                 txtNombresAdministrativo.setText("");
                                 txtFiscaliaAutoridadAdministrativo.setText("");
-
                                 */
 
                             }else{
@@ -475,20 +473,36 @@ public class PuestaDisposicion_Administrativo extends Fragment {
                                         txthoraPuestaDisposicionAdministrativo.setText((jsonjObject.getString("Hora")).equals("null")?"":jsonjObject.getString("Hora"));
                                         txtNoExpedienteAdmministrativo.setText((jsonjObject.getString("NumExpediente")).equals("null")?"":jsonjObject.getString("NumExpediente"));
 
+
+                                        if(jsonjObject.getString("SinAnexos").equals("NO")){
+                                            //Anexos Checks
+                                                if(jsonjObject.getString("Detenciones").equals("SI")){
+                                                    chDetencionesAnexoAAdministrativo.setChecked(true);
+                                                    spDetencionesAnexoAAdministrativo.setSelection(funciones.getIndexSpiner(spDetencionesAnexoAAdministrativo, jsonjObject.getString("NumDetenciones")));
+                                                }
+
+                                                if(jsonjObject.getString("Vehiculos").equals("SI")){
+                                                    chDetencionesAnexoBAdministrativo.setChecked(true);
+                                                    spDetencionesAnexoBAdministrativo.setSelection(funciones.getIndexSpiner(spDetencionesAnexoBAdministrativo, jsonjObject.getString("NumVehiculos")));
+                                                }
+                                        }
+                                        else{
+                                            chDetencionesAnexoAAdministrativo.setEnabled(false);
+                                            chDetencionesAnexoBAdministrativo.setEnabled(false);
+                                        }
                                         //Coloca Unidad. si es Falso la unidad no aplica. De lo contrario Coloca el valor
-                                        if (jsonjObject.getString("IdUnidad").equals("false"))
+                                        if (jsonjObject.getString("Unidad").equals("false"))
                                         {
                                             chNoAplicaUnidadDeArriboAdministrativo.setChecked(true);
                                         }else
                                         {
                                             chNoAplicaUnidadDeArriboAdministrativo.setChecked(false);
-                                            txtUnidadDeArriboAdministrativo.setSelection(funciones.getIndexSpiner(txtUnidadDeArriboAdministrativo, jsonjObject.getString("Municipio")));
+                                            txtUnidadDeArriboAdministrativo.setSelection(funciones.getIndexSpiner(txtUnidadDeArriboAdministrativo, jsonjObject.getString("Unidad")));
                                         }
-
-
                                     } catch (JSONException e) {
                                         e.printStackTrace();
-                                        Toast.makeText(getContext(), "ERROR AL DESEREALIZAR EL JSON. LLENE TODOS LOS CAMPOS", Toast.LENGTH_SHORT).show();
+                                        //Toast.makeText(getContext(), e.toString(), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getContext(), "ERROR AL DESEREALIZAR EL JSON1. LLENE TODOS LOS CAMPOS", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                                 //*************************
@@ -546,16 +560,22 @@ public class PuestaDisposicion_Administrativo extends Fragment {
                                     try {
                                         JSONObject jsonjObject = new JSONObject(ArregloJson);
 
-                                        txtPrimerApellidoAdministrativo.setText((jsonjObject.getString("APRecibePuestaDisp")).equals("null")?"":jsonjObject.getString("APRecibePuestaDisp"));
-                                        txtSegundoApellidoAdministrativo.setText((jsonjObject.getString("AMRecibePuestaDisp")).equals("null")?"":jsonjObject.getString("AMRecibePuestaDisp"));
-                                        txtNombresAdministrativo.setText((jsonjObject.getString("NomRecibePuestaDisp")).equals("null")?"":jsonjObject.getString("NomRecibePuestaDisp"));
+                                        //txtPrimerApellidoAdministrativo.setText((jsonjObject.getString("APRecibePuestaDisp")).equals("null")?"":jsonjObject.getString("APRecibePuestaDisp"));
+                                        //txtSegundoApellidoAdministrativo.setText((jsonjObject.getString("AMRecibePuestaDisp")).equals("null")?"":jsonjObject.getString("AMRecibePuestaDisp"));
+                                        //txtNombresAdministrativo.setText((jsonjObject.getString("NomRecibePuestaDisp")).equals("null")?"":jsonjObject.getString("NomRecibePuestaDisp"));
+                                        txtFiscaliaAutoridadAdministrativo.setText((jsonjObject.getString("JJIKO")).equals("null")?"":jsonjObject.getString("JJIKO"));
                                         lblFirmaAutoridadRealizadaAdministrativo.setText((jsonjObject.getString("UrlFirma")).equals("null")?"":"FIRMA CORRECTA");
+
+
+                                        //Llenar spiners
+                                        txtAdscripcionAdministrativo.setSelection(funciones.getIndexSpiner(txtAdscripcionAdministrativo, jsonjObject.getString("IdFiscaliaAutoridad")));
+                                        txtCargoAdministrativo.setSelection(funciones.getIndexSpiner(txtCargoAdministrativo, jsonjObject.getString("IdCargo")));
 
 
 
                                     } catch (JSONException e) {
                                         e.printStackTrace();
-                                        Toast.makeText(getContext(), "ERROR AL DESEREALIZAR EL JSON. LLENE TODOS LOS CAMPOS", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getContext(), "ERROR AL DESEREALIZAR EL JSON2. LLENE TODOS LOS CAMPOS", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                                 //*************************

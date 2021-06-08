@@ -23,6 +23,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.dynamic.IFragmentWrapper;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -168,7 +170,7 @@ public class ProbableInfraccion extends Fragment {
 
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url("http://189.254.7.167/WebServiceIPH/api/FaltaAdministrativa?folioInterno=="+cargarIdFaltaAdmin)
+                .url("http://189.254.7.167/WebServiceIPH/api/FaltaAdministrativa?folioInterno="+cargarIdFaltaAdmin)
                 .build();
         client.newCall(request).enqueue(new Callback() {
             @Override
@@ -205,12 +207,20 @@ public class ProbableInfraccion extends Fragment {
                                     try {
                                         JSONObject jsonjObject = new JSONObject(ArregloJson);
 
-                                        txtOtroProbableInfraccionAdministrativo.setText((jsonjObject.getString("Telefono911")).equals("null")?"":jsonjObject.getString("Telefono911"));
-                                        txt911FolioProbableInfraccionAdministrativo.setText((jsonjObject.getString("Otro")).equals("null")?"":jsonjObject.getString("Otro"));
+                                        txtOtroProbableInfraccionAdministrativo.setText((jsonjObject.getString("Otro")).equals("null")?"":jsonjObject.getString("Otro"));
+                                        txt911FolioProbableInfraccionAdministrativo.setText((jsonjObject.getString("Telefono911")).equals("null")?"":jsonjObject.getString("Telefono911"));
+
+                                        //sPINERS
+                                        if(jsonjObject.getString("Conocimiento").equals("null")){
+
+                                        }else
+                                        {
+                                            spHechoProbableInfraccionAdministrativo.setSelection(funciones.getIndexSpiner(spHechoProbableInfraccionAdministrativo, jsonjObject.getString("Conocimiento")));
+                                        }
 
                                     } catch (JSONException e) {
                                         e.printStackTrace();
-                                        Toast.makeText(getContext(), "ERROR AL DESEREALIZAR EL JSON. LLENE TODOS LOS CAMPOS", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getContext(), "NO SE PUEDE DESEREALIZAR JSN", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                                 //*************************

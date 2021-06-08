@@ -1,6 +1,7 @@
 package mx.ssp.iph.administrativo.ui.fragmets;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -30,6 +31,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -72,7 +74,7 @@ public class Detenciones extends Fragment  {
     private Funciones funciones;
     SharedPreferences share;
     private ListView lvDetenidos;
-    ArrayList<String> ListaIdDetenido,ListaNombreDetenido;
+    ArrayList<String> ListaNumDetenido,ListaNombreDetenido,ListaIdDetenido;
     ArrayList<JSONObject> ListaDetenidos;
 
 
@@ -309,6 +311,34 @@ public class Detenciones extends Fragment  {
             }
         });
         /*********************************************************************************************************/
+        //Clic a la lista
+        lvDetenidos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                AlertDialog.Builder builder =
+                        new AlertDialog.Builder(getContext()).
+                                setMessage("¿DESEA ELIMINAR EL DETENIDO "+ ListaIdDetenido.get(position) + "" ).
+                                setPositiveButton( "ACEPTAR", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        //CONSUME WEB SERVICE PARA ELIMINAR DB
+                                        String IdDetenido = ListaIdDetenido.get(position);
+                                        EliminarDetenido(IdDetenido);
+                                        dialog.dismiss();
+                                    }
+                                })
+                                .setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        // User cancelled the dialog
+                                        dialog.dismiss();
+                                    }
+                                });
+
+
+                builder.create().show();
+            }
+        });
 
         return view;
     }
@@ -423,11 +453,15 @@ public class Detenciones extends Fragment  {
                                             JSONObject jsonjObject = new JSONObject(ArrayIPHAdministrativo[contadordeDetenido] + "}");
 
                                             //ListaDetenidos.add(jsonjObject);
-                                            ListaIdDetenido.add(jsonjObject.getString("NumDetencion"));
+
+                                           // ListaIdentificadorDetenido.add(Integer.toString(jsonjObject.getInt("IdDetenido")));
+
+                                            ListaIdDetenido.add(jsonjObject.getString("IdDetenido"));
                                             ListaNombreDetenido.add(((jsonjObject.getString("APDetenido")).equals("null")?"":jsonjObject.getString("APDetenido")) +
                                                     " "+((jsonjObject.getString("AMDetenido")).equals("null")?"":jsonjObject.getString("AMDetenido")) +
                                                     " "+ ((jsonjObject.getString("NomDetenido")).equals("null")?"":jsonjObject.getString("NomDetenido")) +
                                                     " (" +((jsonjObject.getString("ApodoAlias")).equals("null")?"":jsonjObject.getString("ApodoAlias"))+" )" );
+
 
                                         } catch (JSONException e) {
                                             e.printStackTrace();
@@ -494,7 +528,7 @@ public class Detenciones extends Fragment  {
             TextView lblNombreCompleto = row.findViewById(R.id.lblNombreCompleto);
 
             // Asigna los valores
-            lblNumDetencion.setText("DETENIDO NÚMERO "+ListaIdDetenido.get(position));
+            lblNumDetencion.setText("PERSONA DETENIDA:");
             lblNombreCompleto.setText(ListaNombreDetenido.get(position));
 
             return row;
@@ -673,6 +707,67 @@ public class Detenciones extends Fragment  {
         share = getContext().getSharedPreferences("main", Context.MODE_PRIVATE);
         cargarIdFaltaAdmin = share.getString("IDFALTAADMIN", "");
         cargarUsuario = share.getString("Usuario", "");
+    }
+
+    //***************** CONSULTA A LA BD MEDIANTE EL WS **************************//
+    private void EliminarDetenido(String IdDetenido) {
+
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("http://189.254.7.167/WebServiceIPH/api/DetencionesAdministrativa?folioInterno="+cargarIdFaltaAdmin+"&idDetenido="+IdDetenido)
+                .delete()
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Looper.prepare(); // to be able to make toast
+                Toast.makeText(getContext(), "ERROR AL ELIMINAR DETENIDO, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    final String myResponse = response.body().string();
+
+                    try {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                String resp = myResponse;
+
+                                //***************** RESPUESTA DEL WEBSERVICE **************************//
+                                //CONVERTIR ARREGLO DE JSON A OBJET JSON
+                                if(resp.equals("true"))
+                                {
+                                    //***************** MENSAJE MÁS ACTUALIZAR LISTA (Recargando el Fragmento xoxo) **************************//
+                                    Toast.makeText(getContext(), "SE ELIMINÓ CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+                                    addFragment(new Detenciones());
+                                }
+                                else{
+                                    Toast.makeText(getContext(), "PROBLEMA AL ELIMINAR", Toast.LENGTH_SHORT).show();
+                                }
+                                //*************************
+                            }
+                        });
+                    }
+                    catch (Exception e){
+                        Toast.makeText(getContext(), "ERROR AL ELIMINAR DETENIDO, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            }
+        });
+    }
+
+    //Intercambia los Fragmentos
+    private void addFragment(Fragment fragment) {
+       getActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragmentContenedorJusticiacivica, fragment)
+                //.addToBackStack(null) //Se quita la pila de fragments. Botón atrás
+                .commit();
     }
 
 }
