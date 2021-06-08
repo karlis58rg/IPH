@@ -11,6 +11,7 @@ import android.os.Build;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -25,7 +26,7 @@ import mx.ssp.iph.R;
 
 public class Funciones {
 
-    //Calendario Picker
+    //***************** Calendario Picker **************************//
     public void calendar(Integer idCajadeTextoCalendario, Context context, Activity activity){
         Calendar c;
         DatePickerDialog dpd;
@@ -46,7 +47,7 @@ public class Funciones {
         dpd.show();
     }
 
-    //TimePicker
+    //***************** TimePicker **************************//
     public void Time(Integer idCajadeTextoTime, Context context, Activity activity){
         TimePickerDialog tpd;
 
@@ -65,7 +66,7 @@ public class Funciones {
         tpd.show();
     }
 
-    //Ping
+     //***************** Ping **************************//
     public boolean ping(Context context){
         Runtime runtime = Runtime.getRuntime();
         try
@@ -91,6 +92,8 @@ public class Funciones {
     }
 
     //Método que abre un alert dialog perzonalizado
+    //***************** INSERTA A LA BD MEDIANTE EL WS **************************//
+
     public void mensajeAlertDialog(String Mensaje, String TextoBoton, String TipoMensaje, Context context){
         ImageView image = new ImageView(context);
 
@@ -125,12 +128,22 @@ public class Funciones {
         builder.create().show();
     }
 
-
-    //Cambia el título de acuerdo a la seccion seleccionada
+    //***************** Cambia el título de acuerdo a la seccion seleccionada **************************//
     public void CambiarTituloSecciones(String titulo,Context context, Activity activity){
                 TextView tituloSecciones;
                 tituloSecciones = (TextView) activity.findViewById(R.id.lblTituloSecciones);
                 tituloSecciones.setText(titulo);
+    }
+
+    //***************** OBTIENE LA POSICIÓN DEL SPINER **************************//
+    public int getIndexSpiner(Spinner spinner, String myString){
+        for (int i=0;i<spinner.getCount();i++){
+            //Toast.makeText(getContext(),""+spinner.getItemAtPosition(i).toString() + " - " + spinner.getItemIdAtPosition(i),Toast.LENGTH_SHORT).show();
+            if (spinner.getItemAtPosition(i).toString().equalsIgnoreCase(myString)){
+                return i;
+            }
+        }
+        return 0;
     }
 
 }

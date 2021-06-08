@@ -136,33 +136,8 @@ public class NoReferencia_Administrativo extends Fragment {
         // TODO: Use the ViewModel
     }
 
-    //private method of your class
-    private int getIndex(Spinner spinner, String myString){
-        for (int i=0;i<spinner.getCount();i++){
-            Toast.makeText(getContext(),""+spinner.getItemAtPosition(i).toString() + " - " + spinner.getItemIdAtPosition(i),Toast.LENGTH_SHORT).show();
-
-
-            if (spinner.getItemAtPosition(i).toString().equalsIgnoreCase(myString)){
-                return i;
-            }
-        }
-
-        return 0;
-    }
-
     private void ConsultavalorSpinerconId(){
 
-    }
-
-    //private method of your class
-    private int getIndexbyId(Spinner spinner, int idSpiner){
-        for (int i=0;i<spinner.getCount();i++){
-            if (spinner.getItemIdAtPosition(i) == idSpiner)
-            {
-                return i;
-            }
-        }
-        return 0;
     }
 
     //***************** INSERTA A LA BD MEDIANTE EL WS **************************//
@@ -319,6 +294,10 @@ public class NoReferencia_Administrativo extends Fragment {
                                         txtFechaEntregaReferenciaAdministrativo.setText((jsonjObject.getString("Fecha")).equals("null")?"":Fecha[0]);
                                         txtHoraEntregaReferenciaAdministrativo.setText((jsonjObject.getString("Hora")).equals("null")?"":jsonjObject.getString("Hora"));
 
+                                     //Llenar spiners
+                                        //spInstitucionReferenciaAdministrativo.setSelection(funciones.getIndexSpiner(spInstitucionReferenciaAdministrativo, "POLICIA MINISTERIAL"));
+                                        //spMunicipioReferenciaAdministrativo.setSelection(funciones.getIndexSpiner(spMunicipioReferenciaAdministrativo, "POLICIA MINISTERIAL"));
+
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                         Toast.makeText(getContext(), "ERROR AL DESEREALIZAR EL JSON. LLENE TODOS LOS CAMPOS", Toast.LENGTH_SHORT).show();
@@ -358,8 +337,6 @@ public class NoReferencia_Administrativo extends Fragment {
                 cargarNoReferenciaAdministrativa();
             }
         }
-
-        //spInstitucionReferenciaAdministrativo.setSelection(getIndexbyId(spInstitucionReferenciaAdministrativo, 3));
     }
 
     private void ListCombos() {

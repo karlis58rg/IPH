@@ -141,15 +141,11 @@
         <LinearLayout
             android:id="@+id/quintoLinear"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="90dp"
             android:orientation="vertical"
-            android:layout_marginTop="5dp">
-                <TextView
-                    android:id="@+id/lblTipoVehiculo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/font"
-                    android:text="@string/lblTipoVehiculo"/>
+            android:layout_marginTop="5dp"
+            android:background="@drawable/ic_borde_tipo_vehiculo">
+
 
 
             <LinearLayout
@@ -217,52 +213,47 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="90dp"
                 android:layout_weight="1"
                 android:orientation="horizontal"
-                android:layout_marginTop="20dp">
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:weightSum="1"
-                    android:layout_weight="0.04"
-                    android:gravity="center_vertical">
-                    <TextView
-                        android:id="@+id/lblProcedenciaVehiculo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/font"
-                        android:text="@string/procedencia"/>
+                android:layout_marginTop="20dp"
+                android:background="@drawable/ic_borde_procedencia_vehiculo"
+                android:layout_gravity="center"
+                android:gravity="center">
 
-                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="90dp"
                     android:orientation="vertical"
                     android:weightSum="1"
-                    android:layout_weight="0.10">
+                    android:layout_weight="0.10"
+                    android:layout_gravity="center"
+                    android:gravity="center">
 
                     <RadioGroup
                         android:id="@+id/rgProcedenciaVehiculoAdministrativo"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:layout_gravity="center"
+                        android:gravity="center">
 
                         <RadioButton
                             android:id="@+id/rbNacional"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
-                            android:text="@string/nacional" />
+                            android:padding="12dp"
+                            android:text="@string/nacional"
+                            android:layout_gravity="center"/>
 
                         <RadioButton
                             android:id="@+id/rbExtranjero"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
-                            android:text="@string/extranjero" />
+                            android:padding="12dp"
+                            android:text="@string/extranjero"
+                            android:layout_gravity="center"/>
                     </RadioGroup>
                 </LinearLayout>
 
@@ -271,24 +262,13 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="90dp"
                 android:layout_weight="1"
                 android:orientation="horizontal"
-                android:layout_marginTop="20dp">
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:weightSum="1"
-                    android:layout_weight="0.02"
-                    android:gravity="center_vertical">
-                    <TextView
-                        android:id="@+id/Uso"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/font"
-                        android:text="@string/uso"/>
-                </LinearLayout>
+                android:layout_marginTop="20dp"
+                android:background="@drawable/ic_borde_uso_vehiculo"
+                android:layout_gravity="center"
+                android:gravity="center">
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -301,27 +281,35 @@
                         android:id="@+id/rgUsoVehiculoAdministrativo"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:layout_gravity="center"
+                        android:gravity="center">
 
                         <RadioButton
                             android:id="@+id/rbParticular"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
-                            android:text="Particular" />
+                            android:text="Particular"
+                            android:padding="12dp"
+                            android:gravity="center"
+                            android:layout_gravity="center"/>
 
                         <RadioButton
                             android:id="@+id/rbTransportePublico"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
-                            android:text="Transporte Publico" />
+                            android:text="Transporte Publico"
+                            android:padding="12dp"
+                            android:gravity="center"
+                            android:layout_gravity="center"/>
                         <RadioButton
                             android:id="@+id/rbCarga"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
-                            android:text="Carga" />
+                            android:padding="12dp"
+                            android:text="Carga"
+                            android:gravity="center"
+                            android:layout_gravity="center"/>
                     </RadioGroup>
                 </LinearLayout>
 
