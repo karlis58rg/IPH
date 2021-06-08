@@ -563,9 +563,8 @@ public class PuestaDisposicion_Administrativo extends Fragment {
                                         //txtPrimerApellidoAdministrativo.setText((jsonjObject.getString("APRecibePuestaDisp")).equals("null")?"":jsonjObject.getString("APRecibePuestaDisp"));
                                         //txtSegundoApellidoAdministrativo.setText((jsonjObject.getString("AMRecibePuestaDisp")).equals("null")?"":jsonjObject.getString("AMRecibePuestaDisp"));
                                         //txtNombresAdministrativo.setText((jsonjObject.getString("NomRecibePuestaDisp")).equals("null")?"":jsonjObject.getString("NomRecibePuestaDisp"));
-                                        txtFiscaliaAutoridadAdministrativo.setText((jsonjObject.getString("JJIKO")).equals("null")?"":jsonjObject.getString("JJIKO"));
+                                        txtFiscaliaAutoridadAdministrativo.setText((jsonjObject.getString("NomRecibePuestaDisp")).equals("null")?"":jsonjObject.getString("NomRecibePuestaDisp"));
                                         lblFirmaAutoridadRealizadaAdministrativo.setText((jsonjObject.getString("UrlFirma")).equals("null")?"":"FIRMA CORRECTA");
-
 
                                         //Llenar spiners
                                         txtAdscripcionAdministrativo.setSelection(funciones.getIndexSpiner(txtAdscripcionAdministrativo, jsonjObject.getString("IdFiscaliaAutoridad")));

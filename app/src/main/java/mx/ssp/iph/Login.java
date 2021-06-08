@@ -135,6 +135,11 @@ public class Login extends AppCompatActivity {
         });
     }
 
-
+    //Desactivar el botón Atrás en android
+    @Override
+    public void onBackPressed()
+    {
+        return;
+    }
 
 }

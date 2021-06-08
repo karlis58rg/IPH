@@ -288,6 +288,8 @@ public class NoReferencia_Administrativo extends Fragment {
                                         txtFolioInternoAdministrativo.setText(jsonjObject.getString("IdFaltaAdmin"));
                                         txtFolioSistemaAdministrativo.setText((jsonjObject.getString("NumSistema")).equals("null")?"":jsonjObject.getString("NumSistema"));
                                         txtNoReferenciaAdministrativo.setText((jsonjObject.getString("NumReferencia")).equals("null")?"":jsonjObject.getString("NumReferencia"));
+                                        txtGobiernoReferenciaAdministrativo.setText((jsonjObject.getString("Gobierno")).equals("null")?"":jsonjObject.getString("Gobierno"));
+
                                         txtEstadoReferenciaAdministrativo.setText("GUERRERO");
 
                                         String[] Fecha = (jsonjObject.getString("Fecha").replace("-","/")).split("T");
