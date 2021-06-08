@@ -112,148 +112,145 @@
                 android:imeOptions="actionNext"/>
         </LinearLayout>
 
+
         <LinearLayout
-            android:id="@+id/cuartoLinear"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="140dp"
             android:orientation="vertical"
-            android:layout_marginTop="20dp">
-            <TextView
-                android:id="@+id/lblAnexosEntregadosAdministrativo"
-                android:layout_width="wrap_content"
+            android:layout_marginTop="@dimen/border"
+            android:paddingLeft="@dimen/border"
+            android:paddingRight="@dimen/border"
+            android:background="@drawable/ic_borde_anexos">
+
+            <LinearLayout
+                android:id="@+id/quintoLinear"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textStyle="italic"
-                android:text="@string/marque_con_una_x_el_o_los_anexos_entregados" />
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp">
+                <LinearLayout
+                    android:id="@+id/lyAnexosADetencionAdministrativo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:gravity="center|start"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblAnexosADetencionAdministrativo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/anexo_a_detenciones" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/lyDetencionesAnexoAAdministrativo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <CheckBox
+                        android:id="@+id/chDetencionesAnexoAAdministrativo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <Spinner
+                        android:id="@+id/spDetencionesAnexoAAdministrativo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:entries="@array/arrayTotalesAnexos"
+                        android:visibility="invisible"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/lyAnexosEDescripcionVehiculosAdministrativo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:gravity="center|start"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblAnexosEDescripcionVehiculosAdministrativo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/descripcion_de_vehiculos" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lyDetencionesAnexoBAdministrativo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <CheckBox
+                        android:id="@+id/chDetencionesAnexoBAdministrativo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <Spinner
+                        android:id="@+id/spDetencionesAnexoBAdministrativo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:entries="@array/arrayTotalesAnexos"
+                        android:visibility="invisible"/>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/sextoLinear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:id="@+id/lySinAnexosAdministrativo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:gravity="center|start"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblSinAnexosAdministrativo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/no_se_entregan_anexos" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/lySinEntregaAnexosAdministrativo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <CheckBox
+                        android:id="@+id/chSinAnexosAdministrativo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:gravity="center|start"
+                    android:layout_weight="0.10"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="1"
+                    android:layout_weight="0.10"/>
+            </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/quintoLinear"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:layout_marginTop="20dp">
-            <LinearLayout
-                android:id="@+id/lyAnexosADetencionAdministrativo"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:weightSum="1"
-                android:gravity="center|start"
-                android:layout_weight="0.10">
-                <TextView
-                    android:id="@+id/lblAnexosADetencionAdministrativo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/anexo_a_detenciones" />
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/lyDetencionesAnexoAAdministrativo"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:weightSum="1"
-                android:layout_weight="0.10">
-                <CheckBox
-                    android:id="@+id/chDetencionesAnexoAAdministrativo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"/>
-                <Spinner
-                    android:id="@+id/spDetencionesAnexoAAdministrativo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:entries="@array/arrayTotalesAnexos"
-                    android:visibility="invisible"/>
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/lyAnexosEDescripcionVehiculosAdministrativo"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:weightSum="1"
-                android:gravity="center|start"
-                android:layout_weight="0.10">
-                <TextView
-                    android:id="@+id/lblAnexosEDescripcionVehiculosAdministrativo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/descripcion_de_vehiculos" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/lyDetencionesAnexoBAdministrativo"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:weightSum="1"
-                android:layout_weight="0.10">
-                <CheckBox
-                    android:id="@+id/chDetencionesAnexoBAdministrativo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"/>
-                <Spinner
-                    android:id="@+id/spDetencionesAnexoBAdministrativo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:entries="@array/arrayTotalesAnexos"
-                    android:visibility="invisible"/>
-
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/sextoLinear"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:layout_marginTop="20dp">
-            <LinearLayout
-                android:id="@+id/lySinAnexosAdministrativo"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:weightSum="1"
-                android:gravity="center|start"
-                android:layout_weight="0.10">
-                <TextView
-                    android:id="@+id/lblSinAnexosAdministrativo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/no_se_entregan_anexos" />
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/lySinEntregaAnexosAdministrativo"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:weightSum="1"
-                android:layout_weight="0.10">
-                <CheckBox
-                    android:id="@+id/chSinAnexosAdministrativo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:weightSum="1"
-                android:gravity="center|start"
-                android:layout_weight="0.10"/>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:weightSum="1"
-                android:layout_weight="0.10"/>
-        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/septimoLinear"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="20dp">
             <LinearLayout
@@ -289,26 +286,25 @@
             android:id="@+id/onceavoLinear"
             android:layout_width="match_parent"
             android:layout_weight="0.5"
-            android:layout_height="match_parent"
+            android:layout_height="80dp"
             android:orientation="horizontal"
             android:weightSum="1"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="20dp"
+            android:background="@drawable/ic_borde_unidad"
+            android:gravity="center">
             <LinearLayout
                 android:id="@+id/lyUnidadDeArriboAdministrativo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"
-                android:orientation="vertical">
-                <TextView
-                    android:id="@+id/lblUnidadDeArriboAdministrativo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/en_que_unidad_arribo_al_lugar_de_la_intervencion" />
+                android:orientation="vertical"
+                android:gravity="center">
 
                 <Spinner
                     android:id="@+id/txtUnidadDeArriboAdministrativo"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/border"/>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/lyNoAplicaUnidadDeArriboAdministrativo"
@@ -481,7 +477,7 @@
                         <ImageView
                             android:id="@+id/imgFirmaAutoridadAdministrativo"
                             android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:src="@drawable/ic_firma" />
                     </LinearLayout>
 

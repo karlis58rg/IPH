@@ -138,17 +138,17 @@
                     android:text="Datos generales del vehículo retenido." />
             </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/quintoLinear"
-            android:layout_width="match_parent"
-            android:layout_height="90dp"
-            android:orientation="vertical"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/ic_borde_tipo_vehiculo">
-
-
-
             <LinearLayout
+                android:id="@+id/quintoLinear"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:orientation="vertical"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="@dimen/border"
+                android:layout_marginRight="@dimen/border"
+                android:background="@drawable/ic_borde_tipo_vehiculo">
+
+                    <LinearLayout
                 android:id="@+id/quintopuntounoLinear"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -167,19 +167,20 @@
                         android:id="@+id/rgTipoVehiculoAdministrativo"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="horizontal"
+                        android:orientation="vertical"
+                        android:padding="@dimen/border"
                         android:layout_weight="0.5">
                         <RadioButton
                             android:id="@+id/rbTerrestre"
                             android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:layout_marginTop="0dp"
                             android:text="@string/terrestre"
                             android:width="100dp"/>
                         <RadioButton
                             android:id="@+id/rbOtro"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:layout_marginTop="0dp"
                             android:text="@string/otro"
                             android:width="100dp"/>
@@ -209,113 +210,85 @@
                 </LinearLayout>
             </LinearLayout>
 
-        </LinearLayout>
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="90dp"
+                android:layout_height="120dp"
                 android:layout_weight="1"
                 android:orientation="horizontal"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/ic_borde_procedencia_vehiculo"
-                android:layout_gravity="center"
                 android:gravity="center">
-
 
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="90dp"
+                    android:layout_height="120dp"
                     android:orientation="vertical"
                     android:weightSum="1"
-                    android:layout_weight="0.10"
-                    android:layout_gravity="center"
-                    android:gravity="center">
+                    android:layout_margin="@dimen/border"
+                    android:layout_weight="0.1"
+                    android:background="@drawable/ic_borde_procedencia_vehiculo">
 
                     <RadioGroup
                         android:id="@+id/rgProcedenciaVehiculoAdministrativo"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="horizontal"
-                        android:layout_gravity="center"
-                        android:gravity="center">
+                        android:orientation="vertical"
+                        android:padding="@dimen/border"
+                        android:gravity="center_vertical">
 
                         <RadioButton
                             android:id="@+id/rbNacional"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:padding="12dp"
-                            android:text="@string/nacional"
-                            android:layout_gravity="center"/>
+                            android:text="@string/nacional" />
 
                         <RadioButton
                             android:id="@+id/rbExtranjero"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:padding="12dp"
-                            android:text="@string/extranjero"
-                            android:layout_gravity="center"/>
+                            android:text="@string/extranjero" />
                     </RadioGroup>
                 </LinearLayout>
 
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="90dp"
-                android:layout_weight="1"
-                android:orientation="horizontal"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/ic_borde_uso_vehiculo"
-                android:layout_gravity="center"
-                android:gravity="center">
-
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="120dp"
                     android:orientation="vertical"
                     android:weightSum="1"
-                    android:layout_weight="0.10">
+                    android:layout_margin="@dimen/border"
+                    android:layout_weight=".1"
+                    android:background="@drawable/ic_borde_uso_vehiculo">
 
                     <RadioGroup
                         android:id="@+id/rgUsoVehiculoAdministrativo"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="horizontal"
-                        android:layout_gravity="center"
-                        android:gravity="center">
+                        android:orientation="vertical"
+                        android:padding="@dimen/border"
+                        android:gravity="center_vertical">
 
                         <RadioButton
                             android:id="@+id/rbParticular"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Particular"
-                            android:padding="12dp"
-                            android:gravity="center"
-                            android:layout_gravity="center"/>
+                            />
 
                         <RadioButton
                             android:id="@+id/rbTransportePublico"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Transporte Publico"
-                            android:padding="12dp"
-                            android:gravity="center"
-                            android:layout_gravity="center"/>
+                            android:text="Transporte Publico" />
                         <RadioButton
                             android:id="@+id/rbCarga"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:padding="12dp"
-                            android:text="Carga"
-                            android:gravity="center"
-                            android:layout_gravity="center"/>
+                            android:text="Carga" />
                     </RadioGroup>
                 </LinearLayout>
 
             </LinearLayout>
-
-
 
             <LinearLayout
                 android:id="@+id/sextoLinear"
