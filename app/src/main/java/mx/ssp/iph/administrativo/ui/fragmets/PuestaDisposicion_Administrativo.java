@@ -248,7 +248,8 @@ public class PuestaDisposicion_Administrativo extends Fragment {
     private void insertPuestaDisposicion() {
         DataHelper dataHelper = new DataHelper(getContext());
         descUnidad = (String) txtUnidadDeArriboAdministrativo.getSelectedItem();
-        String idUnidad = dataHelper.getIdUnidad(descUnidad);
+
+        //String idUnidad = dataHelper.getIdUnidad(descUnidad);
 
         if(chDetencionesAnexoAAdministrativo.isChecked()){
             varAnexoA = "SI";
@@ -293,10 +294,10 @@ public class PuestaDisposicion_Administrativo extends Fragment {
                 .add("NumVehiculos", varNoVehiculos)
                 .add("SinAnexos", varSinAnexos)
                 .add("IdPoliciaPrimerRespondiente", cargarUsuario)
-                .add("IdUnidad", idUnidad)
+                .add("IdUnidad", descUnidad)
                 .build();
         System.out.println(puestaDisposicion.getIdFaltaAdmin()+puestaDisposicion.getNumReferencia()+puestaDisposicion.getFecha()+puestaDisposicion.getHora()+
-                puestaDisposicion.getNumExpediente()+varAnexoA+varNoDetenidos+varAnexoB+varNoVehiculos+varSinAnexos+cargarUsuario+idUnidad);
+                puestaDisposicion.getNumExpediente()+varAnexoA+varNoDetenidos+varAnexoB+varNoVehiculos+varSinAnexos+cargarUsuario+descUnidad);
         Request request = new Request.Builder()
                 .url("http://189.254.7.167/WebServiceIPH/api/FaltaAdministrativa/")
                 .put(body)
@@ -333,7 +334,7 @@ public class PuestaDisposicion_Administrativo extends Fragment {
                                 */
 
                             }else{
-                                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, VERIFIQUE SU INFORMACIÓN", Toast.LENGTH_SHORT).show();
                             }
                             Log.i("HERE", resp);
                         }
@@ -346,11 +347,11 @@ public class PuestaDisposicion_Administrativo extends Fragment {
     private void insertRecibeDisposicion() {
         DataHelper dataHelper = new DataHelper(getContext());
         descAutoridad = (String) txtAdscripcionAdministrativo.getSelectedItem();
-        int idAdscripcion = dataHelper.getIdAutoridadAdmin(descUnidad);
+        int idAdscripcion = dataHelper.getIdAutoridadAdmin(descAutoridad);
         String adscripcion = String.valueOf(idAdscripcion);
 
         descCargo = (String) txtCargoAdministrativo.getSelectedItem();
-        int idCargo = dataHelper.getIdCargo(descUnidad);
+        int idCargo = dataHelper.getIdCargo(descCargo);
         String cargo = String.valueOf(idCargo);
 
         String urlImagen = "http://189.254.7.167/WebServiceIPH/Firma/";
@@ -364,11 +365,11 @@ public class PuestaDisposicion_Administrativo extends Fragment {
                 .add("IdFiscaliaAutoridad", recibePuestaDisposicion.getIdFiscaliaAutoridad())
                 .add("IdCargo", recibePuestaDisposicion.getIdCargo())
                 .add("NomRecibePuestaDisp", recibePuestaDisposicion.getNomRecibePuestaDisp())
-                .add("UrlFirma", recibePuestaDisposicion.getUrlFirma()+recibePuestaDisposicion.getNomRecibePuestaDisp())
+                .add("UrlFirma", recibePuestaDisposicion.getUrlFirma())
 
                 .build();
         Request request = new Request.Builder()
-                .url("http://189.254.7.167/WebServiceIPH/api/FaltaAdministrativa/")
+                .url("http://189.254.7.167/WebServiceIPH/api/RecibeDisposicionAdministrativa/")
                 .post(body)
                 .build();
         client.newCall(request).enqueue(new Callback() {
@@ -403,7 +404,7 @@ public class PuestaDisposicion_Administrativo extends Fragment {
                                 */
 
                             }else{
-                                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, VERIFIQUE SU INFORMACIÓN", Toast.LENGTH_SHORT).show();
                             }
                             Log.i("HERE", resp);
                         }

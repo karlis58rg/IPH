@@ -146,7 +146,7 @@ public class NarrativaHechos extends Fragment {
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
                 Looper.prepare(); // to be able to make toast
-                Toast.makeText(getContext(), ""+ e.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_LONG).show();
                 Log.i("log",e.toString());
                 Looper.loop();
             }
@@ -164,7 +164,7 @@ public class NarrativaHechos extends Fragment {
                                 Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
                                 //txtNarrativaHechos.setText("");
                             }else{
-                                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, VERIFIQUE SU INFORMACIÓN", Toast.LENGTH_SHORT).show();
                             }
                             Log.i("HERE", resp);
                         }

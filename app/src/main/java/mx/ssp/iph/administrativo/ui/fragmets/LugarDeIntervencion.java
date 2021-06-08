@@ -153,7 +153,7 @@ public class LugarDeIntervencion extends Fragment {
         String idMunicipio = String.valueOf(idDescMunicipio);
 
         ModelLugarIntervencion_Administrativo modeloIntervencion= new ModelLugarIntervencion_Administrativo
-                (cargarIdFaltaAdmin,txtEntidadUbicacionGeograficaAdministrativo.getText().toString(),
+                (cargarIdFaltaAdmin,"12",
                         idMunicipio,txtColoniaUbicacionGeograficaAdministrativo.getText().toString(),
                         txtCalleUbicacionGeograficaAdministrativo.getText().toString(),
                         txtNumeroExteriorUbicacionGeograficaAdministrativo.getText().toString(),
@@ -211,7 +211,7 @@ public class LugarDeIntervencion extends Fragment {
                                 txtLongitudUbicacionGeograficaAdministrativo.setText("");
                                  */
                             }else{
-                                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, VERIFIQUE SU INFORMACIÓN", Toast.LENGTH_SHORT).show();
                             }
                             Log.i("HERE", resp);
                         }
@@ -284,7 +284,7 @@ public class LugarDeIntervencion extends Fragment {
                         });
                     }
                     catch (Exception e){
-                        Toast.makeText(getContext(), "ERROR AL SOLICITAR INFORMACION NO DE REFERENCIA, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, VERIFIQUE SU INFORMACIÓN", Toast.LENGTH_SHORT).show();
                     }
 
                 }

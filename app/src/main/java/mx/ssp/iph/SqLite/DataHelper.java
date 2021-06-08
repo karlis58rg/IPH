@@ -792,7 +792,7 @@ public class DataHelper extends SQLiteOpenHelper {
             Cursor cursor = dbDatabase.rawQuery(selectQuery, null);
             if(cursor.getCount() > 0){
                 while (cursor.moveToNext()){
-                    String descripcion = cursor.getString(cursor.getColumnIndex("Descripcion"));
+                    String descripcion = cursor.getString(cursor.getColumnIndex("IdUnidad"));
                     list.add(descripcion);
                 }
             }
