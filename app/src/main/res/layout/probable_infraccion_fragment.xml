@@ -89,7 +89,7 @@
                     android:lines="1"
                     android:maxLength="250"
                     android:maxLines="1"
-                    android:singleLine="true" />
+                    android:singleLine="true"/>
             </LinearLayout>
         </LinearLayout>
 

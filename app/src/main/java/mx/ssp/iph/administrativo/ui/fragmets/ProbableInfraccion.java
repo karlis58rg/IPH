@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.icu.util.ULocale;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -85,6 +86,36 @@ public class ProbableInfraccion extends Fragment {
             }
         });
 
+
+        spHechoProbableInfraccionAdministrativo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                Object item = parent.getItemIdAtPosition(pos);
+
+                int i = Integer.parseInt(item.toString()) + 1;
+
+                if( i == 1 || i == 2 || i == 3){
+                    txtOtroProbableInfraccionAdministrativo.setEnabled(false);
+                    txt911FolioProbableInfraccionAdministrativo.setEnabled(false);
+                    txt911FolioProbableInfraccionAdministrativo.setText("");
+                    txtOtroProbableInfraccionAdministrativo.setText("");
+                }else if(i == 4){
+                    txtOtroProbableInfraccionAdministrativo.setEnabled(false);
+                    txt911FolioProbableInfraccionAdministrativo.setEnabled(true);
+                    txt911FolioProbableInfraccionAdministrativo.setText("");
+                    txtOtroProbableInfraccionAdministrativo.setText("");
+                }else {
+                    txtOtroProbableInfraccionAdministrativo.setEnabled(true);
+                    txt911FolioProbableInfraccionAdministrativo.setEnabled(false);
+                    txt911FolioProbableInfraccionAdministrativo.setText("");
+                    txtOtroProbableInfraccionAdministrativo.setText("");
+                }
+                //Toast.makeText(getContext(), "" + i, Toast.LENGTH_LONG).show();
+            }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+
         //***************************************************************************//
 
 
@@ -99,6 +130,7 @@ public class ProbableInfraccion extends Fragment {
     }
 
     private void updateProbableInfraccion(){
+
         DataHelper dataHelper = new DataHelper(getContext());
         descConocimientoInfraccion = (String) spHechoProbableInfraccionAdministrativo.getSelectedItem();
         int idDescConocimiento = dataHelper.getIdConocimientoInfraccion(descConocimientoInfraccion);
