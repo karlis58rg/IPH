@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class DataHelper extends SQLiteOpenHelper {
     public static final String DataBase_Name = "IPH";
-    public static final int Database_Version = 12 ;
+    public static final int Database_Version = 15 ;
 
     public static final String Table_CatAutoridadAdmin = "CatAutoridadAdmin";
     public static final String Create_CatAutoridadAdmin = "CREATE TABLE IF NOT EXISTS " + Table_CatAutoridadAdmin +"(IdAutoridadAdmin INTEGER PRIMARY KEY, AutoridadAdmin TEXT NOT NULL UNIQUE)";
@@ -39,7 +39,6 @@ public class DataHelper extends SQLiteOpenHelper {
     public static final String Table_CatSexo = "CatSexo";
     public static final String Create_CatSexo = "CREATE TABLE IF NOT EXISTS " + Table_CatSexo +"(IdSexo INTEGER PRIMARY KEY, Sexo TEXT NOT NULL UNIQUE)";
 
-
     public static final String Table_CatUnidad = "CatUnidad";
     public static final String Create_CatUnidad = "CREATE TABLE IF NOT EXISTS " + Table_CatUnidad +"(IdUnidad TEXT PRIMARY KEY, Unidad TEXT NOT NULL, IdMarca TEXT NOT NULL, IdSubMarca INTEGER NOT NULL, Modelo INTEGER NOT NULL, Descripcion TEXT NOT NULL, IdInstitucion INTEGER NOT NULL)";
 
@@ -49,8 +48,15 @@ public class DataHelper extends SQLiteOpenHelper {
     public static final String Table_CatSubMarcaVehiculos = "CatSubMarcaVehiculos";
     public static final String Create_CatSubMarcaVehiculos = "CREATE TABLE IF NOT EXISTS " + Table_CatSubMarcaVehiculos +"(IdMarca TEXT NOT NULL, IdSubMarca INTEGER NOT NULL ,SubMarca TEXT NOT NULL, PRIMARY KEY (IdMarca, IdSubMarca))";
 
+    public static final String Table_CatColor = "CatColor";
+    public static final String Create_CatColor = "CREATE TABLE IF NOT EXISTS " + Table_CatColor +"(IdColor TEXT PRIMARY KEY, Color TEXT NOT NULL UNIQUE)";
 
-    //public static final String Delete_CatSubMarcaVehiculos = "DROP TABLE IF EXISTS "+ Table_CatSubMarcaVehiculos;
+    public static final String Table_CatAnio = "CatAnio";
+    public static final String Create_CatAnio = "CREATE TABLE IF NOT EXISTS " + Table_CatAnio +"(MODELO TEXT PRIMARY KEY)";
+
+    //public static final String Delete_Table_CatColor = "DROP TABLE IF EXISTS "+ Table_CatColor;
+    //public static final String Delete_Table_CatAnio = "DROP TABLE IF EXISTS "+ Table_CatAnio;
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(Create_CatAutoridadAdmin);
@@ -65,10 +71,13 @@ public class DataHelper extends SQLiteOpenHelper {
         db.execSQL(Create_CatUnidad);
         db.execSQL(Create_CatMarcaVehiculos);
         db.execSQL(Create_CatSubMarcaVehiculos);
+        db.execSQL(Create_CatColor);
+        db.execSQL(Create_CatAnio);
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        //db.execSQL(Delete_CatSubMarcaVehiculos);
+        //db.execSQL(Delete_Table_CatColor);
+        //db.execSQL(Delete_Table_CatAnio);
         onCreate(db);
     }
 
@@ -997,6 +1006,105 @@ public class DataHelper extends SQLiteOpenHelper {
                 while (cursor.moveToNext()){
                     String subMarca = cursor.getString(cursor.getColumnIndex("SubMarca"));
                     list.add(subMarca);
+                }
+            }
+            dbDatabase.setTransactionSuccessful();
+        }catch (Exception e) {e.printStackTrace();}
+        finally {
+            {
+                dbDatabase.endTransaction();
+                dbDatabase.close();
+            }
+        }
+        return  list;
+    }
+
+    /************************************************** CatColor ********************************************************************/
+    public void insertCatColor(String idColor, String color){
+        SQLiteDatabase dbSqLiteDatabase = this.getWritableDatabase();
+        dbSqLiteDatabase.beginTransaction();
+        ContentValues values;
+        try {
+            values = new ContentValues();
+            values.put("IdColor",idColor);
+            values.put("Color",color);
+            dbSqLiteDatabase.insert(Table_CatColor,null,values);
+            dbSqLiteDatabase.setTransactionSuccessful();
+        }catch (Exception e){
+            e.printStackTrace();
+
+        }
+        finally {
+            dbSqLiteDatabase.endTransaction();
+            dbSqLiteDatabase.close();
+        }
+    }
+
+    public ArrayList<String> getAllColores(){
+        ArrayList<String> list = new ArrayList<String>();
+        SQLiteDatabase dbDatabase = this.getReadableDatabase();
+        dbDatabase.beginTransaction();
+        try{
+            String selectQuery = "SELECT * FROM " + Table_CatColor;
+            String selectQuery2 = "SELECT COUNT(*) FROM " + Table_CatColor;
+            Cursor mCount= dbDatabase.rawQuery(selectQuery2, null);
+            mCount.moveToFirst();
+            int count= mCount.getInt(0);
+            System.out.println(count);
+            Cursor cursor = dbDatabase.rawQuery(selectQuery, null);
+            if(cursor.getCount() > 0){
+                while (cursor.moveToNext()){
+                    String color = cursor.getString(cursor.getColumnIndex("Color"));
+                    list.add(color);
+                }
+            }
+            dbDatabase.setTransactionSuccessful();
+        }catch (Exception e) {e.printStackTrace();}
+        finally {
+            {
+                dbDatabase.endTransaction();
+                dbDatabase.close();
+            }
+        }
+        return  list;
+    }
+
+    /************************************************** CatModelo ********************************************************************/
+    public void insertCatModelo(String idModelo){
+        SQLiteDatabase dbSqLiteDatabase = this.getWritableDatabase();
+        dbSqLiteDatabase.beginTransaction();
+        ContentValues values;
+        try {
+            values = new ContentValues();
+            values.put("MODELO",idModelo);
+            dbSqLiteDatabase.insert(Table_CatAnio,null,values);
+            dbSqLiteDatabase.setTransactionSuccessful();
+        }catch (Exception e){
+            e.printStackTrace();
+
+        }
+        finally {
+            dbSqLiteDatabase.endTransaction();
+            dbSqLiteDatabase.close();
+        }
+    }
+
+    public ArrayList<String> getAllModelos(){
+        ArrayList<String> list = new ArrayList<String>();
+        SQLiteDatabase dbDatabase = this.getReadableDatabase();
+        dbDatabase.beginTransaction();
+        try{
+            String selectQuery = "SELECT * FROM " + Table_CatAnio;
+            String selectQuery2 = "SELECT COUNT(*) FROM " + Table_CatAnio;
+            Cursor mCount= dbDatabase.rawQuery(selectQuery2, null);
+            mCount.moveToFirst();
+            int count= mCount.getInt(0);
+            System.out.println(count);
+            Cursor cursor = dbDatabase.rawQuery(selectQuery, null);
+            if(cursor.getCount() > 0){
+                while (cursor.moveToNext()){
+                    String modelo = cursor.getString(cursor.getColumnIndex("MODELO"));
+                    list.add(modelo);
                 }
             }
             dbDatabase.setTransactionSuccessful();

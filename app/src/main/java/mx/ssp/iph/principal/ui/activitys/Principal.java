@@ -62,7 +62,9 @@ public class Principal extends AppCompatActivity {
     int idLugarTraslado; String lugarTraslado; String descripcion;
     int idNacionalida; String nacionalida; String desNacionalidad;
     int idSexo;String sexo;
-    String idUnidad; String unidad; String idMarca,marca,subMarca; int idSubMarca; int modelo; String descripcionU; int idInstitucionU;
+    String idUnidad; String unidad; String idMarca,marca,idColor,color,modeloVehiculo;
+    int idSubMarca; int modelo; String descripcionU; int idInstitucionU;
+
 
     //Menu inferior
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener;
@@ -116,6 +118,8 @@ public class Principal extends AppCompatActivity {
         ListUnidad();
         ListMarca();
         ListSubMarca();
+        ListColores();
+        ListModelo();
 
         /**********************************************************/
 
@@ -128,8 +132,6 @@ public class Principal extends AppCompatActivity {
         PrincipalAdministrativo= new PrincipalAdministrativo();
         PrincipalEmergencias = new PrincipalEmergencias();
         PrincipalBuscar = new PrincipalBuscar();
-
-
 
 
         //Bottom Navigation
@@ -271,6 +273,26 @@ public class Principal extends AppCompatActivity {
             System.out.println("YA EXISTE INFORMACIÓN DE MARCA VEHICULOS");
         }else{
             getMarcaV();
+        }
+    }
+
+    private void ListColores() {
+        DataHelper dataHelper = new DataHelper(getApplicationContext());
+        ArrayList<String> list = dataHelper.getAllColores();
+        if (list.size() > 0) {
+            System.out.println("YA EXISTE INFORMACIÓN DE COLORES");
+        }else{
+            getColor();
+        }
+    }
+
+    private void ListModelo() {
+        DataHelper dataHelper = new DataHelper(getApplicationContext());
+        ArrayList<String> list = dataHelper.getAllModelos();
+        if (list.size() > 0) {
+            System.out.println("YA EXISTE INFORMACIÓN DE MODELOS");
+        }else{
+            getAnio();
         }
     }
 
@@ -969,6 +991,121 @@ public class Principal extends AppCompatActivity {
 
         });
     }*/
+
+        public void getColor() {
+        DataHelper dataHelper = new DataHelper(getApplicationContext());
+
+        final OkHttpClient client = new OkHttpClient();
+        final Request request = new Request.Builder()
+                .url("http://189.254.7.167/WebServiceIPH/api/CatColor")
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Looper.prepare();
+                Toast.makeText(getApplicationContext(), "ERROR AL OBTENER LA INFORMACIÓN, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_SHORT).show();
+                Looper.loop();
+            }
+
+            @Override
+            public void onResponse(Call call, final Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    final String myResponse = response.body().string();
+                    Principal.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                respuestaJson = "null";
+                                if (myResponse.equals(respuestaJson)) {
+                                    Toast.makeText(getApplicationContext(), "NO SE CUENTA CON INFORMACIÓN", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    JSONArray ja = null;
+                                    try {
+                                        ja = new JSONArray("" + myResponse + "");
+                                        for (int i = 0; i < ja.length(); i++) {
+                                            try {
+                                                idColor = (ja.getJSONObject(i).getString("IdColor"));
+                                                color = (ja.getJSONObject(i).getString("Color"));
+                                                dataHelper.insertCatColor(idColor,color);
+                                                System.out.println(ja);
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                }
+            }
+
+        });
+    }
+
+    public void getAnio() {
+        DataHelper dataHelper = new DataHelper(getApplicationContext());
+
+        final OkHttpClient client = new OkHttpClient();
+        final Request request = new Request.Builder()
+                .url("http://189.254.7.167/WebServiceIPH/api/CatAnio")
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Looper.prepare();
+                Toast.makeText(getApplicationContext(), "ERROR AL OBTENER LA INFORMACIÓN, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_SHORT).show();
+                Looper.loop();
+            }
+
+            @Override
+            public void onResponse(Call call, final Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    final String myResponse = response.body().string();
+                    Principal.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                respuestaJson = "null";
+                                if (myResponse.equals(respuestaJson)) {
+                                    Toast.makeText(getApplicationContext(), "NO SE CUENTA CON INFORMACIÓN", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    JSONArray ja = null;
+                                    try {
+                                        ja = new JSONArray("" + myResponse + "");
+                                        for (int i = 0; i < ja.length(); i++) {
+                                            try {
+                                                modeloVehiculo = (ja.getJSONObject(i).getString("MODELO"));
+                                                dataHelper.insertCatModelo(modeloVehiculo);
+                                                System.out.println(ja);
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                }
+            }
+
+        });
+    }
 
     /******************************************************** SUB MARCAS VEHÍCULOS, 1588 REGISTROS ********************************************************/
     private void ListSubMarca() {
