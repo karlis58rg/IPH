@@ -43,6 +43,7 @@ import mx.ssp.iph.R;
 import mx.ssp.iph.SqLite.DataHelper;
 import mx.ssp.iph.administrativo.model.ModeloNoReferencia_Administrativo;
 import mx.ssp.iph.administrativo.model.ModeloPuestaDisposicion_Administrativo;
+import mx.ssp.iph.administrativo.model.ModeloRecibeDisposicion_Administrativo;
 import mx.ssp.iph.administrativo.viewModel.PuestaDisposicionAdministrativoViewModel;
 import mx.ssp.iph.utilidades.ui.ContenedorFirma;
 import mx.ssp.iph.utilidades.ui.Funciones;
@@ -61,14 +62,16 @@ public class PuestaDisposicion_Administrativo extends Fragment {
     CheckBox chDetencionesAnexoAAdministrativo,chDetencionesAnexoBAdministrativo,chSinAnexosAdministrativo,chNoAplicaUnidadDeArriboAdministrativo;
     RadioGroup rgPrimerRespondienteAdministrativo;
     EditText txtFechaPuestaDisposicionAdministrativo,txthoraPuestaDisposicionAdministrativo,txtNoExpedienteAdmministrativo,txtPrimerApellidoAdministrativo,txtSegundoApellidoAdministrativo,txtNombresAdministrativo,
-    txtFiscaliaAutoridadAdministrativo,txtAdscripcionAdministrativo;
+    txtFiscaliaAutoridadAdministrativo;
     TextView lblFirmaAutoridadRealizadaAdministrativo;
     Button btnGuardarPuestaDisposicioAdministrativo;
     SharedPreferences share;
-    String cargarIdFaltaAdmin,cargarNumReferencia,cargarNumFolio,cargarUsuario,varRBPrimerRespondiente,varAnexoA = "NO",varNoDetenidos = "000",varAnexoB = "NO",varNoVehiculos = "000",varSinAnexos = "NO",varNoAplicaUnidad,descUnidad;
+    String cargarIdFaltaAdmin,cargarNumReferencia,cargarNumFolio,cargarUsuario,
+            varAnexoA = "NO",varNoDetenidos = "000",varAnexoB = "NO",varNoVehiculos = "000",varSinAnexos = "NO",
+            varNoAplicaUnidad,descUnidad,descAutoridad,descCargo;
     Funciones funciones;
     Spinner txtCargoAdministrativo,txtUnidadDeArriboAdministrativo,
-            spDetencionesAnexoAAdministrativo,spDetencionesAnexoBAdministrativo;
+            spDetencionesAnexoAAdministrativo,spDetencionesAnexoBAdministrativo,txtAdscripcionAdministrativo;
     public static PuestaDisposicion_Administrativo newInstance() {
         return new PuestaDisposicion_Administrativo();
     }
@@ -94,9 +97,7 @@ public class PuestaDisposicion_Administrativo extends Fragment {
         //txtNombresAdministrativo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         txtUnidadDeArriboAdministrativo = root.findViewById(R.id.txtUnidadDeArriboAdministrativo);
         txtFiscaliaAutoridadAdministrativo = root.findViewById(R.id.txtFiscaliaAutoridadAdministrativo);
-        txtFiscaliaAutoridadAdministrativo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         txtAdscripcionAdministrativo = root.findViewById(R.id.txtAdscripcionAdministrativo);
-        txtAdscripcionAdministrativo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         txtCargoAdministrativo = root.findViewById(R.id.txtCargoAdministrativo);
         spDetencionesAnexoAAdministrativo = root.findViewById(R.id.spDetencionesAnexoAAdministrativo);
         spDetencionesAnexoBAdministrativo = root.findViewById(R.id.spDetencionesAnexoBAdministrativo);
@@ -261,7 +262,8 @@ public class PuestaDisposicion_Administrativo extends Fragment {
     private void insertPuestaDisposicion() {
         DataHelper dataHelper = new DataHelper(getContext());
         descUnidad = (String) txtUnidadDeArriboAdministrativo.getSelectedItem();
-        String idUnidad = dataHelper.getIdUnidad(descUnidad);
+
+        //String idUnidad = dataHelper.getIdUnidad(descUnidad);
 
         if(chDetencionesAnexoAAdministrativo.isChecked()){
             varAnexoA = "SI";
@@ -306,11 +308,83 @@ public class PuestaDisposicion_Administrativo extends Fragment {
                 .add("NumVehiculos", varNoVehiculos)
                 .add("SinAnexos", varSinAnexos)
                 .add("IdPoliciaPrimerRespondiente", cargarUsuario)
-                .add("IdUnidad", idUnidad)
+                .add("IdUnidad", descUnidad)
                 .build();
+        System.out.println(puestaDisposicion.getIdFaltaAdmin()+puestaDisposicion.getNumReferencia()+puestaDisposicion.getFecha()+puestaDisposicion.getHora()+
+                puestaDisposicion.getNumExpediente()+varAnexoA+varNoDetenidos+varAnexoB+varNoVehiculos+varSinAnexos+cargarUsuario+descUnidad);
         Request request = new Request.Builder()
                 .url("http://189.254.7.167/WebServiceIPH/api/FaltaAdministrativa/")
                 .put(body)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Looper.prepare(); // to be able to make toast
+                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    final String myResponse = response.body().string();
+                    PuestaDisposicion_Administrativo.this.getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            String resp = myResponse;
+                            if(resp.equals("true")){
+                                insertRecibeDisposicion();
+                                /*System.out.println("EL DATO SE ENVIO CORRECTAMENTE");
+                                Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+                                txtFechaPuestaDisposicionAdministrativo.setText("");
+                                txthoraPuestaDisposicionAdministrativo.setText("");
+                                txtNoExpedienteAdmministrativo.setText("");
+                                txtPrimerApellidoAdministrativo.setText("");
+                                txtSegundoApellidoAdministrativo.setText("");
+                                txtNombresAdministrativo.setText("");
+                                txtFiscaliaAutoridadAdministrativo.setText("");
+
+                                */
+
+                            }else{
+                                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, VERIFIQUE SU INFORMACIÓN", Toast.LENGTH_SHORT).show();
+                            }
+                            Log.i("HERE", resp);
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    private void insertRecibeDisposicion() {
+        DataHelper dataHelper = new DataHelper(getContext());
+        descAutoridad = (String) txtAdscripcionAdministrativo.getSelectedItem();
+        int idAdscripcion = dataHelper.getIdAutoridadAdmin(descAutoridad);
+        String adscripcion = String.valueOf(idAdscripcion);
+
+        descCargo = (String) txtCargoAdministrativo.getSelectedItem();
+        int idCargo = dataHelper.getIdCargo(descCargo);
+        String cargo = String.valueOf(idCargo);
+
+        String urlImagen = "http://189.254.7.167/WebServiceIPH/Firma/";
+
+        ModeloRecibeDisposicion_Administrativo recibePuestaDisposicion = new ModeloRecibeDisposicion_Administrativo
+                (cargarIdFaltaAdmin, adscripcion,cargo,txtFiscaliaAutoridadAdministrativo.getText().toString(),urlImagen);
+
+        OkHttpClient client = new OkHttpClient();
+        RequestBody body = new FormBody.Builder()
+                .add("IdFaltaAdmin", recibePuestaDisposicion.getIdFaltaAdmin())
+                .add("IdFiscaliaAutoridad", recibePuestaDisposicion.getIdFiscaliaAutoridad())
+                .add("IdCargo", recibePuestaDisposicion.getIdCargo())
+                .add("NomRecibePuestaDisp", recibePuestaDisposicion.getNomRecibePuestaDisp())
+                .add("UrlFirma", recibePuestaDisposicion.getUrlFirma())
+
+                .build();
+        Request request = new Request.Builder()
+                .url("http://189.254.7.167/WebServiceIPH/api/RecibeDisposicionAdministrativa/")
+                .post(body)
                 .build();
         client.newCall(request).enqueue(new Callback() {
             @Override
@@ -344,7 +418,7 @@ public class PuestaDisposicion_Administrativo extends Fragment {
                                 */
 
                             }else{
-                                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, VERIFIQUE SU INFORMACIÓN", Toast.LENGTH_SHORT).show();
                             }
                             Log.i("HERE", resp);
                         }
@@ -502,7 +576,6 @@ public class PuestaDisposicion_Administrativo extends Fragment {
         cargarIdFaltaAdmin = share.getString("IDFALTAADMIN", "");
         cargarNumReferencia = share.getString("NOREFERENCIA", "");
         cargarUsuario = share.getString("Usuario", "");
-
     }
 
     /*****************************************************************************/
@@ -510,6 +583,7 @@ public class PuestaDisposicion_Administrativo extends Fragment {
         DataHelper dataHelper = new DataHelper(getContext());
         ArrayList<String> unidad = dataHelper.getAllUnidad();
         ArrayList<String> cargos = dataHelper.getAllCargos();
+        ArrayList<String> autoridad = dataHelper.getAllAutoridadAdmin();
         if (unidad.size() > 0) {
             System.out.println("YA EXISTE INFORMACIÓN DE UNIDAD");
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_layout, R.id.txt, unidad);
@@ -524,6 +598,14 @@ public class PuestaDisposicion_Administrativo extends Fragment {
         }else{
             Toast.makeText(getContext(), "LO SENTIMOS, NO CUENTA CON CARGOS ACTIVOS.", Toast.LENGTH_LONG).show();
         }
+        if (autoridad.size() > 0) {
+            System.out.println("YA EXISTE INFORMACIÓN DE CARGOS");
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_layout, R.id.txt, autoridad);
+            txtAdscripcionAdministrativo.setAdapter(adapter);
+        }else{
+            Toast.makeText(getContext(), "LO SENTIMOS, NO CUENTA CON ADSCRIPCIONES.", Toast.LENGTH_LONG).show();
+        }
+
     }
 
 

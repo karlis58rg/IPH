@@ -115,9 +115,32 @@ public class DescripcionVehiculo extends Fragment {
         cargarFolios();
         //***************** Cargar Datos si es que existen  **************************//
         CargarDatos();
-        ListCombos();
-        ListSubmarcaByID();
 
+        DataHelper dataHelper = new DataHelper(getContext());
+        ArrayList<String> marca = dataHelper.getAllMarcaVehiculos();
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_layout, R.id.txt, marca);
+        adapter.setDropDownViewResource(R.layout.spinner_layout);
+        spMarcaVehiculo.setAdapter(adapter);
+
+        spMarcaVehiculo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                //Toast.makeText(getContext(), "CLICK VEHICULOS", Toast.LENGTH_LONG).show();
+                descripcionMarca = (String) spMarcaVehiculo.getSelectedItem();
+                String idmarca = dataHelper.getIdMarcaVehiculo(descripcionMarca);
+
+                ArrayList<String> submarcaVehiculos = dataHelper.getValueByIdMarca(idmarca);
+                ArrayAdapter<String> adapterSubMarca = new ArrayAdapter<String>(getActivity(), R.layout.spinner_layout, R.id.txt, submarcaVehiculos);
+                adapterSubMarca.setDropDownViewResource(R.layout.spinner_layout);
+                spSubmarcaVehiculo.setAdapter(adapterSubMarca);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
 
         txtOtroVehiculo.setEnabled(false);
@@ -382,32 +405,6 @@ public class DescripcionVehiculo extends Fragment {
         }
     }
 
-    /***************************** SPINNER *************************************************************/
-    private void ListCombos() {
-        DataHelper dataHelper = new DataHelper(getContext());
-        ArrayList<String> marca = dataHelper.getAllMarcaVehiculos();
-
-        //ArrayList<String> submarca = dataHelper.getAllSubMarcaVehiculos();
-        if (marca.size() > 0) {
-            System.out.println("YA EXISTE INFORMACIÓN DE MARCAS VEHICULOS");
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_layout, R.id.txt, marca);
-            spMarcaVehiculo.setAdapter(adapter);
-        }
-        /*if (submarca.size() > 0) {
-            System.out.println("YA EXISTE INFORMACIÓN DE SUBMARCAS");
-            //ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_layout, R.id.txt, submarca);
-            //spSubmarcaVehiculo.setAdapter(adapter);
-        }*/
-
-    }
-
-    private void ListSubmarcaByID(){
-        DataHelper dataHelper = new DataHelper(getContext());
-        ArrayList<String> submarcaVehiculos = dataHelper.getValueByIdMarca("CHEV");
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_layout, R.id.txt, submarcaVehiculos);
-        spSubmarcaVehiculo.setAdapter(adapter);
-
-    }
 
     //***************** INSERTA A LA BD MEDIANTE EL WS **************************//
     private void insertDescripcionVehiculos() {
@@ -482,7 +479,7 @@ public class DescripcionVehiculo extends Fragment {
                                 txtDestinoVehiculo.setText("");
                                 txtObservacionesdelVehiculo.setText("");
                             }else{
-                                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, VERIFIQUE SU INFORMACIÓN", Toast.LENGTH_SHORT).show();
                             }
                             Log.i("HERE", resp);
                         }

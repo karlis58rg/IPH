@@ -56,11 +56,11 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/font"
                         android:text="@string/entidad"/>
-                    <Spinner
-                        android:id="@+id/spEntidadUbicacionGeograficaAdministrativo"
+                    <EditText
+                        android:id="@+id/txtEntidadUbicacionGeograficaAdministrativo"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:entries="@array/arrayEntidadFederativa"/>
+                        android:text="GUERRERO"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/lyMunicipioUbicacionGeograficaAdministrativo"
@@ -78,8 +78,7 @@
                     <Spinner
                         android:id="@+id/spMunicipioUbicacionGeograficaAdministrativo"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:entries="@array/arrayMunicipios"/>
+                        android:layout_height="match_parent"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/lyColoniaUbicacionGeograficaAdministrativo"
@@ -94,11 +93,10 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/font"
                         android:text="Colonia/Localidad"/>
-                    <Spinner
-                        android:id="@+id/spColoniaUbicacionGeograficaAdministrativo"
+                    <EditText
+                        android:id="@+id/txtColoniaUbicacionGeograficaAdministrativo"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:entries="@array/arrayColonias"/>
+                        android:layout_height="match_parent"/>
                 </LinearLayout>
             </LinearLayout>
 

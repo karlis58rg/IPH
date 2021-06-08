@@ -20,19 +20,22 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import mx.ssp.iph.R;
+import mx.ssp.iph.SqLite.DataHelper;
 import mx.ssp.iph.administrativo.model.ModelLugarIntervencion_Administrativo;
-import mx.ssp.iph.administrativo.model.ModeloNoReferencia_Administrativo;
 import mx.ssp.iph.administrativo.viewModel.LugarDeIntervencionViewModel;
 import mx.ssp.iph.utilidades.ui.ContenedorFirma;
 import mx.ssp.iph.utilidades.ui.ContenedorMaps;
@@ -50,13 +53,15 @@ public class LugarDeIntervencion extends Fragment {
 
     private LugarDeIntervencionViewModel mViewModel;
     EditText txtCalleUbicacionGeograficaAdministrativo,txtNumeroExteriorUbicacionGeograficaAdministrativo,txtNumeroInteriorUbicacionGeograficaAdministrativo,txtCodigoPostalUbicacionGeograficaAdministrativo,
-            txtReferenciasdelLugarUbicacionGeograficaAdministrativo,txtLatitudUbicacionGeograficaAdministrativo,txtLongitudUbicacionGeograficaAdministrativo;
+            txtReferenciasdelLugarUbicacionGeograficaAdministrativo,txtLatitudUbicacionGeograficaAdministrativo,txtLongitudUbicacionGeograficaAdministrativo,
+            txtEntidadUbicacionGeograficaAdministrativo,txtColoniaUbicacionGeograficaAdministrativo;
     Button btnGuardarPuestaDisposicioAdministrativo;
     SharedPreferences share;
-    String cargarIdFaltaAdmin;
+    String cargarIdFaltaAdmin,descripcionMunicipio;
     private Funciones funciones;
     ImageView imgMap;
     final private int REQUEST_CODE_ASK_PERMISSION = 111;
+    Spinner spMunicipioUbicacionGeograficaAdministrativo;
 
     public static LugarDeIntervencion newInstance() {
         return new LugarDeIntervencion();
@@ -84,6 +89,9 @@ public class LugarDeIntervencion extends Fragment {
         txtLatitudUbicacionGeograficaAdministrativo = root.findViewById(R.id.txtLatitudUbicacionGeograficaAdministrativo);
         txtLatitudUbicacionGeograficaAdministrativo.setFilters(new InputFilter[]{new InputFilter.LengthFilter(20)});
         txtLongitudUbicacionGeograficaAdministrativo = root.findViewById(R.id.txtLongitudUbicacionGeograficaAdministrativo);
+        txtEntidadUbicacionGeograficaAdministrativo = root.findViewById(R.id.txtEntidadUbicacionGeograficaAdministrativo);
+        txtColoniaUbicacionGeograficaAdministrativo  = root.findViewById(R.id.txtColoniaUbicacionGeograficaAdministrativo);
+        spMunicipioUbicacionGeograficaAdministrativo = root.findViewById(R.id.spMunicipioUbicacionGeograficaAdministrativo);
         txtLongitudUbicacionGeograficaAdministrativo.setFilters(new InputFilter[]{new InputFilter.LengthFilter(20)});
         imgMap = (ImageView)root.findViewById(R.id.imgMap);
 
@@ -91,10 +99,13 @@ public class LugarDeIntervencion extends Fragment {
         btnGuardarPuestaDisposicioAdministrativo = root.findViewById(R.id.btnGuardarPuestaDisposicioAdministrativo);
         funciones= new Funciones();
 
+        txtEntidadUbicacionGeograficaAdministrativo.setEnabled(false);
 
         //Cambia el título de acuerdo a la sección seleccionada
         funciones.CambiarTituloSecciones("SECCIÓN 3: LUGAR DE LA INTERVENSIÓN",getContext(),getActivity());
 
+
+        ListCombos();
         //***************** Botón abrir maps  **************************//
         imgMap.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,8 +150,15 @@ public class LugarDeIntervencion extends Fragment {
 
     //***************** INSERTA A LA BD MEDIANTE EL WS **************************//
     private void insertLugarIntervencion() {
+        DataHelper dataHelper = new DataHelper(getContext());
+        descripcionMunicipio = (String) spMunicipioUbicacionGeograficaAdministrativo.getSelectedItem();
+        int idDescMunicipio = dataHelper.getIdMunicipio(descripcionMunicipio);
+        String idMunicipio = String.valueOf(idDescMunicipio);
+
         ModelLugarIntervencion_Administrativo modeloIntervencion= new ModelLugarIntervencion_Administrativo
-                (txtCalleUbicacionGeograficaAdministrativo.getText().toString(),
+                (cargarIdFaltaAdmin,"12",
+                        idMunicipio,txtColoniaUbicacionGeograficaAdministrativo.getText().toString(),
+                        txtCalleUbicacionGeograficaAdministrativo.getText().toString(),
                         txtNumeroExteriorUbicacionGeograficaAdministrativo.getText().toString(),
                         txtNumeroInteriorUbicacionGeograficaAdministrativo.getText().toString(),
                         txtCodigoPostalUbicacionGeograficaAdministrativo.getText().toString(),
@@ -151,14 +169,10 @@ public class LugarDeIntervencion extends Fragment {
         OkHttpClient client = new OkHttpClient();
         RequestBody body = new FormBody.Builder()
                 .add("IdFaltaAdmin",cargarIdFaltaAdmin)
+                .add("IdEntidadFederativa",modeloIntervencion.getIdEntidadFederativa())
+                .add("IdMunicipio", modeloIntervencion.getIdMunicipio())
+                .add("IdColoniaLocalidad", modeloIntervencion.getIdColoniaLocalidad())
                 .add("CalleTramo", modeloIntervencion.getCalleTramo())
-
-                .add("IdLugar", "1")
-                .add("IdEntidadFederativa", "1")
-                .add("IdMunicipio", "1")
-
-
-
                 .add("NoExterior", modeloIntervencion.getNoExterior())
                 .add("NoInterior", modeloIntervencion.getNoInterior())
                 .add("Cp", modeloIntervencion.getCp())
@@ -200,7 +214,7 @@ public class LugarDeIntervencion extends Fragment {
                                 txtLongitudUbicacionGeograficaAdministrativo.setText("");
                                  */
                             }else{
-                                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, VERIFIQUE SU INFORMACIÓN", Toast.LENGTH_SHORT).show();
                             }
                             Log.i("HERE", resp);
                         }
@@ -209,6 +223,9 @@ public class LugarDeIntervencion extends Fragment {
             }
         });
     }
+
+
+
 
     //***************** CONSULTA A LA BD MEDIANTE EL WS **************************//
     private void cargarLugarIntervencion() {
@@ -270,7 +287,7 @@ public class LugarDeIntervencion extends Fragment {
                         });
                     }
                     catch (Exception e){
-                        Toast.makeText(getContext(), "ERROR AL SOLICITAR INFORMACION NO DE REFERENCIA, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, VERIFIQUE SU INFORMACIÓN", Toast.LENGTH_SHORT).show();
                     }
 
                 }
@@ -300,6 +317,19 @@ public class LugarDeIntervencion extends Fragment {
             }
         }
 
+    }
+
+    private void ListCombos() {
+        DataHelper dataHelper = new DataHelper(getContext());
+        ArrayList<String> municipios = dataHelper.getAllMunicipios();
+        ArrayList<String> instituciones = dataHelper.getAllInstitucion();
+        if (municipios.size() > 0) {
+            System.out.println("YA EXISTE INFORMACIÓN DE MUNICIPIOS");
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_layout, R.id.txt, municipios);
+            spMunicipioUbicacionGeograficaAdministrativo.setAdapter(adapter);
+        }else{
+            Toast.makeText(getContext(), "LO SENTIMOS, NO CUENTA CON MUNICIPIOS ACTIVOS", Toast.LENGTH_LONG).show();
+        }
     }
 
 }

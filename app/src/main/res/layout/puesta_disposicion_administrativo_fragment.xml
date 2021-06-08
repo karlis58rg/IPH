@@ -250,7 +250,6 @@
                 android:layout_weight="0.10"/>
         </LinearLayout>
 
-        <!-- Se quita primer Respondiente -->
         <LinearLayout
             android:id="@+id/septimoLinear"
             android:layout_width="match_parent"
@@ -278,124 +277,13 @@
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:layout_marginTop="10dp">
-             <!-- <LinearLayout
+            <LinearLayout
                 android:id="@+id/lyPrimerRespondiente"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
-                <TextView
-                    android:id="@+id/lblPrimerRespondienteAdministrativo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/font"
-                    android:text="@string/el_usuario_que_inicio_sesion_es_el_primer_respondiente"/>
-                <RadioGroup
-                    android:id="@+id/rgPrimerRespondienteAdministrativo"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <RadioButton
-                        android:id="@+id/rbSiPrimerRespondienteAdministrativo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:text="@string/si" />
-
-                    <RadioButton
-                        android:id="@+id/rbNoPrimerRespondienteAdministrativo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginLeft="20dp"
-                        android:text="@string/no" />
-                </RadioGroup>
-            </LinearLayout> -->
+                android:orientation="vertical"/>
         </LinearLayout>
 
-        <!-- <LinearLayout
-            android:id="@+id/novenoLinear"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:layout_marginTop="20dp">
-            <LinearLayout
-                android:id="@+id/lyPrimerApellido"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:weightSum="1"
-                android:layout_weight="0.10">
-                <TextView
-                    android:id="@+id/lblPrimerApellidoAdministrativo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/font"
-                    android:text="@string/primer_apellido"/>
-                <EditText
-                    android:id="@+id/txtPrimerApellidoAdministrativo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:maxLength="50"
-                    android:inputType="textCapCharacters"
-                    android:digits="@string/validacion_nombre"
-                    android:singleLine="true"
-                    android:maxLines="1"
-                    android:lines="1"
-                    android:imeOptions="actionNext"/>
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/lySegundoApellido"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:weightSum="1"
-                android:layout_weight="0.10">
-                <TextView
-                    android:id="@+id/lblSegundoApellidoAdministrativo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/font"
-                    android:text="@string/segundo_apellido"/>
-                <EditText
-                    android:id="@+id/txtSegundoApellidoAdministrativo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:maxLength="50"
-                    android:inputType="textCapCharacters"
-                    android:digits="@string/validacion_nombre"
-                    android:singleLine="true"
-                    android:maxLines="1"
-                    android:lines="1"
-                    android:imeOptions="actionNext"/>
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/lyGuardarReferenciaAdministrativo"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:weightSum="1"
-                android:layout_weight="0.10">
-                <TextView
-                    android:id="@+id/lblNombreAdministrativo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/font"
-                    android:text="@string/nombres"/>
-                <EditText
-                    android:id="@+id/txtNombresAdministrativo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:maxLength="50"
-                    android:inputType="textCapCharacters"
-                    android:digits="@string/validacion_nombre"
-                    android:singleLine="true"
-                    android:maxLines="1"
-                    android:lines="1"
-                    android:imeOptions="actionNext"/>
-            </LinearLayout>
-        </LinearLayout> -->
 
         <LinearLayout
             android:id="@+id/onceavoLinear"
@@ -420,7 +308,7 @@
                 <Spinner
                     android:id="@+id/txtUnidadDeArriboAdministrativo"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="match_parent"/>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/lyNoAplicaUnidadDeArriboAdministrativo"
@@ -442,7 +330,6 @@
 
             </LinearLayout>
         </LinearLayout>
-
 
         <LinearLayout
             android:id="@+id/doceavoLinear"
@@ -523,17 +410,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/adscripcion" />
-                <EditText
+                <Spinner
                     android:id="@+id/txtAdscripcionAdministrativo"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:maxLength="50"
-                    android:inputType="textCapCharacters"
-                    android:digits="@string/validacion_nombre"
-                    android:singleLine="true"
-                    android:maxLines="1"
-                    android:lines="1"
-                    android:imeOptions="actionDone"/>
+                    android:layout_height="match_parent" />
             </LinearLayout>
         </LinearLayout>
 
