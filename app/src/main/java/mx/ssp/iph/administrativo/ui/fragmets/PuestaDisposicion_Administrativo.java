@@ -618,7 +618,7 @@ public class PuestaDisposicion_Administrativo extends Fragment {
             Toast.makeText(getContext(), "LO SENTIMOS, NO CUENTA CON CARGOS ACTIVOS.", Toast.LENGTH_LONG).show();
         }
         if (autoridad.size() > 0) {
-            System.out.println("YA EXISTE INFORMACIÓN DE CARGOS");
+            System.out.println("YA EXISTE INFORMACIÓN DE AUTORIDAD");
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_layout, R.id.txt, autoridad);
             txtAdscripcionAdministrativo.setAdapter(adapter);
         }else{

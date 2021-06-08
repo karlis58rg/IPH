@@ -65,13 +65,13 @@ public class DescripcionVehiculo extends Fragment {
     private EditText txthoraRetencion,txtFechaRetencion;
     private Funciones funciones;
     RadioGroup rgTipoVehiculoAdministrativo,rgProcedenciaVehiculoAdministrativo,rgUsoVehiculoAdministrativo;
-    Spinner spMarcaVehiculo,spSubmarcaVehiculo;
-    TextView txtOtroVehiculo,txtModeloVehiculo,txtColorVehiculo,txtPlacaVehiculo,txtSerieVehiculo,txtDestinoVehiculo;
+    Spinner spMarcaVehiculo,spSubmarcaVehiculo,txtModeloVehiculo,txtColorVehiculo;
+    TextView txtOtroVehiculo,txtPlacaVehiculo,txtSerieVehiculo,txtDestinoVehiculo;
     Button btnGuardarVehiculo;
 
 
     SharedPreferences share;
-    String cargarIdFaltaAdmin,cargarUsuario,varTipoVehiculo,varTipoOtro,varProcedencia,varUso,idMarca,idSubMarca,descripcionMarca,descripcionSubMarca;
+    String cargarIdFaltaAdmin,cargarUsuario,varTipoVehiculo,varTipoOtro,varProcedencia,varUso,idMarca,idSubMarca,descripcionMarca,descripcionSubMarca,descripcionColor,descripcionAnio;
     private ListView lvVehiculos;
     ArrayList<String> ListaIdVehiculo,ListaDatosVehiculo;
 
@@ -94,9 +94,7 @@ public class DescripcionVehiculo extends Fragment {
         txtOtroVehiculo = root.findViewById(R.id.txtOtroVehiculo);
         txtOtroVehiculo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(15)});
         txtModeloVehiculo = root.findViewById(R.id.txtModeloVehiculo);
-        txtModeloVehiculo.setFilters(new InputFilter[]{new InputFilter.LengthFilter(4)});
         txtColorVehiculo = root.findViewById(R.id.txtColorVehiculo);
-        txtColorVehiculo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(150)});
         txtPlacaVehiculo = root.findViewById(R.id.txtPlacaVehiculo);
         txtPlacaVehiculo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(10)});
         txtSerieVehiculo = root.findViewById(R.id.txtSerieVehiculo);
@@ -117,6 +115,7 @@ public class DescripcionVehiculo extends Fragment {
         cargarFolios();
         //***************** Cargar Datos si es que existen  **************************//
         CargarDatos();
+        ListCombos();
 
         DataHelper dataHelper = new DataHelper(getContext());
         ArrayList<String> marca = dataHelper.getAllMarcaVehiculos();
@@ -449,10 +448,14 @@ public class DescripcionVehiculo extends Fragment {
         String  idDescSubMarca = dataHelper.getIdSubMarcaVehiculos(descripcionSubMarca);
         String idSubMarca = idDescSubMarca;
 
+        descripcionColor = (String) txtColorVehiculo.getSelectedItem();
+
+        descripcionAnio = (String) txtModeloVehiculo.getSelectedItem();
+
         ModeloDescripcionVehiculos_Administrativo modeloDescVehiculos = new ModeloDescripcionVehiculos_Administrativo
                 (cargarIdFaltaAdmin, txtFechaRetencion.getText().toString(), txthoraRetencion.getText().toString(), varTipoVehiculo,
                         txtOtroVehiculo.getText().toString(), varProcedencia,idMarca,
-                        idSubMarca,txtModeloVehiculo.getText().toString(), txtColorVehiculo.getText().toString(), varUso,
+                        idSubMarca,descripcionAnio, descripcionColor, varUso,
                         txtPlacaVehiculo.getText().toString(), txtSerieVehiculo.getText().toString(), txtObservacionesdelVehiculo.getText().toString(),
                         txtDestinoVehiculo.getText().toString(), cargarUsuario);
 
@@ -503,8 +506,6 @@ public class DescripcionVehiculo extends Fragment {
                                 System.out.println("EL DATO SE ENVIO CORRECTAMENTE");
                                 Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
                                 txtOtroVehiculo.setText("");
-                                txtModeloVehiculo.setText("");
-                                txtColorVehiculo.setText("");
                                 txtPlacaVehiculo.setText("");
                                 txtSerieVehiculo.setText("");
                                 txtDestinoVehiculo.setText("");
@@ -572,6 +573,28 @@ public class DescripcionVehiculo extends Fragment {
                 }
             }
         });
+    }
+
+    private void ListCombos() {
+        DataHelper dataHelper = new DataHelper(getContext());
+        ArrayList<String> list = dataHelper.getAllColores();
+        ArrayList<String> listM = dataHelper.getAllModelos();
+        if (list.size() > 0) {
+            System.out.println("YA EXISTE INFORMACIÓN DE COLORES");
+            ArrayAdapter<String> adapterColores = new ArrayAdapter<String>(getActivity(), R.layout.spinner_layout, R.id.txt, list);
+            txtColorVehiculo.setAdapter(adapterColores);
+        }else{
+            Toast.makeText(getContext(), "LO SENTIMOS, NO CUENTA CON COLORES ACTIVOS", Toast.LENGTH_LONG).show();
+        }
+        if (listM.size() > 0) {
+            System.out.println("YA EXISTE INFORMACIÓN DE MODELOS");
+            ArrayAdapter<String> adapterModelo = new ArrayAdapter<String>(getActivity(), R.layout.spinner_layout, R.id.txt, listM);
+            txtModeloVehiculo.setAdapter(adapterModelo);
+        }else{
+            Toast.makeText(getContext(), "LO SENTIMOS, NO CUENTA CON MODELOS ACTIVOS", Toast.LENGTH_LONG).show();
+        }
+
+
     }
 
     //Intercambia los Fragmentos
