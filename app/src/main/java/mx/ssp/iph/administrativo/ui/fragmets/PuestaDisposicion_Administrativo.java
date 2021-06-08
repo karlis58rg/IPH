@@ -128,6 +128,7 @@ public class PuestaDisposicion_Administrativo extends Fragment {
 
                 if(chselect == true){
                     spDetencionesAnexoAAdministrativo.setVisibility(buttonView.VISIBLE);
+
                 } else if(chselect == false) {
                     spDetencionesAnexoAAdministrativo.setVisibility(buttonView.INVISIBLE);
                 }
@@ -400,6 +401,17 @@ public class PuestaDisposicion_Administrativo extends Fragment {
                                         txthoraPuestaDisposicionAdministrativo.setText((jsonjObject.getString("Hora")).equals("null")?"":jsonjObject.getString("Hora"));
                                         txtNoExpedienteAdmministrativo.setText((jsonjObject.getString("NumExpediente")).equals("null")?"":jsonjObject.getString("NumExpediente"));
 
+                                        //Coloca Unidad. si es Falso la unidad no aplica. De lo contrario Coloca el valor
+                                        if (jsonjObject.getString("IdUnidad").equals("false"))
+                                        {
+                                            chNoAplicaUnidadDeArriboAdministrativo.setChecked(true);
+                                        }else
+                                        {
+                                            chNoAplicaUnidadDeArriboAdministrativo.setChecked(false);
+                                            txtUnidadDeArriboAdministrativo.setSelection(funciones.getIndexSpiner(txtUnidadDeArriboAdministrativo, jsonjObject.getString("Municipio")));
+                                        }
+
+
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                         Toast.makeText(getContext(), "ERROR AL DESEREALIZAR EL JSON. LLENE TODOS LOS CAMPOS", Toast.LENGTH_SHORT).show();
@@ -429,7 +441,7 @@ public class PuestaDisposicion_Administrativo extends Fragment {
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
                 Looper.prepare(); // to be able to make toast
-                Toast.makeText(getContext(), "ERROR AL CONSULTAR SECCIÓN 1, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "ERROR AL CONSULTAR SECCIÓN 1 FISCALÍA, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_LONG).show();
                 Looper.loop();
             }
 

@@ -295,8 +295,8 @@ public class NoReferencia_Administrativo extends Fragment {
                                         txtHoraEntregaReferenciaAdministrativo.setText((jsonjObject.getString("Hora")).equals("null")?"":jsonjObject.getString("Hora"));
 
                                      //Llenar spiners
-                                        //spInstitucionReferenciaAdministrativo.setSelection(funciones.getIndexSpiner(spInstitucionReferenciaAdministrativo, "POLICIA MINISTERIAL"));
-                                        //spMunicipioReferenciaAdministrativo.setSelection(funciones.getIndexSpiner(spMunicipioReferenciaAdministrativo, "POLICIA MINISTERIAL"));
+                                        spInstitucionReferenciaAdministrativo.setSelection(funciones.getIndexSpiner(spInstitucionReferenciaAdministrativo, jsonjObject.getString("Institucion")));
+                                        spMunicipioReferenciaAdministrativo.setSelection(funciones.getIndexSpiner(spMunicipioReferenciaAdministrativo, jsonjObject.getString("Municipio")));
 
                                     } catch (JSONException e) {
                                         e.printStackTrace();
