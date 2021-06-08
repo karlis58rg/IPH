@@ -85,7 +85,7 @@ public class DescripcionVehiculo extends Fragment {
         View root = inflater.inflate(R.layout.descripcion_vehiculo_fragment, container, false);
         funciones = new Funciones();
         txtObservacionesdelVehiculo = (TextView)root.findViewById(R.id.txtObservacionesdelVehiculo);
-        txtObservacionesdelVehiculo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
+        txtObservacionesdelVehiculo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(8000)});
         imgMicrofonoObservacionesdelVehiculo = (ImageView) root.findViewById(R.id.imgMicrofonoObservacionesdelVehiculo);
         txthoraRetencion = (EditText)root.findViewById(R.id.txthoraRetencion);
         txtFechaRetencion = (EditText)root.findViewById(R.id.txtFechaRetencion);
@@ -509,6 +509,8 @@ public class DescripcionVehiculo extends Fragment {
                                 txtSerieVehiculo.setText("");
                                 txtDestinoVehiculo.setText("");
                                 txtObservacionesdelVehiculo.setText("");
+                                addFragment(new DescripcionVehiculo());
+
                             }else{
                                 Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, VERIFIQUE SU INFORMACIÓN", Toast.LENGTH_SHORT).show();
                             }

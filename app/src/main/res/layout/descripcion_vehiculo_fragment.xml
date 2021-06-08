@@ -528,7 +528,7 @@
                         android:layout_height="200dp"
                         android:inputType="text|textMultiLine|textCapCharacters"
                         android:gravity="top"
-                        android:maxLength="50"
+                        android:maxLength="8000"
                         android:digits="@string/validacion_notas"
                         android:imeOptions="actionDone"/>
 

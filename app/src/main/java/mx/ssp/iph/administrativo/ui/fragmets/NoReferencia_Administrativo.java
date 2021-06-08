@@ -295,7 +295,6 @@ public class NoReferencia_Administrativo extends Fragment {
                                         txtHoraEntregaReferenciaAdministrativo.setText((jsonjObject.getString("Hora")).equals("null")?"":jsonjObject.getString("Hora"));
 
                                      //Llenar spiners
-                                        spInstitucionReferenciaAdministrativo.setSelection(funciones.getIndexSpiner(spInstitucionReferenciaAdministrativo, jsonjObject.getString("Institucion")));
 
                                     } catch (JSONException e) {
                                         e.printStackTrace();

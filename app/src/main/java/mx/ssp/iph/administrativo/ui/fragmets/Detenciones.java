@@ -161,6 +161,7 @@ public class Detenciones extends Fragment  {
 
         //Cambia el título de acuerdo a la sección seleccionada
         funciones.CambiarTituloSecciones("ANEXO A: DETENCIÓN (ES)",getContext(),getActivity());
+        txtNacionalidadDetenido.setSelection(funciones.getIndexSpiner(txtNacionalidadDetenido, "MEXICANA"));
 
         cargarFolios();
         //***************** Cargar Datos si es que existen  **************************//
@@ -179,7 +180,7 @@ public class Detenciones extends Fragment  {
         txtFechaDetenido.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(),"CLick",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(),"CLick",Toast.LENGTH_SHORT).show();
                 funciones.calendar(R.id.txtFechaDetenido,getContext(),getActivity());
             }
         });
@@ -201,9 +202,11 @@ public class Detenciones extends Fragment  {
                 if(chselect == true){
                     txtApodoDetenido.setEnabled(false);
                     varNoAlias = "NA";
+                    txtApodoDetenido.setText("");
                 } else if(chselect == false) {
                     txtApodoDetenido.setEnabled(true);
                     varNoAlias = "";
+                    txtApodoDetenido.setText("");
                 }
 
             }
@@ -654,6 +657,8 @@ public class Detenciones extends Fragment  {
                                 txtReferenciasdelLugarDetenido.setText("");
                                 txtCualGrupoVulnerable.setText("");
                                 txtCualPadecimiento.setText("");
+                                addFragment(new Detenciones());
+
                             }else{
                                 Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, VERIFIQUE SU INFORMACIÓN", Toast.LENGTH_SHORT).show();
                             }

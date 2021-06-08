@@ -91,6 +91,7 @@ public class LugarDeIntervencion extends Fragment {
         txtLongitudUbicacionGeograficaAdministrativo = root.findViewById(R.id.txtLongitudUbicacionGeograficaAdministrativo);
         txtEntidadUbicacionGeograficaAdministrativo = root.findViewById(R.id.txtEntidadUbicacionGeograficaAdministrativo);
         txtColoniaUbicacionGeograficaAdministrativo  = root.findViewById(R.id.txtColoniaUbicacionGeograficaAdministrativo);
+        txtColoniaUbicacionGeograficaAdministrativo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         spMunicipioUbicacionGeograficaAdministrativo = root.findViewById(R.id.spMunicipioUbicacionGeograficaAdministrativo);
         txtLongitudUbicacionGeograficaAdministrativo.setFilters(new InputFilter[]{new InputFilter.LengthFilter(20)});
         imgMap = (ImageView)root.findViewById(R.id.imgMap);
