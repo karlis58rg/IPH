@@ -81,8 +81,6 @@ public class Detenciones extends Fragment  {
     String cargarIdFaltaAdmin,cargarUsuario,descripcionLugarTraslado,descripcionMunicipio,descripcionNacionalidad,descripcionSexo,
             varLesiones = "NO",varPadecimiento = "NO",varGrupoVulnerable = "NO",varNoAlias;
 
-    String [] NacionalidadItems = {"Mexicano","Otra"};
-
     public static Detenciones newInstance() {
         return new Detenciones();
     }
@@ -139,6 +137,8 @@ public class Detenciones extends Fragment  {
         txtCualGrupoVulnerable.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(250)});
         txtCualPadecimiento = view.findViewById(R.id.txtCualPadecimiento);
         txtCualPadecimiento.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(250)});
+        txtNacionalidadEspecifiqueDetenido = view.findViewById(R.id.txtNacionalidadEspecifiqueDetenido);
+        txtNacionalidadEspecifiqueDetenido.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(40)});
         chNoAplicaAliasDetenido = view.findViewById(R.id.chNoAplicaAliasDetenido);
         spGeneroDetenido = view.findViewById(R.id.spGeneroDetenido);
         txtNacionalidadDetenido = view.findViewById(R.id.txtNacionalidadDetenido);
@@ -161,7 +161,34 @@ public class Detenciones extends Fragment  {
 
         //Cambia el título de acuerdo a la sección seleccionada
         funciones.CambiarTituloSecciones("ANEXO A: DETENCIÓN (ES)",getContext(),getActivity());
-        txtNacionalidadDetenido.setSelection(funciones.getIndexSpiner(txtNacionalidadDetenido, "MEXICANA"));
+
+        //txtNacionalidadDetenido.setSelection(funciones.getIndexSpiner(txtNacionalidadDetenido, "MEXICANA"));
+
+        //SLEECCIONA "OTRA NACIONALIDAD" Y HABILITA CAMPO DE TEXTO
+
+        txtNacionalidadDetenido.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                Object item = parent.getItemIdAtPosition(pos);
+
+                int i = Integer.parseInt(item.toString()) + 1;
+
+                if(i == 34){
+                    txtNacionalidadEspecifiqueDetenido.setEnabled(true);
+                    txtNacionalidadEspecifiqueDetenido.setText("");
+                }else{
+                    txtNacionalidadEspecifiqueDetenido.setEnabled(false);
+                    txtNacionalidadEspecifiqueDetenido.setText("");
+                }
+
+
+
+                Toast.makeText(getContext(), "" + i, Toast.LENGTH_LONG).show();
+            }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+
 
         cargarFolios();
         //***************** Cargar Datos si es que existen  **************************//

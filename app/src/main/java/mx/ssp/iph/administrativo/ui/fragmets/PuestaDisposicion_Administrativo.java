@@ -128,6 +128,7 @@ public class PuestaDisposicion_Administrativo extends Fragment {
 
                 if(chselect == true){
                     spDetencionesAnexoAAdministrativo.setVisibility(buttonView.VISIBLE);
+                    spDetencionesAnexoAAdministrativo.setSelection(funciones.getIndexSpiner(spDetencionesAnexoAAdministrativo, "--Selecciona--"));
 
                 } else if(chselect == false) {
                     spDetencionesAnexoAAdministrativo.setVisibility(buttonView.INVISIBLE);
@@ -144,6 +145,7 @@ public class PuestaDisposicion_Administrativo extends Fragment {
 
                 if(chselect == true){
                     spDetencionesAnexoBAdministrativo.setVisibility(buttonView.VISIBLE);
+                    spDetencionesAnexoBAdministrativo.setSelection(funciones.getIndexSpiner(spDetencionesAnexoBAdministrativo, "--Selecciona--"));
                 } else if(chselect == false) {
                     spDetencionesAnexoBAdministrativo.setVisibility(buttonView.INVISIBLE);
 

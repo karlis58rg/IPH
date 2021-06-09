@@ -67,11 +67,7 @@
                         android:maxLength="8000"
                         android:gravity="top"
                         android:inputType="text|textMultiLine|textCapCharacters"
-                        android:digits="@string/validacion_notas"
-                        android:singleLine="true"
-                        android:maxLines="1"
-                        android:lines="1"
-                        android:imeOptions="actionDone"/>
+                        android:digits="@string/validacion_notas"/>
 
                     <ImageView
                         android:id="@+id/imgMicrofonoNarrativaHechos"

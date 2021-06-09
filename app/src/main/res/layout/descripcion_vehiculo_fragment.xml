@@ -488,8 +488,7 @@
                         android:inputType="text|textMultiLine|textCapCharacters"
                         android:gravity="top"
                         android:maxLength="8000"
-                        android:digits="@string/validacion_notas"
-                        android:imeOptions="actionDone"/>
+                        android:digits="@string/validacion_notas"/>
 
                     <ImageView
                         android:id="@+id/imgMicrofonoObservacionesdelVehiculo"

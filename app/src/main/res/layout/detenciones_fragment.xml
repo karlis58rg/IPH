@@ -585,7 +585,7 @@
                         android:layout_height="wrap_content"
                         android:digits="@string/validacion_notas"
                         android:maxLength="50"
-                        android:inputType="numberSigned"
+                        android:inputType="textCapCharacters"
                         android:singleLine="true"
                         android:maxLines="1"
                         android:lines="1"
@@ -709,8 +709,7 @@
                         android:inputType="textMultiLine|textCapCharacters"
                         android:digits="@string/validacion_notas"
                         android:maxLength="8000"
-                        android:gravity="top"
-                        android:imeOptions="actionDone"/>
+                        android:gravity="top"/>
 
                     <ImageView
                         android:id="@+id/img_microfonoDescripcionDetenido"
