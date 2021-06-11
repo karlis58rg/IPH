@@ -68,5 +68,9 @@ public class ModeloRecibeDisposicion_Administrativo {
         UrlFirma = urlFirma;
     }
 
+    public ModeloRecibeDisposicion_Administrativo(String nomRecibePuestaDisp) {
+        NomRecibePuestaDisp = nomRecibePuestaDisp;
+    }
+
 
 }

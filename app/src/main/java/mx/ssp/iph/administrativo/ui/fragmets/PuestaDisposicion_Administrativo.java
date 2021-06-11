@@ -3,6 +3,7 @@ package mx.ssp.iph.administrativo.ui.fragmets;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -11,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.os.Looper;
+import android.provider.MediaStore;
 import android.text.InputFilter;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -65,7 +67,7 @@ public class PuestaDisposicion_Administrativo extends Fragment {
     TextView lblFirmaAutoridadRealizadaAdministrativo;
     Button btnGuardarPuestaDisposicioAdministrativo;
     SharedPreferences share;
-    String cargarIdFaltaAdmin,cargarNumReferencia,cargarNumFolio,cargarUsuario,
+    String cargarIdFaltaAdmin,cargarNumReferencia,cargarUsuario,
             varAnexoA = "NO",varNoDetenidos = "000",varAnexoB = "NO",varNoVehiculos = "000",varSinAnexos = "NO",
             varNoAplicaUnidad,descUnidad,descAutoridad,descCargo;
     Funciones funciones;
@@ -244,9 +246,9 @@ public class PuestaDisposicion_Administrativo extends Fragment {
             public void onClick(View view) {
                 Toast.makeText(getContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS ", Toast.LENGTH_LONG).show();
                 insertPuestaDisposicion();
+                //insertImagen();
             }
         });
-
 
         //****************************************************************************//
         return root;
@@ -263,8 +265,6 @@ public class PuestaDisposicion_Administrativo extends Fragment {
     private void insertPuestaDisposicion() {
         DataHelper dataHelper = new DataHelper(getContext());
         descUnidad = (String) txtUnidadDeArriboAdministrativo.getSelectedItem();
-
-        //String idUnidad = dataHelper.getIdUnidad(descUnidad);
 
         if(chDetencionesAnexoAAdministrativo.isChecked()){
             varAnexoA = "SI";
@@ -295,6 +295,8 @@ public class PuestaDisposicion_Administrativo extends Fragment {
                         txtFechaPuestaDisposicionAdministrativo.getText().toString(),
                         txthoraPuestaDisposicionAdministrativo.getText().toString(),
                         txtNoExpedienteAdmministrativo.getText().toString());
+        Log.i("fecha",puestaDisposicion.getFecha());
+        Log.i("hora",puestaDisposicion.getHora());
 
         OkHttpClient client = new OkHttpClient();
         RequestBody body = new FormBody.Builder()
@@ -368,7 +370,7 @@ public class PuestaDisposicion_Administrativo extends Fragment {
         int idCargo = dataHelper.getIdCargo(descCargo);
         String cargo = String.valueOf(idCargo);
 
-        String urlImagen = "http://189.254.7.167/WebServiceIPH/Firma/";
+        String urlImagen = "http://189.254.7.167/WebServiceIPH/Firma/"+cargarIdFaltaAdmin+".jpg";
 
         ModeloRecibeDisposicion_Administrativo recibePuestaDisposicion = new ModeloRecibeDisposicion_Administrativo
                 (cargarIdFaltaAdmin, adscripcion,cargo,txtFiscaliaAutoridadAdministrativo.getText().toString(),urlImagen);
@@ -421,6 +423,44 @@ public class PuestaDisposicion_Administrativo extends Fragment {
                                 Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, VERIFIQUE SU INFORMACIÓN", Toast.LENGTH_SHORT).show();
                             }
                             Log.i("HERE", resp);
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    //********************************** INSERTA IMAGEN AL SERVIDOR ***********************************//
+    public void insertImagen() {
+        ModeloRecibeDisposicion_Administrativo recibeDisposicion =
+                new ModeloRecibeDisposicion_Administrativo(txtFiscaliaAutoridadAdministrativo.getText().toString());
+        String cadena = lblFirmaAutoridadRealizadaAdministrativo.getText().toString();
+
+        OkHttpClient client = new OkHttpClient();
+        RequestBody body = new FormBody.Builder()
+                .add("Description", recibeDisposicion.getNomRecibePuestaDisp()+".jpg")
+                .add("ImageData", cadena)
+                .build();
+        Request request = new Request.Builder()
+                .url("http://189.254.7.167/WebServiceIPH/api/MultimediaFirma")
+                .post(body)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Looper.prepare(); // to be able to make toast
+                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, FAVOR DE VERIFICAR SU CONEXCIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    final String myResponse = response.body().toString();  /********** ME REGRESA LA RESPUESTA DEL WS ****************/
+                    PuestaDisposicion_Administrativo.this.getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getContext(), "REGISTRO ENVIADO CON EXITO", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
@@ -597,6 +637,9 @@ public class PuestaDisposicion_Administrativo extends Fragment {
         cargarIdFaltaAdmin = share.getString("IDFALTAADMIN", "");
         cargarNumReferencia = share.getString("NOREFERENCIA", "");
         cargarUsuario = share.getString("Usuario", "");
+        Log.i("id",cargarIdFaltaAdmin);
+        Log.i("refe",cargarNumReferencia);
+        Log.i("user",cargarUsuario);
     }
 
     /*****************************************************************************/

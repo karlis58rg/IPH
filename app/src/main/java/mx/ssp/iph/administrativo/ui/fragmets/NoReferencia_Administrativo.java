@@ -58,9 +58,7 @@ public class NoReferencia_Administrativo extends Fragment {
     SharedPreferences share;
     SharedPreferences.Editor editor;
     String guardarNoReferencia,IDFALTAADMIN,GETUSUARIO;
-
-
-    String codigoVerifi,randomCodigoVerifi,respuestaJson,descripcionMunicipio,descripcionInstitucion,guardarIdFaltaAdmin;
+    String codigoVerifi,randomCodigoVerifi,descripcionMunicipio,descripcionInstitucion,guardarIdFaltaAdmin,valueEstado,valueInstitucion,valueGobierno,valueMunicipio,valueFecha,valueHora;
     int numberRandom;
 
     public static NoReferencia_Administrativo newInstance() {
@@ -101,6 +99,9 @@ public class NoReferencia_Administrativo extends Fragment {
         txtEstadoReferenciaAdministrativo.setEnabled(false);
         txtFolioInternoAdministrativo.setText(IDFALTAADMIN);
         txtFolioInternoAdministrativo.setEnabled(false);
+        txtNoReferenciaAdministrativo.setEnabled(false);
+
+
         //***************** FECHA  **************************//
         txtFechaEntregaReferenciaAdministrativo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,6 +140,7 @@ public class NoReferencia_Administrativo extends Fragment {
     private void ConsultavalorSpinerconId(){
 
     }
+
 
     //***************** INSERTA A LA BD MEDIANTE EL WS **************************//
     private void insertNoReferenciaAdministrativa() {

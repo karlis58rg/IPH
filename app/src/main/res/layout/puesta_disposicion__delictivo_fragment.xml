@@ -1,0 +1,783 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".delictivo.ui.fragmets.PuestaDisposicion_Delictivo">
+
+    <ScrollView
+        android:id="@+id/scrollTransporte"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+            <LinearLayout
+                android:id="@+id/principalLinear"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:id="@+id/lyHeaderPuestaDisposicion"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="@color/background_section">
+                    <TextView
+                        android:id="@+id/lblPuestaDisposicionDelictivo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="@string/apartado_1_1_fecha_y_hora_de_la_puesta_a_disposicion" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/segundoLinear"
+                android:layout_width="match_parent"
+                android:layout_weight="0.5"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                android:layout_marginTop="20dp">
+                <LinearLayout
+                    android:id="@+id/lyFechaHoraPuestaDisposicionDelictivo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/lblFechaPuestaDisposicionDelictivo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/fecha_de_la_puesta_a_disposicion" />
+
+                    <EditText
+                        android:id="@+id/txtFechaPuestaDisposicionDelictivo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:drawableRight="@drawable/ic_calendar"
+                        android:hint="DD/MM/AAAA"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/lyPuestaDisposicionDelictivo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.5">
+                    <TextView
+                        android:id="@+id/lblHoraPuestaDisposicionDelictivo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/hora_de_la_puesta_a_posposicion" />
+                    <EditText
+                        android:id="@+id/txthoraPuestaDisposicionDelictivo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:drawableRight="@drawable/ic_time"
+                        android:hint="HH:MM"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/tercerLinear"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp">
+                <TextView
+                    android:id="@+id/lblNoExpedienteAdmministrativo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/numero_de_expediente_en_caso_de_existir" />
+
+                <EditText
+                    android:id="@+id/txtNoExpedienteAdmministrativo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLength="25"
+                    android:inputType="textCapCharacters"
+                    android:digits="@string/validacion_numexpediente"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    android:lines="1"
+                    android:imeOptions="actionNext"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/border"
+                android:paddingLeft="@dimen/border"
+                android:paddingRight="@dimen/border"
+                android:background="@drawable/ic_borde_anexos">
+
+                <LinearLayout
+                    android:id="@+id/quintoLinear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="20dp">
+                    <LinearLayout
+                        android:id="@+id/lyAnexosADetencionDelictivo"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:weightSum="1"
+                        android:gravity="center|start"
+                        android:layout_weight="0.10">
+                        <TextView
+                            android:id="@+id/lblAnexosADetencionDelictivo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/anexo_a_detenciones" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/lyDetencionesAnexoADelictivo"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="1"
+                        android:layout_weight="0.10">
+                        <CheckBox
+                            android:id="@+id/chDetencionesAnexoADelictivo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                        <Spinner
+                            android:id="@+id/spDetencionesAnexoADelictivo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:entries="@array/arrayTotalesAnexos"
+                            android:visibility="invisible"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/lyAnexosDInventarioArmasDelictivo"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:weightSum="1"
+                        android:gravity="center|start"
+                        android:layout_weight="0.10">
+                        <TextView
+                            android:id="@+id/lblAnexosDInventarioArmasDelictivo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Anexo D. Inventario de armas y objetos" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/lyInventarioArmasDelictivo"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="1"
+                        android:layout_weight="0.10">
+                        <CheckBox
+                            android:id="@+id/chAnexosDInventarioArmasDelictivo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                        <Spinner
+                            android:id="@+id/spAnexosDInventarioArmasDelictivo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:entries="@array/arrayTotalesAnexos"
+                            android:visibility="invisible"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/quintoLinear2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="20dp">
+                    <LinearLayout
+                        android:id="@+id/lyAnexosBUsoFuerzaDelictivo"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:weightSum="1"
+                        android:gravity="center|start"
+                        android:layout_weight="0.10">
+                        <TextView
+                            android:id="@+id/lblAnexosBUsoFuerzaDelictivo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Anexo B. Informe del uso de fuerza" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/lyUsoFuerzaAnexoBDelictivo"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="1"
+                        android:layout_weight="0.10">
+                        <CheckBox
+                            android:id="@+id/chUsoFuerzaAnexoBDelictivo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/lyAnexosEEntrevistasDelictivo"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:weightSum="1"
+                        android:gravity="center|start"
+                        android:layout_weight="0.10">
+                        <TextView
+                            android:id="@+id/lblAnexosEEntrevistasDelictivo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Anexo E. Entrevistas" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/lyEntrevistasDelictivo"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="1"
+                        android:layout_weight="0.10">
+                        <CheckBox
+                            android:id="@+id/chEntrevistasAnexoEDelictivo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                        <Spinner
+                            android:id="@+id/spEntrevistasAnexoEDelictivo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:entries="@array/arrayTotalesAnexos"
+                            android:visibility="invisible"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/quintoLinear3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="20dp">
+                    <LinearLayout
+                        android:id="@+id/lyAnexosCInspeccionVehiculoDelictivo"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:weightSum="1"
+                        android:gravity="center|start"
+                        android:layout_weight="0.10">
+                        <TextView
+                            android:id="@+id/lblAnexosCInspeccionVehiculoDelictivo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Anexo C. Inspección de vehículos" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/lyInspeccionVehiculoDelictivo"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="1"
+                        android:layout_weight="0.10">
+                        <CheckBox
+                            android:id="@+id/chAnexosCInspeccionVehiculoDelictivo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                        <Spinner
+                            android:id="@+id/spAnexosCInspeccionVehiculoDelictivo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:entries="@array/arrayTotalesAnexos"
+                            android:visibility="invisible"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/lyAnexosFEntregaRecepcionDelictivo"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:weightSum="1"
+                        android:gravity="center|start"
+                        android:layout_weight="0.10">
+                        <TextView
+                            android:id="@+id/lblAnexosFEntregaRecepcionDelictivo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Anexo F. Entrega-recepción del lugar de la intervención" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/lyEntregaRecepcionDelictivo"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="1"
+                        android:layout_weight="0.10">
+                        <CheckBox
+                            android:id="@+id/chAnexosFEntregaRecepcionDelictivo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/sextoLinear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/border"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+                    <LinearLayout
+                        android:id="@+id/lySinAnexosDelictivo"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:weightSum="1"
+                        android:gravity="center|start"
+                        android:layout_weight="0.10">
+                        <TextView
+                            android:id="@+id/lblSinAnexosDelictivo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/no_se_entregan_anexos" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/lySinEntregaAnexosDelictivo"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="1"
+                        android:layout_weight="0.10">
+                        <CheckBox
+                            android:id="@+id/chSinAnexosDelictivo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:weightSum="1"
+                        android:gravity="center|start"
+                        android:layout_weight="0.10"/>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="1"
+                        android:layout_weight="0.10"/>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/quintoLinear4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginTop="5dp">
+
+                    <LinearLayout
+                        android:id="@+id/quintopuntounoLinear"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="5dp">
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:weightSum="1"
+                            android:layout_weight="0.10">
+
+                            <TextView
+                                android:id="@+id/lblAnexosDocumentacionDelictivo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="¿Anexa documentación complementaria?" />
+                            <RadioGroup
+                                android:id="@+id/rgAnexosDocumentacionDelictivo"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:padding="@dimen/border"
+                                android:layout_weight="0.5">
+
+                                <RadioButton
+                                    android:id="@+id/rbSiAnexosDocumentacionDelictivo"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="0dp"
+                                    android:text="Si"
+                                    android:width="100dp"/>
+                                <RadioButton
+                                    android:id="@+id/rbNoAnexosDocumentacionDelictivo"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="0dp"
+                                    android:text="No"
+                                    android:width="100dp"/>
+                            </RadioGroup>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:weightSum="1"
+                            android:layout_weight="0.10">
+
+                            <EditText
+                                android:id="@+id/txtOtroVehiculo"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:digits="@string/validacion_nombre"
+                                android:enabled="false"
+                                android:hint="Tipo de vehículo"
+                                android:imeOptions="actionNext"
+                                android:inputType="textCapCharacters"
+                                android:lines="1"
+                                android:maxLength="150"
+                                android:maxLines="1"
+                                android:singleLine="true"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/septimoLinear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp">
+                <LinearLayout
+                    android:id="@+id/lyHeaderDatosPuestaDisposicion"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="@color/background_section">
+                    <TextView
+                        android:id="@+id/lblDatosPuestaDisposicionDelictivo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="@string/apartado_1_2_datos_de_quien_realiza_la_puesta_a_disposicion_primer_respondiente" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/octavoLinear"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+                <LinearLayout
+                    android:id="@+id/lyPrimerRespondiente"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/onceavoLinear"
+                android:layout_width="match_parent"
+                android:layout_weight="0.5"
+                android:layout_height="80dp"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/ic_borde_unidad"
+                android:gravity="center">
+                <LinearLayout
+                    android:id="@+id/lyUnidadDeArriboDelictivo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <Spinner
+                        android:id="@+id/txtUnidadDeArriboDelictivo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/border"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/lyNoAplicaUnidadDeArriboDelictivo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:weightSum="1"
+                    android:layout_weight="0.5">
+                    <CheckBox
+                        android:id="@+id/chNoAplicaUnidadDeArriboDelictivo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/lblNoAplicaUnidadDeArriboDelictivo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/no_aplicaUnidad"/>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/doceavoLinear"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp">
+                <LinearLayout
+                    android:id="@+id/lyHeaderDatosQuienRecibePuestaDisposicion"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="@color/background_section">
+                    <TextView
+                        android:id="@+id/lblDatosQuienRecibePuestaDisposicionDelictivo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="@string/apartado_1_3_datos_de_quien_recibe_la_puesta_a_disposicion" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/terceavoLinear"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp">
+                <TextView
+                    android:id="@+id/lblAutoridadQueRecibeDelictivo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="italic"
+                    android:text="@string/fiscal_autoridad_que_recibe_la_puesta_a_disposicion" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/catorceavoLinear"
+                android:layout_width="match_parent"
+                android:layout_weight="0.5"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                android:layout_marginTop="20dp">
+                <LinearLayout
+                    android:id="@+id/lyFiscaliaAutoridadDelictivo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/lblFiscaliaAutoridadDelictivo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/fiscalia_autoridad" />
+
+                    <EditText
+                        android:id="@+id/txtFiscaliaAutoridadDelictivo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionDone"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/lyAdscripcionDelictivo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.5">
+                    <TextView
+                        android:id="@+id/lblAdscripcionDelictivo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/adscripcion" />
+                    <Spinner
+                        android:id="@+id/txtAdscripcionDelictivo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/quinceavoLinear"
+                android:layout_width="match_parent"
+                android:layout_weight="0.5"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                android:layout_marginTop="20dp">
+                <LinearLayout
+                    android:id="@+id/lyCargoDelictivo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/lblCargoDelictivo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/cargo" />
+
+                    <Spinner
+                        android:id="@+id/txtCargoDelictivo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/lyFirmaAutoridadDelictivo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.5">
+                    <TextView
+                        android:id="@+id/lblFirmaAutoridadDelictivo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Firma de la Autoridad" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:weightSum="1"
+                        android:layout_weight="0.5">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:weightSum="1"
+                            android:layout_weight="0.80">
+                            <TextView
+                                android:id="@+id/lblFirmaAutoridadRealizadaDelictivo"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:weightSum="1"
+                            android:layout_weight="0.20">
+                            <ImageView
+                                android:id="@+id/imgFirmaAutoridadDelictivo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_firma" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+
+
+            <!--Linear Oculto Firma -->
+            <!-- linear Oculto Firma del Detenido -->
+            <LinearLayout
+                android:id="@+id/oculto1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10"
+                    android:visibility="visible">
+                    <TextView
+                        android:id="@+id/lblFirmaOcultaAutoridadBase64"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text=""/>
+                </LinearLayout>
+            </LinearLayout>
+            <!-- linear Oculto Firma del Detenido -->
+
+
+            <LinearLayout
+                android:id="@+id/sexteavoLinear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/lyGuardarPuestaDisposicionDelictivo"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:weightSum="1"
+                    android:layout_weight="0.5">
+                    <Button
+                        android:id="@+id/btnGuardarPuestaDisposicioDelictivo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:drawableLeft="@drawable/ic_save_white"
+                        android:background="@color/backgroud_header_toolbar"
+                        android:paddingLeft="12dp"
+                        android:paddingRight="12dp"
+                        android:text="@string/guardar_datos" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                </LinearLayout>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</FrameLayout>

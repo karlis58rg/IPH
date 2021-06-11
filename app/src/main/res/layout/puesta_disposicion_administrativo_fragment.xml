@@ -130,7 +130,7 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="20dp">
                 <LinearLayout
-                    android:id="@+id/lyAnexosADetencionAdministrativo"
+                    android:id="@+id/lyAnexosADetencionDelictivo"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
