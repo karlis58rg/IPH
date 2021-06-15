@@ -119,11 +119,7 @@ public class ProbableInfraccion extends Fragment {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-
-
         //***************************************************************************//
-
-
         return root;
     }
 

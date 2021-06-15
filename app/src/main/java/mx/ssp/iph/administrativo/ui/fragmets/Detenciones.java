@@ -182,7 +182,7 @@ public class Detenciones extends Fragment  {
 
 
 
-                Toast.makeText(getContext(), "" + i, Toast.LENGTH_LONG).show();
+                //Toast.makeText(getContext(), "" + i, Toast.LENGTH_LONG).show();
             }
             public void onNothingSelected(AdapterView<?> parent) {
             }
