@@ -80,7 +80,7 @@ public class PrincipalAdministrativo extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.principal_administrativo_fragment, container, false);
         mViewModel = new ViewModelProvider(this).get(PrincipalAdministrativoViewModel.class);
-        final FloatingActionButton fabNuevoIPHDelictivo = view.findViewById(R.id.fabNuevoIPHDelictivo);
+        final FloatingActionButton fabNuevoIPHAdministrativo = view.findViewById(R.id.fabNuevoIPHAdministrativo);
         lvPrincipalFolioInternoAdministrativo = view.findViewById(R.id.lvPrincipalFolioInternoAdministrativo);
         funciones = new Funciones();
         cargarUsuario();
@@ -105,7 +105,7 @@ public class PrincipalAdministrativo extends Fragment {
         });
 
         //***************** BOTÓN + **************************//
-        fabNuevoIPHDelictivo.setOnClickListener(new View.OnClickListener() {
+        fabNuevoIPHAdministrativo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Abre Dialog de por favor espere
