@@ -109,7 +109,8 @@
                 android:id="@+id/tercerLinear"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -123,6 +124,7 @@
                         android:text="@string/subtitulo_apartado_A2" />
                 </LinearLayout>
             </LinearLayout>
+
 
             <LinearLayout
                 android:id="@+id/cuartoLinear"
@@ -849,7 +851,6 @@
                         android:textColor="@color/font"
                         android:layout_gravity="center"
                         android:text="¿La persona detenida presenta lesiones visibles?"/>
-
                 </LinearLayout>
 
                 <LinearLayout
@@ -1069,7 +1070,6 @@
                 android:layout_weight="1"
                 android:orientation="horizontal"
                 android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
                 android:background="@drawable/ic_borde_radio">
                 <LinearLayout
                     android:layout_width="0dp"
@@ -1151,7 +1151,8 @@
                 android:id="@+id/tercerLinear1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -1247,36 +1248,72 @@
                 </LinearLayout>
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/cuartoLinear3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblNumeroTelefonoA3Delictivo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="Número de teléfono"/>
+                    <EditText
+                        android:id="@+id/txtNumeroTelefonoA3Delictivo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionNext"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <CheckBox
+                        android:id="@+id/chNoProporcionadoDelictivo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/lblNoProporcionadoDelictivo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="No Proporcionado" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                </LinearLayout>
+            </LinearLayout>
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <!--======== APARTADO A3 ============ -->
+            <!--======== APARTADO A4 ============ -->
             <LinearLayout
                 android:id="@+id/dieciocholinear"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -1287,7 +1324,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/font"
-                        android:text="@string/subtitulo_apartado_A3" />
+                        android:text="Apartado A.4 Constancia de lectura de derechos de la persona detenida" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -1303,18 +1340,37 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/font"
-                    android:text="Datos del lugar del traslado de la persona detenida"/>
+                    android:text="Artículo 20 apartado B de la Constitución Política de los Estados Unidos Mexicanos y artículo 152 del Código Nacional de
+Procedimientos Penales
+\nInforme a la persona detenida:\n
+1. Usted tiene derecho a conocer el motivo de su detención.\n
+2. Usted tiene derecho a guardar silencio.\n
+3. Usted tiene derecho a declarar, y en caso de hacerlo, lo hará asistido de su defensor ante la autoridad competente.\n
+4. Usted tiene derecho a ser asistido por un defensor, si no quiere o no puede hacerlo, le será designado un defensor público.\n
+5. Usted tiene derecho a hacer del conocimiento a un familiar o persona que desee, los hechos de su detención y el lugar de custodia en que
+se halle en cada momento.\n
+6. Usted es considerado inocente desde este momento hasta que se determine lo contrario.\n
+7. En caso de ser extranjero, Usted tiene derecho a que el consulado de su país sea notificado de su detención.\n
+8. Usted tiene derecho a un traductor o intérprete, el cual será proporcionado por el Estado.\n
+9. Usted tiene derecho a ser presentado ante el Ministerio Público o Juez de Control, según sea el caso, inmediatamente después de ser
+detenido o aprehendido.\n\n
+
+\nSi la persona detenida es un adolescente infórmele también:\n
+10. Usted tiene derecho a permanecer en un lugar distinto al de los adultos.\n
+11. Usted tiene derecho a un trato digno y de conformidad con su condición de adolescente.\n
+12. Usted tiene derecho a que la autoridad informe sobre su detención a la procuraduría federal o local de protección de niñas, niños y
+adolescentes."/>
 
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/veintelinear"
+                android:id="@+id/septimoLinear"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="horizontal"
-                android:layout_marginTop="20dp">
-
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp">
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -1322,16 +1378,99 @@
                     android:weightSum="1"
                     android:layout_weight="0.10">
                     <TextView
-                        android:id="@+id/lblautoridad"
+                        android:id="@+id/lblInformeDerechoDetencionesDelictivo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/font"
-                        android:text="Señale a qué autoridad administrativa se trasladó a la persona detenida."/>
-                    <Spinner
-                        android:id="@+id/spLugarTrasladoPersonaDetenida"
+                        android:text="¿Le informó sus derechos a la persona detenida?" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <RadioGroup
+                        android:id="@+id/rgInformeDerechoDetencionesDelictivo"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        />
+                        android:orientation="horizontal">
+                        <RadioButton
+                            android:id="@+id/rbNoInformeDerechoDetencionesDelictivo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:padding="10dp"
+                            android:layout_marginLeft="20dp"
+                            android:text="@string/no" />
+
+                        <RadioButton
+                            android:id="@+id/rbSiInformeDerechoDetencionesDelictivo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:padding="10dp"
+                            android:text="@string/si" />
+                    </RadioGroup>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lyFirma"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:weightSum="1"
+                    android:layout_weight="0.12">
+
+                    <LinearLayout
+                        android:id="@+id/lyFirmaDetenido"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:weightSum="1"
+                        android:layout_weight="0.5">
+                        <TextView
+                            android:id="@+id/lblFirmaDetenido"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Firma del Detenido" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:weightSum="1"
+                            android:layout_weight="0.5">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:weightSum="1"
+                                android:layout_weight="0.80">
+                                <TextView
+                                    android:id="@+id/lblFirmadelDetenido"
+                                    android:enabled="true"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal"
+                                android:weightSum="1"
+                                android:layout_weight="0.20">
+                                <ImageView
+                                    android:id="@+id/imgFirmaAutoridadAdministrativo"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/ic_firma" />
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
                 </LinearLayout>
 
             </LinearLayout>

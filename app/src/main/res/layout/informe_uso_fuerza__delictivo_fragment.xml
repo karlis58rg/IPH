@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".delictivo.ui.fragmets.InformeUsoFuerza_Delictivo">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:id="@+id/principalLinear"
+                android:layout_width="match_parent"
+                android:layout_weight="0.5"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="1">
+                <LinearLayout
+                    android:id="@+id/lyUsoFuerza"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/lblLesionadosUsoFuerza"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="¿Hubo lesionados y/o fallecidos con motivo del uso de fuerza?" />
+                    <RadioGroup
+                        android:id="@+id/rgLesionadosUsoFuerza"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+                        <RadioButton
+                            android:id="@+id/rbNoLesionadosUsoFuerza"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:padding="10dp"
+                            android:layout_marginLeft="20dp"
+                            android:text="@string/no" />
+
+                        <RadioButton
+                            android:id="@+id/rbSiLesionadosUsoFuerza"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:padding="10dp"
+                            android:text="Si, Llene este anexo" />
+                    </RadioGroup>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lySeccionB1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp"
+                android:background="@color/background_section">
+                <TextView
+                    android:id="@+id/lblSeccionB1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Apartado B.1 Niveles del uso de fuerza" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/secundarioLinear"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp">
+                <LinearLayout
+                    android:id="@+id/lyAutoridadesLesionadosUsoFuerza"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:weightSum="1"
+                    android:layout_weight="0.10"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/lblAutoridadesLesionadosUsoFuerza"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Autoridades lesionadas" />
+
+                    <Spinner
+                        android:id="@+id/spAutoridadesLesionadosUsoFuerza"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lyAutoridadesFallecidasUsoFuerza"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblAutoridadesFallecidasUsoFuerza"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Autoridades Fallecidas" />
+                    <Spinner
+                        android:id="@+id/spAutoridadesFallecidasUsoFuerza"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/lyPersonasLesionadasUsoFuerza"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:weightSum="1"
+                    android:layout_weight="0.10"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/lblPersonasLesionadasUsoFuerza"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Personas lesionadas" />
+
+                    <Spinner
+                        android:id="@+id/spPersonasLesionadasUsoFuerza"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/lyPersonasFallecidasUsoFuerza"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblPersonasFallecidasUsoFuerza"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Personas fallecidas" />
+                    <Spinner
+                        android:id="@+id/spPersonasFallecidasUsoFuerza"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/catorceavoLinear"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/txtDescripciondelUsoFuerza"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:inputType="textMultiLine|textCapCharacters"
+                        android:digits="@string/validacion_notas"
+                        android:maxLength="8000"
+                        android:gravity="top"/>
+
+                    <ImageView
+                        android:id="@+id/img_microfonoDescripcionUsoFuerza"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="35dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignEnd="@+id/txtDescripciondelUsoFuerza"
+                        android:src="@drawable/ic_micro"/>
+
+                    <TextView
+                        android:id="@+id/lblmax3000"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txtDescripciondelUsoFuerza"
+                        android:text="Describa las conductas (resistencia activa y de alta peligrosidad) que motivaron el uso de la fuerza:"
+                        android:textStyle="italic"/>
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/principalLinear1"
+                android:layout_width="match_parent"
+                android:layout_weight="0.5"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                android:layout_marginTop="20dp">
+                <LinearLayout
+                    android:id="@+id/lyAsistenciaMedica"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/lblAsistenciaMedicaUsoFuerza"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="¿Brindó o solicitó asistencia médica?" />
+                    <RadioGroup
+                        android:id="@+id/rgAsistenciaMedicaUsoFuerza"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+                        <RadioButton
+                            android:id="@+id/rbSiAsistenciaMedicaUsoFuerza"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:padding="10dp"
+                            android:text="Si" />
+
+                        <RadioButton
+                            android:id="@+id/rbNoAsistenciaMedicaUsoFuerza"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:padding="10dp"
+                            android:layout_marginLeft="20dp"
+                            android:text="@string/no" />
+                    </RadioGroup>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/catorceavoLinear1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/txtDescripcionAsistenciaMedicaUsoFuerza"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:inputType="textMultiLine|textCapCharacters"
+                        android:digits="@string/validacion_notas"
+                        android:maxLength="8000"
+                        android:gravity="top"/>
+
+                    <ImageView
+                        android:id="@+id/img_microfonoDescripcionAsistenciaMedicaUsoFuerza"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="35dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignEnd="@+id/txtDescripcionAsistenciaMedicaUsoFuerza"
+                        android:src="@drawable/ic_micro"/>
+
+                    <TextView
+                        android:id="@+id/lblDescripcionAsistenciaMedicaUsoFuerza"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txtDescripcionAsistenciaMedicaUsoFuerza"
+                        android:text="Explique su respuesta"
+                        android:textStyle="italic"/>
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/terceavoLinear"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp">
+                <TextView
+                    android:id="@+id/lblNuevoElementoUsoFuerza"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="italic"
+                    android:text="¿Algún otro elemento participó en el informe del uso de la fuerza?" />
+                <RadioGroup
+                    android:id="@+id/rgNuevoElementoUsoFuerza"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+                    <RadioButton
+                        android:id="@+id/rbSiNuevoElementoUsoFuerza"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="10dp"
+                        android:text="Si" />
+                    <RadioButton
+                        android:id="@+id/rbNoNuevoElementoUsoFuerza"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="10dp"
+                        android:layout_marginLeft="20dp"
+                        android:text="No, Especifique" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/catorceavoLinearNuevoElemento"
+                android:layout_width="match_parent"
+                android:layout_weight="0.5"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                android:layout_marginTop="20dp">
+                <LinearLayout
+                    android:id="@+id/lyFiscaliaAutoridadUsoFuerza"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/lblFiscaliaAutoridadUsoFuerza"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/fiscalia_autoridad" />
+                    <EditText
+                        android:id="@+id/txtFiscaliaAutoridadUsoFuerza"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionDone"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/lyAdscripcionUsoFuerza"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.5">
+                    <TextView
+                        android:id="@+id/lblAdscripcionUsoFuerza"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/adscripcion" />
+                    <Spinner
+                        android:id="@+id/spAdscripcionUsoFuerza"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/quinceavoLinear"
+                android:layout_width="match_parent"
+                android:layout_weight="0.5"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                android:layout_marginTop="20dp">
+                <LinearLayout
+                    android:id="@+id/lyCargoUsoFuerza"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/lblCargoUsoFuerza"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/cargo" />
+
+                    <Spinner
+                        android:id="@+id/spCargoUsoFuerza"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/lyFirmaAutoridadUsoFuerza"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.5">
+                    <TextView
+                        android:id="@+id/lblFirmaAutoridadUsoFuerza"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Firma de la Autoridad" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:weightSum="1"
+                        android:layout_weight="0.5">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:weightSum="1"
+                            android:layout_weight="0.80">
+                            <TextView
+                                android:id="@+id/lblFirmaAutoridadRealizadaUsoFuerza"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:weightSum="1"
+                            android:layout_weight="0.20">
+                            <ImageView
+                                android:id="@+id/imgFirmaAutoridadUsoFuerza"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_firma" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/quintoLinear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/lyGuardarUsoFuerza"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:weightSum="1"
+                    android:layout_weight="0.5">
+                    <Button
+                        android:id="@+id/btnGuardarUsoFuerza"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:drawableLeft="@drawable/ic_save_white"
+                        android:background="@color/backgroud_header_toolbar"
+                        android:paddingLeft="12dp"
+                        android:paddingRight="12dp"
+                        android:text="@string/guardar_datos" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>

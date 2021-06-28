@@ -5,12 +5,10 @@
     android:layout_height="match_parent"
     tools:context=".delictivo.ui.fragmets.LugarDeIntervencion_Delictivo">
 
-
     <ScrollView
         android:id="@+id/scrollTransporte"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
