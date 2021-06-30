@@ -12,27 +12,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import mx.ssp.iph.delictivo.viewModel.NoReferencia_Delictivo_ViewModel;
 import mx.ssp.iph.R;
+import mx.ssp.iph.delictivo.viewModel.ConocimientoHechoViewModel;
 
-public class NoReferencia_Delictivo extends Fragment {
+public class ConocimientoHecho extends Fragment {
 
-    private NoReferencia_Delictivo_ViewModel mViewModel;
+    private ConocimientoHechoViewModel mViewModel;
 
-    public static NoReferencia_Delictivo newInstance() {
-        return new NoReferencia_Delictivo();
+    public static ConocimientoHecho newInstance() {
+        return new ConocimientoHecho();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.no_referencia_delictivo_fragment, container, false);
+        return inflater.inflate(R.layout.conocimiento_hecho_fragment, container, false);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(NoReferencia_Delictivo_ViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(ConocimientoHechoViewModel.class);
         // TODO: Use the ViewModel
     }
 

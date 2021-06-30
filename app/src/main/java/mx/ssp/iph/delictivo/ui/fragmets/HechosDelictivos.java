@@ -13,26 +13,26 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import mx.ssp.iph.R;
-import mx.ssp.iph.delictivo.viewModel.PuestaDisposicionDelictivoViewModel;
+import mx.ssp.iph.delictivo.viewModel.HechosDelictivosViewModel;
 
-public class PuestaDisposicion_Delictivo extends Fragment {
+public class HechosDelictivos extends Fragment {
 
-    private PuestaDisposicionDelictivoViewModel mViewModel;
+    private HechosDelictivosViewModel mViewModel;
 
-    public static PuestaDisposicion_Delictivo newInstance() {
-        return new PuestaDisposicion_Delictivo();
+    public static HechosDelictivos newInstance() {
+        return new HechosDelictivos();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.puesta_disposicion__delictivo_fragment, container, false);
+        return inflater.inflate(R.layout.hechos_delictivos_fragment, container, false);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(PuestaDisposicionDelictivoViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(HechosDelictivosViewModel.class);
         // TODO: Use the ViewModel
     }
 

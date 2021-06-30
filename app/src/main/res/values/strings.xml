@@ -7,8 +7,8 @@
     <string name="institucion">*Institución</string>
     <string name="gobierno">*Gobierno</string>
     <string name="municipio_en_donde_se_entrega_el_iph">*Municipio en dónde se entrega el IPH</string>
-    <string name="fecha_de_entrega_del_iph">Fecha de Entrega del IPH</string>
-    <string name="hora_de_entrega_del_iph">Hora de Entrega del IPH</string>
+    <string name="fecha_de_entrega_del_iph">Fecha IPH</string>
+    <string name="hora_de_entrega_del_iph">Hora IPH</string>
     <string name="guardar_datos">Guardar Datos</string>
     <string name="fecha_de_la_puesta_a_disposicion">Fecha de la puesta a disposición</string>
     <string name="hora_de_la_puesta_a_posposicion">Hora de la puesta a posposición</string>
@@ -358,5 +358,7 @@ preguntas: ¿Quién? (personas), ¿Qué? (hechos), ¿Cómo? (circunstancias), ¿
     <string name="validacion_longitud">0123456789.-</string>
     <string name="validacion_numexpediente">ABCDEFGHIJKLMNÑOPQRSTUVWXYZ 0123456789-/</string>
     <string name="validacion_usuariocontrasena">ABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789</string>
+    <string name="fecha">Fecha</string>
+    <string name="hora">Hora</string>
 
 </resources>

@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".delictivo.ui.fragmets.NoReferencia_Delictivo">
+    tools:context=".delictivo.ui.fragmets.ConocimientoHecho">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -14,199 +15,158 @@
             android:padding="16dp">
 
             <LinearLayout
-                android:id="@+id/principalLinear"
+                android:id="@+id/lyDatosIdentificacionHeader"
                 android:layout_width="match_parent"
-                android:layout_weight="0.5"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:weightSum="1">
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
                 <LinearLayout
-                    android:id="@+id/lyFolioInternoDelictivo"
+                    android:id="@+id/lyHeaderIdentificacion"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.5"
+                    android:background="@color/background_section"
                     android:orientation="vertical">
                     <TextView
-                        android:id="@+id/lblFolioInternoDelictivo"
+                        android:id="@+id/lblDatosIdentificacionHeader"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/folio_interno" />
-
-                    <EditText
-                        android:id="@+id/txtFolioInternoDelictivo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:maxLength="25"
-                        android:inputType="textCapCharacters"
-                        android:digits="@string/validacion_notas"/>
-
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/lyFolioSistemaDelictivo"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:weightSum="1"
-                    android:layout_weight="0.5">
-                    <TextView
-                        android:id="@+id/lblFolioSistemaDelictivo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/folio_asignado_por_el_sistema" />
-                    <EditText
-                        android:id="@+id/txtFolioSistemaDelictivo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:maxLength="21"
-                        android:inputType="textCapCharacters"
-                        android:digits="@string/validacion_folios"
-                        android:singleLine="true"
-                        android:maxLines="1"
-                        android:lines="1"
-                        android:imeOptions="actionNext"/>
+                        android:text="Apartado 3.1 Conocimiento del hecho por el primer respondiente"
+                        android:textColor="@color/font" />
                 </LinearLayout>
             </LinearLayout>
+
+
             <LinearLayout
-                android:id="@+id/lyNoReferenciaDelictivo"
+                android:id="@+id/quintoLinearDos"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
                 android:layout_marginTop="20dp">
-                <TextView
-                    android:id="@+id/lblNoReferenciaDelictivo"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/lyDatosIdentificacion"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/numero_de_referencia" />
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:gravity="center|start"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblHechoProbableInfraccionAdministrativo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/como_se_entero_del_hecho" />
+                    <Spinner
+                        android:id="@+id/spConocimientoHecho"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
 
-                <EditText
-                    android:id="@+id/txtNoReferenciaDelictivo"
-                    android:layout_width="match_parent"
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/quintoLinearTres"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp">
+                <LinearLayout
+                    android:id="@+id/lyNum911"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:maxLength="21"
-                    android:digits="@string/validacion_folios"
-                    android:imeOptions="actionNext"
-                    android:inputType="textCapCharacters"
-                    android:lines="1"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    />
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/secundarioLinear"
-                android:layout_width="match_parent"
-                android:layout_weight="0.5"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:weightSum="1"
-                android:layout_marginTop="20dp">
-                <LinearLayout
-                    android:id="@+id/lyeEstadoReferenciaDelictivo"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.5"
-                    android:orientation="vertical">
-                    <TextView
-                        android:id="@+id/lblEstadoReferenciaDelictivo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/estado" />
-
-                    <EditText
-                        android:id="@+id/txtEstadoReferenciaDelictivo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="GUERRERO"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/lyInstitucionReferenciaDelictivo"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:weightSum="1"
-                    android:layout_weight="0.5">
+                    android:gravity="center|start"
+                    android:layout_weight="0.20">
                     <TextView
-                        android:id="@+id/lblInstitucionReferenciaDelictivo"
+                        android:id="@+id/lbl911FolioProbableInfraccionAdministrativo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/institucion" />
-                    <Spinner
-                        android:id="@+id/spInstitucionReferenciaDelictivo"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
-                </LinearLayout>
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/tercerLinear"
-                android:layout_width="match_parent"
-                android:layout_weight="0.5"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:weightSum="1"
-                android:layout_marginTop="20dp">
-                <LinearLayout
-                    android:id="@+id/lyGobiernoReferenciaDelictivo"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.5"
-                    android:orientation="vertical">
-                    <TextView
-                        android:id="@+id/lblGobiernoReferenciaDelictivo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/gobierno" />
+                        android:text="@string/_911_no_solo_en_caso_de_contar_con_el" />
 
                     <EditText
-                        android:id="@+id/txtGobiernoReferenciaDelictivo"
+                        android:id="@+id/txt911FolioConocimientoHecho"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:maxLength="150"
-                        android:digits="@string/validacion_nombre"
-                        android:inputType="textCapCharacters"
-                        android:singleLine="true"
-                        android:maxLines="1"
+                        android:digits="@string/validacion_numero"
+                        android:imeOptions="actionDone"
+                        android:inputType="numberDecimal"
                         android:lines="1"
-                        android:imeOptions="actionDone"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/lyMunicipioReferenciaDelictivo"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:weightSum="1"
-                    android:layout_weight="0.5">
-                    <TextView
-                        android:id="@+id/lblMunicipioReferenciaDelictivo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/municipio_en_donde_se_entrega_el_iph" />
-                    <Spinner
-                        android:id="@+id/spMunicipioReferenciaDelictivo"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                        android:maxLength="10"
+                        android:maxLines="1"
+                        android:singleLine="true" />
                 </LinearLayout>
             </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lyDatosApartadoSeguimiento"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/lyHeaderDatosApartadoSeguimiento"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/background_section"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/lblDatosApartadoSeguimiento"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Apartado 3.2 Seguimiento de la actuación de la autoridad"
+                        android:textColor="@color/font" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lyFechaHoraConocimientoHechoHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp">
+                <LinearLayout
+                    android:id="@+id/lyFechaHoraConocimientoHecho"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:gravity="center|start"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblFechaHoraConocimientoHecho"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Fecha y Hora cuándo tuvo conocimiento del hecho" />
+                </LinearLayout>
+            </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/cuartoLinear"
                 android:layout_width="match_parent"
                 android:layout_weight="0.5"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:weightSum="1"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="10dp"
+                android:weightSum="1">
                 <LinearLayout
-                    android:id="@+id/lyFechaEntregaReferenciaDelictivo"
+                    android:id="@+id/lyFechaConocimientoHecho"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="0.5"
                     android:orientation="vertical">
                     <TextView
-                        android:id="@+id/lblFechaEntregaReferenciaDelictivo"
+                        android:id="@+id/lblFechaConocimientoHecho"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/fecha_de_entrega_del_iph" />
+                        android:text="@string/fecha" />
 
                     <EditText
-                        android:id="@+id/txtFechaEntregaReferenciaDelictivo"
+                        android:id="@+id/txtFechaConocimientoHecho"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:focusable="false"
@@ -214,19 +174,19 @@
                         android:hint="DD/MM/AAAA" />
                 </LinearLayout>
                 <LinearLayout
-                    android:id="@+id/lyHoraEntregaReferenciaDelictivo"
+                    android:id="@+id/lyHoraConocimientoHecho"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:weightSum="1"
                     android:layout_weight="0.5">
                     <TextView
-                        android:id="@+id/lblHoraEntregaReferenciaDelictivo"
+                        android:id="@+id/lblHoraConocimientoHecho"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/hora_de_entrega_del_iph" />
+                        android:text="@string/hora" />
                     <EditText
-                        android:id="@+id/txtHoraEntregaReferenciaDelictivo"
+                        android:id="@+id/txtHoraConocimientoHecho"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:focusable="false"
@@ -234,6 +194,80 @@
                         android:hint="HH:MM"/>
                 </LinearLayout>
             </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lyFechaHoraArriboLugarHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp">
+                <LinearLayout
+                    android:id="@+id/lyFechaHoraArriboLugar"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:gravity="center|start"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblFechaHoraArriboLugar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Fecha y Hora cuándo arribó al lugar de los hechos" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/cuartoLinearDos"
+                android:layout_width="match_parent"
+                android:layout_weight="0.5"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:weightSum="1">
+                <LinearLayout
+                    android:id="@+id/lyFechaArriboLugar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/lblFechaArriboLugar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/fecha" />
+
+                    <EditText
+                        android:id="@+id/txtFechaArriboLugar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:drawableRight="@drawable/ic_calendar"
+                        android:hint="DD/MM/AAAA" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/lyHoraArriboLugar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.5">
+                    <TextView
+                        android:id="@+id/lblHoraArriboLugar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/hora" />
+                    <EditText
+                        android:id="@+id/txtHoraArriboLugar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:drawableRight="@drawable/ic_time"
+                        android:hint="HH:MM"/>
+                </LinearLayout>
+            </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/quintoLinear"
                 android:layout_width="match_parent"
@@ -258,7 +292,7 @@
                     android:weightSum="1"
                     android:layout_weight="0.5">
                     <Button
-                        android:id="@+id/btnGuardarReferenciaDelictivo"
+                        android:id="@+id/btnGuardarConocimientoHecho"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/white"
@@ -276,7 +310,6 @@
                     android:layout_weight="0.10">
                 </LinearLayout>
             </LinearLayout>
-
         </LinearLayout>
     </ScrollView>
 
