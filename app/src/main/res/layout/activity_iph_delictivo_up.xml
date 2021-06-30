@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.sothree.slidinguppanel.SlidingUpPanelLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:umanoDragView="@id/dragview"
+    app:umanoScrollableView="@id/lvSeccionesAdministrativo"
+    android:layout_gravity="bottom"
+    android:gravity="bottom"
+    app:umanoPanelHeight="68dp"
+    app:umanoOverlay="false"
+    app:umanoParallaxOffset="100dp"
+    app:umanoShadowHeight="4dp"
+    android:id="@+id/sliding_layout">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/Theme.IPH.AppBarOverlay">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbarDelictivo"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:popupTheme="@style/Theme.IPH.PopupOverlay" >
+
+                <ImageButton
+                    android:id="@+id/imgbtnVolverFlechaDelictivo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="2dp"
+                    android:layout_marginRight="1dp"
+                    android:scaleType="fitCenter"
+                    android:background="@drawable/btn_volver_flecha"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:padding="5dp"
+                    android:layout_marginRight="30dp"
+                    android:src="@drawable/ic_header_completo">
+                </ImageView>
+            </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <fragment
+            android:id="@+id/fragmentContenedorDelictivo"
+            android:name="mx.ssp.iph.delictivo.ui.fragmets.Fragment_ContainerBlank_Delictivo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="60dp"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/dragview"
+        android:clickable="true"
+        android:focusable="false"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="68dp"
+            android:background="@color/background_section">
+
+            <TextView
+                android:id="@+id/lblTituloSeccionesDelictivo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:textSize="20sp"
+                android:gravity="center_vertical"
+                android:text="SECCIONES HECHO PROBABLEMENTE DELICTIVO"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:layout_centerVertical="true"
+                android:drawableRight="@drawable/ic_expand_less"
+                android:textStyle="bold"/>
+
+        </RelativeLayout>
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:id="@+id/lvSeccionesDelictivo">
+        </ListView>
+    </LinearLayout>
+
+</com.sothree.slidinguppanel.SlidingUpPanelLayout>
