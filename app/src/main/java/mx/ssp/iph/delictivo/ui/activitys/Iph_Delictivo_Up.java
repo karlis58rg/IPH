@@ -24,20 +24,14 @@ import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import java.util.ArrayList;
 
 import mx.ssp.iph.R;
-import mx.ssp.iph.administrativo.ui.fragmets.DescripcionVehiculo;
-import mx.ssp.iph.administrativo.ui.fragmets.Detenciones;
-import mx.ssp.iph.administrativo.ui.fragmets.LugarDeIntervencion;
-import mx.ssp.iph.administrativo.ui.fragmets.NarrativaHechos;
-import mx.ssp.iph.administrativo.ui.fragmets.NoReferencia_Administrativo;
-import mx.ssp.iph.administrativo.ui.fragmets.ProbableInfraccion;
-import mx.ssp.iph.administrativo.ui.fragmets.PuestaDisposicion_Administrativo;
+import mx.ssp.iph.delictivo.ui.fragmets.ConocimientoHecho;
 import mx.ssp.iph.delictivo.ui.fragmets.Detenciones_Delictivo;
 import mx.ssp.iph.delictivo.ui.fragmets.Fragment_ContainerBlank_Delictivo;
+import mx.ssp.iph.delictivo.ui.fragmets.HechosDelictivos;
 import mx.ssp.iph.delictivo.ui.fragmets.InformeUsoFuerza_Delictivo;
 import mx.ssp.iph.delictivo.ui.fragmets.LugarDeIntervencion_Delictivo;
 import mx.ssp.iph.delictivo.ui.fragmets.NarrativaHechos_Delictivo;
-import mx.ssp.iph.delictivo.ui.fragmets.NoReferencia_Delictivo;
-import mx.ssp.iph.delictivo.ui.fragmets.PuestaDisposicion_Delictivo;
+import mx.ssp.iph.delictivo.ui.fragmets.PrimerRespondiente;
 import mx.ssp.iph.principal.ui.activitys.Principal;
 
 public class Iph_Delictivo_Up extends AppCompatActivity{
@@ -45,7 +39,7 @@ public class Iph_Delictivo_Up extends AppCompatActivity{
     ArrayList<String> listaSeccionesDelictivo;
     ArrayList<Integer> listaColorStatusDelictivo;
     ListView lvSeccionesDelictivo;
-    Fragment referencia,seccion1,seccion2,seccion3,seccion4,seccion5,anexoa,anexob,anexoc,anexod,anexoe,anexof;
+    Fragment seccion1,seccion2,seccion3,seccion4,seccion5,anexoa,anexob,anexoc,anexod,anexoe,anexof;
     ImageButton imgbtnVolverFlechaDelictivo;
 
     @Override
@@ -63,10 +57,10 @@ public class Iph_Delictivo_Up extends AppCompatActivity{
             }
         });
         //Instancio los Fragmentos
-        referencia = new NoReferencia_Delictivo();
-        seccion1 = new PuestaDisposicion_Delictivo();
-        seccion2 = new Fragment_ContainerBlank_Delictivo();
-        seccion3 = new Fragment_ContainerBlank_Delictivo();
+       // referencia = new HechosDelictivos();
+        seccion1 = new HechosDelictivos();
+        seccion2 = new PrimerRespondiente();
+        seccion3 = new ConocimientoHecho();
         seccion4 = new LugarDeIntervencion_Delictivo();
         seccion5 = new NarrativaHechos_Delictivo();
         anexoa = new Detenciones_Delictivo();
@@ -95,11 +89,9 @@ public class Iph_Delictivo_Up extends AppCompatActivity{
         listaColorStatusDelictivo.add(R.drawable.indicador_amarillo);
         listaColorStatusDelictivo.add(R.drawable.indicador_amarillo);
         listaColorStatusDelictivo.add(R.drawable.indicador_amarillo);
-        listaColorStatusDelictivo.add(R.drawable.indicador_amarillo);
 
 
         //Agrego las secciones a la lista
-        listaSeccionesDelictivo.add("NÚMERO DE REFERENCIA");
         listaSeccionesDelictivo.add("SECCIÓN 1. PUESTA A DISPOSICIÓN");
         listaSeccionesDelictivo.add("SECCIÓN 2. PRIMER RESPONDIENTE");
         listaSeccionesDelictivo.add("SECCIÓN 3. CONOCIMIENTO DEL HECHO");
@@ -115,7 +107,7 @@ public class Iph_Delictivo_Up extends AppCompatActivity{
         //Lleno la lista con la clase adaptador
         final SlidingUpPanelLayout slidingUpPanelLayout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
         ActualizarListaEsttus();
-        addFragment(referencia);
+        addFragment(seccion1);
 
 
         //clisk de los elementos de las listas para cambiar de fragmentos
@@ -128,31 +120,31 @@ public class Iph_Delictivo_Up extends AppCompatActivity{
                 {
                     case 0:
                     {
-                        addFragment(referencia);
+                        addFragment(seccion1);
                         slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
                         break;
                     }
                     case 1:
                     {
-                        addFragment(seccion1);
+                        addFragment(seccion2);
                         slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
                         break;
                     }
                     case 2:
                     {
-                        addFragment(seccion2);
+                        addFragment(seccion3);
                         slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
                         break;
                     }
                     case 3:
                     {
-                        addFragment(seccion3);
+                        addFragment(seccion4);
                         slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
                         break;
                     }
                     case 4:
                     {
-                        addFragment(seccion4);
+                        addFragment(seccion5);
                         slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
                         break;
                     }
@@ -165,6 +157,30 @@ public class Iph_Delictivo_Up extends AppCompatActivity{
                     case 6:
                     {
                         addFragment(anexob);
+                        slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                        break;
+                    }
+                    case 7:
+                    {
+                        addFragment(anexoc);
+                        slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                        break;
+                    }
+                    case 8:
+                    {
+                        addFragment(anexod);
+                        slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                        break;
+                    }
+                    case 9:
+                    {
+                        addFragment(anexoe);
+                        slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                        break;
+                    }
+                    case 10:
+                    {
+                        addFragment(anexof);
                         slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
                         break;
                     }
