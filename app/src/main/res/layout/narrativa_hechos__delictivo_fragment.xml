@@ -58,7 +58,7 @@
                         android:digits="@string/validacion_notas"/>
 
                     <ImageView
-                        android:id="@+id/imgMicrofonoNarrativaHechos"
+                        android:id="@+id/imgMicrofonoNarrativaHechosDelictivo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingBottom="100dp"
