@@ -298,6 +298,8 @@ public class NoReferencia_Administrativo extends Fragment {
                                         txtFechaEntregaReferenciaAdministrativo.setText((jsonjObject.getString("Fecha")).equals("null")?"":Fecha[0]);
                                         txtHoraEntregaReferenciaAdministrativo.setText((jsonjObject.getString("Hora")).equals("null")?"":jsonjObject.getString("Hora"));
 
+                                        //Si existen Datos de referencia  los guarda como preferencia.
+
                                      //Llenar spiners
 
                                     } catch (JSONException e) {

@@ -100,7 +100,7 @@ public class PrincipalAdministrativo extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //Recupera el no. folio interno y lo guarda como preferencia y cambia de Actividad
-                guardarFolioInterno(ListaIdFaltaAdmin.get(position));
+                guardarFolioInterno(ListaIdFaltaAdmin.get(position),ListaNumReferencia.get(position));
         }
         });
 
@@ -255,10 +255,11 @@ public class PrincipalAdministrativo extends Fragment {
     }
 
     //***************** GUARDA EL FOLIO INTERNO COMO REFERENCIA **************************//
-    private void guardarFolioInterno(String FolioInterno) {
+    private void guardarFolioInterno(String FolioInterno, String guardarNoReferencia) {
         share = getContext().getSharedPreferences("main", getContext().MODE_PRIVATE);
         editor = share.edit();
         editor.putString("IDFALTAADMIN", FolioInterno );
+        editor.putString("NOREFERENCIA", guardarNoReferencia);
         editor.commit();
 
         //Cambia de Actividad
@@ -324,7 +325,7 @@ public class PrincipalAdministrativo extends Fragment {
 
                                 if(resp.equals("true")) {
                                     //Enviamos el número de Refrerencia generado
-                                    guardarFolioInterno(randomCodigoVerifi);
+                                    guardarFolioInterno(randomCodigoVerifi,randomReferencia);
                                 }
                                 else
                                 {
