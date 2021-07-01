@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
 import mx.ssp.iph.R;
 import mx.ssp.iph.delictivo.viewModel.DetencionesDelictivoViewModel;
@@ -18,6 +20,7 @@ import mx.ssp.iph.delictivo.viewModel.DetencionesDelictivoViewModel;
 public class Detenciones_Delictivo extends Fragment {
 
     private DetencionesDelictivoViewModel mViewModel;
+    Button btnGuardarPuestaDetencionesDelectivo;
 
     public static Detenciones_Delictivo newInstance() {
         return new Detenciones_Delictivo();
@@ -26,7 +29,19 @@ public class Detenciones_Delictivo extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.detenciones__delictivo_fragment, container, false);
+        View view = inflater.inflate(R.layout.detenciones__delictivo_fragment, container, false);
+        /***********************************************************************************/
+        btnGuardarPuestaDetencionesDelectivo = view.findViewById(R.id.btnGuardarPuestaDetencionesDelectivo);
+        btnGuardarPuestaDetencionesDelectivo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        /**********************************************************************************/
+        return view;
     }
 
     @Override

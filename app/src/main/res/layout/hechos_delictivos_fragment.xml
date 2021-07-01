@@ -3,86 +3,118 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".delictivo.ui.fragmets.PuestaDisposicion_Delictivo">
+    tools:context=".delictivo.ui.fragmets.HechosDelictivos">
 
     <ScrollView
-        android:id="@+id/scrollTransporte"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp">
+
             <LinearLayout
-                android:id="@+id/principalLinear"
+                android:id="@+id/lyDatosApartadoHeader"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal">
+
                 <LinearLayout
-                    android:id="@+id/lyHeaderPuestaDisposicion"
+                    android:id="@+id/lyHeaderDatosApartado"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:background="@color/background_section">
+                    android:background="@color/background_section"
+                    android:orientation="vertical">
                     <TextView
-                        android:id="@+id/lblPuestaDisposicionDelictivo"
+                        android:id="@+id/lblDatosApartado"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/font"
-                        android:text="@string/apartado_1_1_fecha_y_hora_de_la_puesta_a_disposicion" />
+                        android:text="Apartado 1.1 Fecha y hora de la puesta a disposición"
+                        android:textColor="@color/font" />
                 </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/segundoLinear"
+                android:id="@+id/principalLinear"
                 android:layout_width="match_parent"
                 android:layout_weight="0.5"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:weightSum="1"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="20dp"
+                android:weightSum="1">
                 <LinearLayout
-                    android:id="@+id/lyFechaHoraPuestaDisposicionDelictivo"
+                    android:id="@+id/lyFolioInternoDelictivo"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="0.5"
                     android:orientation="vertical">
                     <TextView
-                        android:id="@+id/lblFechaPuestaDisposicionDelictivo"
+                        android:id="@+id/lblFolioInternoDelictivo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/fecha_de_la_puesta_a_disposicion" />
+                        android:text="@string/folio_interno" />
 
                     <EditText
-                        android:id="@+id/txtFechaPuestaDisposicionDelictivo"
+                        android:id="@+id/txtFolioInternoDelictivo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:focusable="false"
-                        android:drawableRight="@drawable/ic_calendar"
-                        android:hint="DD/MM/AAAA"/>
+                        android:maxLength="25"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_notas"/>
+
                 </LinearLayout>
                 <LinearLayout
-                    android:id="@+id/lyPuestaDisposicionDelictivo"
+                    android:id="@+id/lyFolioSistemaDelictivo"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:weightSum="1"
                     android:layout_weight="0.5">
                     <TextView
-                        android:id="@+id/lblHoraPuestaDisposicionDelictivo"
+                        android:id="@+id/lblFolioSistemaDelictivo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/hora_de_la_puesta_a_posposicion" />
+                        android:text="@string/folio_asignado_por_el_sistema" />
                     <EditText
-                        android:id="@+id/txthoraPuestaDisposicionDelictivo"
+                        android:id="@+id/txtFolioSistemaDelictivo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:focusable="false"
-                        android:drawableRight="@drawable/ic_time"
-                        android:hint="HH:MM"/>
+                        android:maxLength="21"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_folios"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionNext"/>
                 </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lyNoReferenciaDelictivo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp">
+                <TextView
+                    android:id="@+id/lblNoReferenciaDelictivo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/numero_de_referencia" />
+
+                <EditText
+                    android:id="@+id/txtNoReferenciaDelictivo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLength="21"
+                    android:digits="@string/validacion_folios"
+                    android:imeOptions="actionNext"
+                    android:inputType="textCapCharacters"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    />
             </LinearLayout>
 
             <LinearLayout
@@ -110,6 +142,55 @@
                     android:imeOptions="actionNext"/>
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/cuartoLinear"
+                android:layout_width="match_parent"
+                android:layout_weight="0.5"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                android:layout_marginTop="20dp">
+                <LinearLayout
+                    android:id="@+id/lyFechaEntregaReferenciaDelictivo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/lblFechaEntregaReferenciaDelictivo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/fecha_de_entrega_del_iph" />
+
+                    <EditText
+                        android:id="@+id/txtFechaEntregaReferenciaDelictivo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:drawableRight="@drawable/ic_calendar"
+                        android:hint="DD/MM/AAAA" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/lyHoraEntregaReferenciaDelictivo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.5">
+                    <TextView
+                        android:id="@+id/lblHoraEntregaReferenciaDelictivo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/hora_de_entrega_del_iph" />
+                    <EditText
+                        android:id="@+id/txtHoraEntregaReferenciaDelictivo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:drawableRight="@drawable/ic_time"
+                        android:hint="HH:MM"/>
+                </LinearLayout>
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -121,7 +202,7 @@
                 android:background="@drawable/ic_borde_anexos">
 
                 <LinearLayout
-                    android:id="@+id/quintoLinear"
+                    android:id="@+id/quintoLinear1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -462,112 +543,12 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/septimoLinear"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="20dp">
-                <LinearLayout
-                    android:id="@+id/lyHeaderDatosPuestaDisposicion"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:background="@color/background_section">
-                    <TextView
-                        android:id="@+id/lblDatosPuestaDisposicionDelictivo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/font"
-                        android:text="@string/apartado_1_2_datos_de_quien_realiza_la_puesta_a_disposicion_primer_respondiente" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/octavoLinear"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp">
-                <LinearLayout
-                    android:id="@+id/lyPrimerRespondiente"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"/>
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:id="@+id/onceavoLinear"
-                android:layout_width="match_parent"
-                android:layout_weight="0.5"
-                android:layout_height="80dp"
-                android:orientation="horizontal"
-                android:weightSum="1"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/ic_borde_unidad"
-                android:gravity="center">
-                <LinearLayout
-                    android:id="@+id/lyUnidadDeArriboDelictivo"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.5"
-                    android:orientation="vertical"
-                    android:gravity="center">
-
-                    <Spinner
-                        android:id="@+id/txtUnidadDeArriboDelictivo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="@dimen/border"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/lyNoAplicaUnidadDeArriboDelictivo"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    android:weightSum="1"
-                    android:layout_weight="0.5">
-                    <CheckBox
-                        android:id="@+id/chNoAplicaUnidadDeArriboDelictivo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                    <TextView
-                        android:id="@+id/lblNoAplicaUnidadDeArriboDelictivo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/no_aplicaUnidad"/>
-
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/doceavoLinear"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:layout_marginTop="20dp">
-                <LinearLayout
-                    android:id="@+id/lyHeaderDatosQuienRecibePuestaDisposicion"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:background="@color/background_section">
-                    <TextView
-                        android:id="@+id/lblDatosQuienRecibePuestaDisposicionDelictivo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/font"
-                        android:text="@string/apartado_1_3_datos_de_quien_recibe_la_puesta_a_disposicion" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
                 android:id="@+id/terceavoLinear"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="20dp"
+                android:background="@color/background_sub_section">
                 <TextView
                     android:id="@+id/lblAutoridadQueRecibeDelictivo"
                     android:layout_width="wrap_content"
@@ -699,12 +680,9 @@
 
                 </LinearLayout>
             </LinearLayout>
-
-
-
-
             <!--Linear Oculto Firma -->
             <!-- linear Oculto Firma del Detenido -->
+
             <LinearLayout
                 android:id="@+id/oculto1"
                 android:layout_width="match_parent"
@@ -722,18 +700,16 @@
                     android:layout_weight="0.10"
                     android:visibility="visible">
                     <TextView
-                        android:id="@+id/lblFirmaOcultaAutoridadBase64"
+                        android:id="@+id/lblFirmaOcultaAutoridadBase64HechosDelictivos"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/font"
                         android:text=""/>
                 </LinearLayout>
             </LinearLayout>
-            <!-- linear Oculto Firma del Detenido -->
-
 
             <LinearLayout
-                android:id="@+id/sexteavoLinear"
+                android:id="@+id/quintoLinear"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -748,7 +724,7 @@
                     android:layout_weight="0.10">
                 </LinearLayout>
                 <LinearLayout
-                    android:id="@+id/lyGuardarPuestaDisposicionDelictivo"
+                    android:id="@+id/lyGuardarReferenciaDelictivo"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
@@ -756,7 +732,7 @@
                     android:weightSum="1"
                     android:layout_weight="0.5">
                     <Button
-                        android:id="@+id/btnGuardarPuestaDisposicioDelictivo"
+                        android:id="@+id/btnGuardarHechoDelictivo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/white"
@@ -775,9 +751,8 @@
                 </LinearLayout>
             </LinearLayout>
 
-
         </LinearLayout>
-
     </ScrollView>
+
 
 </FrameLayout>

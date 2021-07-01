@@ -15,24 +15,24 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import mx.ssp.iph.R;
-import mx.ssp.iph.delictivo.viewModel.LugarDeIntervencionDelictivoViewModel;
+import mx.ssp.iph.delictivo.viewModel.PrimerRespondienteViewModel;
 
-public class LugarDeIntervencion_Delictivo extends Fragment {
+public class PrimerRespondiente extends Fragment {
 
-    private LugarDeIntervencionDelictivoViewModel mViewModel;
-    Button btnGuardarLugarIntervencionDelictivo;
+    private PrimerRespondienteViewModel mViewModel;
+    Button btnGuardarPrimerRespondiente;
 
-    public static LugarDeIntervencion_Delictivo newInstance() {
-        return new LugarDeIntervencion_Delictivo();
+    public static PrimerRespondiente newInstance() {
+        return new PrimerRespondiente();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.lugar_de_intervencion_delictivo_fragment, container, false);
-        /*******************************************************************************/
-        btnGuardarLugarIntervencionDelictivo = view.findViewById(R.id.btnGuardarLugarIntervencionDelictivo);
-        btnGuardarLugarIntervencionDelictivo.setOnClickListener(new View.OnClickListener() {
+        View view = inflater.inflate(R.layout.primer_respondiente_fragment, container, false);
+        /************************************************************************************/
+        btnGuardarPrimerRespondiente = view.findViewById(R.id.btnGuardarPrimerRespondiente);
+        btnGuardarPrimerRespondiente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
@@ -43,14 +43,14 @@ public class LugarDeIntervencion_Delictivo extends Fragment {
 
 
 
-        /********************************************************************************/
+        /*********************************************************************************/
         return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(LugarDeIntervencionDelictivoViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(PrimerRespondienteViewModel.class);
         // TODO: Use the ViewModel
     }
 
