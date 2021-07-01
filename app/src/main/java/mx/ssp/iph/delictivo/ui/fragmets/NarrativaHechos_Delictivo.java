@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
 import mx.ssp.iph.R;
 import mx.ssp.iph.delictivo.viewModel.NarrativaHechosDelictivoViewModel;
@@ -18,6 +20,7 @@ import mx.ssp.iph.delictivo.viewModel.NarrativaHechosDelictivoViewModel;
 public class NarrativaHechos_Delictivo extends Fragment {
 
     private NarrativaHechosDelictivoViewModel mViewModel;
+    Button btnGuardarNarrativaHechosDelictivo;
 
     public static NarrativaHechos_Delictivo newInstance() {
         return new NarrativaHechos_Delictivo();
@@ -26,7 +29,20 @@ public class NarrativaHechos_Delictivo extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.narrativa_hechos__delictivo_fragment, container, false);
+        View view = inflater.inflate(R.layout.narrativa_hechos__delictivo_fragment, container, false);
+        /***************************************************************************************/
+        btnGuardarNarrativaHechosDelictivo = view.findViewById(R.id.btnGuardarNarrativaHechosDelictivo);
+
+        btnGuardarNarrativaHechosDelictivo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        /***************************************************************************************/
+        return view;
     }
 
     @Override
