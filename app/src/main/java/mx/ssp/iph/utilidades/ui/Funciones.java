@@ -135,6 +135,13 @@ public class Funciones {
                 tituloSecciones.setText(titulo);
     }
 
+    //***************** Cambia el título de acuerdo a la seccion seleccionada **************************//
+    public void CambiarTituloSeccionesDelictivo(String titulo,Context context, Activity activity){
+        TextView tituloSecciones;
+        tituloSecciones = (TextView) activity.findViewById(R.id.lblTituloSeccionesDelictivo);
+        tituloSecciones.setText(titulo);
+    }
+
     //***************** OBTIENE LA POSICIÓN DEL SPINER **************************//
     public int getIndexSpiner(Spinner spinner, String myString){
         for (int i=0;i<spinner.getCount();i++){

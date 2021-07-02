@@ -16,11 +16,13 @@ import android.widget.Toast;
 
 import mx.ssp.iph.R;
 import mx.ssp.iph.delictivo.viewModel.PrimerRespondienteViewModel;
+import mx.ssp.iph.utilidades.ui.Funciones;
 
 public class PrimerRespondiente extends Fragment {
 
     private PrimerRespondienteViewModel mViewModel;
     Button btnGuardarPrimerRespondiente;
+    private Funciones funciones;
 
     public static PrimerRespondiente newInstance() {
         return new PrimerRespondiente();
@@ -30,6 +32,9 @@ public class PrimerRespondiente extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.primer_respondiente_fragment, container, false);
+        funciones =  new Funciones();
+        funciones.CambiarTituloSeccionesDelictivo("SECCIÓN 2. PRIMER RESPONDIENTE",getContext(),getActivity());
+
         /************************************************************************************/
         btnGuardarPrimerRespondiente = view.findViewById(R.id.btnGuardarPrimerRespondiente);
         btnGuardarPrimerRespondiente.setOnClickListener(new View.OnClickListener() {

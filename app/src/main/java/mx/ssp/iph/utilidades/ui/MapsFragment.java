@@ -3,32 +3,18 @@ package mx.ssp.iph.utilidades.ui;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.Manifest;
-import android.app.AlertDialog;
+
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.location.LocationProvider;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -38,20 +24,20 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Locale;
-
 import mx.ssp.iph.R;
 
 public class MapsFragment extends Fragment implements OnMapReadyCallback {
     private GoogleMap mMap;
     private Marker marker;
+    private SharedPreferences share;
+    private Integer txtLongitud,txtLatitud;
+
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
         // Roman
         @Override
         public void onMapReady(GoogleMap googleMap) {
             mMap = googleMap;
+
 
 
             if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -72,8 +58,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
             //============ COLOCA LOS VALORE POR DEFECTO
             EditText latitud,longitud;
-            latitud = getActivity().findViewById(R.id.txtLatitudUbicacionGeograficaAdministrativo);
-            longitud = getActivity().findViewById(R.id.txtLongitudUbicacionGeograficaAdministrativo);
+            latitud = getActivity().findViewById(txtLatitud);
+            longitud = getActivity().findViewById(txtLongitud);
             latitud.setText("17.5443558");
             longitud.setText("-99.4979757");
             //============ COLOCA LOS VALORE POR DEFECTO
@@ -90,8 +76,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                     marker.setPosition(mMap.getCameraPosition().target);
 
                     EditText latitud,longitud;
-                    latitud = getActivity().findViewById(R.id.txtLatitudUbicacionGeograficaAdministrativo);
-                    longitud = getActivity().findViewById(R.id.txtLongitudUbicacionGeograficaAdministrativo);
+                    latitud = getActivity().findViewById(txtLatitud);
+                    longitud = getActivity().findViewById(txtLongitud);
 
                     //Coloca los valores correspondientes
                     latitud.setText(Double.toString(marker.getPosition().latitude));
@@ -109,7 +95,17 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_maps, container, false);
-
+        String bandera =  CargarBANDERAMAPA();
+        if (bandera.equals("DELICTIVO"))
+        {
+            txtLatitud = R.id.txtLatitudUbicacionGeograficaDelictivo;
+            txtLongitud = R.id.txtLongitudUbicacionGeograficaDelictivo;
+        }
+        else
+        {
+                txtLatitud = R.id.txtLatitudUbicacionGeograficaAdministrativo;
+                txtLongitud = R.id.txtLongitudUbicacionGeograficaAdministrativo;
+        }
 
         return root;
     }
@@ -127,6 +123,12 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
 
+    }
+
+    public String CargarBANDERAMAPA(){
+        share = getContext().getSharedPreferences("main", Context.MODE_PRIVATE);
+        String BANDERAMAPA = share.getString("BANDERAMAPA", "");
+        return BANDERAMAPA;
     }
 
 }

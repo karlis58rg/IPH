@@ -18,6 +18,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -52,10 +55,13 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import mx.ssp.iph.utilidades.ui.ContenedorFirma;
+import mx.ssp.iph.utilidades.ui.Funciones;
 
 public class HechosDelictivos extends Fragment {
 
     private HechosDelictivosViewModel mViewModel;
+
     Button btnGuardarHechoDelictivo;
     EditText txtFolioInternoDelictivo,txtFolioSistemaDelictivo,txtNoReferenciaDelictivo,txtNoExpedienteAdmministrativo,txtFechaEntregaReferenciaDelictivo,txtHoraEntregaReferenciaDelictivo,
             txtFiscaliaAutoridadDelictivo;
@@ -73,6 +79,7 @@ public class HechosDelictivos extends Fragment {
      numAnexoLugarIntervencion = "000",  anexoNoSeEntregan = "SI";
     SharedPreferences share;
 
+    private Funciones funciones;
 
     public static HechosDelictivos newInstance() {
         return new HechosDelictivos();
@@ -87,6 +94,40 @@ public class HechosDelictivos extends Fragment {
         cargarDatos();
 
         btnGuardarHechoDelictivo = view.findViewById(R.id.btnGuardarHechoDelictivo);
+        txtFechaEntregaReferenciaDelictivo = view.findViewById(R.id.txtFechaEntregaReferenciaDelictivo);
+        txtHoraEntregaReferenciaDelictivo = view.findViewById(R.id.txtHoraEntregaReferenciaDelictivo);
+        imgFirmaAutoridadDelictivo = view.findViewById(R.id.imgFirmaAutoridadDelictivo);
+        funciones = new Funciones();
+
+        funciones.CambiarTituloSeccionesDelictivo("SECCIÓN 1. PUESTA A DISPOSICIÓN",getContext(),getActivity());
+
+
+        //***************** FECHA  **************************//
+        txtFechaEntregaReferenciaDelictivo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                funciones.calendar(R.id.txtFechaEntregaReferenciaDelictivo,getContext(),getActivity());
+            }
+        });
+
+        //***************** HORA **************************//
+        txtHoraEntregaReferenciaDelictivo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                funciones.Time(R.id.txtHoraEntregaReferenciaDelictivo,getContext(),getActivity());
+            }
+        });
+
+        //***************** FIRMA **************************//
+        imgFirmaAutoridadDelictivo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ContenedorFirma dialog = new ContenedorFirma(R.id.lblFirmaAutoridadRealizadaDelictivo,R.id.lblFirmaAutoridadRealizadaDelictivoOculto);
+                dialog.show( getActivity().getSupportFragmentManager(),"Dia");
+            }
+        });
+
+        //***************** GUARDAR **************************//
         txtFolioInternoDelictivo = view.findViewById(R.id.txtFolioInternoDelictivo);
         txtFolioSistemaDelictivo = view.findViewById(R.id.txtFolioSistemaDelictivo);
         txtNoReferenciaDelictivo = view.findViewById(R.id.txtNoReferenciaDelictivo);
@@ -137,6 +178,7 @@ public class HechosDelictivos extends Fragment {
         /******************************************************************************/
         return  view;
     }
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);

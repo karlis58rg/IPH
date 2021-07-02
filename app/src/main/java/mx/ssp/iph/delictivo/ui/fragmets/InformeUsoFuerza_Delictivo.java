@@ -16,11 +16,13 @@ import android.widget.Toast;
 
 import mx.ssp.iph.R;
 import mx.ssp.iph.delictivo.viewModel.InformeUsoFuerzaDelictivoViewModel;
+import mx.ssp.iph.utilidades.ui.Funciones;
 
 public class InformeUsoFuerza_Delictivo extends Fragment {
 
     private InformeUsoFuerzaDelictivoViewModel mViewModel;
     Button btnGuardarUsoFuerza;
+    private Funciones funciones;
 
     public static InformeUsoFuerza_Delictivo newInstance() {
         return new InformeUsoFuerza_Delictivo();
@@ -32,6 +34,11 @@ public class InformeUsoFuerza_Delictivo extends Fragment {
         View view = inflater.inflate(R.layout.informe_uso_fuerza__delictivo_fragment, container, false);
         /*******************************************************************/
         btnGuardarUsoFuerza = view.findViewById(R.id.btnGuardarUsoFuerza);
+
+        funciones = new Funciones();
+
+        funciones.CambiarTituloSeccionesDelictivo("ANEXO B. INFORME DEL USO DE LA FUERZA",getContext(),getActivity());
+
         btnGuardarUsoFuerza.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
