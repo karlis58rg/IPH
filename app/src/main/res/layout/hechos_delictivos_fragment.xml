@@ -107,14 +107,13 @@
                     android:id="@+id/txtNoReferenciaDelictivo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:maxLength="21"
+                    android:maxLength="45"
                     android:digits="@string/validacion_folios"
                     android:imeOptions="actionNext"
                     android:inputType="textCapCharacters"
                     android:lines="1"
                     android:maxLines="1"
-                    android:singleLine="true"
-                    />
+                    android:singleLine="true"/>
             </LinearLayout>
 
             <LinearLayout
@@ -237,8 +236,7 @@
                             android:id="@+id/spDetencionesAnexoADelictivo"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:entries="@array/arrayTotalesAnexos"
-                            android:visibility="invisible"/>
+                            android:entries="@array/arrayTotalesAnexos" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -271,8 +269,8 @@
                             android:id="@+id/spAnexosDInventarioArmasDelictivo"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:entries="@array/arrayTotalesAnexos"
-                            android:visibility="invisible"/>
+                            android:entries="@array/arrayTotalesAnexos"/>
+
                     </LinearLayout>
                 </LinearLayout>
 
@@ -308,6 +306,11 @@
                             android:id="@+id/chUsoFuerzaAnexoBDelictivo"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
+                        <Spinner
+                            android:id="@+id/spUsoFuerzaAnexoBDelictivo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:entries="@array/arrayTotalesAnexos"/>
                     </LinearLayout>
                     <LinearLayout
                         android:id="@+id/lyAnexosEEntrevistasDelictivo"
@@ -338,8 +341,7 @@
                             android:id="@+id/spEntrevistasAnexoEDelictivo"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:entries="@array/arrayTotalesAnexos"
-                            android:visibility="invisible"/>
+                            android:entries="@array/arrayTotalesAnexos" />
 
                     </LinearLayout>
                 </LinearLayout>
@@ -380,8 +382,7 @@
                             android:id="@+id/spAnexosCInspeccionVehiculoDelictivo"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:entries="@array/arrayTotalesAnexos"
-                            android:visibility="invisible"/>
+                            android:entries="@array/arrayTotalesAnexos"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -409,7 +410,11 @@
                             android:id="@+id/chAnexosFEntregaRecepcionDelictivo"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
-
+                        <Spinner
+                            android:id="@+id/spAnexosFEntregaRecepcionDelictivo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:entries="@array/arrayTotalesAnexos"/>
                     </LinearLayout>
 
                 </LinearLayout>
@@ -602,7 +607,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/adscripcion" />
                     <Spinner
-                        android:id="@+id/txtAdscripcionDelictivo"
+                        android:id="@+id/spAdscripcionDelictivo"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
                 </LinearLayout>
@@ -629,7 +634,7 @@
                         android:text="@string/cargo" />
 
                     <Spinner
-                        android:id="@+id/txtCargoDelictivo"
+                        android:id="@+id/spCargoDelictivo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
                 </LinearLayout>
@@ -662,6 +667,25 @@
                                 android:id="@+id/lblFirmaAutoridadRealizadaDelictivo"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent" />
+
+                            <!--Revisar vista general -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:weightSum="1"
+                                android:layout_weight="0.10"
+                                android:visibility="gone">
+                                <TextView
+                                    android:id="@+id/lblFirmaAutoridadRealizadaDelictivoOculto"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/font"
+                                    android:text=""/>
+                            </LinearLayout>
+                            <!--  -->
+
+
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="0dp"
@@ -669,6 +693,7 @@
                             android:orientation="horizontal"
                             android:weightSum="1"
                             android:layout_weight="0.20">
+
                             <ImageView
                                 android:id="@+id/imgFirmaAutoridadDelictivo"
                                 android:layout_width="wrap_content"

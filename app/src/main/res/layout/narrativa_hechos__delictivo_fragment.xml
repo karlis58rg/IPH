@@ -32,7 +32,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/font"
-                        android:text="@string/apartado_4_1_descripcion_de_los_hechos" />
+                        android:text="Apartado 5.1 Descripción de los hechos y acctuación de la autoridad." />
                 </LinearLayout>
             </LinearLayout>
 
@@ -58,7 +58,7 @@
                         android:digits="@string/validacion_notas"/>
 
                     <ImageView
-                        android:id="@+id/imgMicrofonoNarrativaHechos"
+                        android:id="@+id/imgMicrofonoNarrativaHechosDelictivo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingBottom="100dp"

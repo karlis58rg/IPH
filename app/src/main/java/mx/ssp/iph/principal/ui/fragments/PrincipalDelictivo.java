@@ -253,6 +253,7 @@ public class PrincipalDelictivo extends Fragment {
         editor.putString("IDHECHODELICTIVO", FolioInterno );
         editor.commit();
 
+
         //Cambia de Actividad
         Intent intent = new Intent(getActivity(), Iph_Delictivo_Up.class);
         startActivity(intent);

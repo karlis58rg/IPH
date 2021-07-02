@@ -366,6 +366,22 @@
                         android:layout_height="50dp"
                         android:src="@drawable/ic_mapa"/>
                 </LinearLayout>
+                <!--Revisar vista general -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10"
+                    android:visibility="gone">
+                    <TextView
+                        android:id="@+id/lblCroquisDelictivoOculto"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text=""/>
+                </LinearLayout>
+
             </LinearLayout>
 
             <LinearLayout
@@ -389,7 +405,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/font"
-                        android:layout_gravity="center"
                         android:text="¿Realizó la inspección del lugar?"/>
 
                 </LinearLayout>
@@ -446,7 +461,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/font"
-                        android:layout_gravity="center"
                         android:text="Al momento de realizar la inspección del lugar. ¿Encontró algún objeto relacionado con los hechos?"/>
 
                 </LinearLayout>
@@ -482,6 +496,183 @@
                 </LinearLayout>
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/quinceavoLinearTres"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/ic_borde_radio">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.15"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/border">
+                    <TextView
+                        android:id="@+id/lblpregunta3Header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="¿Preservó el lugar de la intervención?"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.1">
+                    <RadioGroup
+                        android:id="@+id/rgPreservoLugarIntervencion"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_gravity="center">
+                        <RadioButton
+                            android:id="@+id/rbNoPreservoLugarIntervencion"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_gravity="center"
+                            android:padding="10dp"
+                            android:text="@string/no"/>
+                        <RadioButton
+                            android:id="@+id/rbSiPreservoLugarIntervencion"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            android:layout_gravity="center"
+                            android:text="Si" />
+                    </RadioGroup>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/quinceavoLinearCuatro"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/ic_borde_radio">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.15"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/border">
+                    <TextView
+                        android:id="@+id/lblpregunta4Header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="¿Llevó a cabo la priorización en el lugar de la intervención?"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.1">
+                    <RadioGroup
+                        android:id="@+id/rgPriorizacionLugarIntervencion"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_gravity="center">
+                        <RadioButton
+                            android:id="@+id/rbNoPriorizacionLugarIntervencion"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_gravity="center"
+                            android:padding="10dp"
+                            android:text="@string/no"/>
+                        <RadioButton
+                            android:id="@+id/rbSiPriorizacionLugarIntervencion"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            android:layout_gravity="center"
+                            android:text="Si" />
+                    </RadioGroup>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/quinceavoLinearCinco"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/ic_borde_radio">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/border">
+                    <TextView
+                        android:id="@+id/lblpregunta5Header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="Tipo de riesgo presentado"/>
+                    <RadioGroup
+                        android:id="@+id/rgRiesgoPresentadoLugarIntervencion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_gravity="center">
+                        <RadioButton
+                            android:id="@+id/rbRiesgoSocialesLugarIntervencion"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:padding="10dp"
+                            android:text="Sociales"/>
+                        <RadioButton
+                            android:id="@+id/rbRiesgoNaturalesLugarIntervencion"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            android:layout_gravity="center"
+                            android:text="Naturales" />
+                    </RadioGroup>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:gravity="center_vertical"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblpregunta6Header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="Especifique"/>
+                    <EditText
+                        android:id="@+id/txtEspecificarRiesgoLugarIntervencion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_gravity="center"/>
+                </LinearLayout>
+            </LinearLayout>
+
 
 
 
@@ -513,7 +704,7 @@
                     android:weightSum="1"
                     android:layout_weight="0.5">
                     <Button
-                        android:id="@+id/btnGuardarLugarIntervencion"
+                        android:id="@+id/btnGuardarLugarIntervencionDelictivo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/white"

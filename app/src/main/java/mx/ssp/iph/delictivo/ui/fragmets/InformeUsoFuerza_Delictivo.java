@@ -11,13 +11,18 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
 import mx.ssp.iph.R;
 import mx.ssp.iph.delictivo.viewModel.InformeUsoFuerzaDelictivoViewModel;
+import mx.ssp.iph.utilidades.ui.Funciones;
 
 public class InformeUsoFuerza_Delictivo extends Fragment {
 
     private InformeUsoFuerzaDelictivoViewModel mViewModel;
+    Button btnGuardarUsoFuerza;
+    private Funciones funciones;
 
     public static InformeUsoFuerza_Delictivo newInstance() {
         return new InformeUsoFuerza_Delictivo();
@@ -26,7 +31,25 @@ public class InformeUsoFuerza_Delictivo extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.informe_uso_fuerza__delictivo_fragment, container, false);
+        View view = inflater.inflate(R.layout.informe_uso_fuerza__delictivo_fragment, container, false);
+        /*******************************************************************/
+        btnGuardarUsoFuerza = view.findViewById(R.id.btnGuardarUsoFuerza);
+
+        funciones = new Funciones();
+
+        funciones.CambiarTituloSeccionesDelictivo("ANEXO B. INFORME DEL USO DE LA FUERZA",getContext(),getActivity());
+
+        btnGuardarUsoFuerza.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
+        /********************************************************************/
+        return view;
     }
 
     @Override

@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import mx.ssp.iph.R;
+import mx.ssp.iph.utilidades.ui.Funciones;
 
 public class Fragment_ContainerBlank_Delictivo extends Fragment {
 
@@ -17,7 +18,6 @@ public class Fragment_ContainerBlank_Delictivo extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_container_blank_delictivo,container,false);
-
 
         return view;
 

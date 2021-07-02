@@ -49,6 +49,8 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class LugarDeIntervencion extends Fragment {
 
     private LugarDeIntervencionViewModel mViewModel;
@@ -57,11 +59,14 @@ public class LugarDeIntervencion extends Fragment {
             txtEntidadUbicacionGeograficaAdministrativo,txtColoniaUbicacionGeograficaAdministrativo;
     Button btnGuardarPuestaDisposicioAdministrativo;
     SharedPreferences share;
+    SharedPreferences.Editor editor;
+
     String cargarIdFaltaAdmin,descripcionMunicipio;
     private Funciones funciones;
     ImageView imgMap;
     final private int REQUEST_CODE_ASK_PERMISSION = 111;
     Spinner spMunicipioUbicacionGeograficaAdministrativo;
+
 
     public static LugarDeIntervencion newInstance() {
         return new LugarDeIntervencion();
@@ -120,6 +125,7 @@ public class LugarDeIntervencion extends Fragment {
                 }
                 else
                 {
+                    CargarBANDERAMAPA("ADMINISTRATIVO");
                     ContenedorMaps dialog = new ContenedorMaps();
                     dialog.show( getActivity().getSupportFragmentManager(),"Maps");
                 }
@@ -335,6 +341,14 @@ public class LugarDeIntervencion extends Fragment {
         }else{
             Toast.makeText(getContext(), "LO SENTIMOS, NO CUENTA CON MUNICIPIOS ACTIVOS", Toast.LENGTH_LONG).show();
         }
+    }
+
+    //Coloca una bandera en sharedpref para indicar si el mapa se está abriendo de administrativo Y NO DELICTIVO
+    public void CargarBANDERAMAPA(String Bandera){
+        share = getActivity().getSharedPreferences("main", MODE_PRIVATE);
+        editor = share.edit();
+        editor.putString("BANDERAMAPA", Bandera );
+        editor.commit();
     }
 
 }
