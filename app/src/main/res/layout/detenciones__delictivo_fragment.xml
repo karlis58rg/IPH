@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".delictivo.ui.fragmets.Detenciones_Delictivo">
 
+
     <ScrollView
         android:id="@+id/scrollTransporte"
         android:layout_width="match_parent"
@@ -103,6 +104,7 @@
                 </LinearLayout>
             </LinearLayout>
 
+
             <!--======== APARTADO A2 ============ -->
             <LinearLayout
                 android:id="@+id/tercerLinear"
@@ -123,7 +125,6 @@
                         android:text="@string/subtitulo_apartado_A2" />
                 </LinearLayout>
             </LinearLayout>
-
 
             <LinearLayout
                 android:id="@+id/cuartoLinear"
@@ -773,6 +774,7 @@
                 </LinearLayout>
             </LinearLayout>
 
+
             <!-- Descripción del Detenido-->
 
             <LinearLayout
@@ -1307,6 +1309,7 @@
 
 
             <!--======== APARTADO A4 ============ -->
+
             <LinearLayout
                 android:id="@+id/dieciocholinear"
                 android:layout_width="match_parent"
@@ -1518,6 +1521,1071 @@ adolescentes."/>
             <!-- linear Oculto Firma del Detenido -->
 
 
+            <!--======== APARTADO A5 ============ -->
+
+            <LinearLayout
+                android:id="@+id/veintseislinear"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="@color/background_section">
+                    <TextView
+                        android:id="@+id/lblApartadoA5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="Apartado A.5 Inspección de la persona detenida"/>
+                </LinearLayout>
+            </LinearLayout>
+
+                <!--======== OBJETO RELACIONADO CON LOS HECHOS ============ -->
+            <LinearLayout
+                android:id="@+id/septimounoLinear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblObjetoInspeccionDetenidoDelictivo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Al momento de realizar la inspección a la persona detenida, ¿le encontró algún objeto relacionado con los hechos?" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:weightSum="1"
+
+                    android:layout_weight="0.10">
+
+                    <RadioGroup
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:id="@+id/rgObjetoInspeccionDetenidoDelictivo"
+                        android:layout_weight="0.5">
+                    <Button
+                        android:id="@+id/btnGuardarPuestaDetencionesDelectivo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"/>
+
+                        <RadioButton
+                            android:id="@+id/rbSiObjetoInspeccionDetenidoDelictivo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:padding="10dp"
+                            android:text="Sí (Llene el Anexo D)" />
+
+
+                        <RadioButton
+                            android:id="@+id/rbNoObjetoInspeccionDetenidoDelictivo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="20dp"
+                            android:padding="10dp"
+                            android:text="@string/no" />
+
+                    </RadioGroup>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+                <!--======== PERTENENCIAS DETENIDO ============ -->
+            <LinearLayout
+                android:id="@+id/septimodosLinear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblPertenenciasDetenidoDelictivo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="¿Recolectó pertenencias de la persona detenida?"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+
+                    <RadioGroup
+                        android:id="@+id/rgPertenenciasDetenidoDelictivo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/rbSiPertenenciasDetenidoDelictivo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:padding="10dp"
+                            android:text="Sí (Llene el siguiente registro)" />
+
+
+                        <RadioButton
+                            android:id="@+id/rbNoPertenenciasDetenidoDelictivo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="20dp"
+                            android:padding="10dp"
+                            android:text="@string/no" />
+
+                    </RadioGroup>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+
+
+            <!--======== APARTADO A6 ============ -->
+            <LinearLayout
+                android:id="@+id/veintisietelinear"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="@color/background_section">
+                    <TextView
+                        android:id="@+id/lblApartadoA6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="Apartado A.6 Datos del lugar de la detención"/>
+                </LinearLayout>
+            </LinearLayout>
+
+                <!--======== LUGAR DE LA DETENCIÓN ============ -->
+            <LinearLayout
+                android:id="@+id/septimotresLinear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblLugarDetencionDelictivo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="¿El lugar de la detención es el mismo que el de la intervención?"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+
+                    <RadioGroup
+                        android:id="@+id/rgLugarDetencionDelictivo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/rbSiLugarDetencionDelictivo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:padding="10dp"
+                            android:text="@string/si"/>
+
+
+                        <RadioButton
+                            android:id="@+id/rbNoLugarDetencionDelictivo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="20dp"
+                            android:padding="10dp"
+                            android:text="No (Indique la dirección)"/>
+
+                    </RadioGroup>
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+                    <!-- Dirección de la Detención-->
+
+                    <LinearLayout
+                        android:id="@+id/veintiochoLinear"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="20dp">
+                        <TextView
+                            android:id="@+id/lblDireccion"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textStyle="italic"
+                            android:text="Dirección de la detención" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/veintinueveLinear"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="20dp">
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:weightSum="1"
+                            android:layout_weight="0.10">
+                            <TextView
+                                android:id="@+id/lblEntidadDetencion"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/font"
+                                android:text="@string/lblEntidad"/>
+                            <EditText
+                                android:id="@+id/txtEntidadDetencion"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="GUERRERO"
+                                android:enabled="false"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:weightSum="1"
+                            android:layout_weight="0.10">
+                            <TextView
+                                android:id="@+id/lblMunicipioDetencion"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/font"
+                                android:text="@string/lblMunicipio"/>
+                            <Spinner
+                                android:id="@+id/txtMunicipioDetencion"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:weightSum="1"
+                            android:layout_weight="0.10">
+                            <TextView
+                                android:id="@+id/lblColoniaDetencion"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/font"
+                                android:text="@string/lblColonia"/>
+                            <EditText
+                                android:id="@+id/txtColoniaDetencion"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:maxLength="50"
+                                android:inputType="textCapCharacters"
+                                android:digits="@string/validacion_nombre"
+                                android:singleLine="true"
+                                android:maxLines="1"
+                                android:lines="1"
+                                android:imeOptions="actionNext"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/treintaLinear"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="20dp">
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:weightSum="1"
+                            android:layout_weight="0.10">
+                            <TextView
+                                android:id="@+id/lblCalleDetencion"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/font"
+                                android:text="@string/lblCalle"/>
+                            <EditText
+                                android:id="@+id/txtCalleDetencion"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="textCapCharacters"
+                                android:digits="@string/validacion_notas"
+                                android:maxLength="250"
+                                android:singleLine="true"
+                                android:maxLines="1"
+                                android:lines="1"
+                                android:imeOptions="actionNext"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/treintaiunoLinear"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="20dp">
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:weightSum="1"
+                            android:layout_weight="0.10">
+                            <TextView
+                                android:id="@+id/lblNumeroExteriorDetencion"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/font"
+                                android:text="@string/lblNumeroExterior"/>
+                            <EditText
+                                android:id="@+id/txtNumeroExteriorDetencion"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:digits="@string/validacion_notas"
+                                android:maxLength="50"
+                                android:inputType="textCapCharacters"
+                                android:singleLine="true"
+                                android:maxLines="1"
+                                android:lines="1"
+                                android:imeOptions="actionNext"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:weightSum="1"
+                            android:layout_weight="0.10">
+                            <TextView
+                                android:id="@+id/lblNumeroInteriorDetencion"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/font"
+                                android:text="@string/lblNumeroInterior"/>
+                            <EditText
+                                android:id="@+id/txtNumeroInteriorDetencion"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:digits="@string/validacion_notas"
+                                android:maxLength="50"
+                                android:inputType="textCapCharacters"
+                                android:singleLine="true"
+                                android:maxLines="1"
+                                android:lines="1"
+                                android:imeOptions="actionNext"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.10"
+                            android:orientation="vertical"
+                            android:weightSum="1">
+
+                            <TextView
+                                android:id="@+id/lblCodigoPostalDetencion"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/lblCodigoPostal"
+                                android:textColor="@color/font" />
+
+                            <EditText
+                                android:id="@+id/txtCodigoPostalDetencion"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:digits="@string/validacion_numero"
+                                android:imeOptions="actionNext"
+                                android:inputType="numberDecimal"
+                                android:lines="1"
+                                android:maxLength="5"
+                                android:maxLines="1"
+                                android:singleLine="true" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/treintaidosLinear"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="20dp">
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:weightSum="1"
+                            android:layout_weight="0.10">
+                            <TextView
+                                android:id="@+id/lblReferenciasDetencion"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/font"
+                                android:text="@string/lblReferencias"/>
+                            <EditText
+                                android:id="@+id/txtReferenciasdelLugarDetencion"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:maxLength="500"
+                                android:inputType="textCapCharacters"
+                                android:digits="@string/validacion_notas"
+                                android:singleLine="true"
+                                android:maxLines="1"
+                                android:lines="1"
+                                android:imeOptions="actionNext"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+
+            <!--======== APARTADO A7 ============ -->
+            <LinearLayout
+                android:id="@+id/treintaitresLinear"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="@color/background_section">
+                    <TextView
+                        android:id="@+id/lblApartadoA7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="Apartado A.7 Datos del lugar de la detención"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/treintaicuatroLinear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:id="@+id/lblLugarTrasladoDetencion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Lugar de traslado:" />
+                <LinearLayout
+                android:id="@+id/treintaicuatrounoLinear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+                    <CheckBox
+                        android:id="@+id/chLugarTrasladoDetencionFiscaliaAgencia"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Fiscalía/Agencia"/>
+                    <CheckBox
+                        android:id="@+id/chLugarTrasladoDetencionHospital"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hospital"/>
+                    <CheckBox
+                        android:id="@+id/chLugarTrasladoDetencionOtraDependencia"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Otra Dependencia"/>
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/lblCualLugarTraslado"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="¿Cuál?" />
+                <EditText
+                    android:id="@+id/txtCualLugarTraslado"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapCharacters"
+                    android:digits="@string/validacion_notas"
+                    android:maxLength="250"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    android:lines="1"
+                    android:imeOptions="actionNext"/>
+
+            </LinearLayout>
+
+
+
+
+
+            <!-- Observaciones relacionadas con la detención -->
+
+            <LinearLayout
+                android:id="@+id/treintaicincoLinear"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/txtObservacionesDetencion"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:inputType="textMultiLine|textCapCharacters"
+                        android:digits="@string/validacion_notas"
+                        android:maxLength="8000"
+                        android:gravity="top"/>
+
+                    <ImageView
+                        android:id="@+id/img_microfonoObservacionesDetencion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="35dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignEnd="@+id/txtObservacionesDetencion"
+                        android:src="@drawable/ic_micro"
+                        />
+
+                    <TextView
+                        android:id="@+id/lblObservacionesDetencion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txtObservacionesDetencion"
+                        android:text="Describa brevemente la ruta y el medio de traslado desde el lugar de la detención hasta la puesta a disposición, así como la razón de posibles demoras. Incluya cualquier otra observación que considere relevante."
+                        android:textStyle="italic"/>
+
+                </RelativeLayout>
+            </LinearLayout>
+
+
+
+            <!-- Datos quien realizó la detención Uno -->
+
+            <LinearLayout
+                android:id="@+id/treintaiseisLinear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp">
+
+                <!-- Primer Apellido -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblDetencionPrimerApellido"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="@string/primer_apellido"/>
+                    <EditText
+                        android:id="@+id/txtDetencionPrimerApellido"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionNext"/>
+                </LinearLayout>
+
+                <!-- Segundo Apellido -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblDetencionSegundoApellido"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="@string/segundo_apellido"/>
+                    <EditText
+                        android:id="@+id/txtDetencionSegundoApellido"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionNext"/>
+                </LinearLayout>
+
+                <!-- Nombres-->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblDetencionNombreDelictivo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="@string/nombres"/>
+                    <EditText
+                        android:id="@+id/txtDetencionNombres"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionNext"/>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/treintaisieteLinear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp">
+
+                <!-- Adscripción -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblDetencionAdscripcion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="@string/adscripcion"/>
+                    <EditText
+                        android:id="@+id/txtDetencionAdscripcion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionNext"/>
+                </LinearLayout>
+
+                <!-- Cargo/Grado -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblDetencionCargoGrado"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="@string/cargo"/>
+                    <EditText
+                        android:id="@+id/txtDetencionCargoGrado"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionNext"/>
+                </LinearLayout>
+
+                <!-- Firma -->
+                <LinearLayout
+                    android:id="@+id/lyFirmaUno"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:weightSum="1"
+                    android:layout_weight="0.12">
+
+                    <LinearLayout
+                        android:id="@+id/lyFirmaDetencionUno"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:weightSum="1"
+                        android:layout_weight="0.5">
+                        <TextView
+                            android:id="@+id/lblFirmaDetencionUno"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Firma del Detenido" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:weightSum="1"
+                            android:layout_weight="0.5">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:weightSum="1"
+                                android:layout_weight="0.80">
+                                <TextView
+                                    android:id="@+id/lblDetencionUnoUno"
+                                    android:enabled="true"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal"
+                                android:weightSum="1"
+                                android:layout_weight="0.20">
+                                <ImageView
+                                    android:id="@+id/imgDetencionUno"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/ic_firma" />
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <!-- Datos quien realizó la detención Dos -->
+
+            <LinearLayout
+                android:id="@+id/treintaiochoLinear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp">
+
+                <!-- Primer Apellido -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblDetencionPrimerApellidoDos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="@string/primer_apellido"/>
+                    <EditText
+                        android:id="@+id/txtDetencionPrimerApellidoDos"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionNext"/>
+                </LinearLayout>
+
+                <!-- Segundo Apellido -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblDetencionSegundoApellidoDos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="@string/segundo_apellido"/>
+                    <EditText
+                        android:id="@+id/txtDetencionSegundoApellidoDos"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionNext"/>
+                </LinearLayout>
+
+                <!-- Nombres-->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblDetencionNombreDelictivoDos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="@string/nombres"/>
+                    <EditText
+                        android:id="@+id/txtDetencionNombresDos"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionNext"/>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/treintainueveLinear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp">
+
+                <!-- Adscripción -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblDetencionAdscripcionDos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="@string/adscripcion"/>
+                    <EditText
+                        android:id="@+id/txtDetencionAdscripcionDos"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionNext"/>
+                </LinearLayout>
+
+                <!-- Cargo/Grado -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblDetencionCargoGradoDos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="@string/cargo"/>
+                    <EditText
+                        android:id="@+id/txtDetencionCargoGradoDos"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionNext"/>
+                </LinearLayout>
+
+                <!-- Firma -->
+                <LinearLayout
+                    android:id="@+id/lyFirmaDos"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:weightSum="1"
+                    android:layout_weight="0.12">
+
+                    <LinearLayout
+                        android:id="@+id/lyFirmaDetencionDos"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:weightSum="1"
+                        android:layout_weight="0.5">
+                        <TextView
+                            android:id="@+id/lblFirmaDetencionDos"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Firma del Detenido" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:weightSum="1"
+                            android:layout_weight="0.5">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:weightSum="1"
+                                android:layout_weight="0.80">
+                                <TextView
+                                    android:id="@+id/lblDetencionUnoDos"
+                                    android:enabled="true"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal"
+                                android:weightSum="1"
+                                android:layout_weight="0.20">
+                                <ImageView
+                                    android:id="@+id/imgDetencionDos"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/ic_firma" />
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+
+
+
+        <!-- linear Oculto Firma del Detenido -->
+        <LinearLayout
+            android:id="@+id/oculto2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:visibility="invisible">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:weightSum="1"
+                android:layout_weight="0.10"
+                android:visibility="gone">
+                <TextView
+                    android:id="@+id/lblFirmaOcultaDetencionBase64"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/font"
+                    android:text=""/>
+            </LinearLayout>
+        </LinearLayout>
+        <!-- linear Oculto Firma del Detenido -->
+
+
+
+
+
+
+
             <!--======== BOTÓN y ListView============ -->
             <LinearLayout
                 android:id="@+id/veinticinco"
@@ -1543,7 +2611,7 @@ adolescentes."/>
                     android:weightSum="1"
                     android:layout_weight="0.5">
                     <Button
-                        android:id="@+id/btnGuardarPuestaDetencionesDelectivo"
+                        android:id="@+id/btnGuardarPuestaDisposicioAdministrativo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="AGREGAR DETENIDO"
@@ -1590,6 +2658,7 @@ adolescentes."/>
             </LinearLayout>
 
         </LinearLayout>
+
     </ScrollView>
 
 </FrameLayout>

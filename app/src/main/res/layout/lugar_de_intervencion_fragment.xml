@@ -313,9 +313,10 @@
                     <ImageView
                         android:id="@+id/imgMap"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/ic_mapa"/>
+                        android:layout_height="47dp"
+                        android:src="@drawable/ic_mapa" />
                 </LinearLayout>
+
             </LinearLayout>
 
 
