@@ -1,0 +1,633 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".delictivo.ui.activitys.Iph_Delictivo_Up"
+    android:background="#FFF"  >
+
+    <ScrollView
+        android:id="@+id/scrollTransporteDelictivo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/principalLinear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+
+            <LinearLayout
+                android:id="@+id/instruccionesLinear"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/lblApartadoB1Instrucciones"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/font"
+                    android:text="Haga clic en el botón Guardar Vehículo para añadir un vehículo inspeccionado tantas veces como sea necesario. " />
+            </LinearLayout>
+            <!--======== APARTADO B1 ============ -->
+            <LinearLayout
+                android:id="@+id/primerLinear"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:id="@+id/lyHeaderFechayHoraretencion"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="@color/background_section">
+                    <TextView
+                        android:id="@+id/lblApartadoB1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="Apartado C.1 Fecha y hora de la inspección del vehículo" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/segundoLinear"
+                android:layout_width="match_parent"
+                android:layout_weight="0.5"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                android:layout_marginTop="20dp">
+                <LinearLayout
+                    android:id="@+id/lyFechaHoradelaRetencion"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/lblFechaRetencion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Fecha de la inspección del vehículo" />
+
+                    <EditText
+                        android:id="@+id/txtFechaRetencionDelictivo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:drawableRight="@drawable/ic_calendar"
+                        android:hint="DD/MM/AAAA"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/lyHoraRetencion"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.5">
+                    <TextView
+                        android:id="@+id/lblHoraRetencion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hora de la inspección del vehículo"/>
+                    <EditText
+                        android:id="@+id/txthoraRetencionDelictivo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:drawableRight="@drawable/ic_time"
+                        android:hint="HH:MM"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!--======== APARTADO C2 ============ -->
+
+            <LinearLayout
+                android:id="@+id/tercerLinear"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:id="@+id/lyHeaderApartadoB2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="@color/background_section">
+                    <TextView
+                        android:id="@+id/lblApartadoB2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="Apartado C.2 Datos generales del vehículo inspeccionado. " />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/cuartoLinear"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/lblDatosGenerales"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/font"
+                    android:text="Datos generales del vehículo retenido." />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/quintoLinear"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:orientation="vertical"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="@dimen/border"
+                android:layout_marginRight="@dimen/border"
+                android:background="@drawable/ic_borde_tipo_vehiculo">
+                <LinearLayout
+                android:id="@+id/quintopuntounoLinear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp">
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <RadioGroup
+                        android:id="@+id/rgTipoVehiculoDelictivo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/border"
+                        android:layout_weight="0.5">
+                        <RadioButton
+                            android:id="@+id/rbTerrestreDelictivo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="0dp"
+                            android:text="@string/terrestre"
+                            android:width="100dp"/>
+                        <RadioButton
+                            android:id="@+id/rbAcuaticoDelictivo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="0dp"
+                            android:text="Acuático"
+                            android:width="100dp"/>
+                        <RadioButton
+                            android:id="@+id/rbAereoDelictivo"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="0dp"
+                            android:text="Aéreo"
+                            android:width="100dp"/>
+                    </RadioGroup>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_margin="@dimen/border"
+                    android:layout_weight="0.1"
+                    android:background="@drawable/ic_borde_procedencia_vehiculo">
+
+                    <RadioGroup
+                        android:id="@+id/rgProcedenciaVehiculoDelictivo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="@dimen/border"
+                        android:gravity="center_vertical">
+
+                        <RadioButton
+                            android:id="@+id/rbNacionalDelictivo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/nacional" />
+
+                        <RadioButton
+                            android:id="@+id/rbExtranjeroDelictivo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/extranjero" />
+                    </RadioGroup>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_margin="@dimen/border"
+                    android:layout_weight=".1"
+                    android:background="@drawable/ic_borde_uso_vehiculo">
+
+                    <RadioGroup
+                        android:id="@+id/rgUsoVehiculoDelictivo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="@dimen/border"
+                        android:gravity="center_vertical">
+
+                        <RadioButton
+                            android:id="@+id/rbParticularDelictivo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Particular"
+                            />
+
+                        <RadioButton
+                            android:id="@+id/rbTransportePublicoDelictivo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Transporte Publico" />
+                        <RadioButton
+                            android:id="@+id/rbCargaDelictivo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Carga" />
+                    </RadioGroup>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/sextoLinear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblMarcaVehiculo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="@string/lblMarcaVehiculo"/>
+                    <Spinner
+                        android:id="@+id/spMarcaVehiculoDelictivo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblSubmarcaVehiculo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="@string/lblSubmarcaVehiculo"/>
+                    <Spinner
+                        android:id="@+id/spSubmarcaVehiculoDelictivo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblModeloVehiculo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="@string/lblModeloVehiculo"/>
+
+                    <Spinner
+                        android:id="@+id/txtModeloVehiculoDelictivo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblColorVehiculo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="@string/lblColorVehiculo"/>
+                    <Spinner
+                        android:id="@+id/txtColorVehiculoDelictivo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/septimoLinear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblPlacaVehiculo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="@string/lblPlacaVehiculo"/>
+                    <EditText
+                        android:id="@+id/txtPlacaVehiculoDelictivo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:maxLength="10"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_notas"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionNext"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblSerieVehiculo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="@string/lblSerieVehiculo"/>
+
+                    <EditText
+                        android:id="@+id/txtSerieVehiculoDelictivo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:digits="@string/validacion_notas"
+                        android:inputType="textCapCharacters"
+                        android:imeOptions="actionNext"
+                        android:lines="1"
+                        android:maxLength="50"
+                        android:maxLines="1"
+                        android:singleLine="true"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblDestino"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="@string/destino"/>
+                    <EditText
+                        android:id="@+id/txtDestinoVehiculoDelictivo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_notas"
+                        android:imeOptions="actionNext"
+                        android:lines="1"
+                        android:maxLines="1"
+                        android:singleLine="true"/>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/octavoLinear"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/lblObservaciones"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/font"
+                    android:text="Observaciones" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/novenoLinear"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/txtObservacionesdelVehiculoDelictivo"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:inputType="text|textMultiLine|textCapCharacters"
+                        android:gravity="top"
+                        android:maxLength="8000"
+                        android:digits="@string/validacion_notas"/>
+
+                    <ImageView
+                        android:id="@+id/imgMicrofonoObservacionesdelVehiculoDelictivo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="25dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignEnd="@+id/txtObservacionesdelVehiculoDelictivo"
+                        android:src="@drawable/ic_micro"
+                        />
+
+
+                </RelativeLayout>
+            </LinearLayout>
+
+        <!-- C3 -->
+            <LinearLayout
+                android:id="@+id/SEXTOLinear"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/border">
+                <LinearLayout
+                    android:id="@+id/lyHeaderApartadoc3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="@color/background_section">
+                    <TextView
+                        android:id="@+id/lblApartadoc3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="Apartado C.3 Objetos encontrados en el vehículo inspeccionado. " />
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/dieciseisLinear"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/ic_borde_radio"
+                android:layout_height="90dp">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.15"
+                    android:gravity="center"
+                    android:layout_marginLeft="@dimen/border">
+                    <TextView
+                        android:id="@+id/lblpregunta2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="¿Encontró objetos relacionados con los hechos?"
+                        android:layout_gravity="center_vertical"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.1">
+                    <RadioGroup
+                        android:id="@+id/rgObjetos"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+                        <RadioButton
+                            android:id="@+id/rbObjetosNODelictivo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_gravity="center"
+                            android:padding="10dp"
+                            android:text="@string/no" />
+
+                        <RadioButton
+                            android:id="@+id/rbObjetosSIDelictivo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:padding="10dp"
+                            android:text="@string/si" />
+                    </RadioGroup>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!--======== BOTÓN y ListView============ -->
+            <LinearLayout
+                android:id="@+id/catorceavoLinear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lyGuardarVehiculo"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:weightSum="1">
+
+                    <Button
+                        android:id="@+id/btnGuardarVehiculoDelictivo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/backgroud_header_toolbar"
+                        android:drawableLeft="@drawable/ic_plus"
+                        android:paddingLeft="12dp"
+                        android:paddingRight="12dp"
+                        android:text="AGREGAR VEHÍCULO"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/quinceavoLinear"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp">
+                <ListView
+                    android:id="@+id/lvVehiculosDelictivo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>

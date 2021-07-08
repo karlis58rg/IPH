@@ -106,6 +106,7 @@ public class Principal extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
         /**********************************************************/
+        /*        */
         ListAutoridadAdmin();
         ListCargo();
         ListConocimientoInfraccion();
@@ -120,6 +121,10 @@ public class Principal extends AppCompatActivity {
         ListSubMarca();
         ListColores();
         ListModelo();
+
+
+
+
 
         /**********************************************************/
 

@@ -24,7 +24,9 @@ import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import java.util.ArrayList;
 
 import mx.ssp.iph.R;
+import mx.ssp.iph.administrativo.ui.fragmets.DescripcionVehiculo;
 import mx.ssp.iph.delictivo.ui.fragmets.ConocimientoHecho;
+import mx.ssp.iph.delictivo.ui.fragmets.DescripcionVehiculoDelictivo;
 import mx.ssp.iph.delictivo.ui.fragmets.Detenciones_Delictivo;
 import mx.ssp.iph.delictivo.ui.fragmets.Fragment_ContainerBlank_Delictivo;
 import mx.ssp.iph.delictivo.ui.fragmets.HechosDelictivos;
@@ -65,7 +67,7 @@ public class Iph_Delictivo_Up extends AppCompatActivity{
         seccion5 = new NarrativaHechos_Delictivo();
         anexoa = new Detenciones_Delictivo();
         anexob  = new InformeUsoFuerza_Delictivo();
-        anexoc  = new Fragment_ContainerBlank_Delictivo();
+        anexoc  = new DescripcionVehiculoDelictivo();
         anexod  = new Fragment_ContainerBlank_Delictivo();
         anexoe  = new Fragment_ContainerBlank_Delictivo();
         anexof  = new Fragment_ContainerBlank_Delictivo();

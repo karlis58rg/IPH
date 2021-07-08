@@ -198,7 +198,7 @@
                 android:layout_marginTop="@dimen/border"
                 android:paddingLeft="@dimen/border"
                 android:paddingRight="@dimen/border"
-                android:background="@drawable/ic_borde_anexos">
+                android:background="@drawable/ic_anexos_delictivo">
 
                 <LinearLayout
                     android:id="@+id/quintoLinear1"

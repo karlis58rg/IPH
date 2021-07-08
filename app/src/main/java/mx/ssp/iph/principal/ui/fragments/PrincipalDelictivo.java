@@ -112,7 +112,7 @@ public class PrincipalDelictivo extends Fragment {
                 guardarFolioInterno(randomCodigoVerifi);
                 //Consume el webservice
                // =================================
-                // GeneraIPHDelictivo();
+                 GeneraIPHDelictivo();
             }
         });
         return root;
@@ -135,14 +135,14 @@ public class PrincipalDelictivo extends Fragment {
                 .build();
 
         Request request = new Request.Builder()
-                .url("http://189.254.7.167/WebServiceIPH/api/NoReferenciaAdministrativa?usuario="+Usuario)
+                .url("http://189.254.7.167/WebServiceIPH/api/HDHechoDelictivo?usuarioId="+Usuario)
                 .build();
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
                 Looper.prepare(); // to be able to make toast
-                Toast.makeText(getContext(), e.toString()+"ERROR AL CONSULTAR FOLIOS IPH ADMINISTRATIVO, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), e.toString()+"ERROR AL CONSULTAR FOLIOS IPH DELICTIVO, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_LONG).show();
                 Looper.loop();
             }
 
@@ -180,7 +180,7 @@ public class PrincipalDelictivo extends Fragment {
                                         try {
                                             JSONObject jsonjObject = new JSONObject(ArrayIPHAdministrativo[contadordeIPH] + "}");
 
-                                            ListaIdDelictivo.add(jsonjObject.getString("IdFaltaAdmin"));
+                                            ListaIdDelictivo.add(jsonjObject.getString("IdHechoDelictivo"));
                                             ListaNumReferenciaDelictivo.add(jsonjObject.getString("NumReferencia"));
 
                                         } catch (JSONException e) {
@@ -321,7 +321,7 @@ public class PrincipalDelictivo extends Fragment {
                                 }
                                 else
                                 {
-                                    Toast.makeText(getContext(), "NO FUE POSIBLE GENERAR EL NÚMERO DE FOLIO, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getContext(), " ", Toast.LENGTH_SHORT).show();
                                 }
                                 //*************************
                             }

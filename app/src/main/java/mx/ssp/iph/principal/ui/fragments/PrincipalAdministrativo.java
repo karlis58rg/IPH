@@ -90,7 +90,7 @@ public class PrincipalAdministrativo extends Fragment {
         {
             //Comprobamos acceso a intenet y ejecutamos la consulta al webservice
             if (funciones.ping(getContext())){
-                SelectIPHAdministrativo();
+               SelectIPHAdministrativo();
             }
         }
 
@@ -115,11 +115,11 @@ public class PrincipalAdministrativo extends Fragment {
                  GenerarNumerodeReferencia();
 
                 //Enviamos el número de Refrerencia generado
-                //guardarFolioInterno(randomCodigoVerifi);
-
+                guardarFolioInterno(randomCodigoVerifi,randomReferencia);
+                //guardarFolioInterno("202118965497");
 
                  //Consume el webservice
-                 GeneraIPHAdministrativo();
+                 // Beny GeneraIPHAdministrativo();
 
             }
         });
