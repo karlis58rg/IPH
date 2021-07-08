@@ -1,4 +1,4 @@
-package mx.ssp.iph.delictivo.ui.fragmets;
+                                                                                                                                                                                                                           package mx.ssp.iph.delictivo.ui.fragmets;
 
 import androidx.lifecycle.ViewModelProvider;
 
