@@ -97,6 +97,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_notas"
                         android:singleLine="true"
                         android:maxLines="1"
                         android:lines="1"
@@ -204,7 +205,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:maxLength="5"
-                        android:inputType="phone"
+                        android:inputType="numberDecimal"
                         android:digits="@string/validacion_numero"
                         android:singleLine="true"
                         android:maxLines="1"
@@ -344,7 +345,7 @@
                     android:weightSum="1"
                     android:layout_weight="0.12">
                     <Button
-                        android:id="@+id/btnGuardarPuestaDisposicioAdministrativo"
+                        android:id="@+id/btnGuardarLugarIntervencionAdministrativo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/guardar_datos"

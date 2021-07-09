@@ -104,7 +104,7 @@
                                 android:layout_height="wrap_content"
                                 android:maxLength="50"
                                 android:inputType="textCapCharacters"
-                                android:digits="@string/validacion_nombre"
+                                android:digits="@string/validacion_numero"
                                 android:singleLine="true"
                                 android:maxLines="1"
                                 android:lines="1"

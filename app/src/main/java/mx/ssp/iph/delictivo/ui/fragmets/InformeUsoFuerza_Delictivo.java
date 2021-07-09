@@ -42,7 +42,9 @@ public class InformeUsoFuerza_Delictivo extends Fragment {
         btnGuardarUsoFuerza.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
+
             }
         });
 

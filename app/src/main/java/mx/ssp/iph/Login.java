@@ -61,6 +61,18 @@ public class Login extends AppCompatActivity {
             }
         }
 
+        //***************** OCULATAR TECLADO  **************************//
+//        txtUsuario.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+//                View view = getCurrentFocus();
+//                if(!hasFocus) {
+//                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+//                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+//                }
+//            }
+//        });
+
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 
 import android.os.Looper;
 import android.speech.RecognizerIntent;
+import android.text.InputType;
 import android.util.Log;
 import android.text.InputFilter;
 import android.view.LayoutInflater;
@@ -26,6 +27,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.RadioGroup;
@@ -64,7 +66,8 @@ public class DescripcionVehiculo extends Fragment {
     private ImageView imgMicrofonoObservacionesdelVehiculo;
     private EditText txthoraRetencion,txtFechaRetencion;
     private Funciones funciones;
-    RadioGroup rgTipoVehiculoAdministrativo,rgProcedenciaVehiculoAdministrativo,rgUsoVehiculoAdministrativo;
+    private RadioGroup rgTipoVehiculoAdministrativo, rgProcedenciaVehiculoAdministrativo, rgUsoVehiculoAdministrativo;
+    private RadioButton rbTerrestre, rbOtro, rbNacional, rbExtranjero, rbParticular, rbTransportePublico, rbCarga;
     Spinner spMarcaVehiculo,spSubmarcaVehiculo,txtModeloVehiculo,txtColorVehiculo;
     TextView txtOtroVehiculo,txtPlacaVehiculo,txtSerieVehiculo,txtDestinoVehiculo;
     Button btnGuardarVehiculo;
@@ -99,11 +102,21 @@ public class DescripcionVehiculo extends Fragment {
         txtPlacaVehiculo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(10)});
         txtSerieVehiculo = root.findViewById(R.id.txtSerieVehiculo);
         txtSerieVehiculo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
+
         rgTipoVehiculoAdministrativo = root.findViewById(R.id.rgTipoVehiculoAdministrativo);
         rgProcedenciaVehiculoAdministrativo = root.findViewById(R.id.rgProcedenciaVehiculoAdministrativo);
         rgUsoVehiculoAdministrativo = root.findViewById(R.id.rgUsoVehiculoAdministrativo);
+        rbTerrestre = root.findViewById(R.id.rbTerrestre);
+        rbOtro = root.findViewById(R.id.rbOtro);
+        rbNacional = root.findViewById(R.id.rbNacional);
+        rbExtranjero = root.findViewById(R.id.rbExtranjero);
+        rbParticular = root.findViewById(R.id.rbParticular);
+        rbTransportePublico = root.findViewById(R.id.rbTransportePublico);
+        rbCarga = root.findViewById(R.id.rbCarga);
+
         spMarcaVehiculo = root.findViewById(R.id.spMarcaVehiculo);
         spSubmarcaVehiculo = root.findViewById(R.id.spSubmarcaVehiculo);
+
         txtDestinoVehiculo = root.findViewById(R.id.txtDestinoVehiculo);
         txtDestinoVehiculo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         btnGuardarVehiculo = root.findViewById(R.id.btnGuardarVehiculo);
@@ -122,6 +135,29 @@ public class DescripcionVehiculo extends Fragment {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_layout, R.id.txt, marca);
         adapter.setDropDownViewResource(R.layout.spinner_layout);
         spMarcaVehiculo.setAdapter(adapter);
+
+
+        //HABILITAR - DESHABILITAR EDITTEXT Tipo de vehiculo
+        rgTipoVehiculoAdministrativo.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId)
+            {
+                switch(checkedId)
+                {
+                    case R.id.rbTerrestre:
+                        txtOtroVehiculo.setEnabled(false);
+                        txtOtroVehiculo.setInputType(InputType.TYPE_NULL);
+                        txtOtroVehiculo.setFocusableInTouchMode(false);
+                        break;
+                    case R.id.rbOtro:
+                        txtOtroVehiculo.setEnabled(true);
+                        txtOtroVehiculo.setFocusableInTouchMode(true);
+                        break;
+                }
+            }
+        });
+
 
         spMarcaVehiculo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -212,15 +248,37 @@ public class DescripcionVehiculo extends Fragment {
         btnGuardarVehiculo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(txtFechaRetencion.getText().toString().isEmpty()){
-                    Toast.makeText(getActivity().getApplicationContext(),"INGRESA LA FECHA DE RETENCIÓN DEL VEHÍCULO",Toast.LENGTH_SHORT).show();
-                }else if(txthoraRetencion.getText().toString().isEmpty()){
-                    Toast.makeText(getActivity().getApplicationContext(),"INGRESA LA HORA DE RETENCIÓN DEL VEHÍCULO",Toast.LENGTH_SHORT).show();
-                }else if(txtObservacionesdelVehiculo.getText().length() < 3){
-                    Toast.makeText(getActivity().getApplicationContext(),"AGREGAR EN OBSERVACIONES AL MENOS 3 CARACTERES",Toast.LENGTH_SHORT).show();
-                }else {
-                    Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
-                    insertDescripcionVehiculos();
+
+                if(txtFechaRetencion.getText().toString().length() > 3 && txthoraRetencion.getText().toString().length() > 3){
+                    if(rbTerrestre.isChecked() || rbOtro.isChecked()){
+                        if(rbNacional.isChecked() || rbExtranjero.isChecked()){
+                            if(rbParticular.isChecked() || rbTransportePublico.isChecked() || rbCarga.isChecked()){
+                                if(txtDestinoVehiculo.getText().toString().length() > 3){
+                                    if(txtObservacionesdelVehiculo.getText().toString().length() > 3){
+                                        Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
+                                        insertDescripcionVehiculos();
+                                    }else{
+                                        Toast.makeText(getActivity().getApplicationContext(),"INGRESA LAS OBSERVACIONES DEL VEHÍCULO ANTES DE CONTINUAR",Toast.LENGTH_SHORT).show();
+                                    }
+
+                                }else{
+                                    Toast.makeText(getActivity().getApplicationContext(),"INGRESA EL DESTINO DEL VEHÍCULO ANTES DE CONTINUAR",Toast.LENGTH_SHORT).show();
+                                }
+
+                            }else{
+                                Toast.makeText(getActivity().getApplicationContext(),"SELECCIONA EL USO DEL VEHÍCULO ANTES DE CONTINUAR",Toast.LENGTH_SHORT).show();
+                            }
+
+                        }else{
+                            Toast.makeText(getActivity().getApplicationContext(),"SELECCIONA PROCEDENCIA DEL VEHÍCULO ANTES DE CONTINUAR",Toast.LENGTH_SHORT).show();
+                        }
+
+                    }else{
+                        Toast.makeText(getActivity().getApplicationContext(),"SELECCIONA EL TIPO DE VEHÍCULO ANTES DE CONTINUAR",Toast.LENGTH_SHORT).show();
+                    }
+
+                }else{
+                    Toast.makeText(getActivity().getApplicationContext(),"NO SE PUEDE ALMACENAR INFORMACIÓN DE VEHÍCULO SIN FECHA Y HORA DE REGISTRO",Toast.LENGTH_SHORT).show();
                 }
             }
         });

@@ -57,7 +57,7 @@ public class LugarDeIntervencion extends Fragment {
     EditText txtCalleUbicacionGeograficaAdministrativo,txtNumeroExteriorUbicacionGeograficaAdministrativo,txtNumeroInteriorUbicacionGeograficaAdministrativo,txtCodigoPostalUbicacionGeograficaAdministrativo,
             txtReferenciasdelLugarUbicacionGeograficaAdministrativo,txtLatitudUbicacionGeograficaAdministrativo,txtLongitudUbicacionGeograficaAdministrativo,
             txtEntidadUbicacionGeograficaAdministrativo,txtColoniaUbicacionGeograficaAdministrativo;
-    Button btnGuardarPuestaDisposicioAdministrativo;
+    Button btnGuardarLugarIntervencionAdministrativo;
     SharedPreferences share;
     SharedPreferences.Editor editor;
 
@@ -102,7 +102,7 @@ public class LugarDeIntervencion extends Fragment {
         imgMap = (ImageView)root.findViewById(R.id.imgMap);
 
 
-        btnGuardarPuestaDisposicioAdministrativo = root.findViewById(R.id.btnGuardarPuestaDisposicioAdministrativo);
+        btnGuardarLugarIntervencionAdministrativo = root.findViewById(R.id.btnGuardarLugarIntervencionAdministrativo);
         funciones= new Funciones();
 
         txtEntidadUbicacionGeograficaAdministrativo.setEnabled(false);
@@ -136,16 +136,25 @@ public class LugarDeIntervencion extends Fragment {
         //***************** Cargar Datos si es que existen  **************************//
         CargarDatos();
 
-        btnGuardarPuestaDisposicioAdministrativo.setOnClickListener(new View.OnClickListener() {
+        btnGuardarLugarIntervencionAdministrativo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS ", Toast.LENGTH_LONG).show();
-                insertLugarIntervencion();
+
+                if(txtLatitudUbicacionGeograficaAdministrativo.getText().length() > 8 && txtLongitudUbicacionGeograficaAdministrativo.getText().length() > 8){
+                    insertLugarIntervencion();
+                    Toast.makeText(getContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS ", Toast.LENGTH_LONG).show();
+                } else if(txtColoniaUbicacionGeograficaAdministrativo.getText().length() > 3 && txtCalleUbicacionGeograficaAdministrativo.getText().length() > 3 && txtReferenciasdelLugarUbicacionGeograficaAdministrativo.getText().length() > 3){
+                    insertLugarIntervencion();
+                    Toast.makeText(getContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS ", Toast.LENGTH_LONG).show();
+                }  else{
+                        Toast.makeText(getContext(), "INGRESA LAS COORDENADAS COMPLETAS O LA DIRECCIÓN COMPLETA PARA GUARDAR", Toast.LENGTH_LONG).show();
+                    }
             }
         });
 
         //***************************************************************************//
         return root;
+
     }
 
     @Override

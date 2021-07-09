@@ -306,7 +306,7 @@
                         android:id="@+id/txtNacionalidadDetenido"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:entries="@array/arrayNacionalidad"/>
+                        />
                 </LinearLayout>
 
                 <LinearLayout
@@ -445,7 +445,7 @@
                     android:gravity="center">
 
                     <EditText
-                        android:id="@+id/txtCualDocumentoDelictivo"
+                        android:id="@+id/txtCualGpoVulnerableDelictivo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Grupo Vulnerable"
@@ -1135,7 +1135,7 @@
                         android:id="@+id/txtCualGrupoDelictivo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Grupo Vulnerable"
+                        android:hint="Grupo Delictivo"
                         android:maxLength="50"
                         android:inputType="textCapCharacters"
                         android:digits="@string/validacion_nombre"
@@ -1552,37 +1552,35 @@ adolescentes."/>
                 android:orientation="horizontal"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp">
+
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:weightSum="1"
                     android:layout_weight="0.10">
+
                     <TextView
                         android:id="@+id/lblObjetoInspeccionDetenidoDelictivo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Al momento de realizar la inspección a la persona detenida, ¿le encontró algún objeto relacionado con los hechos?" />
+
                 </LinearLayout>
+
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
                     android:weightSum="1"
-
                     android:layout_weight="0.10">
 
                     <RadioGroup
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
                         android:id="@+id/rgObjetoInspeccionDetenidoDelictivo"
-                        android:layout_weight="0.5">
-                    <Button
-                        android:id="@+id/btnGuardarPuestaDetencionesDelectivo"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="horizontal"/>
+                        android:orientation="horizontal">
 
                         <RadioButton
                             android:id="@+id/rbSiObjetoInspeccionDetenidoDelictivo"
@@ -1600,7 +1598,7 @@ adolescentes."/>
                             android:layout_gravity="center"
                             android:layout_marginLeft="20dp"
                             android:padding="10dp"
-                            android:text="@string/no" />
+                            android:text="@string/no"/>
 
                     </RadioGroup>
 
@@ -2119,7 +2117,25 @@ adolescentes."/>
             </LinearLayout>
 
 
-
+            <LinearLayout
+                android:id="@+id/cuarentaLinear"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="@color/background_section">
+                    <TextView
+                        android:id="@+id/lblApartadoA8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="Apartado A.8 Datos del primer respondiente que realizó la detención"/>
+                </LinearLayout>
+            </LinearLayout>
             <!-- Datos quien realizó la detención Uno -->
 
             <LinearLayout
@@ -2423,7 +2439,6 @@ adolescentes."/>
                         android:imeOptions="actionNext"/>
                 </LinearLayout>
 
-
             </LinearLayout>
 
 
@@ -2611,7 +2626,7 @@ adolescentes."/>
                     android:weightSum="1"
                     android:layout_weight="0.5">
                     <Button
-                        android:id="@+id/btnGuardarPuestaDisposicioAdministrativo"
+                        android:id="@+id/btnGuardarPuestaDetencionesDelectivo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="AGREGAR DETENIDO"

@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.speech.RecognizerIntent;
+import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,6 +50,7 @@ public class NarrativaHechos_Delictivo extends Fragment {
         btnGuardarNarrativaHechosDelictivo = view.findViewById(R.id.btnGuardarNarrativaHechosDelictivo);
         imgMicrofonoNarrativaHechosDelictivo = view.findViewById(R.id.imgMicrofonoNarrativaHechosDelictivo);
         txtNarrativaHechosDelictivo = view.findViewById(R.id.txtNarrativaHechosDelictivo);
+        txtNarrativaHechosDelictivo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(8000)});
         funciones = new Funciones();
 
         funciones.CambiarTituloSeccionesDelictivo("SECCIÓN 5. NARRATIVA DE LOS HECHOS",getContext(),getActivity());
@@ -64,8 +66,15 @@ public class NarrativaHechos_Delictivo extends Fragment {
 
         btnGuardarNarrativaHechosDelictivo.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
+            public void onClick(View v) {
+                if(txtNarrativaHechosDelictivo.getText().toString().isEmpty()){
+                    Toast.makeText(getActivity().getApplicationContext(),"INGRESA LA DESCRIPCIÓN DE LOS HECHOS",Toast.LENGTH_SHORT).show();
+                }else if(txtNarrativaHechosDelictivo.getText().length() < 3){
+                    Toast.makeText(getActivity().getApplicationContext(),"AGREGAR EN LA DESCRIPCIÓN DE LOS HECHOS AL MENOS 3 CARACTERES",Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
+                    //updateNarrativa();
+                }
             }
         });
 

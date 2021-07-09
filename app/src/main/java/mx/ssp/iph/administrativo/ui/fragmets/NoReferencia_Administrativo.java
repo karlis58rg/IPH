@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -118,12 +119,29 @@ public class NoReferencia_Administrativo extends Fragment {
             }
         });
 
+
+//        //***************** OCULATAR TECLADO  **************************//
+//        txtGobiernoReferenciaAdministrativo.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+//            @Override
+//                public void onFocusChange(View v, boolean hasFocus) {
+//
+//                    if(!hasFocus) {
+//                        InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+//                        imm.hideSoftInputFromWindow(root.getWindowToken(), 0);
+//
+//                    }
+//                }
+//        });
+
+
         //***************** Boton Guardar Datos  **************************//
         btnGuardarReferenciaAdministrativo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Toast.makeText(getContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS ", Toast.LENGTH_LONG).show();
                 insertNoReferenciaAdministrativa();
+
             }
         });
         //****************************************************************************//

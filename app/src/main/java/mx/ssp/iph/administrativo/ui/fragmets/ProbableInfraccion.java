@@ -56,6 +56,7 @@ public class ProbableInfraccion extends Fragment {
     String cargarIdFaltaAdmin,cargarNumReferencia;
     Funciones funciones;
     String descConocimientoInfraccion;
+    Integer aux1;
 
     public static ProbableInfraccion newInstance() {
         return new ProbableInfraccion();
@@ -83,13 +84,7 @@ public class ProbableInfraccion extends Fragment {
         //***************** Cargar Datos si es que existen  **************************//
         CargarDatos();
 
-        btnGuardarProbableInfraccionAdministrativo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS ", Toast.LENGTH_LONG).show();
-                updateProbableInfraccion();
-            }
-        });
+
 
 
         spHechoProbableInfraccionAdministrativo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -115,10 +110,34 @@ public class ProbableInfraccion extends Fragment {
                     txtOtroProbableInfraccionAdministrativo.setText("");
                 }
                 //Toast.makeText(getContext(), "" + i, Toast.LENGTH_LONG).show();
+                aux1 = i;
             }
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+
+
+
+        btnGuardarProbableInfraccionAdministrativo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(aux1 == 5){
+                    if(txtOtroProbableInfraccionAdministrativo.getText().length() > 3){
+                        Toast.makeText(getContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_LONG).show();
+                        updateProbableInfraccion();
+                    } else{
+                        Toast.makeText(getContext(), "INGRESAR DE QUÉ OTRA FORMA SE ENTERÓ DEL HECHO", Toast.LENGTH_LONG).show();
+
+                    }
+                } else {
+                    Toast.makeText(getContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_LONG).show();
+                    updateProbableInfraccion();
+                }
+            }
+        });
+
+
         //***************************************************************************//
         return root;
     }
