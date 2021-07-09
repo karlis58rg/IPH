@@ -81,7 +81,7 @@ public class LugarDeIntervencion_Delictivo extends Fragment {
         imgCroquisDelictivo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ContenedorFirma dialog = new ContenedorFirma(R.id.lblCroquisDelictivo,R.id.lblCroquisDelictivoOculto);
+                ContenedorFirma dialog = new ContenedorFirma(R.id.lblCroquisDelictivo,R.id.lblCroquisDelictivoOculto,R.id.imgMapDelictivoMiniatura);
                 dialog.show( getActivity().getSupportFragmentManager(),"Dia");
             }
         });

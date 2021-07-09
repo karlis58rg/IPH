@@ -86,7 +86,7 @@ public class Detenciones_Delictivo extends Fragment {
         imgFirmaAutoridadAdministrativo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ContenedorFirma dialog = new ContenedorFirma(R.id.lblFirmadelDetenido,R.id.lblFirmadelDetenidoOculto);
+                ContenedorFirma dialog = new ContenedorFirma(R.id.lblFirmadelDetenidoDelictivo,R.id.lblFirmadelDetenidoDelictivoOculto,R.id.imgFirmadelDetenidoDelictivoMiniatura);
                 dialog.show( getActivity().getSupportFragmentManager(),"Dia");
             }
         });
