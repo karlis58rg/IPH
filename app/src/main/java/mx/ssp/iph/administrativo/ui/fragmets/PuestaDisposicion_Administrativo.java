@@ -32,8 +32,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.lang.Object;
+import java.util.Date;
 
 
 import android.widget.TextView;
@@ -47,6 +50,7 @@ import mx.ssp.iph.administrativo.model.ModeloNoReferencia_Administrativo;
 import mx.ssp.iph.administrativo.model.ModeloPuestaDisposicion_Administrativo;
 import mx.ssp.iph.administrativo.model.ModeloRecibeDisposicion_Administrativo;
 import mx.ssp.iph.administrativo.viewModel.PuestaDisposicionAdministrativoViewModel;
+import mx.ssp.iph.delictivo.ui.fragmets.HechosDelictivos;
 import mx.ssp.iph.utilidades.ui.ContenedorFirma;
 import mx.ssp.iph.utilidades.ui.Funciones;
 import okhttp3.Call;
@@ -63,13 +67,16 @@ public class PuestaDisposicion_Administrativo extends Fragment {
     private ImageView imgFirmaAutoridadAdministrativo;
     CheckBox chDetencionesAnexoAAdministrativo,chDetencionesAnexoBAdministrativo,chSinAnexosAdministrativo,chNoAplicaUnidadDeArriboAdministrativo;
     RadioGroup rgPrimerRespondienteAdministrativo;
-    EditText txtFechaPuestaDisposicionAdministrativo,txthoraPuestaDisposicionAdministrativo,txtNoExpedienteAdmministrativo,txtFiscaliaAutoridadAdministrativo;
+    EditText txtFolioInternoAdministrativo,txtFolioSistemaAdministrativo,txtNoReferenciaAdministrativo,
+            txtFechaPuestaDisposicionAdministrativo,txthoraPuestaDisposicionAdministrativo,txtNoExpedienteAdmministrativo,txtFiscaliaAutoridadAdministrativo;
     TextView lblFirmaAutoridadRealizadaAdministrativo;
-    Button btnGuardarPuestaDisposicioAdministrativo;
+    ImageView btnGuardarPuestaDisposicioAdministrativo;
     SharedPreferences share;
-    String cargarIdFaltaAdmin,cargarNumReferencia,cargarUsuario,
+    String cargarIdFaltaAdmin,cargarUsuario,noReferencia,noExpediente,
             varAnexoA = "NO",varNoDetenidos = "000",varAnexoB = "NO",varNoVehiculos = "000",varSinAnexos = "NO",
-            varNoAplicaUnidad,descUnidad,descAutoridad,descCargo;
+            varNoAplicaUnidad,descUnidad,descAutoridad,descCargo,
+            edo = "",inst = "",gob = "",mpio = "",fecha = "",
+            dia = "01",mes = "01",anio = "2021",tiempo = "",hora = "",minutos = "",respuestaJson;
     Funciones funciones;
     Spinner txtCargoAdministrativo,txtUnidadDeArriboAdministrativo,
             spDetencionesAnexoAAdministrativo,spDetencionesAnexoBAdministrativo,txtAdscripcionAdministrativo;
@@ -90,12 +97,12 @@ public class PuestaDisposicion_Administrativo extends Fragment {
         txtNoExpedienteAdmministrativo = root.findViewById(R.id.txtNoExpedienteAdmministrativo);
         txtNoExpedienteAdmministrativo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(25)});
 
-        //txtPrimerApellidoAdministrativo = root.findViewById(R.id.txtPrimerApellidoAdministrativo);
-        //txtPrimerApellidoAdministrativo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
-        //txtSegundoApellidoAdministrativo = root.findViewById(R.id.txtSegundoApellidoAdministrativo);
-        //txtSegundoApellidoAdministrativo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
-        //txtNombresAdministrativo = root.findViewById(R.id.txtNombresAdministrativo);
-        //txtNombresAdministrativo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
+        txtFolioInternoAdministrativo = root.findViewById(R.id.txtFolioInternoAdministrativo);
+        txtFolioSistemaAdministrativo = root.findViewById(R.id.txtFolioSistemaAdministrativo);
+        txtFolioSistemaAdministrativo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(21)});
+        txtNoReferenciaAdministrativo = root.findViewById(R.id.txtNoReferenciaAdministrativo);
+        txtNoReferenciaAdministrativo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(41)});
+
         txtUnidadDeArriboAdministrativo = root.findViewById(R.id.txtUnidadDeArriboAdministrativo);
         txtFiscaliaAutoridadAdministrativo = root.findViewById(R.id.txtFiscaliaAutoridadAdministrativo);
         txtAdscripcionAdministrativo = root.findViewById(R.id.txtAdscripcionAdministrativo);
@@ -115,10 +122,11 @@ public class PuestaDisposicion_Administrativo extends Fragment {
         imgFirmaAutoridadAdministrativo = (ImageView) root.findViewById(R.id.imgFirmaAutoridadAdministrativo);
         imgFirmaAutoridadAdministrativo = (ImageView) root.findViewById(R.id.imgFirmaAutoridadAdministrativo);
 
+        txtFolioInternoAdministrativo.setText(cargarIdFaltaAdmin);
+        txtFolioInternoAdministrativo.setEnabled(false);
+        txtNoReferenciaAdministrativo.setEnabled(false);
         ListCombos();
-
-
-
+        getNumReferencia();
 
         //Cambia el título de acuerdo a la sección seleccionada
         funciones.CambiarTituloSecciones("SECCIÓN 1: PUESTA A DISPOSICIÓN",getContext(),getActivity());
@@ -135,10 +143,8 @@ public class PuestaDisposicion_Administrativo extends Fragment {
                 } else if(chselect == false) {
                     spDetencionesAnexoAAdministrativo.setVisibility(buttonView.INVISIBLE);
                 }
-
             }
         });
-
 
         //HABILITAR - DESHABILITAR EDITTEXT ANEXO B
         chDetencionesAnexoBAdministrativo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -150,9 +156,7 @@ public class PuestaDisposicion_Administrativo extends Fragment {
                     spDetencionesAnexoBAdministrativo.setSelection(funciones.getIndexSpiner(spDetencionesAnexoBAdministrativo, "--Selecciona--"));
                 } else if(chselect == false) {
                     spDetencionesAnexoBAdministrativo.setVisibility(buttonView.INVISIBLE);
-
                 }
-
             }
         });
 
@@ -179,7 +183,6 @@ public class PuestaDisposicion_Administrativo extends Fragment {
             }
         });
 
-
         //DESHABILITAR SPPINER UNIDAD DE ARRIBO
         chNoAplicaUnidadDeArriboAdministrativo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -193,8 +196,6 @@ public class PuestaDisposicion_Administrativo extends Fragment {
                 }
             }
         });
-
-
         //***************** Cargar Datos si es que existen  **************************//
         CargarDatos();
 
@@ -237,15 +238,13 @@ public class PuestaDisposicion_Administrativo extends Fragment {
                 }
 
             }
-        });
-
-         */
+        });*/
 
         btnGuardarPuestaDisposicioAdministrativo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS ", Toast.LENGTH_LONG).show();
-                insertPuestaDisposicion();
+                updatePuestaDisposicion();
                 //insertImagen();
             }
         });
@@ -253,16 +252,14 @@ public class PuestaDisposicion_Administrativo extends Fragment {
         //****************************************************************************//
         return root;
     }
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(PuestaDisposicionAdministrativoViewModel.class);
         // TODO: Use the ViewModel
     }
-
     //***************** INSERTA A LA BD MEDIANTE EL WS **************************//
-    private void insertPuestaDisposicion() {
+    private void updatePuestaDisposicion() {
         DataHelper dataHelper = new DataHelper(getContext());
         descUnidad = (String) txtUnidadDeArriboAdministrativo.getSelectedItem();
 
@@ -280,18 +277,19 @@ public class PuestaDisposicion_Administrativo extends Fragment {
             varAnexoB = "NO";
             varNoVehiculos = "000";
         }
-
         if(chSinAnexosAdministrativo.isChecked()){
             varSinAnexos = "NA";
         }
-
         if(chNoAplicaUnidadDeArriboAdministrativo.isChecked()){
             txtUnidadDeArriboAdministrativo.setEnabled(false);
             varNoAplicaUnidad = "NA";
         }
+        if(txtNoExpedienteAdmministrativo.getText().toString().isEmpty()){
+            noExpediente = "SN";
+        }
 
         ModeloPuestaDisposicion_Administrativo puestaDisposicion = new ModeloPuestaDisposicion_Administrativo
-                (cargarIdFaltaAdmin,cargarNumReferencia,
+                (cargarIdFaltaAdmin,noReferencia,
                         txtFechaPuestaDisposicionAdministrativo.getText().toString(),
                         txthoraPuestaDisposicionAdministrativo.getText().toString(),
                         txtNoExpedienteAdmministrativo.getText().toString());
@@ -327,7 +325,6 @@ public class PuestaDisposicion_Administrativo extends Fragment {
                 Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_LONG).show();
                 Looper.loop();
             }
-
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {
@@ -337,18 +334,7 @@ public class PuestaDisposicion_Administrativo extends Fragment {
                         public void run() {
                             String resp = myResponse;
                             if(resp.equals("true")){
-                                insertRecibeDisposicion();
-                                /*System.out.println("EL DATO SE ENVIO CORRECTAMENTE");
-                                Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
-                                txtFechaPuestaDisposicionAdministrativo.setText("");
-                                txthoraPuestaDisposicionAdministrativo.setText("");
-                                txtNoExpedienteAdmministrativo.setText("");
-                                txtPrimerApellidoAdministrativo.setText("");
-                                txtSegundoApellidoAdministrativo.setText("");
-                                txtNombresAdministrativo.setText("");
-                                txtFiscaliaAutoridadAdministrativo.setText("");
-                                */
-
+                                //updateRecibeDisposicion();
                             }else{
                                 Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, VERIFIQUE SU INFORMACIÓN", Toast.LENGTH_SHORT).show();
                             }
@@ -360,7 +346,7 @@ public class PuestaDisposicion_Administrativo extends Fragment {
         });
     }
 
-    private void insertRecibeDisposicion() {
+    private void updateRecibeDisposicion() {
         DataHelper dataHelper = new DataHelper(getContext());
         descAutoridad = (String) txtAdscripcionAdministrativo.getSelectedItem();
         int idAdscripcion = dataHelper.getIdAutoridadAdmin(descAutoridad);
@@ -408,17 +394,7 @@ public class PuestaDisposicion_Administrativo extends Fragment {
                             if(resp.equals("true")){
                                 System.out.println("EL DATO SE ENVIO CORRECTAMENTE");
                                 Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
-                                /*
-                                txtFechaPuestaDisposicionAdministrativo.setText("");
-                                txthoraPuestaDisposicionAdministrativo.setText("");
-                                txtNoExpedienteAdmministrativo.setText("");
-                                txtPrimerApellidoAdministrativo.setText("");
-                                txtSegundoApellidoAdministrativo.setText("");
-                                txtNombresAdministrativo.setText("");
-                                txtFiscaliaAutoridadAdministrativo.setText("");
-                                txtAdscripcionAdministrativo.setText("");
-                                */
-
+                                //insertImagen();
                             }else{
                                 Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, VERIFIQUE SU INFORMACIÓN", Toast.LENGTH_SHORT).show();
                             }
@@ -483,7 +459,6 @@ public class PuestaDisposicion_Administrativo extends Fragment {
                 Toast.makeText(getContext(), "ERROR AL CONSULTAR SECCIÓN 1, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_LONG).show();
                 Looper.loop();
             }
-
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {
@@ -631,17 +606,80 @@ public class PuestaDisposicion_Administrativo extends Fragment {
             }
         });
     }
+    //***************** GET A LA BD MEDIANTE EL WS **************************//
+    private void getNumReferencia() {
+        //*************** FECHA **********************//
+        Date date = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        fecha = dateFormat.format(date);
+        String [] partsFecha = fecha.split("/");
+        anio = partsFecha[0];
+        mes = partsFecha[1];
+        dia = partsFecha[2];
+        //*************** HORA **********************//
+        Date time = new Date();
+        DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+        tiempo = timeFormat.format(time);
+        String[] partsTiempo = tiempo.split(":");
+        hora = partsTiempo[0];
+        minutos = partsTiempo[1];
+        /******************************************************/
+        final OkHttpClient client = new OkHttpClient();
+        final Request request = new Request.Builder()
+                .url("http://189.254.7.167/WebServiceIPH/api/FaltaAdministrativa?usuario="+cargarUsuario)
+                .build();
 
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Looper.prepare();
+                Toast.makeText(getActivity(),"ERROR AL OBTENER LA INFORMACIÓN, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET",Toast.LENGTH_SHORT).show();
+                Looper.loop();
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    final String myResponse = response.body().string();
+                    PuestaDisposicion_Administrativo.this.getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                respuestaJson = "FALSE";
+                                if(myResponse.equals(respuestaJson)){
+                                    Toast.makeText(getActivity(),"NO SE CUENTA CON INFORMACIÓN",Toast.LENGTH_SHORT).show();
+                                }else{
+                                    JSONObject jObj = null;
+                                    jObj = new JSONObject(""+myResponse+"");
+                                    edo = jObj.getString("IdEntidadFederativa");
+                                    inst = jObj.getString("IdInstitucion");
+                                    gob = jObj.getString("IdGobierno");
+                                    mpio = jObj.getString("IdMunicipio");
+                                    noReferencia = edo+inst+gob+mpio+dia+mes+anio+hora+minutos;
+                                    txtNoReferenciaAdministrativo.setText(edo+"|"+inst+"|"+gob+"|"+mpio+"|"+dia+"|"+mes+"|"+anio+"|"+hora+"|"+minutos);
+                                    Log.i("HERE", ""+jObj);
+                                }
+
+                            }catch(JSONException e){
+                                e.printStackTrace();
+                            }
+                        }
+
+                    });
+                }
+            }
+
+        });
+    }
     public void cargarFolios(){
         share = getContext().getSharedPreferences("main", Context.MODE_PRIVATE);
         cargarIdFaltaAdmin = share.getString("IDFALTAADMIN", "");
-        cargarNumReferencia = share.getString("NOREFERENCIA", "");
+        //cargarNumReferencia = share.getString("NOREFERENCIA", "");
         cargarUsuario = share.getString("Usuario", "");
         Log.i("id",cargarIdFaltaAdmin);
-        Log.i("refe",cargarNumReferencia);
+        //Log.i("refe",cargarNumReferencia);
         Log.i("user",cargarUsuario);
     }
-
     /*****************************************************************************/
     private void ListCombos() {
         DataHelper dataHelper = new DataHelper(getContext());
@@ -669,9 +707,7 @@ public class PuestaDisposicion_Administrativo extends Fragment {
         }else{
             Toast.makeText(getContext(), "LO SENTIMOS, NO CUENTA CON ADSCRIPCIONES.", Toast.LENGTH_LONG).show();
         }
-
     }
-
 
     //***************** SE RECUPERA EL FOLIO INTERNO **************************//
     private void CargarDatos() {

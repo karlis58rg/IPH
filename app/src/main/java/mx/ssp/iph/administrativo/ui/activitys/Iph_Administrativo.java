@@ -36,8 +36,6 @@ public class Iph_Administrativo extends AppCompatActivity {
     ArrayList<String> listatitulosSeccion;
     ArrayList<Integer> listaColorStatus;
 
-
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,12 +52,7 @@ public class Iph_Administrativo extends AppCompatActivity {
                //miestatus = R.drawable.indicador_rojo;
 
                 //mi.setVisibility(View.GONE);
-
-
-
-
                 //ActualizarEstatusSecciones();
-
             }
         });
 
@@ -78,8 +71,6 @@ public class Iph_Administrativo extends AppCompatActivity {
 
     //Carga y recarga las secciones de la lista. Nos permitirá cambiar los colores de los indicadores
     private void listas(){
-
-
         listatitulosSeccion = new ArrayList<String>(); //Item completo
         listaColorStatus = new ArrayList<Integer>(); //Item completo
 
@@ -90,7 +81,6 @@ public class Iph_Administrativo extends AppCompatActivity {
         listaColorStatus.add(R.drawable.indicador_amarillo);
         listaColorStatus.add(R.drawable.indicador_verde);
         listaColorStatus.add(R.drawable.indicador_rojo);
-
 
         listatitulosSeccion.add(miseccion);
         listatitulosSeccion.add("SECCIÓN 1. PUESTA A DISPOSICIÓN");
@@ -107,7 +97,6 @@ public class Iph_Administrativo extends AppCompatActivity {
         expandableListView.setAdapter(expandableListAdapter);
     }
 
-
     //Hace el cambio del Fragmento contenedor al fragmento enviado
     private void addFragment(Fragment fragment) {
         getSupportFragmentManager()
@@ -121,22 +110,22 @@ public class Iph_Administrativo extends AppCompatActivity {
     private void PosicionFragment(int posicion) {
 
         switch (posicion){
-            case 0:
+            /*case 0:
                 addFragment(new NoReferencia_Administrativo());
-                break;
-            case 1:
+                break;*/
+            case 0:
                 addFragment(new PuestaDisposicion_Administrativo());
                 break;
-            case 2:
+            case 1:
                 addFragment(new ProbableInfraccion());
                 break;
-            case 3:
+            case 2:
                 addFragment(new LugarDeIntervencion());
                 break;
-            case 4:
+            case 3:
                 addFragment(new NarrativaHechos());
                 break;
-            case 5:
+            case 4:
                 addFragment(new Detenciones());
                 break;
             case 6:
