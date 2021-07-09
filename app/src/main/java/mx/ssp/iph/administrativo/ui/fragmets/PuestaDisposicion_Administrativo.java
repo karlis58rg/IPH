@@ -286,13 +286,15 @@ public class PuestaDisposicion_Administrativo extends Fragment {
         }
         if(txtNoExpedienteAdmministrativo.getText().toString().isEmpty()){
             noExpediente = "SN";
+        }else {
+            noExpediente = txtNoExpedienteAdmministrativo.getText().toString();
         }
 
         ModeloPuestaDisposicion_Administrativo puestaDisposicion = new ModeloPuestaDisposicion_Administrativo
                 (cargarIdFaltaAdmin,noReferencia,
                         txtFechaPuestaDisposicionAdministrativo.getText().toString(),
                         txthoraPuestaDisposicionAdministrativo.getText().toString(),
-                        txtNoExpedienteAdmministrativo.getText().toString());
+                        noExpediente);
         Log.i("fecha",puestaDisposicion.getFecha());
         Log.i("hora",puestaDisposicion.getHora());
 
