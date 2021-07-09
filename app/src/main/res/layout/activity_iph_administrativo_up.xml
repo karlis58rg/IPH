@@ -33,20 +33,31 @@
 
                 <ImageButton
                     android:id="@+id/imgbtnVolverFlecha"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="2dp"
+                    android:layout_width="45dp"
+                    android:layout_height="match_parent"
+                    android:padding="1dp"
+                    android:layout_margin="5dp"
                     android:layout_marginRight="1dp"
                     android:scaleType="fitCenter"
                     android:background="@drawable/btn_volver_flecha"/>
 
                 <ImageView
-                    android:layout_width="wrap_content"
+                    android:layout_width="720dp"
                     android:layout_height="match_parent"
                     android:padding="5dp"
-                    android:layout_marginRight="30dp"
                     android:src="@drawable/ic_header_completo">
                 </ImageView>
+
+
+                <ImageButton
+                    android:id="@+id/imgbtnCerrarSesion"
+                    android:layout_width="35dp"
+                    android:layout_height="match_parent"
+                    android:padding="1dp"
+                    android:layout_margin="8dp"
+                    android:layout_marginRight="1dp"
+                    android:scaleType="fitCenter"
+                    android:background="@drawable/ic_cerrar_sesion"/>
             </androidx.appcompat.widget.Toolbar>
 
         </com.google.android.material.appbar.AppBarLayout>

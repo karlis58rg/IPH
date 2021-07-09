@@ -5,6 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:minWidth="850dp"
+    android:minHeight="400dp"
     android:orientation="vertical">
 
     <LinearLayout
@@ -14,33 +16,39 @@
         android:layout_gravity="center">
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Comienza a dibujar en el espacio en blanco"></TextView>
+            android:layout_height="15dp"
+            android:text=""></TextView>
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/lyLienzo"
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_width="700dp"
+        android:layout_height="300dp"
         android:orientation="horizontal"
+        android:layout_margin="10dp"
+        android:background="@drawable/ic_borde_firma"
+        android:layout_gravity="center"
         ></LinearLayout>
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center">
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:gravity="center">
+
         <Button
             android:id="@+id/btnGuardar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Guardar"
-            tools:layout_editor_absoluteX="197dp"
-            tools:layout_editor_absoluteY="657dp"
+            android:text="Aceptar"
+            tools:layout_editor_absoluteX="51dp"
+            tools:layout_editor_absoluteY="660dp"
             android:layout_marginRight="10dp"
             android:textColor="@color/white"
-            android:drawableLeft="@drawable/ic_save_white"
+            android:drawableLeft="@drawable/ic_aceptar"
             android:background="@color/backgroud_header_toolbar"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp"/>
+            android:paddingLeft="50dp"
+            android:paddingRight="50dp" />
+
         <Button
             android:id="@+id/btnCancelar"
             android:layout_width="wrap_content"
@@ -52,8 +60,8 @@
             android:textColor="@color/white"
             android:drawableLeft="@drawable/ic_cancelar"
             android:background="@color/backgroud_header_toolbar"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp"/>
+            android:paddingLeft="50dp"
+            android:paddingRight="50dp"/>
         <Button
             android:id="@+id/btnLimpiar"
             android:layout_width="wrap_content"
@@ -64,6 +72,8 @@
             android:textColor="@color/white"
             android:drawableLeft="@drawable/ic_limpiar"
             android:background="@color/backgroud_header_toolbar"
+            android:paddingLeft="50dp"
+            android:paddingRight="50dp"
             />
 
     </LinearLayout>

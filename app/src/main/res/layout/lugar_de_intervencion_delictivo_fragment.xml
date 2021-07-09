@@ -315,6 +315,24 @@
                         android:layout_height="match_parent"
                         android:src="@drawable/ic_mapa"/>
                 </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_weight="0.20"
+                    android:orientation="horizontal"
+                    android:weightSum="1"
+                    android:padding="@dimen/border">
+                    <ImageView
+                        android:id="@+id/imgMapDelictivoMiniatura"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxWidth="40dp"
+                        android:maxHeight="40dp"
+                        android:scaleType="fitXY" />
+                </LinearLayout>
+
+
             </LinearLayout>
 
             <LinearLayout
@@ -366,6 +384,9 @@
                         android:layout_height="50dp"
                         android:src="@drawable/ic_mapa"/>
                 </LinearLayout>
+
+
+
                 <!--Revisar vista general -->
                 <LinearLayout
                     android:layout_width="0dp"

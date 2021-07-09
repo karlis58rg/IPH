@@ -40,7 +40,7 @@ public class Iph_Administrativo_Up extends AppCompatActivity{
     ArrayList<String> listaSecciones;
     ArrayList<Integer> listaColorStatus;
     ListView lvSeccionesAdministrativo;
-    Fragment referencia,seccion1,seccion2,seccion3,seccion4,anexoa,anexob;
+    Fragment seccion1,seccion2,seccion3,seccion4,anexoa,anexob; //referencia,
     ImageButton imgbtnVolverFlecha;
 
 
@@ -59,7 +59,7 @@ public class Iph_Administrativo_Up extends AppCompatActivity{
             }
         });
         //Instancio los Fragmentos
-        referencia = new NoReferencia_Administrativo();
+        //referencia = new NoReferencia_Administrativo();
         seccion1 = new PuestaDisposicion_Administrativo();
         seccion2 = new ProbableInfraccion();
         seccion3 = new LugarDeIntervencion();
@@ -82,7 +82,7 @@ public class Iph_Administrativo_Up extends AppCompatActivity{
         listaColorStatus.add(R.drawable.indicador_amarillo);
 
         //Agrego las secciones a la lista
-        listaSecciones.add("NÚMERO DE REFERENCIA");
+        //listaSecciones.add("NÚMERO DE REFERENCIA");
         listaSecciones.add("SECCIÓN 1. PUESTA A DISPOSICIÓN");
         listaSecciones.add("SECCIÓN 2. DATOS DE LA PROBABLE INFRACCIÓN");
         listaSecciones.add("SECCIÓN 3. LUGAR DE LA INTERVENCIÓN");
@@ -93,7 +93,7 @@ public class Iph_Administrativo_Up extends AppCompatActivity{
         //Lleno la lista con la clase adaptador
         final SlidingUpPanelLayout slidingUpPanelLayout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
         ActualizarListaEsttus();
-        addFragment(referencia);
+        addFragment(seccion1);
 
 
         //clisk de los elementos de las listas para cambiar de fragmentos
@@ -104,43 +104,43 @@ public class Iph_Administrativo_Up extends AppCompatActivity{
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
                 switch (position)
                 {
-                    case 0:
+                    /*case 0:
                     {
                         addFragment(referencia);
                         slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
                         break;
-                    }
-                    case 1:
+                    }*/
+                    case 0:
                     {
                         addFragment(seccion1);
                         slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
                         break;
                     }
-                    case 2:
+                    case 1:
                     {
                         addFragment(seccion2);
                         slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
                         break;
                     }
-                    case 3:
+                    case 2:
                     {
                         addFragment(seccion3);
                         slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
                         break;
                     }
-                    case 4:
+                    case 3:
                     {
                         addFragment(seccion4);
                         slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
                         break;
                     }
-                    case 5:
+                    case 4:
                     {
                         addFragment(anexoa);
                         slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
                         break;
                     }
-                    case 6:
+                    case 5:
                     {
                         addFragment(anexob);
                         slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
@@ -155,8 +155,9 @@ public class Iph_Administrativo_Up extends AppCompatActivity{
     @Override
     public void onBackPressed()
     {
-        Toast.makeText(this,"PARA SALIR PRESIONE LA FLECHA SUPERIOR IZQUIERDA", Toast.LENGTH_SHORT).show();
-        return;
+        Intent intent = new Intent(Iph_Administrativo_Up.this, Principal.class);
+        startActivity(intent);
+
     }
 
     //Instancia el Adptador para recrear la lista de secciones. El menú de secciones.

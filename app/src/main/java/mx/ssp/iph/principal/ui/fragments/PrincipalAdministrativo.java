@@ -73,8 +73,6 @@ public class PrincipalAdministrativo extends Fragment {
         return new PrincipalAdministrativo();
     }
 
-
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -90,10 +88,9 @@ public class PrincipalAdministrativo extends Fragment {
         {
             //Comprobamos acceso a intenet y ejecutamos la consulta al webservice
             if (funciones.ping(getContext())){
-                SelectIPHAdministrativo();
+               SelectIPHAdministrativo();
             }
         }
-
 
         //Evento al pulsar sobre un elemento de la lista
         lvPrincipalFolioInternoAdministrativo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -115,11 +112,11 @@ public class PrincipalAdministrativo extends Fragment {
                  GenerarNumerodeReferencia();
 
                 //Enviamos el número de Refrerencia generado
-                //guardarFolioInterno(randomCodigoVerifi);
-
+                guardarFolioInterno(randomCodigoVerifi,randomReferencia);
+                //guardarFolioInterno("202118965497");
 
                  //Consume el webservice
-                 GeneraIPHAdministrativo();
+                 // Beny GeneraIPHAdministrativo();
 
             }
         });
@@ -131,7 +128,6 @@ public class PrincipalAdministrativo extends Fragment {
         super.onActivityCreated(savedInstanceState);
         // TODO: Use the ViewModel
     }
-
 
     //***************** CONSULTA BD TODOS LOS IPH ADMINISTRATIVOS PENDIENTES **************************//
     private void SelectIPHAdministrativo() {
@@ -158,7 +154,6 @@ public class PrincipalAdministrativo extends Fragment {
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {
                     final String myResponse = response.body().string();
-
                     try {
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
@@ -213,7 +208,6 @@ public class PrincipalAdministrativo extends Fragment {
                     catch (Exception e){
                         Toast.makeText(getContext(), "ERROR AL SOLICITAR INFORMACION IPH ADMINISTRATIVO, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_SHORT).show();
                     }
-
                 }
             }
         });
@@ -293,8 +287,8 @@ public class PrincipalAdministrativo extends Fragment {
         OkHttpClient client = new OkHttpClient();
         RequestBody body = new FormBody.Builder()
                 .add("IdFaltaAdmin",randomCodigoVerifi)
-                .add("NumReferencia",randomReferencia)
-                .add("Usuario",Usuario)
+                //.add("NumReferencia",randomReferencia)
+                //.add("Usuario",Usuario)
                 .build();
 
         Request request = new Request.Builder()
