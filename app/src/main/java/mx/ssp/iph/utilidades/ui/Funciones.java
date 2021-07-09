@@ -68,27 +68,7 @@ public class Funciones {
 
      //***************** Ping **************************//
     public boolean ping(Context context){
-        Runtime runtime = Runtime.getRuntime();
-        try
-        {
-            Process  mIpAddrProcess = runtime.exec("/system/bin/ping -c 1 8.8.8.8");
-            int mExitValue = mIpAddrProcess.waitFor();
-            if(mExitValue==0){
-                return true;
-            }else{
-                Toast.makeText(context, "POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_LONG).show();
-                return false;
-            }
-        }
-        catch (InterruptedException ignore)
-        {
-            ignore.printStackTrace();
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-        return false;
+            return true;
     }
 
     //Método que abre un alert dialog perzonalizado

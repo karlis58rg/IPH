@@ -122,7 +122,7 @@ public class HechosDelictivos extends Fragment {
         imgFirmaAutoridadDelictivo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ContenedorFirma dialog = new ContenedorFirma(R.id.lblFirmaAutoridadRealizadaDelictivo,R.id.lblFirmaAutoridadRealizadaDelictivoOculto);
+                ContenedorFirma dialog = new ContenedorFirma(R.id.lblFirmaAutoridadRealizadaDelictivo,R.id.lblFirmaAutoridadRealizadaDelictivoOculto,R.id.imgFirmaAutoridadRealizadaDelictivoMiniaturo);
                 dialog.show( getActivity().getSupportFragmentManager(),"Dia");
             }
         });

@@ -155,8 +155,9 @@ public class Iph_Administrativo_Up extends AppCompatActivity{
     @Override
     public void onBackPressed()
     {
-        Toast.makeText(this,"PARA SALIR PRESIONE LA FLECHA SUPERIOR IZQUIERDA", Toast.LENGTH_SHORT).show();
-        return;
+        Intent intent = new Intent(Iph_Administrativo_Up.this, Principal.class);
+        startActivity(intent);
+
     }
 
     //Instancia el Adptador para recrear la lista de secciones. El menú de secciones.

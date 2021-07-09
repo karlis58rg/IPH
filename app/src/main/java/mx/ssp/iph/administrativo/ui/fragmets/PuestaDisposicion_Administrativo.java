@@ -202,7 +202,7 @@ public class PuestaDisposicion_Administrativo extends Fragment {
         imgFirmaAutoridadAdministrativo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ContenedorFirma dialog = new ContenedorFirma(R.id.lblFirmaAutoridadRealizadaAdministrativo,R.id.lblFirmaOcultaAutoridadBase64);
+                ContenedorFirma dialog = new ContenedorFirma(R.id.lblFirmaAutoridadRealizadaAdministrativo,R.id.lblFirmaOcultaAutoridadBase64,R.id.imgFirmaAutoridadAdministrativoMiniatura);
                 dialog.show( getActivity().getSupportFragmentManager(),"Dia");
             }
         });
@@ -219,14 +219,6 @@ public class PuestaDisposicion_Administrativo extends Fragment {
                 funciones.Time(R.id.txthoraPuestaDisposicionAdministrativo,getContext(),getActivity());
             }
         });
-        imgFirmaAutoridadAdministrativo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ContenedorFirma dialog = new ContenedorFirma(R.id.lblFirmaAutoridadRealizadaAdministrativo,R.id.lblFirmaOcultaAutoridadBase64);
-                dialog.show( getActivity().getSupportFragmentManager(),"Dia");
-            }
-        });
-
         /*
         rgPrimerRespondienteAdministrativo.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override

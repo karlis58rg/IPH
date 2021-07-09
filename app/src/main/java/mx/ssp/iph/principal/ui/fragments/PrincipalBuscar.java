@@ -2,12 +2,16 @@ package mx.ssp.iph.principal.ui.fragments;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,11 +22,23 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.sql.Struct;
+import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
+import java.util.regex.Pattern;
 
 import mx.ssp.iph.principal.viewmodel.PrincipalBuscarViewModel;
 import mx.ssp.iph.R;
 import mx.ssp.iph.utilidades.ui.Funciones;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class PrincipalBuscar extends Fragment {
 
@@ -32,6 +48,10 @@ public class PrincipalBuscar extends Fragment {
     private RadioButton rbBuscarFolioInterno,rbBuscarFecha;
     private RadioGroup rgFiltrosBuscar;
     private Button btnBuscarIPH;
+    SharedPreferences share;
+    SharedPreferences.Editor editor;
+    private String Usuario = "";
+
 
     public static PrincipalBuscar newInstance() {
         return new PrincipalBuscar();
@@ -50,6 +70,8 @@ public class PrincipalBuscar extends Fragment {
         rgFiltrosBuscar = root.findViewById(R.id.rgFiltrosBuscar);
         btnBuscarIPH = root.findViewById(R.id.btnBuscarIPH);
 
+        cargarUsuario();
+
         btnBuscarIPH.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,6 +81,7 @@ public class PrincipalBuscar extends Fragment {
                         Toast.makeText(getContext(), "Escribe un Número de Folio Interno o los últimos 4 dígitos", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(getContext(), "Buscando Informes", Toast.LENGTH_SHORT).show();
+                       // BuscarIPH();
                     }
                 }
 
@@ -67,6 +90,7 @@ public class PrincipalBuscar extends Fragment {
                         Toast.makeText(getContext(), "Seleciona una fecha inicial y final", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(getContext(), "Buscando Informes", Toast.LENGTH_SHORT).show();
+                       // BuscarIPH();
                     }
                 }
             }
@@ -125,6 +149,15 @@ public class PrincipalBuscar extends Fragment {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(PrincipalBuscarViewModel.class);
         // TODO: Use the ViewModel
+    }
+
+
+    //***************** CONSULTA BD TODOS LOS IPH ADMINISTRATIVOS PENDIENTES **************************//
+
+    //***************** Obtiene el Usuario de las preferencias **************************//
+    public void cargarUsuario(){
+        share = getContext().getSharedPreferences("main", Context.MODE_PRIVATE);
+        Usuario = share.getString("Usuario", "");
     }
 
 }
