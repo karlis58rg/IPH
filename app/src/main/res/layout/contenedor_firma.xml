@@ -29,6 +29,7 @@
         android:background="@drawable/ic_borde_firma"
         android:layout_gravity="center"
         ></LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -77,6 +78,5 @@
             />
 
     </LinearLayout>
-
 
 </LinearLayout>

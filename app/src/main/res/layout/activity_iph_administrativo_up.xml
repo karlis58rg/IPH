@@ -36,7 +36,7 @@
                     android:layout_width="720dp"
                     android:layout_height="match_parent"
                     android:padding="5dp"
-                    android:src="@drawable/ic_header_completo">
+                    android:src="@drawable/ic_justicia_civica">
                 </ImageView>
 
 
