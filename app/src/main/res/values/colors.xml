@@ -19,4 +19,9 @@
 
     <color name="status_por_completar_background">#D23301</color>
     <color name="status_completo_por_entregar_background">#FDD835</color>
+
+    <color name="TipoDelictivo">#D23301</color>
+    <color name="TipoAdministrativo">#4CAF50</color>
+
+
 </resources>
