@@ -573,9 +573,16 @@
                         android:layout_weight="0.20"
                         android:orientation="horizontal"
                         android:weightSum="1"
-                        android:padding="@dimen/border">
+                        android:padding="@dimen/border"
+                        >
 
-
+                        <ImageView
+                            android:id="@+id/imgFirmaAutoridadAdministrativoMiniatura"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:maxWidth="40dp"
+                            android:maxHeight="40dp"
+                            android:scaleType="fitXY" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -595,7 +602,8 @@
 
             </LinearLayout>
         </LinearLayout>
-        <!--Linear Oculto Firma -->
+        <!-- linear Oculto Firma del Detenido -->
+
         <!-- linear Oculto Firma del Detenido -->
         <LinearLayout
             android:id="@+id/oculto1"
@@ -621,40 +629,7 @@
                     android:text=""/>
             </LinearLayout>
         </LinearLayout>
-        <!-- linear Oculto Firma del Detenido -->
-        <LinearLayout
-            android:id="@+id/FirmaLinear"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp">
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:weightSum="1"
-                android:layout_weight="0.10">
-            </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:weightSum="1"
-                android:layout_weight="0.10">
-
-                <ImageView
-                    android:id="@+id/imgFirmaAutoridadAdministrativoMiniatura"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:maxWidth="40dp"
-                    android:maxHeight="40dp"
-                    android:scaleType="fitXY"/>
-
-            </LinearLayout>
-        </LinearLayout>
 <!-- ========================== -->
         <LinearLayout
             android:id="@+id/sexteavoLinear"
