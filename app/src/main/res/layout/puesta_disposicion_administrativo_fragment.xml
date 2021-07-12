@@ -215,13 +215,15 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/linearAnexos"
             android:layout_width="match_parent"
             android:layout_height="140dp"
             android:orientation="vertical"
             android:layout_marginTop="@dimen/border"
             android:paddingLeft="@dimen/border"
             android:paddingRight="@dimen/border"
-            android:background="@drawable/ic_borde_anexos">
+            android:background="@drawable/ic_borde_anexos"
+            android:focusableInTouchMode="true">
 
             <LinearLayout
                 android:id="@+id/quintoLinear"
@@ -231,18 +233,19 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="20dp">
                 <LinearLayout
-                    android:id="@+id/lyAnexosADetencionDelictivo"
+                    android:id="@+id/lyAnexosADetencionAdministrativo"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:weightSum="1"
                     android:gravity="center|start"
-                    android:layout_weight="0.10">
+                    android:layout_weight="0.10"
+                    android:focusableInTouchMode="true">
                     <TextView
                         android:id="@+id/lblAnexosADetencionAdministrativo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/anexo_a_detenciones" />
+                        android:text="@string/anexo_a_detenciones"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/lyDetencionesAnexoAAdministrativo"
@@ -250,7 +253,8 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:weightSum="1"
-                    android:layout_weight="0.10">
+                    android:layout_weight="0.10"
+                    android:focusableInTouchMode="true">
                     <CheckBox
                         android:id="@+id/chDetencionesAnexoAAdministrativo"
                         android:layout_width="wrap_content"
@@ -269,12 +273,13 @@
                     android:orientation="vertical"
                     android:weightSum="1"
                     android:gravity="center|start"
-                    android:layout_weight="0.10">
+                    android:layout_weight="0.10"
+                    android:focusableInTouchMode="true">
                     <TextView
                         android:id="@+id/lblAnexosEDescripcionVehiculosAdministrativo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/descripcion_de_vehiculos" />
+                        android:text="@string/descripcion_de_vehiculos"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -283,7 +288,8 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:weightSum="1"
-                    android:layout_weight="0.10">
+                    android:layout_weight="0.10"
+                    android:focusableInTouchMode="true">
                     <CheckBox
                         android:id="@+id/chDetencionesAnexoBAdministrativo"
                         android:layout_width="wrap_content"
@@ -311,7 +317,8 @@
                     android:orientation="vertical"
                     android:weightSum="1"
                     android:gravity="center|start"
-                    android:layout_weight="0.10">
+                    android:layout_weight="0.10"
+                    android:focusableInTouchMode="true">
                     <TextView
                         android:id="@+id/lblSinAnexosAdministrativo"
                         android:layout_width="wrap_content"
@@ -324,7 +331,8 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:weightSum="1"
-                    android:layout_weight="0.10">
+                    android:layout_weight="0.10"
+                    android:focusableInTouchMode="true">
                     <CheckBox
                         android:id="@+id/chSinAnexosAdministrativo"
                         android:layout_width="wrap_content"

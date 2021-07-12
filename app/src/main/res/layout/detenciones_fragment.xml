@@ -58,7 +58,8 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
                 android:weightSum="1"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="20dp"
+                android:focusableInTouchMode="true">
                 <LinearLayout
                     android:id="@+id/lyFechaHoradelaDetencion"
                     android:layout_width="match_parent"
@@ -129,7 +130,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="horizontal"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="20dp"
+                android:focusableInTouchMode="true">
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -213,6 +215,7 @@
                 android:layout_marginTop="20dp">
 
                 <LinearLayout
+                    android:id="@+id/linearApodoDetenido"
                     android:layout_width="0dp"
                     android:layout_height="85dp"
                     android:orientation="horizontal"
@@ -220,7 +223,8 @@
                     android:layout_weight="0.20"
                     android:background="@drawable/ic_apodo"
                     android:padding="@dimen/border"
-                    android:layout_marginRight="24dp">
+                    android:layout_marginRight="24dp"
+                    android:focusableInTouchMode="true">
 
                     <LinearLayout
                         android:layout_width="200dp"
@@ -309,11 +313,13 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/especificaNacionalidad"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:weightSum="1"
-                    android:layout_weight="0.10">
+                    android:layout_weight="0.10"
+                    android:focusableInTouchMode="true">
                     <TextView
                         android:id="@+id/lblNacionalidad_especifique"
                         android:layout_width="wrap_content"
@@ -716,7 +722,8 @@
                 android:id="@+id/catorceavoLinear"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:focusableInTouchMode="true">
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -758,7 +765,8 @@
                 android:layout_weight="1"
                 android:orientation="horizontal"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/ic_borde_radio">
+                android:background="@drawable/ic_borde_radio"
+                android:focusableInTouchMode="true">
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -825,7 +833,8 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/ic_borde_radio"
-                android:layout_height="90dp">
+                android:layout_height="90dp"
+                android:focusableInTouchMode="true">
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -909,7 +918,8 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
-                android:background="@drawable/ic_borde_radio">
+                android:background="@drawable/ic_borde_radio"
+                android:focusableInTouchMode="true">
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"

@@ -79,6 +79,9 @@ public class Detenciones extends Fragment  {
     private ListView lvDetenidos;
     ArrayList<String> ListaNumDetenido,ListaNombreDetenido,ListaIdDetenido;
     ArrayList<JSONObject> ListaDetenidos;
+    private ViewGroup linearApodoDetenido, cuartoLinear, segundoLinear, catorceavoLinear, quinceavoLinear, dieciseisLinear, diecisietelinear, especificaNacionalidad;
+
+
 
 
     String cargarIdFaltaAdmin,cargarUsuario,descripcionLugarTraslado,descripcionMunicipio,descripcionNacionalidad,descripcionSexo,
@@ -91,6 +94,7 @@ public class Detenciones extends Fragment  {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+
 
 
 
@@ -159,6 +163,15 @@ public class Detenciones extends Fragment  {
         rbNoGrupoVulnerable = view.findViewById(R.id.rbNoGrupoVulnerable);
         rbSiGrupoVulnerable = view.findViewById(R.id.rbSiGrupoVulnerable);
 
+        linearApodoDetenido = view.findViewById(R.id.linearApodoDetenido);
+        cuartoLinear = view.findViewById(R.id.cuartoLinear);
+        segundoLinear = view.findViewById(R.id.segundoLinear);
+        catorceavoLinear  = view.findViewById(R.id.catorceavoLinear);
+        quinceavoLinear = view.findViewById(R.id.quinceavoLinear);
+        dieciseisLinear = view.findViewById(R.id.dieciseisLinear);
+        diecisietelinear  = view.findViewById(R.id.diecisietelinear);
+        especificaNacionalidad  = view.findViewById(R.id.especificaNacionalidad);
+
         btnGuardarPuestaDisposicioAdministrativo = view.findViewById(R.id.btnGuardarPuestaDisposicioAdministrativo);
         ListLugarTraslado();
         ListMunicipios();
@@ -201,8 +214,6 @@ public class Detenciones extends Fragment  {
             }
         });
 
-
-
         cargarFolios();
         //***************** Cargar Datos si es que existen  **************************//
         CargarDatos();
@@ -233,7 +244,6 @@ public class Detenciones extends Fragment  {
             }
         });
 
-
         //HABILITAR - DESHABILITAR EDITTEXT ALIAS O APODO
         chNoAplicaAliasDetenido.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -251,8 +261,6 @@ public class Detenciones extends Fragment  {
 
             }
         });
-
-
 
 
         //Firma del Detenido
@@ -309,9 +317,12 @@ public class Detenciones extends Fragment  {
                                                             insertDetenciones();
                                                         } else {
                                                             Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL GRUPO VULNERABLE AL QUE PERTENECE", Toast.LENGTH_SHORT).show();
+                                                            diecisietelinear.requestFocus();
+                                                            txtCualGrupoVulnerable.requestFocus();
                                                         }
                                                     } else {
                                                         Toast.makeText(getActivity().getApplicationContext(), "SELECCIONA SI PERTENECE A ALGÚN GRUPO VULNERABLE", Toast.LENGTH_SHORT).show();
+                                                        diecisietelinear.requestFocus();
                                                     }
 
                                                 } else if (rbSiPadecimiento.isChecked()) {
@@ -324,29 +335,39 @@ public class Detenciones extends Fragment  {
                                                                 insertDetenciones();
                                                             } else {
                                                                 Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL GRUPO VULNERABLE AL QUE PERTENECE EL DETENIDO", Toast.LENGTH_SHORT).show();
+                                                                diecisietelinear.requestFocus();
+                                                                txtCualGrupoVulnerable.requestFocus();
                                                             }
                                                         } else {
                                                             Toast.makeText(getActivity().getApplicationContext(), "SELECCIONA SI PERTENECE A ALGÚN GRUPO VULNERABLE", Toast.LENGTH_SHORT).show();
+                                                            diecisietelinear.requestFocus();
                                                         }
 
 
                                                     } else {
                                                         Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL PADECIMIENTO DEL DETENIDO", Toast.LENGTH_SHORT).show();
+                                                        dieciseisLinear.requestFocus();
+                                                        txtCualPadecimiento.requestFocus();
                                                     }
                                                 } else {
                                                     Toast.makeText(getActivity().getApplicationContext(), "SELECCIONA SI TIENE ALGÚN PADECIMIENTO", Toast.LENGTH_SHORT).show();
+                                                    dieciseisLinear.requestFocus();
                                                 }
 
                                             } else {
                                                 Toast.makeText(getActivity().getApplicationContext(), "SELECCIONA SI PRESENTA LESIONES VISIBLES", Toast.LENGTH_SHORT).show();
+                                                quinceavoLinear.requestFocus();
                                             }
 
                                         } else {
                                             Toast.makeText(getActivity().getApplicationContext(), "INGRESA ALGUNA DESCRIPCIÓN DEL DETENIDO", Toast.LENGTH_SHORT).show();
+                                            catorceavoLinear.requestFocus();
                                         }
 
                                     } else{
                                         Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA LA NACIONALIDAD", Toast.LENGTH_SHORT).show();
+                                        especificaNacionalidad.requestFocus();
+                                        txtNacionalidadEspecifiqueDetenido.requestFocus();
                                         }
 
 
@@ -363,9 +384,12 @@ public class Detenciones extends Fragment  {
                                                             insertDetenciones();
                                                         } else {
                                                             Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL GRUPO VULNERABLE AL QUE PERTENECE", Toast.LENGTH_SHORT).show();
+                                                            diecisietelinear.requestFocus();
+                                                            txtCualGrupoVulnerable.requestFocus();
                                                         }
                                                     } else {
                                                         Toast.makeText(getActivity().getApplicationContext(), "SELECCIONA SI PERTENECE A ALGÚN GRUPO VULNERABLE", Toast.LENGTH_SHORT).show();
+                                                        diecisietelinear.requestFocus();
                                                     }
 
                                                 } else if (rbSiPadecimiento.isChecked()) {
@@ -378,43 +402,57 @@ public class Detenciones extends Fragment  {
                                                                 insertDetenciones();
                                                             } else {
                                                                 Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL GRUPO VULNERABLE AL QUE PERTENECE EL DETENIDO", Toast.LENGTH_SHORT).show();
+                                                                diecisietelinear.requestFocus();
+                                                                txtCualGrupoVulnerable.requestFocus();
                                                             }
                                                         } else {
                                                             Toast.makeText(getActivity().getApplicationContext(), "SELECCIONA SI PERTENECE A ALGÚN GRUPO VULNERABLE", Toast.LENGTH_SHORT).show();
+                                                            diecisietelinear.requestFocus();
                                                         }
 
 
                                                     } else {
                                                         Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL PADECIMIENTO DEL DETENIDO", Toast.LENGTH_SHORT).show();
+                                                        dieciseisLinear.requestFocus();
+                                                        txtCualPadecimiento.requestFocus();
                                                     }
                                                 } else {
                                                     Toast.makeText(getActivity().getApplicationContext(), "SELECCIONA SI TIENE ALGÚN PADECIMIENTO", Toast.LENGTH_SHORT).show();
+                                                    dieciseisLinear.requestFocus();
                                                 }
 
                                             } else {
                                                 Toast.makeText(getActivity().getApplicationContext(), "SELECCIONA SI PRESENTA LESIONES VISIBLES", Toast.LENGTH_SHORT).show();
+                                                quinceavoLinear.requestFocus();
                                             }
 
                                         } else {
                                             Toast.makeText(getActivity().getApplicationContext(), "INGRESA ALGUNA DESCRIPCIÓN DEL DETENIDO", Toast.LENGTH_SHORT).show();
+                                            catorceavoLinear.requestFocus();
                                         }
 
                                     }
 
                             } else {
                                     Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA SI TIENE ALGÚN APODO", Toast.LENGTH_SHORT).show();
+                                    linearApodoDetenido.requestFocus();
                                     }
 
                         } else {
                             Toast.makeText(getActivity().getApplicationContext(), "INGRESA AL MENOS UN NOMBRE DEL DETENIDO", Toast.LENGTH_SHORT).show();
+                            cuartoLinear.requestFocus();
+                            txtNombresDetenido.requestFocus();
                             }
 
                     } else {
                         Toast.makeText(getActivity().getApplicationContext(), "INGRESA AL MENOS EL PRIMER APELLIDO DEL DETENIDO", Toast.LENGTH_SHORT).show();
+                        cuartoLinear.requestFocus();
+                        txtPrimerApellidoDetenido.requestFocus();
                         }
 
                 } else{
                     Toast.makeText(getActivity().getApplicationContext(),"NO SE PUEDE ALMACENAR INFORMACIÓN DE DETENCIÓN SIN FECHA Y HORA DE REGISTRO",Toast.LENGTH_SHORT).show();
+                    segundoLinear.requestFocus();
                     }
             }
         });

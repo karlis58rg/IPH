@@ -116,7 +116,8 @@ public class PrincipalAdministrativo extends Fragment {
                 //guardarFolioInterno("202118965497");
 
                  //Consume el webservice
-                 // Beny GeneraIPHAdministrativo();
+                 // Beny
+                GeneraIPHAdministrativo();
 
             }
         });

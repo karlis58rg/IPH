@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -65,6 +66,7 @@ public class PuestaDisposicion_Administrativo extends Fragment {
 
     private PuestaDisposicionAdministrativoViewModel mViewModel;
     private ImageView imgFirmaAutoridadAdministrativo;
+    Integer aux1, aux2;
     CheckBox chDetencionesAnexoAAdministrativo,chDetencionesAnexoBAdministrativo,chSinAnexosAdministrativo,chNoAplicaUnidadDeArriboAdministrativo;
     RadioGroup rgPrimerRespondienteAdministrativo;
     EditText txtFolioInternoAdministrativo,txtFolioSistemaAdministrativo,txtNoReferenciaAdministrativo,
@@ -80,6 +82,7 @@ public class PuestaDisposicion_Administrativo extends Fragment {
     Funciones funciones;
     Spinner txtCargoAdministrativo,txtUnidadDeArriboAdministrativo,
             spDetencionesAnexoAAdministrativo,spDetencionesAnexoBAdministrativo,txtAdscripcionAdministrativo;
+    ViewGroup linearAnexos, lyAnexosADetencionAdministrativo, lyDetencionesAnexoAAdministrativo, lyAnexosEDescripcionVehiculosAdministrativo, lyDetencionesAnexoBAdministrativo, lySinAnexosAdministrativo, lySinEntregaAnexosAdministrativo;
     public static PuestaDisposicion_Administrativo newInstance() {
         return new PuestaDisposicion_Administrativo();
     }
@@ -121,6 +124,18 @@ public class PuestaDisposicion_Administrativo extends Fragment {
 
         imgFirmaAutoridadAdministrativo = (ImageView) root.findViewById(R.id.imgFirmaAutoridadAdministrativo);
         imgFirmaAutoridadAdministrativo = (ImageView) root.findViewById(R.id.imgFirmaAutoridadAdministrativo);
+
+        linearAnexos = root.findViewById(R.id.linearAnexos);
+        lyAnexosADetencionAdministrativo = root.findViewById(R.id.lyAnexosADetencionAdministrativo);
+        lyDetencionesAnexoAAdministrativo = root.findViewById(R.id.lyDetencionesAnexoAAdministrativo);
+        lyAnexosEDescripcionVehiculosAdministrativo = root.findViewById(R.id.lyAnexosEDescripcionVehiculosAdministrativo);
+        lyDetencionesAnexoBAdministrativo = root.findViewById(R.id.lyDetencionesAnexoBAdministrativo);
+        lySinAnexosAdministrativo = root.findViewById(R.id.lySinAnexosAdministrativo);
+        lySinEntregaAnexosAdministrativo = root.findViewById(R.id.lySinEntregaAnexosAdministrativo);
+
+
+
+
 
         txtFolioInternoAdministrativo.setText(cargarIdFaltaAdmin);
         txtFolioInternoAdministrativo.setEnabled(false);
@@ -219,6 +234,8 @@ public class PuestaDisposicion_Administrativo extends Fragment {
                 funciones.Time(R.id.txthoraPuestaDisposicionAdministrativo,getContext(),getActivity());
             }
         });
+
+
         /*
         rgPrimerRespondienteAdministrativo.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -232,12 +249,116 @@ public class PuestaDisposicion_Administrativo extends Fragment {
             }
         });*/
 
+
+        //VALOR DE LISTA ANEXO A
+        spDetencionesAnexoAAdministrativo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+
+                Object item = parent.getItemIdAtPosition(pos);
+
+                int i = Integer.parseInt(item.toString()) + 1;
+
+                aux1 = i;
+
+                Toast.makeText(getContext(), "" + i, Toast.LENGTH_LONG).show();
+
+            }
+
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+        //VALOR DE LISTA ANEXO B
+        spDetencionesAnexoBAdministrativo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+
+                Object item = parent.getItemIdAtPosition(pos);
+
+                int j = Integer.parseInt(item.toString()) + 1;
+
+                aux2 = j;
+
+                Toast.makeText(getContext(), "" + j, Toast.LENGTH_LONG).show();
+
+            }
+
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+
         btnGuardarPuestaDisposicioAdministrativo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS ", Toast.LENGTH_LONG).show();
-                updatePuestaDisposicion();
+
+                if(chDetencionesAnexoAAdministrativo.isChecked()){
+                    if(aux1 != 1){
+
+                        if(chDetencionesAnexoBAdministrativo.isChecked()){
+                            if(aux2 != 1){
+
+                                // GUARDA DATO
+                                Toast.makeText(getContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_LONG).show();
+                                updatePuestaDisposicion();
+
+                            } else {
+
+                                Toast.makeText(getContext(), "SELECCIONA CUANTOS ANEXOS “B” SE ENTREGAN", Toast.LENGTH_LONG).show();
+                                linearAnexos.requestFocus();
+                                lyDetencionesAnexoBAdministrativo.requestFocus();
+
+                            }
+
+                        } else{
+
+                            // GUARDA DATO
+                            Toast.makeText(getContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_LONG).show();
+                            updatePuestaDisposicion();
+
+                            }
+
+                    } else {
+                        Toast.makeText(getContext(), "SELECCIONA CUANTOS ANEXOS “A” SE ENTREGAN", Toast.LENGTH_LONG).show();
+                        linearAnexos.requestFocus();
+                        lyDetencionesAnexoAAdministrativo.requestFocus();
+                    }
+
+                } else if (chDetencionesAnexoBAdministrativo.isChecked()){
+                    if(aux2 != 1){
+
+                        // GUARDA DATO
+                        Toast.makeText(getContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_LONG).show();
+                        updatePuestaDisposicion();
+
+                    } else {
+
+                        Toast.makeText(getContext(), "SELECCIONA CUANTOS ANEXOS “B” SE ENTREGAN", Toast.LENGTH_LONG).show();
+                        linearAnexos.requestFocus();
+                        lyDetencionesAnexoBAdministrativo.requestFocus();
+
+                    }
+
+
+                } else if(chSinAnexosAdministrativo.isChecked()){
+
+                    // GUARDA DATO
+                    Toast.makeText(getContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_LONG).show();
+                    updatePuestaDisposicion();
+
+                } else {
+                    Toast.makeText(getContext(), "PARA GUARDAR ESPECIFICA SI HAY ANEXOS Y EN SU CASO CUANTOS", Toast.LENGTH_LONG).show();
+                    linearAnexos.requestFocus();
+                    lyAnexosADetencionAdministrativo.requestFocus();
+                    lyAnexosEDescripcionVehiculosAdministrativo.requestFocus();
+                    lySinAnexosAdministrativo.requestFocus();
+                    lySinEntregaAnexosAdministrativo.requestFocus();
+
+                }
+
+
                 //insertImagen();
+
             }
         });
 
