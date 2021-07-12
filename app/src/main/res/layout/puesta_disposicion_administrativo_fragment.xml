@@ -184,7 +184,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:focusable="false"
-                    android:drawableRight="@drawable/ic_reloj"
+                    android:drawableRight="@drawable/ic_time"
                     android:hint="HH:MM"/>
             </LinearLayout>
         </LinearLayout>

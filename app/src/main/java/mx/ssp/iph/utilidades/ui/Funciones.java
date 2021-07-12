@@ -3,6 +3,7 @@ package mx.ssp.iph.utilidades.ui;
 import android.Manifest;
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -26,6 +27,8 @@ import mx.ssp.iph.R;
 
 public class Funciones {
 
+    ProgressDialog progressDialog;
+
     //***************** Calendario Picker **************************//
     public void calendar(Integer idCajadeTextoCalendario, Context context, Activity activity){
         Calendar c;
@@ -36,7 +39,7 @@ public class Funciones {
         int month = c.get(Calendar.MONTH);
         int year = c.get(Calendar.YEAR);
 
-        dpd = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener(){
+        dpd = new DatePickerDialog(context,R.style.DatePickerDialog, new DatePickerDialog.OnDateSetListener(){
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 EditText CajadeTextoCalendario;
@@ -55,7 +58,7 @@ public class Funciones {
         int hour = c.get(Calendar.HOUR_OF_DAY);
         int minute = c.get(Calendar.MINUTE);
 
-        tpd = new TimePickerDialog(context, new TimePickerDialog.OnTimeSetListener() {
+        tpd = new TimePickerDialog(context, R.style.TimePickerTheme, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                 EditText CajadeTextoTime;
@@ -106,6 +109,15 @@ public class Funciones {
                             }
                         });
         builder.create().show();
+    }
+
+    public void Procesando(Activity activity, String Titulo,String Mensaje){
+        progressDialog = ProgressDialog.show(activity, Titulo,
+                Mensaje, true);
+    }
+
+    public void ProcesandoDissmis(Activity activity, String Titulo,String Mensaje){
+        progressDialog.dismiss();
     }
 
     //***************** Cambia el título de acuerdo a la seccion seleccionada **************************//

@@ -734,7 +734,7 @@
                         android:id="@+id/img_microfonoDescripcionDetenido"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingBottom="35dp"
+                        android:paddingBottom="70dp"
                         android:layout_alignParentBottom="true"
                         android:layout_alignEnd="@+id/txtDescripciondelDetenido"
                         android:src="@drawable/ic_micro"

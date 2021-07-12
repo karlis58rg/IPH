@@ -31,10 +31,12 @@ import java.util.ArrayList;
 import mx.ssp.iph.R;
 import mx.ssp.iph.SqLite.DataHelper;
 import mx.ssp.iph.administrativo.ui.fragmets.NoReferencia_Administrativo;
+import mx.ssp.iph.principal.ui.fragments.MenuPrincipal;
 import mx.ssp.iph.principal.ui.fragments.PrincipalAdministrativo;
 import mx.ssp.iph.principal.ui.fragments.PrincipalBuscar;
 import mx.ssp.iph.principal.ui.fragments.PrincipalDelictivo;
 import mx.ssp.iph.principal.ui.fragments.PrincipalEmergencias;
+import mx.ssp.iph.utilidades.ui.DialogFragmentSalir;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -65,7 +67,7 @@ public class Principal extends AppCompatActivity {
     String idUnidad; String unidad; String idMarca,marca,idColor,color,modeloVehiculo;
     int idSubMarca; int modelo; String descripcionU; int idInstitucionU;
 
-
+/*
     //Menu inferior
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener;
     {
@@ -92,6 +94,8 @@ public class Principal extends AppCompatActivity {
         };
     }
 
+ */
+
     //Intercambia los Fragmentos
     private void addFragment(Fragment fragment) {
         getSupportFragmentManager()
@@ -99,6 +103,19 @@ public class Principal extends AppCompatActivity {
                 .replace(R.id.nav_host_fragment, fragment)
                 //.addToBackStack(null) //Se quita la pila de fragments. Botón atrás
                 .commit();
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+
+            DialogFragmentSalir dialog = new DialogFragmentSalir();
+            dialog.show( this.getSupportFragmentManager(),"Salir");
+            //super.onBackPressed();
+        }
     }
 
     @Override
@@ -138,13 +155,13 @@ public class Principal extends AppCompatActivity {
         PrincipalEmergencias = new PrincipalEmergencias();
         PrincipalBuscar = new PrincipalBuscar();
 
-
+/*
         //Bottom Navigation
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.setItemIconTintList(null);
-
-        addFragment(new PrincipalDelictivo());
+ */
+        addFragment(new MenuPrincipal());
 
         // Menu lateral
         drawer = findViewById(R.id.drawer_layout);
@@ -153,7 +170,7 @@ public class Principal extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_inicio, R.id.nav_quees, R.id.nav_como_funciona, R.id.nav_protocolo,R.id.nav_terminos)
+                R.id.nav_inicio, R.id.nav_quees, R.id.nav_como_funciona, R.id.nav_protocolo,R.id.nav_terminos,R.id.nav_blank)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -161,14 +178,7 @@ public class Principal extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
     }
 
-    @Override
-    public void onBackPressed() {
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
+
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);

@@ -63,6 +63,7 @@
             android:name=".delictivo.ui.activitys.Iph_Delictivo_Up"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.IPH.NoActionBar"></activity>
+        <activity android:name=".utilidades.ui.ExitActivity"></activity>
 
     </application>
 

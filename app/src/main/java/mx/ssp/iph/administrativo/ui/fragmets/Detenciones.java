@@ -262,6 +262,7 @@ public class Detenciones extends Fragment  {
         img_microfonoDescripcionDetenido.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                img_microfonoDescripcionDetenido.setImageResource(R.drawable.ic_micro_press);
                 iniciarEntradadeVoz();
             }
         });
@@ -551,6 +552,7 @@ public class Detenciones extends Fragment  {
                 break;
             }
         }
+        img_microfonoDescripcionDetenido.setImageResource(R.drawable.ic_micro);
     }
 
 

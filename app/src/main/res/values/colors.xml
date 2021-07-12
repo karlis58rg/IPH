@@ -12,6 +12,11 @@
     <color name="font_section">#374761</color>
     <color name="font">#374761</color>
 
+    <color name="btn_press">#a6a2a2</color>
+    <color name="btn_dark">#F2F2F2</color>
+    <color name="btn_ligth">#fafafa</color>
+
+
     <color name="status_por_completar_background">#D23301</color>
     <color name="status_completo_por_entregar_background">#FDD835</color>
 </resources>

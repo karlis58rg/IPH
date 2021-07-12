@@ -41,7 +41,7 @@ public class Iph_Administrativo_Up extends AppCompatActivity{
     ArrayList<Integer> listaColorStatus;
     ListView lvSeccionesAdministrativo;
     Fragment seccion1,seccion2,seccion3,seccion4,anexoa,anexob; //referencia,
-    ImageButton imgbtnVolverFlecha;
+    ImageView imgbtnCerrarSesion;
 
 
     @Override
@@ -50,14 +50,18 @@ public class Iph_Administrativo_Up extends AppCompatActivity{
         super.setContentView(R.layout.activity_iph_administrativo_up);
 
 
-        imgbtnVolverFlecha = findViewById(R.id.imgbtnVolverFlecha);
-        imgbtnVolverFlecha.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Iph_Administrativo_Up.this, Principal.class);
-                startActivity(intent);
-            }
-        });
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarAdministrativo);
+        setSupportActionBar(toolbar);
+
+        //Coloca Flecha atrás al toolbar
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+
+        //toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_cerrar_sesion));
+
+
         //Instancio los Fragmentos
         //referencia = new NoReferencia_Administrativo();
         seccion1 = new PuestaDisposicion_Administrativo();
@@ -158,6 +162,13 @@ public class Iph_Administrativo_Up extends AppCompatActivity{
         Intent intent = new Intent(Iph_Administrativo_Up.this, Principal.class);
         startActivity(intent);
 
+    }
+
+    //Da la acción de volver atrás en Flecha Atrás del toolbar
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return false;
     }
 
     //Instancia el Adptador para recrear la lista de secciones. El menú de secciones.

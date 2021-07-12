@@ -100,6 +100,7 @@ public class NarrativaHechos extends Fragment {
         imgMicrofonoNarrativaHechos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                imgMicrofonoNarrativaHechos.setImageResource(R.drawable.ic_micro_press);
                 iniciarEntradadeVoz();
             }
         });
@@ -259,7 +260,9 @@ public class NarrativaHechos extends Fragment {
                 }
                 break;
             }
+
         }
+        imgMicrofonoNarrativaHechos.setImageResource(R.drawable.ic_micro);
     }
 
     //***************** SE RECUPERA EL FOLIO INTERNO **************************//

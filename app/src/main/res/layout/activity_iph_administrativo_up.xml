@@ -25,21 +25,12 @@
             android:theme="@style/Theme.IPH.AppBarOverlay">
 
             <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
+                android:id="@+id/toolbarAdministrativo"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
                 app:popupTheme="@style/Theme.IPH.PopupOverlay" >
 
-                <ImageButton
-                    android:id="@+id/imgbtnVolverFlecha"
-                    android:layout_width="45dp"
-                    android:layout_height="match_parent"
-                    android:padding="1dp"
-                    android:layout_margin="5dp"
-                    android:layout_marginRight="1dp"
-                    android:scaleType="fitCenter"
-                    android:background="@drawable/btn_volver_flecha"/>
 
                 <ImageView
                     android:layout_width="720dp"

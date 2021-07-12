@@ -59,7 +59,7 @@
                         android:id="@+id/imgMicrofonoNarrativaHechos"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingBottom="100dp"
+                        android:paddingBottom="105dp"
                         android:layout_alignParentBottom="true"
                         android:layout_alignEnd="@+id/txtNarrativaHechos"
                         android:src="@drawable/ic_micro"

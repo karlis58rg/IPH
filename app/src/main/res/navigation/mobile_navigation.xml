@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/nav_inicio">
+    app:startDestination="@id/nav_blank">
     <fragment
         android:id="@+id/nav_inicio"
-        android:name="mx.ssp.iph.principal.ui.fragments.PrincipalDelictivo"
-        android:label="principal_delictivo_fragment"
-        tools:layout="@layout/principal_delictivo_fragment" />
+        android:name="mx.ssp.iph.principal.ui.fragments.MenuPrincipal"
+        android:label="menu_principal"
+        tools:layout="@layout/menu_principal" />
     <fragment
         android:id="@+id/nav_quees"
         android:name="mx.ssp.iph.principal.ui.fragments.MenuQueEs"
@@ -33,4 +33,13 @@
         android:id="@+id/nav_sesion"
         android:name="mx.ssp.iph.principal.ui.fragments.CerrarSesion"
         android:label="CerrarSesion" />
+    <fragment
+        android:id="@+id/nav_blank"
+        android:name="mx.ssp.iph.principal.ui.fragments.BlankPrincipalFragment"
+        android:label="BlankPrincipalFragment"
+        tools:layout="@layout/blank_principal_fragment">
+        <action
+            android:id="@+id/action_nav_blank_to_nav_inicio"
+            app:destination="@id/nav_inicio" />
+    </fragment>
 </navigation>

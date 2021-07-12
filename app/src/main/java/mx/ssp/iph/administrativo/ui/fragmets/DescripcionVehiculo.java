@@ -185,6 +185,8 @@ public class DescripcionVehiculo extends Fragment {
         imgMicrofonoObservacionesdelVehiculo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                imgMicrofonoObservacionesdelVehiculo.setImageResource(R.drawable.ic_micro_press);
                 iniciarEntradadeVoz();
             }
         });
@@ -353,6 +355,7 @@ public class DescripcionVehiculo extends Fragment {
                 break;
             }
         }
+        imgMicrofonoObservacionesdelVehiculo.setImageResource(R.drawable.ic_micro);
     }
 
     public void cargarFolios(){

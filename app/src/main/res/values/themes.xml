@@ -22,4 +22,13 @@
     <style name="Theme.IPH.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.IPH.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="TimePickerTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/background_section</item>
+    </style>
+
+    <style name="DatePickerDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/background_section</item>
+    </style>
+
 </resources>
