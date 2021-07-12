@@ -164,7 +164,7 @@ public class NoReferencia_Administrativo extends Fragment {
     private void insertNoReferenciaAdministrativa() {
         DataHelper dataHelper = new DataHelper(getContext());
         descripcionMunicipio = (String) spMunicipioReferenciaAdministrativo.getSelectedItem();
-        int idDescMunicipio = dataHelper.getIdMunicipio(descripcionMunicipio);
+        String idDescMunicipio = dataHelper.getIdMunicipio(descripcionMunicipio);
         String idMunicipio = String.valueOf(idDescMunicipio);
 
         descripcionInstitucion = (String) spInstitucionReferenciaAdministrativo.getSelectedItem();

@@ -183,14 +183,9 @@
                 android:gravity="center">
                 <Button
                     android:id="@+id/btnBuscarIPH"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="BUSCAR IPH"
-                    android:textColor="@color/white"
-                    android:drawableLeft="@drawable/ic_buscar2"
-                    android:background="@color/backgroud_header_toolbar"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"/>
+                    android:layout_width="230dp"
+                    android:layout_height="45dp"
+                    android:background="@drawable/icn_search"/>
             </LinearLayout>
             <!-- =============== LINEAR lISTA DE iphs  =====================-->
             <LinearLayout

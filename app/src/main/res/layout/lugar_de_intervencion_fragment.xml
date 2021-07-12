@@ -320,9 +320,8 @@
 
             </LinearLayout>
 
-
             <LinearLayout
-                android:id="@+id/septimoLinear"
+                android:id="@+id/cuartoLinearDos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -337,21 +336,18 @@
                     android:layout_weight="0.10">
                 </LinearLayout>
                 <LinearLayout
-                    android:id="@+id/lyGuardarPuestaDisposicionAdministrativo"
+                    android:id="@+id/lyGuardarNarrativaHechos"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:gravity="center"
                     android:weightSum="1"
-                    android:layout_weight="0.12">
-                    <Button
+                    android:layout_weight="0.5">
+                    <ImageView
                         android:id="@+id/btnGuardarLugarIntervencionAdministrativo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/guardar_datos"
-                        android:textColor="@color/white"
-                        android:drawableLeft="@drawable/ic_save_white"
-                        android:background="@color/backgroud_header_toolbar"/>
+                        android:layout_width="230dp"
+                        android:layout_height="45dp"
+                        android:background="@drawable/icn_save" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="0dp"
@@ -361,6 +357,8 @@
                     android:layout_weight="0.10">
                 </LinearLayout>
             </LinearLayout>
+
+
 
         </LinearLayout>
 

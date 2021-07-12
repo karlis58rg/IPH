@@ -2,6 +2,7 @@ package mx.ssp.iph.administrativo.ui.activitys;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +43,8 @@ public class Iph_Administrativo_Up extends AppCompatActivity{
     ListView lvSeccionesAdministrativo;
     Fragment seccion1,seccion2,seccion3,seccion4,anexoa,anexob; //referencia,
     ImageView imgbtnCerrarSesion;
+    SharedPreferences share;
+    SharedPreferences.Editor editor;
 
 
     @Override
@@ -49,6 +52,7 @@ public class Iph_Administrativo_Up extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_iph_administrativo_up);
 
+        imgbtnCerrarSesion = findViewById(R.id.imgbtnCerrarSesion);
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarAdministrativo);
@@ -153,6 +157,19 @@ public class Iph_Administrativo_Up extends AppCompatActivity{
                 }
             }
         });
+
+        imgbtnCerrarSesion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Guarda el usaurio con espacio en blanco
+                guardarUsuario();
+
+                //Redirecciona al Login
+                Intent intent = new Intent(Iph_Administrativo_Up.this, Login.class);
+                startActivity(intent);
+
+            }
+        });
     }
 
     //Desactivar el botón Atrás en android
@@ -214,5 +231,12 @@ public class Iph_Administrativo_Up extends AppCompatActivity{
 
             return row;
         }
+    }
+
+    private void guardarUsuario() {
+        share = getSharedPreferences("main", MODE_PRIVATE);
+        editor = share.edit();
+        editor.putString("Usuario", "" );
+        editor.commit();
     }
 }

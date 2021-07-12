@@ -530,16 +530,11 @@
                     android:orientation="vertical"
                     android:weightSum="1">
 
-                    <Button
+                    <ImageView
                         android:id="@+id/btnGuardarVehiculo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/backgroud_header_toolbar"
-                        android:drawableLeft="@drawable/ic_plus"
-                        android:paddingLeft="12dp"
-                        android:paddingRight="12dp"
-                        android:text="AGREGAR VEHÍCULO"
-                        android:textColor="@color/white" />
+                        android:layout_width="230dp"
+                        android:layout_height="45dp"
+                        android:background="@drawable/icn_add"  />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="0dp"

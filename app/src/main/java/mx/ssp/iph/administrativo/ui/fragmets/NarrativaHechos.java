@@ -53,7 +53,7 @@ public class NarrativaHechos extends Fragment {
 
     private NarrativaHechosViewModel mViewModel;
     EditText txtNarrativaHechos;
-    Button btnGuardarNarrativaHechos;
+    ImageView btnGuardarNarrativaHechos;
     SharedPreferences share;
     String cargarIdFaltaAdmin,cargarNumReferencia;
     private static final  int REQ_CODE_SPEECH_INPUT=100;

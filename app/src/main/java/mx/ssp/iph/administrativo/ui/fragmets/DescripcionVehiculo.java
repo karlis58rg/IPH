@@ -70,7 +70,7 @@ public class DescripcionVehiculo extends Fragment {
     private RadioButton rbTerrestre, rbOtro, rbNacional, rbExtranjero, rbParticular, rbTransportePublico, rbCarga;
     Spinner spMarcaVehiculo,spSubmarcaVehiculo,txtModeloVehiculo,txtColorVehiculo;
     TextView txtOtroVehiculo,txtPlacaVehiculo,txtSerieVehiculo,txtDestinoVehiculo;
-    Button btnGuardarVehiculo;
+    ImageView btnGuardarVehiculo;
 
 
     SharedPreferences share;

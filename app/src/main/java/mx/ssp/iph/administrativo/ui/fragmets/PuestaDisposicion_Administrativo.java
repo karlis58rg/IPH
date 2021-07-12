@@ -52,6 +52,7 @@ import mx.ssp.iph.administrativo.model.ModeloRecibeDisposicion_Administrativo;
 import mx.ssp.iph.administrativo.viewModel.PuestaDisposicionAdministrativoViewModel;
 import mx.ssp.iph.delictivo.ui.fragmets.HechosDelictivos;
 import mx.ssp.iph.utilidades.ui.ContenedorFirma;
+import mx.ssp.iph.utilidades.ui.ContenedorFirmaPDisposicion;
 import mx.ssp.iph.utilidades.ui.Funciones;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -69,7 +70,7 @@ public class PuestaDisposicion_Administrativo extends Fragment {
     RadioGroup rgPrimerRespondienteAdministrativo;
     EditText txtFolioInternoAdministrativo,txtFolioSistemaAdministrativo,txtNoReferenciaAdministrativo,
             txtFechaPuestaDisposicionAdministrativo,txthoraPuestaDisposicionAdministrativo,txtNoExpedienteAdmministrativo,txtFiscaliaAutoridadAdministrativo;
-    TextView lblFirmaAutoridadRealizadaAdministrativo;
+    TextView lblFirmaAutoridadRealizadaAdministrativo,lblFirmaOcultaAutoridadBase64;
     ImageView btnGuardarPuestaDisposicioAdministrativo;
     SharedPreferences share;
     String cargarIdFaltaAdmin,cargarUsuario,noReferencia,noExpediente,
@@ -120,7 +121,7 @@ public class PuestaDisposicion_Administrativo extends Fragment {
         //rgPrimerRespondienteAdministrativo = root.findViewById(R.id.rgPrimerRespondienteAdministrativo);
 
         imgFirmaAutoridadAdministrativo = (ImageView) root.findViewById(R.id.imgFirmaAutoridadAdministrativo);
-        imgFirmaAutoridadAdministrativo = (ImageView) root.findViewById(R.id.imgFirmaAutoridadAdministrativo);
+        lblFirmaOcultaAutoridadBase64 = root.findViewById(R.id.lblFirmaOcultaAutoridadBase64);
 
         txtFolioInternoAdministrativo.setText(cargarIdFaltaAdmin);
         txtFolioInternoAdministrativo.setEnabled(false);
@@ -202,7 +203,7 @@ public class PuestaDisposicion_Administrativo extends Fragment {
         imgFirmaAutoridadAdministrativo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ContenedorFirma dialog = new ContenedorFirma(R.id.lblFirmaAutoridadRealizadaAdministrativo,R.id.lblFirmaOcultaAutoridadBase64,R.id.imgFirmaAutoridadAdministrativoMiniatura);
+                ContenedorFirmaPDisposicion dialog = new ContenedorFirmaPDisposicion(R.id.lblFirmaAutoridadRealizadaAdministrativo,R.id.lblFirmaOcultaAutoridadBase64,R.id.imgFirmaAutoridadAdministrativoMiniatura);
                 dialog.show( getActivity().getSupportFragmentManager(),"Dia");
             }
         });
@@ -235,9 +236,12 @@ public class PuestaDisposicion_Administrativo extends Fragment {
         btnGuardarPuestaDisposicioAdministrativo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS ", Toast.LENGTH_LONG).show();
-                updatePuestaDisposicion();
-                //insertImagen();
+                    if(lblFirmaOcultaAutoridadBase64.getText().toString().isEmpty()){
+                        Toast.makeText(getContext(), "LO SENTIMOS, SU FIRMA ES NECESARIA PARA PODER CONTINUAR", Toast.LENGTH_LONG).show();
+                    }else{
+                        Toast.makeText(getContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS ", Toast.LENGTH_LONG).show();
+                        updatePuestaDisposicion();
+                    }
             }
         });
 
@@ -266,6 +270,7 @@ public class PuestaDisposicion_Administrativo extends Fragment {
             varAnexoB = "SI";
             varNoVehiculos = (String) spDetencionesAnexoBAdministrativo.getSelectedItem();
         }else{
+
             varAnexoB = "NO";
             varNoVehiculos = "000";
         }
@@ -328,7 +333,9 @@ public class PuestaDisposicion_Administrativo extends Fragment {
                         public void run() {
                             String resp = myResponse;
                             if(resp.equals("true")){
-                                //updateRecibeDisposicion();
+                                System.out.println("EL DATO DE DISPOSICION SE ENVIO CORRECTAMENTE");
+                                updateRecibeDisposicion();
+                                //Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
                             }else{
                                 Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, VERIFIQUE SU INFORMACIÓN", Toast.LENGTH_SHORT).show();
                             }
@@ -366,7 +373,7 @@ public class PuestaDisposicion_Administrativo extends Fragment {
                 .build();
         Request request = new Request.Builder()
                 .url("http://189.254.7.167/WebServiceIPH/api/RecibeDisposicionAdministrativa/")
-                .post(body)
+                .put(body)
                 .build();
         client.newCall(request).enqueue(new Callback() {
             @Override
@@ -386,9 +393,9 @@ public class PuestaDisposicion_Administrativo extends Fragment {
                         public void run() {
                             String resp = myResponse;
                             if(resp.equals("true")){
-                                System.out.println("EL DATO SE ENVIO CORRECTAMENTE");
-                                Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
-                                //insertImagen();
+                                System.out.println("EL DATO DE LA RECEPCION DE DISPOSICION SE ENVIO CORRECTAMENTE");
+                                //Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+                                insertImagen();
                             }else{
                                 Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, VERIFIQUE SU INFORMACIÓN", Toast.LENGTH_SHORT).show();
                             }
@@ -404,11 +411,11 @@ public class PuestaDisposicion_Administrativo extends Fragment {
     public void insertImagen() {
         ModeloRecibeDisposicion_Administrativo recibeDisposicion =
                 new ModeloRecibeDisposicion_Administrativo(txtFiscaliaAutoridadAdministrativo.getText().toString());
-        String cadena = lblFirmaAutoridadRealizadaAdministrativo.getText().toString();
+        String cadena = lblFirmaOcultaAutoridadBase64.getText().toString();
 
         OkHttpClient client = new OkHttpClient();
         RequestBody body = new FormBody.Builder()
-                .add("Description", recibeDisposicion.getNomRecibePuestaDisp()+".jpg")
+                .add("Description", cargarIdFaltaAdmin+".jpg")
                 .add("ImageData", cadena)
                 .build();
         Request request = new Request.Builder()
@@ -430,7 +437,8 @@ public class PuestaDisposicion_Administrativo extends Fragment {
                     PuestaDisposicion_Administrativo.this.getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(getContext(), "REGISTRO ENVIADO CON EXITO", Toast.LENGTH_SHORT).show();
+                            System.out.println("EL DATO DE LA IMAGEN SE ENVIO CORRECTAMENTE");
+                            Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }

@@ -57,7 +57,7 @@ public class LugarDeIntervencion extends Fragment {
     EditText txtCalleUbicacionGeograficaAdministrativo,txtNumeroExteriorUbicacionGeograficaAdministrativo,txtNumeroInteriorUbicacionGeograficaAdministrativo,txtCodigoPostalUbicacionGeograficaAdministrativo,
             txtReferenciasdelLugarUbicacionGeograficaAdministrativo,txtLatitudUbicacionGeograficaAdministrativo,txtLongitudUbicacionGeograficaAdministrativo,
             txtEntidadUbicacionGeograficaAdministrativo,txtColoniaUbicacionGeograficaAdministrativo;
-    Button btnGuardarLugarIntervencionAdministrativo;
+    ImageView btnGuardarLugarIntervencionAdministrativo;
     SharedPreferences share;
     SharedPreferences.Editor editor;
 
@@ -168,8 +168,14 @@ public class LugarDeIntervencion extends Fragment {
     private void insertLugarIntervencion() {
         DataHelper dataHelper = new DataHelper(getContext());
         descripcionMunicipio = (String) spMunicipioUbicacionGeograficaAdministrativo.getSelectedItem();
-        int idDescMunicipio = dataHelper.getIdMunicipio(descripcionMunicipio);
+        String idDescMunicipio = dataHelper.getIdMunicipio(descripcionMunicipio);
         String idMunicipio = String.valueOf(idDescMunicipio);
+
+        if(idMunicipio.length() == 1){
+            idMunicipio = "00"+idMunicipio;
+        }else if(idMunicipio.length() == 2){
+            idMunicipio = "0"+idMunicipio;
+        }
 
         ModelLugarIntervencion_Administrativo modeloIntervencion= new ModelLugarIntervencion_Administrativo
                 (cargarIdFaltaAdmin,"12",

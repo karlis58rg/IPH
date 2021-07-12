@@ -66,17 +66,17 @@ public class Detenciones extends Fragment  {
     private static final  int REQ_CODE_SPEECH_INPUT=100;
     private TextView txtDescripciondelDetenido;
     Integer aux1;
-    ImageView img_microfonoDescripcionDetenido,imgFirmaAutoridadAdministrativo;
+    ImageView img_microfonoDescripcionDetenido,imgFirmaDetencionesAutoridadAdministrativo;
     EditText txtFechaDetenido,txthoraDetencion,txtFechaNacimientoDetenido,txtPrimerApellidoDetenido,txtSegundoApellidoDetenido,txtNombresDetenido,txtApodoDetenido,txtEntidadDetenido,
             txtColoniaDetenido,txtCalleDetenido,txtNumeroExteriorDetenido,txtNumeroInteriorDetenido,txtCodigoPostalDetenido,txtReferenciasdelLugarDetenido,txtCualGrupoVulnerable,txtCualPadecimiento, txtNacionalidadEspecifiqueDetenido;
     CheckBox chNoAplicaAliasDetenido;
     Spinner spGeneroDetenido,txtNacionalidadDetenido,txtMunicipioDetenido,spLugarTrasladoPersonaDetenida;
     RadioGroup rgLesiones, rgPadecimiento, rgGrupoVulnerable;
     RadioButton rbNoLesiones, rbSiLesiones, rbPadecimiento, rbSiPadecimiento, rbNoGrupoVulnerable, rbSiGrupoVulnerable;
-    Button btnGuardarPuestaDisposicioAdministrativo;
+    ImageView btnGuardarDetencionesAdministrativo;
     private Funciones funciones;
     SharedPreferences share;
-    private ListView lvDetenidos;
+    private ListView lvDetenidos_Administrativo;
     ArrayList<String> ListaNumDetenido,ListaNombreDetenido,ListaIdDetenido;
     ArrayList<JSONObject> ListaDetenidos;
 
@@ -97,7 +97,7 @@ public class Detenciones extends Fragment  {
         View view  = inflater.inflate(R.layout.detenciones_fragment, container, false);
         /********************************************************************************************/
         funciones = new Funciones();
-        lvDetenidos = (ListView) view.findViewById(R.id.lvDetenidos);
+        lvDetenidos_Administrativo = (ListView) view.findViewById(R.id.lvDetenidos_Administrativo);
 
         txtDescripciondelDetenido = (TextView)view.findViewById(R.id.txtDescripciondelDetenido);
         txtDescripciondelDetenido.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(8000)});
@@ -159,7 +159,7 @@ public class Detenciones extends Fragment  {
         rbNoGrupoVulnerable = view.findViewById(R.id.rbNoGrupoVulnerable);
         rbSiGrupoVulnerable = view.findViewById(R.id.rbSiGrupoVulnerable);
 
-        btnGuardarPuestaDisposicioAdministrativo = view.findViewById(R.id.btnGuardarPuestaDisposicioAdministrativo);
+        btnGuardarDetencionesAdministrativo = view.findViewById(R.id.btnGuardarDetencionesAdministrativo);
         ListLugarTraslado();
         ListMunicipios();
         ListNacionalidad();
@@ -256,7 +256,7 @@ public class Detenciones extends Fragment  {
 
 
         //Firma del Detenido
-        imgFirmaAutoridadAdministrativo = (ImageView) view.findViewById(R.id.imgFirmaAutoridadAdministrativo);
+        imgFirmaDetencionesAutoridadAdministrativo = (ImageView) view.findViewById(R.id.imgFirmaDetencionesAutoridadAdministrativo);
 
         //Imagen que funciona para activar la grabación de voz
         img_microfonoDescripcionDetenido.setOnClickListener(new View.OnClickListener() {
@@ -279,7 +279,7 @@ public class Detenciones extends Fragment  {
         });
 
         //Imagen que funciona para activar la firma
-        imgFirmaAutoridadAdministrativo.setOnClickListener(new View.OnClickListener() {
+        imgFirmaDetencionesAutoridadAdministrativo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ContenedorFirma dialog = new ContenedorFirma(R.id.lblFirmadelDetenido,R.id.lblFirmaOcultaDetenidoBase64,R.id.imgFirmadelDetenidoMiniatura);
@@ -288,10 +288,9 @@ public class Detenciones extends Fragment  {
         });
 
 
-        btnGuardarPuestaDisposicioAdministrativo.setOnClickListener(new View.OnClickListener() {
+        btnGuardarDetencionesAdministrativo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if(txtFechaDetenido.getText().toString().length() > 3 && txthoraDetencion.getText().toString().length() > 3){
                     if(txtPrimerApellidoDetenido.getText().toString().length() > 3) {
                         if (txtNombresDetenido.getText().toString().length() > 3) {
@@ -466,7 +465,7 @@ public class Detenciones extends Fragment  {
         });
         /*********************************************************************************************************/
         //Clic a la lista
-        lvDetenidos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lvDetenidos_Administrativo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
@@ -628,7 +627,7 @@ public class Detenciones extends Fragment  {
 
                                 //AGREGA LOS DATOS AL LISTVIEW MEDIANTE EL ADAPTADOR
                                 Detenciones.MyAdapter adapter = new Detenciones.MyAdapter(getContext(), ListaIdDetenido, ListaNombreDetenido);
-                                lvDetenidos.setAdapter(adapter);
+                                lvDetenidos_Administrativo.setAdapter(adapter);
                                 //*************************
                             }
                         });
@@ -699,8 +698,14 @@ public class Detenciones extends Fragment  {
         String idLugarTraslado = String.valueOf(idDesLugarTraslado);
 
         descripcionMunicipio = (String) txtMunicipioDetenido.getSelectedItem();
-        int idDescMunicipio = dataHelper.getIdMunicipio(descripcionMunicipio);
+        String idDescMunicipio = dataHelper.getIdMunicipio(descripcionMunicipio);
         String idMunicipio = String.valueOf(idDescMunicipio);
+
+        if(idMunicipio.length() == 1){
+            idMunicipio = "00"+idMunicipio;
+        }else if(idMunicipio.length() == 2){
+            idMunicipio = "0"+idMunicipio;
+        }
 
         descripcionNacionalidad = (String) txtNacionalidadDetenido.getSelectedItem();
         int idDescNacionalidad = dataHelper.getIdNacionalidad(descripcionNacionalidad);

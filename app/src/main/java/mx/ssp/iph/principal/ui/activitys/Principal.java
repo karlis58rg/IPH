@@ -54,7 +54,7 @@ public class Principal extends AppCompatActivity {
 
     String respuestaJson;
     private int idEntidadFederativa;
-    private int idMunicipio;
+    private String idMunicipio;
     private String municipio;
     int idAutoridadAdmin; String autoridadAdmin;
     int idCargo; String cargo;
@@ -691,7 +691,7 @@ public class Principal extends AppCompatActivity {
                                         for (int i = 0; i < ja.length(); i++) {
                                             try {
                                                 idEntidadFederativa = (ja.getJSONObject(i).getInt("IdEntidadFederativa"));
-                                                idMunicipio = (ja.getJSONObject(i).getInt("IdMunicipio"));
+                                                idMunicipio = (ja.getJSONObject(i).getString("IdMunicipio"));
                                                 municipio = (ja.getJSONObject(i).getString("Municipio"));
                                                 dataHelper.insertCatMunicipios(idEntidadFederativa,idMunicipio,municipio);
                                                 System.out.println(ja);
@@ -948,66 +948,7 @@ public class Principal extends AppCompatActivity {
 
         });
     }
-    /*public void getSubmarcaV() {
-        DataHelper dataHelper = new DataHelper(getApplicationContext());
-
-        final OkHttpClient client = new OkHttpClient();
-        final Request request = new Request.Builder()
-                .url("http://189.254.7.167/WebServiceIPH/api/CatSubMarcaVehiculos")
-                .build();
-
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-                Looper.prepare();
-                Toast.makeText(getApplicationContext(), "ERROR AL OBTENER LA INFORMACIÓN, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_SHORT).show();
-                Looper.loop();
-            }
-
-            @Override
-            public void onResponse(Call call, final Response response) throws IOException {
-                if (response.isSuccessful()) {
-                    final String myResponse = response.body().string();
-                    Principal.this.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                respuestaJson = "null";
-                                if (myResponse.equals(respuestaJson)) {
-                                    Toast.makeText(getApplicationContext(), "NO SE CUENTA CON INFORMACIÓN", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    JSONArray ja = null;
-                                    try {
-                                        ja = new JSONArray("" + myResponse + "");
-                                        for (int i = 0; i < ja.length(); i++) {
-                                            try {
-                                                idMarca = (ja.getJSONObject(i).getString("IdMarca"));
-                                                idSubMarca = (ja.getJSONObject(i).getInt("IdSubMarca"));
-                                                subMarca = (ja.getJSONObject(i).getString("SubMarca"));
-                                                dataHelper.insertCatSubMarcaVehiculos(idMarca,idSubMarca,subMarca);
-                                                System.out.println(ja);
-                                            } catch (JSONException e) {
-                                                e.printStackTrace();
-                                            }
-                                        }
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    });
-                }
-            }
-
-        });
-    }*/
-
-        public void getColor() {
+    public void getColor() {
         DataHelper dataHelper = new DataHelper(getApplicationContext());
 
         final OkHttpClient client = new OkHttpClient();
@@ -1064,7 +1005,6 @@ public class Principal extends AppCompatActivity {
 
         });
     }
-
     public void getAnio() {
         DataHelper dataHelper = new DataHelper(getApplicationContext());
 
@@ -1121,7 +1061,6 @@ public class Principal extends AppCompatActivity {
 
         });
     }
-
     /******************************************************** SUB MARCAS VEHÍCULOS, 1588 REGISTROS ********************************************************/
     private void ListSubMarca() {
         DataHelper dataHelper = new DataHelper(getApplicationContext());
@@ -2721,5 +2660,4 @@ public class Principal extends AppCompatActivity {
 
         }
     }
-
 }

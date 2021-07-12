@@ -26,7 +26,7 @@
             android:title="@string/menu_protocolo_intervencion" />
         <item
             android:id="@+id/nav_sesion"
-            android:icon="@drawable/ic_cerrar_sesion"
+            android:icon="@drawable/ic_cerrar_sesion_"
             android:title="@string/menu_cerrarSession" />
     </group>
 </menu>

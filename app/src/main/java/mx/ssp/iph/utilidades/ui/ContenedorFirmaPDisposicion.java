@@ -1,7 +1,7 @@
 package mx.ssp.iph.utilidades.ui;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.LayoutInflater;
@@ -15,19 +15,21 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+
 import java.io.ByteArrayOutputStream;
+
 import mx.ssp.iph.R;
 import mx.ssp.iph.utilidades.model.Modelo_ContenedorFirma;
 
-public class ContenedorFirma extends DialogFragment {
-        private Button btnCancelar,btnLimpiar,btnGuardar;
-        public TextView lblFirma,lblFirmaBase64;
-        private Integer idlblFirma,idlblFirmaBase64,IdimgFirmaMiniatura;
-        private ImageView imgFirmaMiniatura;
+public class ContenedorFirmaPDisposicion extends DialogFragment {
+    private Button btnCancelar,btnLimpiar,btnGuardar;
+    public TextView lblFirma,lblFirmaBase64;
+    private Integer idlblFirma,idlblFirmaBase64,IdimgFirmaMiniatura;
+    private ImageView imgFirmaMiniatura;
 
 
 
-    public ContenedorFirma(Integer idlblFirma, Integer idlblFirmaBase64, Integer IdimgFirmaMiniatura) {
+    public ContenedorFirmaPDisposicion(Integer idlblFirma, Integer idlblFirmaBase64, Integer IdimgFirmaMiniatura) {
         this.idlblFirma = idlblFirma;
         this.idlblFirmaBase64 = idlblFirmaBase64;
         this.IdimgFirmaMiniatura = IdimgFirmaMiniatura;
@@ -48,7 +50,7 @@ public class ContenedorFirma extends DialogFragment {
         btnCancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    getDialog().dismiss();
+                getDialog().dismiss();
             }
         });
 
@@ -80,7 +82,7 @@ public class ContenedorFirma extends DialogFragment {
                 lblFirmaBase64= (TextView) getActivity().findViewById(idlblFirmaBase64);
                 lblFirmaBase64.setText(encoded);
 
-                imgFirmaMiniatura = (ImageView) getActivity().findViewById(R.id.imgFirmadelDetenidoMiniatura);
+                imgFirmaMiniatura = (ImageView) getActivity().findViewById(R.id.imgFirmaAutoridadAdministrativoMiniatura);
 
                 byte[] decodedString = Base64.decode(encoded, Base64.DEFAULT);
                 Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
