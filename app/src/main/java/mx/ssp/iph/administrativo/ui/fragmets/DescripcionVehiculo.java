@@ -70,7 +70,7 @@ public class DescripcionVehiculo extends Fragment {
     private RadioButton rbTerrestre, rbOtro, rbNacional, rbExtranjero, rbParticular, rbTransportePublico, rbCarga;
     Spinner spMarcaVehiculo,spSubmarcaVehiculo,txtModeloVehiculo,txtColorVehiculo;
     TextView txtOtroVehiculo,txtPlacaVehiculo,txtSerieVehiculo,txtDestinoVehiculo;
-    Button btnGuardarVehiculo;
+    ImageView btnGuardarVehiculo;
 
 
     SharedPreferences share;
@@ -185,6 +185,8 @@ public class DescripcionVehiculo extends Fragment {
         imgMicrofonoObservacionesdelVehiculo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                imgMicrofonoObservacionesdelVehiculo.setImageResource(R.drawable.ic_micro_press);
                 iniciarEntradadeVoz();
             }
         });
@@ -353,6 +355,7 @@ public class DescripcionVehiculo extends Fragment {
                 break;
             }
         }
+        imgMicrofonoObservacionesdelVehiculo.setImageResource(R.drawable.ic_micro);
     }
 
     public void cargarFolios(){

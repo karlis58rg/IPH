@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="horizontal"
     android:padding="16dp">
 
@@ -12,7 +12,7 @@
     <LinearLayout
         android:id="@+id/principalLinear"
         android:layout_width="match_parent"
-        android:layout_height="85dp"
+        android:layout_height="115dp"
         android:background="@color/white"
         android:orientation="horizontal"
         android:elevation="50dp">
@@ -62,6 +62,40 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="No. Referencia:"
+                    android:textColor="#000"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <!--TIPO DE IPH-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:orientation="horizontal"
+                android:paddingLeft="18dp">
+
+                <TextView
+                    android:id="@+id/lblTipoIPH"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Tipo de IPH:"
+                    android:textColor="#000"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <!--USUARIO -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:orientation="horizontal"
+                android:paddingLeft="18dp">
+
+                <TextView
+                    android:id="@+id/lblUsuario"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Usuario:"
                     android:textColor="#000"
                     android:textSize="20sp" />
             </LinearLayout>

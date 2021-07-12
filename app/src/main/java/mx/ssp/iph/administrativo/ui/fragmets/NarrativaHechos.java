@@ -53,7 +53,7 @@ public class NarrativaHechos extends Fragment {
 
     private NarrativaHechosViewModel mViewModel;
     EditText txtNarrativaHechos;
-    Button btnGuardarNarrativaHechos;
+    ImageView btnGuardarNarrativaHechos;
     SharedPreferences share;
     String cargarIdFaltaAdmin,cargarNumReferencia;
     private static final  int REQ_CODE_SPEECH_INPUT=100;
@@ -100,6 +100,7 @@ public class NarrativaHechos extends Fragment {
         imgMicrofonoNarrativaHechos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                imgMicrofonoNarrativaHechos.setImageResource(R.drawable.ic_micro_press);
                 iniciarEntradadeVoz();
             }
         });
@@ -259,7 +260,9 @@ public class NarrativaHechos extends Fragment {
                 }
                 break;
             }
+
         }
+        imgMicrofonoNarrativaHechos.setImageResource(R.drawable.ic_micro);
     }
 
     //***************** SE RECUPERA EL FOLIO INTERNO **************************//

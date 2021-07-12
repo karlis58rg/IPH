@@ -424,7 +424,8 @@
                                     android:id="@+id/lblFirmadelDetenido"
                                     android:enabled="true"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"/>
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/background_section"/>
                             </LinearLayout>
 
                             <LinearLayout
@@ -433,8 +434,7 @@
                                 android:layout_weight="0.20"
                                 android:orientation="horizontal"
                                 android:weightSum="1"
-                                android:padding="@dimen/border"
-                                >
+                                android:padding="@dimen/border">
 
                                 <ImageView
                                     android:id="@+id/imgFirmadelDetenidoMiniatura"
@@ -453,7 +453,7 @@
                                 android:weightSum="1"
                                 android:layout_weight="0.20">
                                 <ImageView
-                                    android:id="@+id/imgFirmaAutoridadAdministrativo"
+                                    android:id="@+id/imgFirmaDetencionesAutoridadAdministrativo"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:src="@drawable/ic_firma" />
@@ -741,7 +741,7 @@
                         android:id="@+id/img_microfonoDescripcionDetenido"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingBottom="35dp"
+                        android:paddingBottom="70dp"
                         android:layout_alignParentBottom="true"
                         android:layout_alignEnd="@+id/txtDescripciondelDetenido"
                         android:src="@drawable/ic_micro"
@@ -1113,16 +1113,11 @@
                     android:gravity="center"
                     android:weightSum="1"
                     android:layout_weight="0.5">
-                    <Button
-                        android:id="@+id/btnGuardarPuestaDisposicioAdministrativo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="AGREGAR DETENIDO"
-                        android:textColor="@color/white"
-                        android:drawableLeft="@drawable/ic_plus"
-                        android:background="@color/backgroud_header_toolbar"
-                        android:paddingLeft="12dp"
-                        android:paddingRight="12dp"/>
+                    <ImageView
+                        android:id="@+id/btnGuardarDetencionesAdministrativo"
+                        android:layout_width="230dp"
+                        android:layout_height="45dp"
+                        android:background="@drawable/icn_add" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="0dp"
@@ -1155,7 +1150,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp">
                 <ListView
-                    android:id="@+id/lvDetenidos"
+                    android:id="@+id/lvDetenidos_Administrativo"
                     android:layout_width="match_parent"
                     android:layout_height="350dp"/>
             </LinearLayout>

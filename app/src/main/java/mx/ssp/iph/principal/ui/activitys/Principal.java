@@ -31,10 +31,12 @@ import java.util.ArrayList;
 import mx.ssp.iph.R;
 import mx.ssp.iph.SqLite.DataHelper;
 import mx.ssp.iph.administrativo.ui.fragmets.NoReferencia_Administrativo;
+import mx.ssp.iph.principal.ui.fragments.MenuPrincipal;
 import mx.ssp.iph.principal.ui.fragments.PrincipalAdministrativo;
 import mx.ssp.iph.principal.ui.fragments.PrincipalBuscar;
 import mx.ssp.iph.principal.ui.fragments.PrincipalDelictivo;
 import mx.ssp.iph.principal.ui.fragments.PrincipalEmergencias;
+import mx.ssp.iph.utilidades.ui.DialogFragmentSalir;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -52,7 +54,7 @@ public class Principal extends AppCompatActivity {
 
     String respuestaJson;
     private int idEntidadFederativa;
-    private int idMunicipio;
+    private String idMunicipio;
     private String municipio;
     int idAutoridadAdmin; String autoridadAdmin;
     int idCargo; String cargo;
@@ -65,7 +67,7 @@ public class Principal extends AppCompatActivity {
     String idUnidad; String unidad; String idMarca,marca,idColor,color,modeloVehiculo;
     int idSubMarca; int modelo; String descripcionU; int idInstitucionU;
 
-
+/*
     //Menu inferior
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener;
     {
@@ -92,6 +94,8 @@ public class Principal extends AppCompatActivity {
         };
     }
 
+ */
+
     //Intercambia los Fragmentos
     private void addFragment(Fragment fragment) {
         getSupportFragmentManager()
@@ -99,6 +103,19 @@ public class Principal extends AppCompatActivity {
                 .replace(R.id.nav_host_fragment, fragment)
                 //.addToBackStack(null) //Se quita la pila de fragments. Botón atrás
                 .commit();
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+
+            DialogFragmentSalir dialog = new DialogFragmentSalir();
+            dialog.show( this.getSupportFragmentManager(),"Salir");
+            //super.onBackPressed();
+        }
     }
 
     @Override
@@ -138,13 +155,13 @@ public class Principal extends AppCompatActivity {
         PrincipalEmergencias = new PrincipalEmergencias();
         PrincipalBuscar = new PrincipalBuscar();
 
-
+/*
         //Bottom Navigation
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.setItemIconTintList(null);
-
-        addFragment(new PrincipalDelictivo());
+ */
+        addFragment(new MenuPrincipal());
 
         // Menu lateral
         drawer = findViewById(R.id.drawer_layout);
@@ -153,7 +170,7 @@ public class Principal extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_inicio, R.id.nav_quees, R.id.nav_como_funciona, R.id.nav_protocolo,R.id.nav_terminos)
+                R.id.nav_inicio, R.id.nav_quees, R.id.nav_como_funciona, R.id.nav_protocolo,R.id.nav_terminos,R.id.nav_blank)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -161,14 +178,7 @@ public class Principal extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
     }
 
-    @Override
-    public void onBackPressed() {
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
+
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -681,7 +691,7 @@ public class Principal extends AppCompatActivity {
                                         for (int i = 0; i < ja.length(); i++) {
                                             try {
                                                 idEntidadFederativa = (ja.getJSONObject(i).getInt("IdEntidadFederativa"));
-                                                idMunicipio = (ja.getJSONObject(i).getInt("IdMunicipio"));
+                                                idMunicipio = (ja.getJSONObject(i).getString("IdMunicipio"));
                                                 municipio = (ja.getJSONObject(i).getString("Municipio"));
                                                 dataHelper.insertCatMunicipios(idEntidadFederativa,idMunicipio,municipio);
                                                 System.out.println(ja);
@@ -938,66 +948,7 @@ public class Principal extends AppCompatActivity {
 
         });
     }
-    /*public void getSubmarcaV() {
-        DataHelper dataHelper = new DataHelper(getApplicationContext());
-
-        final OkHttpClient client = new OkHttpClient();
-        final Request request = new Request.Builder()
-                .url("http://189.254.7.167/WebServiceIPH/api/CatSubMarcaVehiculos")
-                .build();
-
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-                Looper.prepare();
-                Toast.makeText(getApplicationContext(), "ERROR AL OBTENER LA INFORMACIÓN, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_SHORT).show();
-                Looper.loop();
-            }
-
-            @Override
-            public void onResponse(Call call, final Response response) throws IOException {
-                if (response.isSuccessful()) {
-                    final String myResponse = response.body().string();
-                    Principal.this.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                respuestaJson = "null";
-                                if (myResponse.equals(respuestaJson)) {
-                                    Toast.makeText(getApplicationContext(), "NO SE CUENTA CON INFORMACIÓN", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    JSONArray ja = null;
-                                    try {
-                                        ja = new JSONArray("" + myResponse + "");
-                                        for (int i = 0; i < ja.length(); i++) {
-                                            try {
-                                                idMarca = (ja.getJSONObject(i).getString("IdMarca"));
-                                                idSubMarca = (ja.getJSONObject(i).getInt("IdSubMarca"));
-                                                subMarca = (ja.getJSONObject(i).getString("SubMarca"));
-                                                dataHelper.insertCatSubMarcaVehiculos(idMarca,idSubMarca,subMarca);
-                                                System.out.println(ja);
-                                            } catch (JSONException e) {
-                                                e.printStackTrace();
-                                            }
-                                        }
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    });
-                }
-            }
-
-        });
-    }*/
-
-        public void getColor() {
+    public void getColor() {
         DataHelper dataHelper = new DataHelper(getApplicationContext());
 
         final OkHttpClient client = new OkHttpClient();
@@ -1054,7 +1005,6 @@ public class Principal extends AppCompatActivity {
 
         });
     }
-
     public void getAnio() {
         DataHelper dataHelper = new DataHelper(getApplicationContext());
 
@@ -1111,7 +1061,6 @@ public class Principal extends AppCompatActivity {
 
         });
     }
-
     /******************************************************** SUB MARCAS VEHÍCULOS, 1588 REGISTROS ********************************************************/
     private void ListSubMarca() {
         DataHelper dataHelper = new DataHelper(getApplicationContext());
@@ -2711,5 +2660,4 @@ public class Principal extends AppCompatActivity {
 
         }
     }
-
 }

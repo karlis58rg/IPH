@@ -59,6 +59,7 @@
             app:layout_constraintStart_toEndOf="@id/linearizquierdo">
 
             <!--Titulo  -->
+            <!--           -->
             <LinearLayout
                 android:id="@+id/linearTitulo"
                 android:layout_width="match_parent"
@@ -91,6 +92,7 @@
 
 
                 </LinearLayout>
+
 
             </LinearLayout>
 
@@ -215,7 +217,7 @@
                     android:gravity="center"
                     android:orientation="vertical"
                     android:weightSum="1">
-
+<!---->
                     <Button
                         android:id="@+id/btnLogin"
                         android:layout_width="match_parent"
@@ -223,6 +225,7 @@
                         android:background="@color/backgroud_header_toolbar"
                         android:text="INGRESAR"
                         android:textColor="@color/white" />
+
                 </LinearLayout>
 
                 <LinearLayout

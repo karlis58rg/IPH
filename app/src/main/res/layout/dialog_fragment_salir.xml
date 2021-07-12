@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:minWidth="700dp"
+    android:minHeight="200dp">
+
+
+    <LinearLayout
+        android:id="@+id/Linear1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="vertical">
+
+
+
+        <LinearLayout
+            android:id="@id/Linear2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="60dp">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:weightSum="1"
+                android:layout_weight="0.5">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="¿Desea salir de la aplicación?"
+                        android:textSize="45dp"
+                        android:gravity="center"/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@id/Linear2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/lyMenu"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:weightSum="1"
+                android:layout_weight="0.5"
+                android:layout_margin="@dimen/border">
+                <Button
+                    android:id="@+id/btnMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:drawableLeft="@drawable/ic_home"
+                    android:background="@color/backgroud_header_toolbar"
+                    android:paddingLeft="12dp"
+                    android:paddingRight="12dp"
+                    android:text="Menú Principal" />
+            </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lySalir"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:weightSum="1"
+                    android:layout_weight="0.5"
+                    android:layout_margin="@dimen/border">
+
+                <Button
+                        android:id="@+id/btnSalir"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:drawableLeft="@drawable/ic_cerrar_sesion_"
+                        android:background="@color/backgroud_header_toolbar"
+                        android:paddingLeft="12dp"
+                        android:paddingRight="12dp"
+                        android:text="Si, Salir" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/lyCancelar"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:weightSum="1"
+                    android:layout_weight="0.5"
+                    android:layout_margin="@dimen/border">
+
+                <Button
+                        android:id="@+id/btnCancelar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:drawableLeft="@drawable/ic_no"
+                        android:background="@color/backgroud_header_toolbar"
+                        android:paddingLeft="12dp"
+                        android:paddingRight="12dp"
+                        android:text="No, Continuar" />
+                </LinearLayout>
+
+
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -80,7 +80,7 @@ public class ContenedorFirma extends DialogFragment {
                 lblFirmaBase64= (TextView) getActivity().findViewById(idlblFirmaBase64);
                 lblFirmaBase64.setText(encoded);
 
-                imgFirmaMiniatura = (ImageView) getActivity().findViewById(R.id.imgFirmaAutoridadAdministrativoMiniatura);
+                imgFirmaMiniatura = (ImageView) getActivity().findViewById(R.id.imgFirmadelDetenidoMiniatura);
 
                 byte[] decodedString = Base64.decode(encoded, Base64.DEFAULT);
                 Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);

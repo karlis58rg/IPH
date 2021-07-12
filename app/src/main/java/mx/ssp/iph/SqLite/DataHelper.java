@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class DataHelper extends SQLiteOpenHelper {
     public static final String DataBase_Name = "IPH";
-    public static final int Database_Version = 15 ;
+    public static final int Database_Version = 21 ;
 
     public static final String Table_CatAutoridadAdmin = "CatAutoridadAdmin";
     public static final String Create_CatAutoridadAdmin = "CREATE TABLE IF NOT EXISTS " + Table_CatAutoridadAdmin +"(IdAutoridadAdmin INTEGER PRIMARY KEY, AutoridadAdmin TEXT NOT NULL UNIQUE)";
@@ -31,7 +31,7 @@ public class DataHelper extends SQLiteOpenHelper {
     public static final String Create_CatLugarTraslado = "CREATE TABLE IF NOT EXISTS " + Table_CatLugarTraslado +"(IdLugarTraslado INTEGER PRIMARY KEY, LugarTraslado TEXT NOT NULL UNIQUE, Descripcion TEXT NOT NULL UNIQUE)";
 
     public static final String Table_CatMunicipios = "CatMunicipios";
-    public static final String Create_CatMunicipios = "CREATE TABLE IF NOT EXISTS " + Table_CatMunicipios +"(IdEntidadFederativa INTEGER, IdMunicipio INTEGER PRIMARY KEY, Municipio TEXT NOT NULL UNIQUE)";
+    public static final String Create_CatMunicipios = "CREATE TABLE IF NOT EXISTS " + Table_CatMunicipios +"(IdEntidadFederativa INTEGER, IdMunicipio TEXT PRIMARY KEY, Municipio TEXT NOT NULL UNIQUE)";
 
     public static final String Table_CatNacionalidad = "CatNacionalidad";
     public static final String Create_CatNacionalidad = "CREATE TABLE IF NOT EXISTS " + Table_CatNacionalidad +"(IdNacionalida INTEGER PRIMARY KEY, Nacionalida TEXT NOT NULL UNIQUE, DesNacionalidad TEXT NOT NULL UNIQUE)";
@@ -54,8 +54,8 @@ public class DataHelper extends SQLiteOpenHelper {
     public static final String Table_CatAnio = "CatAnio";
     public static final String Create_CatAnio = "CREATE TABLE IF NOT EXISTS " + Table_CatAnio +"(MODELO TEXT PRIMARY KEY)";
 
-    //public static final String Delete_Table_CatColor = "DROP TABLE IF EXISTS "+ Table_CatColor;
-    //public static final String Delete_Table_CatAnio = "DROP TABLE IF EXISTS "+ Table_CatAnio;
+    //public static final String Delete_Table_CatCargo = "DROP TABLE IF EXISTS "+ Table_CatCargo;
+    //public static final String Delete_Table_CatMunicipios = "DROP TABLE IF EXISTS "+ Table_CatMunicipios;
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -76,8 +76,8 @@ public class DataHelper extends SQLiteOpenHelper {
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        //db.execSQL(Delete_Table_CatColor);
-        //db.execSQL(Delete_Table_CatAnio);
+        //db.execSQL(Delete_Table_CatCargo);
+        //db.execSQL(Delete_Table_CatMunicipios);
         onCreate(db);
     }
 
@@ -537,7 +537,7 @@ public class DataHelper extends SQLiteOpenHelper {
     }
 
     /************************************************** CatMunicipio ********************************************************************/
-    public void insertCatMunicipios(int idEntidadFederativa, int idMunicipio, String municipio){
+    public void insertCatMunicipios(int idEntidadFederativa, String idMunicipio, String municipio){
         SQLiteDatabase dbSqLiteDatabase = this.getWritableDatabase();
         dbSqLiteDatabase.beginTransaction();
         ContentValues values;
@@ -584,8 +584,8 @@ public class DataHelper extends SQLiteOpenHelper {
         }
         return  list;
     }
-    public int getIdMunicipio(String descMunicipio ){
-        int idMunicipio = 0;
+    public String getIdMunicipio(String descMunicipio ){
+        String idMunicipio = "";
         SQLiteDatabase dbDatabase = this.getReadableDatabase();
         dbDatabase.beginTransaction();
         try{
@@ -598,7 +598,7 @@ public class DataHelper extends SQLiteOpenHelper {
             String selectQuery = "SELECT IdMunicipio FROM " + Table_CatMunicipios +" WHERE Municipio = '"+descMunicipio+"'";
             Cursor mCount2= dbDatabase.rawQuery(selectQuery, null);
             mCount2.moveToFirst();
-            int count2= mCount2.getInt(0);
+            String count2= mCount2.getString(0);
             idMunicipio = count2;
             System.out.println(count2);
             dbDatabase.setTransactionSuccessful();
