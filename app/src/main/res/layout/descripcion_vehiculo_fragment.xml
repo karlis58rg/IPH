@@ -441,6 +441,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/destinoVehiculoAdministrativo"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
@@ -485,7 +486,8 @@
                 android:id="@+id/novenoLinear"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:focusableInTouchMode="true">
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">

@@ -124,12 +124,12 @@ public class ProbableInfraccion extends Fragment {
             public void onClick(View view) {
 
                 if(aux1 == 5){
-                    if(txtOtroProbableInfraccionAdministrativo.getText().length() > 3){
+                    if(txtOtroProbableInfraccionAdministrativo.getText().length() >= 3){
                         Toast.makeText(getContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_LONG).show();
                         updateProbableInfraccion();
                     } else{
                         Toast.makeText(getContext(), "INGRESAR DE QUÉ OTRA FORMA SE ENTERÓ DEL HECHO", Toast.LENGTH_LONG).show();
-
+                        txtOtroProbableInfraccionAdministrativo.requestFocus();
                     }
                 } else {
                     Toast.makeText(getContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_LONG).show();

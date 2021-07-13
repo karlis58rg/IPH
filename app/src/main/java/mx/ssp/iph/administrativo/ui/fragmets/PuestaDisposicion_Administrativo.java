@@ -262,7 +262,7 @@ public class PuestaDisposicion_Administrativo extends Fragment {
 
                 aux1 = i;
 
-                Toast.makeText(getContext(), "" + i, Toast.LENGTH_LONG).show();
+                //Toast.makeText(getContext(), "" + i, Toast.LENGTH_LONG).show();
 
             }
 
@@ -280,7 +280,7 @@ public class PuestaDisposicion_Administrativo extends Fragment {
 
                 aux2 = j;
 
-                Toast.makeText(getContext(), "" + j, Toast.LENGTH_LONG).show();
+                //Toast.makeText(getContext(), "" + j, Toast.LENGTH_LONG).show();
 
             }
 

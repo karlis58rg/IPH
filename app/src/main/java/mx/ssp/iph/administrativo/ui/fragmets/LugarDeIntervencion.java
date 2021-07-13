@@ -66,6 +66,7 @@ public class LugarDeIntervencion extends Fragment {
     ImageView imgMap;
     final private int REQUEST_CODE_ASK_PERMISSION = 111;
     Spinner spMunicipioUbicacionGeograficaAdministrativo;
+    ViewGroup sextoLinear;
 
 
     public static LugarDeIntervencion newInstance() {
@@ -100,6 +101,8 @@ public class LugarDeIntervencion extends Fragment {
         spMunicipioUbicacionGeograficaAdministrativo = root.findViewById(R.id.spMunicipioUbicacionGeograficaAdministrativo);
         txtLongitudUbicacionGeograficaAdministrativo.setFilters(new InputFilter[]{new InputFilter.LengthFilter(20)});
         imgMap = (ImageView)root.findViewById(R.id.imgMap);
+
+        sextoLinear = root.findViewById(R.id.sextoLinear);
 
 
         btnGuardarLugarIntervencionAdministrativo = root.findViewById(R.id.btnGuardarLugarIntervencionAdministrativo);
@@ -140,14 +143,15 @@ public class LugarDeIntervencion extends Fragment {
             @Override
             public void onClick(View view) {
 
-                if(txtLatitudUbicacionGeograficaAdministrativo.getText().length() > 8 && txtLongitudUbicacionGeograficaAdministrativo.getText().length() > 8){
-                    insertLugarIntervencion();
+                if(txtLatitudUbicacionGeograficaAdministrativo.getText().length() >= 8 && txtLongitudUbicacionGeograficaAdministrativo.getText().length() >= 8){
                     Toast.makeText(getContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS ", Toast.LENGTH_LONG).show();
-                } else if(txtColoniaUbicacionGeograficaAdministrativo.getText().length() > 3 && txtCalleUbicacionGeograficaAdministrativo.getText().length() > 3 && txtReferenciasdelLugarUbicacionGeograficaAdministrativo.getText().length() > 3){
                     insertLugarIntervencion();
+                } else if(txtColoniaUbicacionGeograficaAdministrativo.getText().length() >= 3 && txtCalleUbicacionGeograficaAdministrativo.getText().length() >= 3 && txtReferenciasdelLugarUbicacionGeograficaAdministrativo.getText().length() >= 3){
                     Toast.makeText(getContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS ", Toast.LENGTH_LONG).show();
+                    insertLugarIntervencion();
                 }  else{
                         Toast.makeText(getContext(), "INGRESA LAS COORDENADAS COMPLETAS O LA DIRECCIÓN COMPLETA PARA GUARDAR", Toast.LENGTH_LONG).show();
+                        sextoLinear.requestFocus();
                     }
             }
         });

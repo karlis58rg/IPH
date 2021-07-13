@@ -36,6 +36,7 @@ public class NarrativaHechos_Delictivo extends Fragment {
     private ImageView imgMicrofonoNarrativaHechosDelictivo;
     private EditText txtNarrativaHechosDelictivo;
     private Funciones funciones;
+    private ViewGroup tercerLinear;
     private static final  int REQ_CODE_SPEECH_INPUT=100;
 
 
@@ -51,6 +52,7 @@ public class NarrativaHechos_Delictivo extends Fragment {
         btnGuardarNarrativaHechosDelictivo = view.findViewById(R.id.btnGuardarNarrativaHechosDelictivo);
         imgMicrofonoNarrativaHechosDelictivo = view.findViewById(R.id.imgMicrofonoNarrativaHechosDelictivo);
         txtNarrativaHechosDelictivo = view.findViewById(R.id.txtNarrativaHechosDelictivo);
+        tercerLinear = view.findViewById(R.id.tercerLinear);
         txtNarrativaHechosDelictivo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(8000)});
         funciones = new Funciones();
 
@@ -68,11 +70,10 @@ public class NarrativaHechos_Delictivo extends Fragment {
         btnGuardarNarrativaHechosDelictivo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(txtNarrativaHechosDelictivo.getText().toString().isEmpty()){
+                if(txtNarrativaHechosDelictivo.getText().length() < 3){
                     Toast.makeText(getActivity().getApplicationContext(),"INGRESA LA DESCRIPCIÓN DE LOS HECHOS",Toast.LENGTH_SHORT).show();
-                }else if(txtNarrativaHechosDelictivo.getText().length() < 3){
-                    Toast.makeText(getActivity().getApplicationContext(),"AGREGAR EN LA DESCRIPCIÓN DE LOS HECHOS AL MENOS 3 CARACTERES",Toast.LENGTH_SHORT).show();
-                }else {
+                    tercerLinear.requestFocus();
+                } else {
                     Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
                     //updateNarrativa();
                 }

@@ -1113,6 +1113,7 @@
                     android:gravity="center"
                     android:weightSum="1"
                     android:layout_weight="0.5">
+
                     <ImageView
                         android:id="@+id/btnGuardarDetencionesAdministrativo"
                         android:layout_width="230dp"

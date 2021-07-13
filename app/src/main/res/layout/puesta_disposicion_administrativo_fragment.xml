@@ -405,11 +405,12 @@
                 android:layout_weight="0.5"
                 android:orientation="vertical"
                 android:gravity="center">
+
                 <Spinner
                     android:id="@+id/txtUnidadDeArriboAdministrativo"
-                    android:layout_width="match_parent"
+                    android:layout_width="269dp"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/border"/>
+                    android:padding="@dimen/border" />
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/lyNoAplicaUnidadDeArriboAdministrativo"

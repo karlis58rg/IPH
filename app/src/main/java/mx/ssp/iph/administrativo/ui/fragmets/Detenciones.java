@@ -173,7 +173,7 @@ public class Detenciones extends Fragment  {
         especificaNacionalidad  = view.findViewById(R.id.especificaNacionalidad);
 
 
-        btnGuardarDetencionesAdministrativo = view.findViewById(R.id.btnGuardarPuestaDisposicioAdministrativo);
+        btnGuardarDetencionesAdministrativo = view.findViewById(R.id.btnGuardarDetencionesAdministrativo);
         ListLugarTraslado();
         ListMunicipios();
         ListNacionalidad();
@@ -306,21 +306,21 @@ public class Detenciones extends Fragment  {
             @Override
             public void onClick(View v) {
 
-                if(txtFechaDetenido.getText().toString().length() > 3 && txthoraDetencion.getText().toString().length() > 3){
-                    if(txtPrimerApellidoDetenido.getText().toString().length() > 3) {
-                        if (txtNombresDetenido.getText().toString().length() > 3) {
-                            if (txtApodoDetenido.getText().toString().length() > 3 || chNoAplicaAliasDetenido.isChecked()){
+                if(txtFechaDetenido.getText().toString().length() >= 3 && txthoraDetencion.getText().toString().length() > 3){
+                    if(txtPrimerApellidoDetenido.getText().toString().length() >= 3) {
+                        if (txtNombresDetenido.getText().toString().length() >= 3) {
+                            if (txtApodoDetenido.getText().toString().length() >= 3 || chNoAplicaAliasDetenido.isChecked()){
                                 if(aux1 == 34){
-                                    if(txtNacionalidadEspecifiqueDetenido.getText().toString().length() > 3){
+                                    if(txtNacionalidadEspecifiqueDetenido.getText().toString().length() >= 3){
 
-                                        if (txtDescripciondelDetenido.getText().toString().length() > 3) {
+                                        if (txtDescripciondelDetenido.getText().toString().length() >= 3) {
                                             if (rbNoLesiones.isChecked() || rbSiLesiones.isChecked()) {
                                                 if (rbPadecimiento.isChecked()) {
 
                                                     if (rbNoGrupoVulnerable.isChecked()) {
                                                         insertDetenciones();
                                                     } else if (rbSiGrupoVulnerable.isChecked()) {
-                                                        if (txtCualGrupoVulnerable.getText().toString().length() > 3) {
+                                                        if (txtCualGrupoVulnerable.getText().toString().length() >= 3) {
                                                             insertDetenciones();
                                                         } else {
                                                             Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL GRUPO VULNERABLE AL QUE PERTENECE", Toast.LENGTH_SHORT).show();
@@ -333,12 +333,12 @@ public class Detenciones extends Fragment  {
                                                     }
 
                                                 } else if (rbSiPadecimiento.isChecked()) {
-                                                    if (txtCualPadecimiento.getText().toString().length() > 3) {
+                                                    if (txtCualPadecimiento.getText().toString().length() >= 3) {
 
                                                         if (rbNoGrupoVulnerable.isChecked()) {
                                                             insertDetenciones();
                                                         } else if (rbSiGrupoVulnerable.isChecked()) {
-                                                            if (txtCualGrupoVulnerable.getText().toString().length() > 3) {
+                                                            if (txtCualGrupoVulnerable.getText().toString().length() >= 3) {
                                                                 insertDetenciones();
                                                             } else {
                                                                 Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL GRUPO VULNERABLE AL QUE PERTENECE EL DETENIDO", Toast.LENGTH_SHORT).show();
@@ -380,14 +380,14 @@ public class Detenciones extends Fragment  {
 
                                 } else{
 
-                                        if (txtDescripciondelDetenido.getText().toString().length() > 3) {
+                                        if (txtDescripciondelDetenido.getText().toString().length() >= 3) {
                                             if (rbNoLesiones.isChecked() || rbSiLesiones.isChecked()) {
                                                 if (rbPadecimiento.isChecked()) {
 
                                                     if (rbNoGrupoVulnerable.isChecked()) {
                                                         insertDetenciones();
                                                     } else if (rbSiGrupoVulnerable.isChecked()) {
-                                                        if (txtCualGrupoVulnerable.getText().toString().length() > 3) {
+                                                        if (txtCualGrupoVulnerable.getText().toString().length() >= 3) {
                                                             insertDetenciones();
                                                         } else {
                                                             Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL GRUPO VULNERABLE AL QUE PERTENECE", Toast.LENGTH_SHORT).show();
@@ -400,12 +400,12 @@ public class Detenciones extends Fragment  {
                                                     }
 
                                                 } else if (rbSiPadecimiento.isChecked()) {
-                                                    if (txtCualPadecimiento.getText().toString().length() > 3) {
+                                                    if (txtCualPadecimiento.getText().toString().length() >= 3) {
 
                                                         if (rbNoGrupoVulnerable.isChecked()) {
                                                             insertDetenciones();
                                                         } else if (rbSiGrupoVulnerable.isChecked()) {
-                                                            if (txtCualGrupoVulnerable.getText().toString().length() > 3) {
+                                                            if (txtCualGrupoVulnerable.getText().toString().length() >= 3) {
                                                                 insertDetenciones();
                                                             } else {
                                                                 Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL GRUPO VULNERABLE AL QUE PERTENECE EL DETENIDO", Toast.LENGTH_SHORT).show();

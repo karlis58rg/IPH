@@ -59,6 +59,7 @@ public class NarrativaHechos extends Fragment {
     private static final  int REQ_CODE_SPEECH_INPUT=100;
     private ImageView imgMicrofonoNarrativaHechos;
     Funciones funciones;
+    ViewGroup tercerLinear;
 
     public static NarrativaHechos newInstance() {
         return new NarrativaHechos();
@@ -74,6 +75,7 @@ public class NarrativaHechos extends Fragment {
         txtNarrativaHechos = root.findViewById(R.id.txtNarrativaHechos);
         txtNarrativaHechos.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(8000)});
         btnGuardarNarrativaHechos = root.findViewById(R.id.btnGuardarNarrativaHechos);
+        tercerLinear = root.findViewById(R.id.tercerLinear);
         funciones = new Funciones();
 
         //Cambia el título de acuerdo a la sección seleccionada
@@ -86,8 +88,9 @@ public class NarrativaHechos extends Fragment {
         btnGuardarNarrativaHechos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(txtNarrativaHechos.getText().length() < 3){
+                if(txtNarrativaHechos.getText().length() <= 3){
                     Toast.makeText(getActivity().getApplicationContext(),"AGREGA LA DESCRIPCIÓN DE LOS HECHOS",Toast.LENGTH_SHORT).show();
+                    tercerLinear.requestFocus();
                 } else {
                     Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
                     updateNarrativa();

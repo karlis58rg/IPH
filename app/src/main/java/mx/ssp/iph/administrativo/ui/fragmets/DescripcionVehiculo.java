@@ -71,6 +71,7 @@ public class DescripcionVehiculo extends Fragment {
     Spinner spMarcaVehiculo,spSubmarcaVehiculo,txtModeloVehiculo,txtColorVehiculo;
     TextView txtOtroVehiculo,txtPlacaVehiculo,txtSerieVehiculo,txtDestinoVehiculo;
     ImageView btnGuardarVehiculo;
+    ViewGroup segundoLinear, tipoVehiculoAdministrativo, otroTipoVehiculoAdministrativo, procedenciaVehiculoAdministrativo, usoVehiculoAdministrativo, novenoLinear, destinoVehiculoAdministrativo;
 
 
     SharedPreferences share;
@@ -117,10 +118,19 @@ public class DescripcionVehiculo extends Fragment {
         spMarcaVehiculo = root.findViewById(R.id.spMarcaVehiculo);
         spSubmarcaVehiculo = root.findViewById(R.id.spSubmarcaVehiculo);
 
+
+
         txtDestinoVehiculo = root.findViewById(R.id.txtDestinoVehiculo);
         txtDestinoVehiculo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         btnGuardarVehiculo = root.findViewById(R.id.btnGuardarVehiculo);
 
+        segundoLinear = root.findViewById(R.id.segundoLinear);
+        tipoVehiculoAdministrativo = root.findViewById(R.id.tipoVehiculoAdministrativo);
+        otroTipoVehiculoAdministrativo = root.findViewById(R.id.otroTipoVehiculoAdministrativo);
+        procedenciaVehiculoAdministrativo = root.findViewById(R.id.procedenciaVehiculoAdministrativo);
+        usoVehiculoAdministrativo = root.findViewById(R.id.usoVehiculoAdministrativo);
+        novenoLinear = root.findViewById(R.id.novenoLinear);
+        destinoVehiculoAdministrativo = root.findViewById(R.id.destinoVehiculoAdministrativo);
 
         //Cambia el título de acuerdo a la sección seleccionada
         funciones.CambiarTituloSecciones("ANEXO B: DESCRIPCIÓN DEL VEHÍCULO",getContext(),getActivity());
@@ -251,36 +261,42 @@ public class DescripcionVehiculo extends Fragment {
             @Override
             public void onClick(View v) {
 
-                if(txtFechaRetencion.getText().toString().length() > 3 && txthoraRetencion.getText().toString().length() > 3){
+                if(txtFechaRetencion.getText().toString().length() >= 3 && txthoraRetencion.getText().toString().length() >= 3){
                     if(rbTerrestre.isChecked() || rbOtro.isChecked()){
                         if(rbNacional.isChecked() || rbExtranjero.isChecked()){
                             if(rbParticular.isChecked() || rbTransportePublico.isChecked() || rbCarga.isChecked()){
-                                if(txtDestinoVehiculo.getText().toString().length() > 3){
-                                    if(txtObservacionesdelVehiculo.getText().toString().length() > 3){
+                                if(txtDestinoVehiculo.getText().toString().length() >= 3){
+                                    if(txtObservacionesdelVehiculo.getText().toString().length() >= 3){
                                         Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
                                         insertDescripcionVehiculos();
                                     }else{
                                         Toast.makeText(getActivity().getApplicationContext(),"INGRESA LAS OBSERVACIONES DEL VEHÍCULO ANTES DE CONTINUAR",Toast.LENGTH_SHORT).show();
+                                        novenoLinear.requestFocus();
                                     }
 
                                 }else{
                                     Toast.makeText(getActivity().getApplicationContext(),"INGRESA EL DESTINO DEL VEHÍCULO ANTES DE CONTINUAR",Toast.LENGTH_SHORT).show();
+                                    destinoVehiculoAdministrativo.requestFocus();
                                 }
 
                             }else{
                                 Toast.makeText(getActivity().getApplicationContext(),"SELECCIONA EL USO DEL VEHÍCULO ANTES DE CONTINUAR",Toast.LENGTH_SHORT).show();
+                                usoVehiculoAdministrativo.requestFocus();
                             }
 
                         }else{
                             Toast.makeText(getActivity().getApplicationContext(),"SELECCIONA PROCEDENCIA DEL VEHÍCULO ANTES DE CONTINUAR",Toast.LENGTH_SHORT).show();
+                            procedenciaVehiculoAdministrativo.requestFocus();
                         }
 
                     }else{
                         Toast.makeText(getActivity().getApplicationContext(),"SELECCIONA EL TIPO DE VEHÍCULO ANTES DE CONTINUAR",Toast.LENGTH_SHORT).show();
+                        tipoVehiculoAdministrativo.requestFocus();
                     }
 
                 }else{
                     Toast.makeText(getActivity().getApplicationContext(),"NO SE PUEDE ALMACENAR INFORMACIÓN DE VEHÍCULO SIN FECHA Y HORA DE REGISTRO",Toast.LENGTH_SHORT).show();
+                    segundoLinear.requestFocus();
                 }
             }
         });
