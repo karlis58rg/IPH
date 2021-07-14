@@ -568,7 +568,7 @@
                         android:layout_height="match_parent"
                         android:orientation="vertical"
                         android:weightSum="1"
-                        android:layout_weight="0.60">
+                        android:layout_weight="0.40">
                         <TextView
                             android:id="@+id/lblFirmaAutoridadRealizadaAdministrativo"
                             android:layout_width="match_parent"
@@ -579,19 +579,14 @@
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="60dp"
-                        android:layout_weight="0.20"
+                        android:layout_weight="0.45"
                         android:orientation="horizontal"
-                        android:weightSum="1"
-                        android:padding="@dimen/border"
-                        >
-
+                        android:weightSum="1">
                         <ImageView
                             android:id="@+id/imgFirmaAutoridadAdministrativoMiniatura"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:maxWidth="40dp"
-                            android:maxHeight="40dp"
-                            android:scaleType="fitXY" />
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="fitXY"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -599,7 +594,7 @@
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
                         android:weightSum="1"
-                        android:layout_weight="0.20">
+                        android:layout_weight="0.15">
                         <ImageView
                             android:id="@+id/imgFirmaAutoridadAdministrativo"
                             android:layout_width="40dp"

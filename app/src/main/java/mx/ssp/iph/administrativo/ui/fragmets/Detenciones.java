@@ -36,12 +36,15 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.squareup.picasso.Picasso;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Random;
 import java.util.regex.Pattern;
 
 import mx.ssp.iph.R;
@@ -73,12 +76,14 @@ public class Detenciones extends Fragment  {
     Spinner spGeneroDetenido,txtNacionalidadDetenido,txtMunicipioDetenido,spLugarTrasladoPersonaDetenida;
     RadioGroup rgLesiones, rgPadecimiento, rgGrupoVulnerable;
     RadioButton rbNoLesiones, rbSiLesiones, rbPadecimiento, rbSiPadecimiento, rbNoGrupoVulnerable, rbSiGrupoVulnerable;
-    ImageView btnGuardarDetencionesAdministrativo;
+    ImageView btnGuardarDetencionesAdministrativo,imgFirmadelDetenidoMiniatura;
     private Funciones funciones;
     SharedPreferences share;
     private ListView lvDetenidos_Administrativo;
     ArrayList<String> ListaNumDetenido,ListaNombreDetenido,ListaIdDetenido;
     ArrayList<JSONObject> ListaDetenidos;
+    String firmaURLServer = "http://189.254.7.167/WebServiceIPH/Firma/SINFIRMA.jpg";
+    int numberRandom,randomUrlImagen;
     private ViewGroup linearApodoDetenido, cuartoLinear, segundoLinear, catorceavoLinear, quinceavoLinear, dieciseisLinear, diecisietelinear, especificaNacionalidad;
 
 
@@ -172,6 +177,7 @@ public class Detenciones extends Fragment  {
         diecisietelinear  = view.findViewById(R.id.diecisietelinear);
         especificaNacionalidad  = view.findViewById(R.id.especificaNacionalidad);
 
+        imgFirmadelDetenidoMiniatura = view.findViewById(R.id.imgFirmadelDetenidoMiniatura);
 
         btnGuardarDetencionesAdministrativo = view.findViewById(R.id.btnGuardarDetencionesAdministrativo);
         ListLugarTraslado();
@@ -266,9 +272,6 @@ public class Detenciones extends Fragment  {
             }
         });
 
-
-
-
         //Firma del Detenido
         imgFirmaDetencionesAutoridadAdministrativo = (ImageView) view.findViewById(R.id.imgFirmaDetencionesAutoridadAdministrativo);
 
@@ -300,7 +303,6 @@ public class Detenciones extends Fragment  {
                 dialog.show( getActivity().getSupportFragmentManager(),"Dia");
             }
         });
-
 
         btnGuardarDetencionesAdministrativo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -541,7 +543,11 @@ public class Detenciones extends Fragment  {
         return view;
     }
 
-
+    public void getFirmaFromURL(){
+        Picasso.get()
+                .load(firmaURLServer)
+                .into(imgFirmadelDetenidoMiniatura);
+    }
 
     //VALIDAR CAMPOS VACIOS O MENOR A TRES CARACTERES
     public boolean validarEditText(EditText editText){
@@ -771,7 +777,6 @@ public class Detenciones extends Fragment  {
             txtNumeroInteriorDetenido.setText("NA");
         }
 
-
         ModeloDetenciones_Administrativo modeloDetenciones = new ModeloDetenciones_Administrativo
                 (cargarIdFaltaAdmin, "1",
                         txtFechaDetenido.getText().toString(), txthoraDetencion.getText().toString(),
@@ -975,6 +980,12 @@ public class Detenciones extends Fragment  {
                 .replace(R.id.fragmentContenedorJusticiacivica, fragment)
                 //.addToBackStack(null) //Se quita la pila de fragments. Botón atrás
                 .commit();
+    }
+
+    public void random(){
+        Random random = new Random();
+        numberRandom = random.nextInt(9000)*99;
+        randomUrlImagen = numberRandom;
     }
 
 }

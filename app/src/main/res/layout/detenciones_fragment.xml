@@ -365,107 +365,108 @@
             <LinearLayout
                 android:id="@+id/septimoLinear"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0.5"
+                android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp">
+                android:weightSum="1"
+                android:layout_marginTop="20dp">
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:id="@+id/lyCargoAdministrativo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:orientation="vertical">
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/lyFirmaAutoridadAdministrativo"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:weightSum="1"
-                    android:layout_weight="0.10">
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:weightSum="1"
-                    android:layout_weight="0.10">
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/lyFirma"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    android:weightSum="1"
-                    android:layout_weight="0.12">
+                    android:layout_weight="0.5">
+                    <TextView
+                        android:id="@+id/lblFirmaDetenido"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Firma del Detenido" />
 
                     <LinearLayout
-                        android:id="@+id/lyFirmaDetenido"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical"
                         android:weightSum="1"
                         android:layout_weight="0.5">
-                        <TextView
-                            android:id="@+id/lblFirmaDetenido"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Firma del Detenido" />
 
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            android:layout_width="0dp"
                             android:layout_height="match_parent"
+                            android:orientation="vertical"
                             android:weightSum="1"
-                            android:layout_weight="0.5">
+                            android:layout_weight="0.40">
+                            <TextView
+                                android:id="@+id/lblFirmadelDetenido"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/background_section"/>
+                        </LinearLayout>
 
-                            <LinearLayout
-                                android:layout_width="0dp"
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="60dp"
+                            android:layout_weight="0.45"
+                            android:orientation="horizontal"
+                            android:weightSum="1">
+                            <ImageView
+                                android:id="@+id/imgFirmadelDetenidoMiniatura"
+                                android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:orientation="vertical"
-                                android:weightSum="1"
-                                android:layout_weight="0.60">
-                                <TextView
-                                    android:id="@+id/lblFirmadelDetenido"
-                                    android:enabled="true"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:textColor="@color/background_section"/>
-                            </LinearLayout>
+                                android:scaleType="fitXY"/>
+                        </LinearLayout>
 
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="60dp"
-                                android:layout_weight="0.20"
-                                android:orientation="horizontal"
-                                android:weightSum="1"
-                                android:padding="@dimen/border">
-
-                                <ImageView
-                                    android:id="@+id/imgFirmadelDetenidoMiniatura"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:maxWidth="40dp"
-                                    android:maxHeight="40dp"
-                                    android:scaleType="fitXY" />
-                            </LinearLayout>
-
-
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:orientation="horizontal"
-                                android:weightSum="1"
-                                android:layout_weight="0.20">
-                                <ImageView
-                                    android:id="@+id/imgFirmaDetencionesAutoridadAdministrativo"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@drawable/ic_firma" />
-                            </LinearLayout>
-
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:weightSum="1"
+                            android:layout_weight="0.15">
+                            <ImageView
+                                android:id="@+id/imgFirmaDetencionesAutoridadAdministrativo"
+                                android:layout_width="40dp"
+                                android:layout_height="50dp"
+                                android:src="@drawable/ic_firma" />
                         </LinearLayout>
 
                     </LinearLayout>
 
                 </LinearLayout>
-
             </LinearLayout>
+            <!-- linear Oculto Firma del Detenido -->
+
+            <!-- linear Oculto Firma del Detenido -->
+            <LinearLayout
+                android:id="@+id/oculto1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:visibility="invisible">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10"
+                    android:visibility="gone">
+                    <TextView
+                        android:id="@+id/lblFirmaOcultaDetenidoBase64"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text=""/>
+                </LinearLayout>
+            </LinearLayout>
+            <!-- linear Oculto Firma del Detenido -->
 
             <!-- Dirección del Detenido-->
 
@@ -473,7 +474,8 @@
                 android:id="@+id/octavoLinear"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="@color/background_sub_section">
                 <TextView
                     android:id="@+id/lblDomicilio"
                     android:layout_width="wrap_content"
@@ -890,8 +892,7 @@
                     android:weightSum="1"
                     android:layout_weight="0.10"
                     android:layout_gravity="center"
-                    android:gravity="center"
-                    >
+                    android:gravity="center">
 
                     <EditText
                         android:id="@+id/txtCualPadecimiento"
@@ -1060,34 +1061,6 @@
                 </LinearLayout>
 
             </LinearLayout>
-
-            <!-- linear Oculto Firma del Detenido -->
-            <LinearLayout
-                android:id="@+id/oculto1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="horizontal"
-                android:layout_marginTop="20dp"
-                android:visibility="invisible">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:weightSum="1"
-                    android:layout_weight="0.10"
-                    android:visibility="gone">
-                    <TextView
-                        android:id="@+id/lblFirmaOcultaDetenidoBase64"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/font"
-                        android:text=""/>
-                </LinearLayout>
-            </LinearLayout>
-            <!-- linear Oculto Firma del Detenido -->
-
 
             <!--======== BOTÓN y ListView============ -->
             <LinearLayout

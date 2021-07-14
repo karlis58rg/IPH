@@ -58,7 +58,8 @@ dependencies {
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.19'
     /********************* LIBRERIA GPS ********************/
     implementation 'com.google.android.gms:play-services-location:15.0.1'
-
+    /*********** LIBRERIA OBTENER IMAGEN DESDE URL ********************/
+    implementation 'com.squareup.picasso:picasso:2.71828'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'

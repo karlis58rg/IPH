@@ -68,7 +68,6 @@ public class PrincipalAdministrativo extends Fragment {
     int numberRandom;
     int actualzarinformacion = 0;
 
-
     public static PrincipalAdministrativo newInstance() {
         return new PrincipalAdministrativo();
     }

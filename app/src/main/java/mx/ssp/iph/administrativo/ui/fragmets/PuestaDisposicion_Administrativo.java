@@ -32,15 +32,19 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.lang.Object;
 import java.util.Date;
+import java.util.Random;
 
 
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -73,13 +77,14 @@ public class PuestaDisposicion_Administrativo extends Fragment {
     EditText txtFolioInternoAdministrativo,txtFolioSistemaAdministrativo,txtNoReferenciaAdministrativo,
             txtFechaPuestaDisposicionAdministrativo,txthoraPuestaDisposicionAdministrativo,txtNoExpedienteAdmministrativo,txtFiscaliaAutoridadAdministrativo;
     TextView lblFirmaAutoridadRealizadaAdministrativo,lblFirmaOcultaAutoridadBase64;
-    ImageView btnGuardarPuestaDisposicioAdministrativo;
+    ImageView btnGuardarPuestaDisposicioAdministrativo,imgFirmaAutoridadAdministrativoMiniatura;
     SharedPreferences share;
-    String cargarIdFaltaAdmin,cargarUsuario,noReferencia,noExpediente,
+    String cargarIdFaltaAdmin,cargarUsuario,noReferencia,noExpediente,firmaURLServer = "http://189.254.7.167/WebServiceIPH/Firma/SINFIRMA.jpg",
             varAnexoA = "NO",varNoDetenidos = "000",varAnexoB = "NO",varNoVehiculos = "000",varSinAnexos = "NO",
             varNoAplicaUnidad,descUnidad,descAutoridad,descCargo,
             edo = "",inst = "",gob = "",mpio = "",fecha = "",
             dia = "01",mes = "01",anio = "2021",tiempo = "",hora = "",minutos = "",respuestaJson;
+    int numberRandom,randomUrlImagen;
     Funciones funciones;
     Spinner txtCargoAdministrativo,txtUnidadDeArriboAdministrativo,
             spDetencionesAnexoAAdministrativo,spDetencionesAnexoBAdministrativo,txtAdscripcionAdministrativo;
@@ -96,6 +101,7 @@ public class PuestaDisposicion_Administrativo extends Fragment {
         //************************************** ACCIONES DE LA VISTA **************************************//
         funciones = new Funciones();
         cargarFolios();
+        random();
         txtFechaPuestaDisposicionAdministrativo = root.findViewById(R.id.txtFechaPuestaDisposicionAdministrativo);
         txthoraPuestaDisposicionAdministrativo = root.findViewById(R.id.txthoraPuestaDisposicionAdministrativo);
         txtNoExpedienteAdmministrativo = root.findViewById(R.id.txtNoExpedienteAdmministrativo);
@@ -124,6 +130,8 @@ public class PuestaDisposicion_Administrativo extends Fragment {
         //rgPrimerRespondienteAdministrativo = root.findViewById(R.id.rgPrimerRespondienteAdministrativo);
 
         imgFirmaAutoridadAdministrativo = (ImageView) root.findViewById(R.id.imgFirmaAutoridadAdministrativo);
+        imgFirmaAutoridadAdministrativoMiniatura = root.findViewById(R.id.imgFirmaAutoridadAdministrativoMiniatura);
+
         lblFirmaOcultaAutoridadBase64 = root.findViewById(R.id.lblFirmaOcultaAutoridadBase64);
 
         linearAnexos = root.findViewById(R.id.linearAnexos);
@@ -134,16 +142,11 @@ public class PuestaDisposicion_Administrativo extends Fragment {
         lySinAnexosAdministrativo = root.findViewById(R.id.lySinAnexosAdministrativo);
         lySinEntregaAnexosAdministrativo = root.findViewById(R.id.lySinEntregaAnexosAdministrativo);
 
-
-
-
-
         txtFolioInternoAdministrativo.setText(cargarIdFaltaAdmin);
         txtFolioInternoAdministrativo.setEnabled(false);
         txtNoReferenciaAdministrativo.setEnabled(false);
         ListCombos();
         getNumReferencia();
-
         //Cambia el título de acuerdo a la sección seleccionada
         funciones.CambiarTituloSecciones("SECCIÓN 1: PUESTA A DISPOSICIÓN",getContext(),getActivity());
 
@@ -372,6 +375,13 @@ public class PuestaDisposicion_Administrativo extends Fragment {
         //****************************************************************************//
         return root;
     }
+
+    public void getFirmaFromURL(){
+        Picasso.get()
+                .load(firmaURLServer)
+                .into(imgFirmaAutoridadAdministrativoMiniatura);
+    }
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -481,7 +491,7 @@ public class PuestaDisposicion_Administrativo extends Fragment {
         int idCargo = dataHelper.getIdCargo(descCargo);
         String cargo = String.valueOf(idCargo);
 
-        String urlImagen = "http://189.254.7.167/WebServiceIPH/Firma/"+cargarIdFaltaAdmin+".jpg";
+        String urlImagen = "http://189.254.7.167/WebServiceIPH/Firma/"+cargarIdFaltaAdmin+randomUrlImagen+".jpg";
 
         ModeloRecibeDisposicion_Administrativo recibePuestaDisposicion = new ModeloRecibeDisposicion_Administrativo
                 (cargarIdFaltaAdmin, adscripcion,cargo,txtFiscaliaAutoridadAdministrativo.getText().toString(),urlImagen);
@@ -539,7 +549,7 @@ public class PuestaDisposicion_Administrativo extends Fragment {
 
         OkHttpClient client = new OkHttpClient();
         RequestBody body = new FormBody.Builder()
-                .add("Description", cargarIdFaltaAdmin+".jpg")
+                .add("Description", cargarIdFaltaAdmin+randomUrlImagen+".jpg")
                 .add("ImageData", cadena)
                 .build();
         Request request = new Request.Builder()
@@ -610,7 +620,7 @@ public class PuestaDisposicion_Administrativo extends Fragment {
                                     //Deserializa el json y colcoa el dato correspondiente en cada campo si existe
                                     try {
                                         JSONObject jsonjObject = new JSONObject(ArregloJson);
-
+                                        txtNoReferenciaAdministrativo.setText((jsonjObject.getString("NumReferencia")).equals("null")?"":jsonjObject.getString("NumReferencia"));
                                         String[] Fecha = (jsonjObject.getString("Fecha").replace("-","/")).split("T");
                                         txtFechaPuestaDisposicionAdministrativo.setText((jsonjObject.getString("Fecha")).equals("null")?"":Fecha[0]);
                                         txthoraPuestaDisposicionAdministrativo.setText((jsonjObject.getString("Hora")).equals("null")?"":jsonjObject.getString("Hora"));
@@ -662,7 +672,6 @@ public class PuestaDisposicion_Administrativo extends Fragment {
     }
 
     private void cargarPuestaDisposicionFiscalia() {
-
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url("http://189.254.7.167/WebServiceIPH/api/RecibeDisposicionAdministrativa?folioInterno="+cargarIdFaltaAdmin)
@@ -708,12 +717,11 @@ public class PuestaDisposicion_Administrativo extends Fragment {
                                         //txtNombresAdministrativo.setText((jsonjObject.getString("NomRecibePuestaDisp")).equals("null")?"":jsonjObject.getString("NomRecibePuestaDisp"));
                                         txtFiscaliaAutoridadAdministrativo.setText((jsonjObject.getString("NomRecibePuestaDisp")).equals("null")?"":jsonjObject.getString("NomRecibePuestaDisp"));
                                         lblFirmaAutoridadRealizadaAdministrativo.setText((jsonjObject.getString("UrlFirma")).equals("null")?"":"FIRMA CORRECTA");
-
+                                        firmaURLServer = (jsonjObject.getString("UrlFirma").equals("null")?firmaURLServer:jsonjObject.getString("UrlFirma"));
+                                        getFirmaFromURL();
                                         //Llenar spiners
                                         txtAdscripcionAdministrativo.setSelection(funciones.getIndexSpiner(txtAdscripcionAdministrativo, jsonjObject.getString("IdFiscaliaAutoridad")));
                                         txtCargoAdministrativo.setSelection(funciones.getIndexSpiner(txtCargoAdministrativo, jsonjObject.getString("IdCargo")));
-
-
 
                                     } catch (JSONException e) {
                                         e.printStackTrace();
@@ -834,7 +842,6 @@ public class PuestaDisposicion_Administrativo extends Fragment {
             Toast.makeText(getContext(), "LO SENTIMOS, NO CUENTA CON ADSCRIPCIONES.", Toast.LENGTH_LONG).show();
         }
     }
-
     //***************** SE RECUPERA EL FOLIO INTERNO **************************//
     private void CargarDatos() {
         if (cargarIdFaltaAdmin.equals(""))
@@ -852,5 +859,12 @@ public class PuestaDisposicion_Administrativo extends Fragment {
         }
 
     }
+
+    public void random(){
+        Random random = new Random();
+        numberRandom = random.nextInt(9000)*99;
+        randomUrlImagen = numberRandom;
+    }
+
 
 }
