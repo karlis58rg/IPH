@@ -1064,7 +1064,7 @@
 
             <!--======== BOTÓN y ListView============ -->
             <LinearLayout
-                android:id="@+id/veinticinco"
+                android:id="@+id/veinticincoBtnAgregar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -1101,6 +1101,68 @@
                     android:layout_weight="0.10">
                 </LinearLayout>
             </LinearLayout>
+
+            <!--======== BOTÓN y ListView============ -->
+            <LinearLayout
+                android:id="@+id/veinticincoBtnEditar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:visibility="gone">
+                <LinearLayout
+                    android:id="@+id/lyEditarPuestaDisposicionAdministrativo"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:weightSum="1"
+                    android:layout_weight="0.5">
+
+                    <ImageView
+                        android:id="@+id/btnEditarDetencionesAdministrativo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/boton_actualizar_delictivo" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lyEliminarPuestaDisposicionAdministrativo"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:weightSum="1"
+                    android:layout_weight="0.5">
+
+                    <ImageView
+                        android:id="@+id/btnEliminarDetencionesAdministrativo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/boton_eliminar_delictivo" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lyCancelarPuestaDisposicionAdministrativo"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:weightSum="1"
+                    android:layout_weight="0.5">
+
+                    <ImageView
+                        android:id="@+id/btnCancelarDetencionesAdministrativo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/boton_cancelar_delictivo" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+            <!--======== FIN BOTÓN y ListView============ -->
 
             <LinearLayout
                 android:id="@+id/listaLinear"

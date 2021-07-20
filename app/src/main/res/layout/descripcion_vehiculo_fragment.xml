@@ -517,7 +517,7 @@
 
             <!--======== BOTÓN y ListView============ -->
             <LinearLayout
-                android:id="@+id/catorceavoLinear"
+                android:id="@+id/catorceavoLinearGuardarVehiculo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -555,6 +555,69 @@
                     android:layout_weight="0.10">
                 </LinearLayout>
             </LinearLayout>
+
+            <!--======== BOTÓN y ListView============ -->
+            <LinearLayout
+                android:id="@+id/catorceavoLinearVehiculo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:visibility="gone">
+                <LinearLayout
+                    android:id="@+id/lyEditarVehiculo"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:weightSum="1"
+                    android:layout_weight="0.5">
+
+                    <ImageView
+                        android:id="@+id/btnEditarVehiculoAdministrativo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/boton_actualizar_delictivo" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lyEliminarVehiculoAdministrativo"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:weightSum="1"
+                    android:layout_weight="0.5">
+
+                    <ImageView
+                        android:id="@+id/btnEliminarVehiculoAdministrativo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/boton_eliminar_delictivo" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lyCancelarVehiculoAdministrativo"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:weightSum="1"
+                    android:layout_weight="0.5">
+
+                    <ImageView
+                        android:id="@+id/btnCancelarVehiculoAdministrativo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/boton_cancelar_delictivo" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
 
             <LinearLayout
                 android:id="@+id/quinceavoLinear"

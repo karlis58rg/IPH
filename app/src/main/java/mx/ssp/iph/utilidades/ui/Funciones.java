@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.util.Log;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -28,6 +29,7 @@ import mx.ssp.iph.R;
 public class Funciones {
 
     ProgressDialog progressDialog;
+
 
     //***************** Calendario Picker **************************//
     public void calendar(Integer idCajadeTextoCalendario, Context context, Activity activity){
@@ -136,6 +138,7 @@ public class Funciones {
 
     //***************** OBTIENE LA POSICIÓN DEL SPINER **************************//
     public int getIndexSpiner(Spinner spinner, String myString){
+        Log.i("SPINER", "iNICIA");
         for (int i=0;i<spinner.getCount();i++){
             //Toast.makeText(getContext(),""+spinner.getItemAtPosition(i).toString() + " - " + spinner.getItemIdAtPosition(i),Toast.LENGTH_SHORT).show();
             if (spinner.getItemAtPosition(i).toString().equalsIgnoreCase(myString)){
@@ -144,5 +147,6 @@ public class Funciones {
         }
         return 0;
     }
+
 
 }

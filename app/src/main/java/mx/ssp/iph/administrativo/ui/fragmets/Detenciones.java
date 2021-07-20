@@ -4,12 +4,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Looper;
 import android.speech.RecognizerIntent;
 import android.text.InputFilter;
-import android.text.InputType;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -18,11 +16,11 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -36,7 +34,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -60,6 +57,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import com.squareup.picasso.Picasso;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -76,7 +74,7 @@ public class Detenciones extends Fragment  {
     Spinner spGeneroDetenido,txtNacionalidadDetenido,txtMunicipioDetenido,spLugarTrasladoPersonaDetenida;
     RadioGroup rgLesiones, rgPadecimiento, rgGrupoVulnerable;
     RadioButton rbNoLesiones, rbSiLesiones, rbPadecimiento, rbSiPadecimiento, rbNoGrupoVulnerable, rbSiGrupoVulnerable;
-    ImageView btnGuardarDetencionesAdministrativo,imgFirmadelDetenidoMiniatura;
+    ImageView btnGuardarDetencionesAdministrativo,btnEditarDetencionesAdministrativo,btnCancelarDetencionesAdministrativo,btnEliminarDetencionesAdministrativo,imgFirmadelDetenidoMiniatura;
     private Funciones funciones;
     SharedPreferences share;
     private ListView lvDetenidos_Administrativo;
@@ -85,6 +83,11 @@ public class Detenciones extends Fragment  {
     String firmaURLServer = "http://189.254.7.167/WebServiceIPH/Firma/SINFIRMA.jpg";
     int numberRandom,randomUrlImagen;
     private ViewGroup linearApodoDetenido, cuartoLinear, segundoLinear, catorceavoLinear, quinceavoLinear, dieciseisLinear, diecisietelinear, especificaNacionalidad;
+    //Variable para almacenar el jsn detenido y deserealizarlo al darle clic a la lista
+    String[] ArrayListaIPHAdministrativo;
+    LinearLayout veinticincoBtnAgregar,veinticincoBtnEditar;
+    int PosicionIPHSeleccionado= 0;
+
 
 
 
@@ -106,6 +109,10 @@ public class Detenciones extends Fragment  {
         View view  = inflater.inflate(R.layout.detenciones_fragment, container, false);
         /********************************************************************************************/
         funciones = new Funciones();
+
+        veinticincoBtnAgregar = (LinearLayout) view.findViewById(R.id.veinticincoBtnAgregar);
+        veinticincoBtnEditar = (LinearLayout) view.findViewById(R.id.veinticincoBtnEditar);
+
         lvDetenidos_Administrativo = (ListView) view.findViewById(R.id.lvDetenidos_Administrativo);
 
         txtDescripciondelDetenido = (TextView)view.findViewById(R.id.txtDescripciondelDetenido);
@@ -180,6 +187,10 @@ public class Detenciones extends Fragment  {
         imgFirmadelDetenidoMiniatura = view.findViewById(R.id.imgFirmadelDetenidoMiniatura);
 
         btnGuardarDetencionesAdministrativo = view.findViewById(R.id.btnGuardarDetencionesAdministrativo);
+        btnEditarDetencionesAdministrativo = view.findViewById(R.id.btnEditarDetencionesAdministrativo);
+        btnCancelarDetencionesAdministrativo = view.findViewById(R.id.btnCancelarDetencionesAdministrativo);
+        btnEliminarDetencionesAdministrativo  = view.findViewById(R.id.btnEliminarDetencionesAdministrativo);
+
         ListLugarTraslado();
         ListMunicipios();
         ListNacionalidad();
@@ -466,7 +477,84 @@ public class Detenciones extends Fragment  {
             }
         });
 
+        btnEditarDetencionesAdministrativo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+            }
+        });
+
+        btnEliminarDetencionesAdministrativo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //Alert para eliminar el detenido
+
+                AlertDialog.Builder builder =
+                        new AlertDialog.Builder(getContext()).
+                                setMessage("¿DESEA ELIMINAR EL DETENIDO "+ ListaNombreDetenido.get(PosicionIPHSeleccionado) + "?" ).
+                                setPositiveButton( "ACEPTAR", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        //CONSUME WEB SERVICE PARA ELIMINAR DB
+                                        String IdDetenido = ListaIdDetenido.get(PosicionIPHSeleccionado);
+                                        EliminarDetenido(IdDetenido);
+                                        dialog.dismiss();
+                                    }
+                                })
+                                .setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        // User cancelled the dialog
+                                        dialog.dismiss();
+                                    }
+                                });
+
+
+                builder.create().show();
+            }
+        });
+
+        btnCancelarDetencionesAdministrativo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Limpia los campos
+                txtFechaDetenido.setText("");
+                txthoraDetencion.setText("");
+                txtFechaNacimientoDetenido.setText("");
+                txtPrimerApellidoDetenido.setText("");
+                txtSegundoApellidoDetenido.setText("");
+                txtNombresDetenido.setText("");
+                txtApodoDetenido.setText("");
+                txtColoniaDetenido.setText("");
+                txtCalleDetenido.setText("");
+                txtNumeroExteriorDetenido.setText("");
+                txtNumeroInteriorDetenido.setText("");
+                txtCodigoPostalDetenido.setText("");
+                txtReferenciasdelLugarDetenido.setText("");
+                txtCualGrupoVulnerable.setText("");
+                txtCualPadecimiento.setText("");
+                txtDescripciondelDetenido.setText("");
+
+                chNoAplicaAliasDetenido.setChecked(false);
+                rbNoLesiones.setChecked(true);
+                rbNoGrupoVulnerable.setChecked(true);
+                rbPadecimiento.setChecked(true);
+                txtCualPadecimiento.setText("");
+                txtCualGrupoVulnerable.setText("");
+
+                txtNacionalidadDetenido.setSelection(funciones.getIndexSpiner(txtNacionalidadDetenido, ("Mexicano")));
+                spLugarTrasladoPersonaDetenida.setSelection(funciones.getIndexSpiner(spLugarTrasladoPersonaDetenida, ("FISCALIA GENERAL DEL ESTADO")));
+                spGeneroDetenido.setSelection(funciones.getIndexSpiner(spGeneroDetenido, ("MASCULINO")));
+
+
+                //addFragment(new Detenciones());
+
+                //Oculto el botón de Editar y Coloco 2 botones.
+                veinticincoBtnEditar.setVisibility(View.GONE);
+                veinticincoBtnAgregar.setVisibility(View.VISIBLE);
+
+            }
+        });
 
         rgLesiones.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -516,27 +604,72 @@ public class Detenciones extends Fragment  {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                AlertDialog.Builder builder =
-                        new AlertDialog.Builder(getContext()).
-                                setMessage("¿DESEA ELIMINAR EL DETENIDO "+ ListaIdDetenido.get(position) + "" ).
-                                setPositiveButton( "ACEPTAR", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        //CONSUME WEB SERVICE PARA ELIMINAR DB
-                                        String IdDetenido = ListaIdDetenido.get(position);
-                                        EliminarDetenido(IdDetenido);
-                                        dialog.dismiss();
-                                    }
-                                })
-                                .setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        // User cancelled the dialog
-                                        dialog.dismiss();
-                                    }
-                                });
+
+//
+                try {
+                    String Json = ArrayListaIPHAdministrativo[position];
+                    JSONObject jsonjObject = new JSONObject(Json + "}");
+
+                    PosicionIPHSeleccionado= position;
+
+                    //funciones.mensajeAlertDialog(Fecha,"Aceptar","Alerta",getContext());
+                    //Deserealizar y colocar los valores en los campos.
+
+                    txtFechaDetenido.setText(((jsonjObject.getString("Fecha")).equals("null")?"":jsonjObject.getString("Fecha")).replace("-","/").substring(0,10));
+                    txthoraDetencion.setText(((jsonjObject.getString("Hora")).equals("null")?"":jsonjObject.getString("Hora")));
+                    txtPrimerApellidoDetenido.setText((jsonjObject.getString("APDetenido")).equals("null")?"":jsonjObject.getString("APDetenido"));
+                    txtSegundoApellidoDetenido.setText((jsonjObject.getString("AMDetenido")).equals("null")?"":jsonjObject.getString("AMDetenido"));
+                    txtNombresDetenido.setText((jsonjObject.getString("NomDetenido")).equals("null")?"":jsonjObject.getString("NomDetenido"));
+
+                    txtApodoDetenido.setText((jsonjObject.getString("ApodoAlias")).equals("null")?"":jsonjObject.getString("ApodoAlias"));
+                    if(txtApodoDetenido.getText().toString().equals("")){chNoAplicaAliasDetenido.setChecked(true);}
+
+                    spGeneroDetenido.setSelection(funciones.getIndexSpiner(spGeneroDetenido, (jsonjObject.getString("Sexo"))));
+                    //Revisar cuando es otra
+                    txtNacionalidadDetenido.setSelection(funciones.getIndexSpiner(txtNacionalidadDetenido, (jsonjObject.getString("Nacionalidad"))));
+                    if (jsonjObject.getString("Nacionalidad").equals("Otra")){txtNacionalidadEspecifiqueDetenido.setText(jsonjObject.getString("Nacionalidad"));}
+
+                    txtFechaNacimientoDetenido.setText(((jsonjObject.getString("FechaNacimiento")).equals("null")?"":jsonjObject.getString("FechaNacimiento")).replace("-","/").substring(0,10));
+
+                    //Revisar Firma
+
+                    //DIRECCIÓN
+                    txtEntidadDetenido.setText("GUERRERO");
+                    txtMunicipioDetenido.setSelection(funciones.getIndexSpiner(txtMunicipioDetenido, (jsonjObject.getString("Municipio"))));
+                    txtColoniaDetenido.setText(((jsonjObject.getString("ColoniaLocalidad")).equals("null")?"":jsonjObject.getString("ColoniaLocalidad")));
+                    txtCalleDetenido.setText(((jsonjObject.getString("CalleTramo")).equals("null")?"":jsonjObject.getString("CalleTramo")));
+                    txtNumeroExteriorDetenido.setText(((jsonjObject.getString("NoExterior")).equals("null")?"":jsonjObject.getString("NoExterior")));
+                    txtNumeroInteriorDetenido.setText(((jsonjObject.getString("NoInterior")).equals("null")?"":jsonjObject.getString("NoInterior")));
+                    txtCodigoPostalDetenido.setText(((jsonjObject.getString("Cp")).equals("null")?"":jsonjObject.getString("Cp")));
+                    txtReferenciasdelLugarDetenido.setText(((jsonjObject.getString("Referencia")).equals("null")?"":jsonjObject.getString("Referencia")));
+                    txtDescripciondelDetenido.setText(((jsonjObject.getString("DescripcionDetenido")).equals("null")?"":jsonjObject.getString("DescripcionDetenido")));
+
+                    //Preguntas
+                    if ((jsonjObject.getString("Lesiones")).equals("SI")){rbSiLesiones.setChecked(true);}
+                    else{rbNoLesiones.setChecked(true);}
+
+                    if ((jsonjObject.getString("Padecimientos")).equals("SI")){rbSiPadecimiento.setChecked(true); txtCualPadecimiento.setText(((jsonjObject.getString("DescPadecimientos")).equals("null")?"":jsonjObject.getString("DescPadecimientos")));}
+                    else{rbPadecimiento.setChecked(true);}
+
+                    if ((jsonjObject.getString("GrupoVulnerable")).equals("SI")){rbSiGrupoVulnerable.setChecked(true); txtCualGrupoVulnerable.setText(((jsonjObject.getString("DescGrupoVulnerable")).equals("null")?"":jsonjObject.getString("DescGrupoVulnerable")));}
+                    else{rbNoGrupoVulnerable.setChecked(true);}
+
+                    //Autoridad
+                    spLugarTrasladoPersonaDetenida.setSelection(funciones.getIndexSpiner(spLugarTrasladoPersonaDetenida, (jsonjObject.getString("LugarTraslado"))));
+
+                    //Oculto el botón de Guardar y Coloco 2 botones.
+                    veinticincoBtnEditar.setVisibility(View.VISIBLE);
+                    veinticincoBtnAgregar.setVisibility(View.GONE);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getContext(), "ERROR AL DESEREALIZAR EL JSON", Toast.LENGTH_SHORT).show();
+                    Log.i("DETENCIONES", e.toString());
+                }
 
 
-                builder.create().show();
+
+
             }
         });
 
@@ -650,6 +783,7 @@ public class Detenciones extends Fragment  {
                                 else{
                                     //SEPARAR CADA detenido EN UN ARREGLO
                                     String[] ArrayIPHAdministrativo = ArregloJson.split(Pattern.quote("},"));
+                                    ArrayListaIPHAdministrativo = ArrayIPHAdministrativo;
 
                                     //RECORRE EL ARREGLO PARA AGREGAR EL FOLIO CORRESPONDIENTE DE CADA OBJETJSN
                                     int contadordeDetenido=0;
