@@ -3,7 +3,6 @@ package mx.ssp.iph.administrativo.ui.fragmets;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -12,7 +11,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.os.Looper;
-import android.provider.MediaStore;
 import android.text.InputFilter;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,15 +22,11 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -40,10 +34,6 @@ import java.util.ArrayList;
 import java.lang.Object;
 import java.util.Date;
 import java.util.Random;
-
-
-import android.widget.TextView;
-
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -51,12 +41,9 @@ import org.json.JSONObject;
 
 import mx.ssp.iph.R;
 import mx.ssp.iph.SqLite.DataHelper;
-import mx.ssp.iph.administrativo.model.ModeloNoReferencia_Administrativo;
 import mx.ssp.iph.administrativo.model.ModeloPuestaDisposicion_Administrativo;
 import mx.ssp.iph.administrativo.model.ModeloRecibeDisposicion_Administrativo;
 import mx.ssp.iph.administrativo.viewModel.PuestaDisposicionAdministrativoViewModel;
-import mx.ssp.iph.delictivo.ui.fragmets.HechosDelictivos;
-import mx.ssp.iph.utilidades.ui.ContenedorFirma;
 import mx.ssp.iph.utilidades.ui.ContenedorFirmaPDisposicion;
 import mx.ssp.iph.utilidades.ui.Funciones;
 import okhttp3.Call;

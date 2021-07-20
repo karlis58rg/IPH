@@ -26,6 +26,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -70,14 +71,18 @@ public class DescripcionVehiculo extends Fragment {
     private RadioButton rbTerrestre, rbOtro, rbNacional, rbExtranjero, rbParticular, rbTransportePublico, rbCarga;
     Spinner spMarcaVehiculo,spSubmarcaVehiculo,txtModeloVehiculo,txtColorVehiculo;
     TextView txtOtroVehiculo,txtPlacaVehiculo,txtSerieVehiculo,txtDestinoVehiculo;
-    ImageView btnGuardarVehiculo;
+    ImageView btnGuardarVehiculo,btnEliminarVehiculoAdministrativo,btnCancelarVehiculoAdministrativo,btnEditarVehiculoAdministrativo;
     ViewGroup segundoLinear, tipoVehiculoAdministrativo, otroTipoVehiculoAdministrativo, procedenciaVehiculoAdministrativo, usoVehiculoAdministrativo, novenoLinear, destinoVehiculoAdministrativo;
-
+    LinearLayout catorceavoLinearGuardarVehiculo,catorceavoLinearVehiculo;
 
     SharedPreferences share;
     String cargarIdFaltaAdmin,cargarUsuario,varTipoVehiculo,varTipoOtro,varProcedencia,varUso,idMarca,idSubMarca,descripcionMarca,descripcionSubMarca,descripcionColor,descripcionAnio;
     private ListView lvVehiculos;
+
     ArrayList<String> ListaIdVehiculo,ListaDatosVehiculo;
+    int PosicionIPHSeleccionado= -1;
+    String SubmarcaSeleccionada="";
+    String[] ArrayListaIPHAdministrativo;
 
     public static DescripcionVehiculo newInstance() {
         return new DescripcionVehiculo();
@@ -88,6 +93,13 @@ public class DescripcionVehiculo extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.descripcion_vehiculo_fragment, container, false);
         funciones = new Funciones();
+
+        catorceavoLinearGuardarVehiculo = (LinearLayout ) root.findViewById(R.id.catorceavoLinearGuardarVehiculo);
+        catorceavoLinearVehiculo = (LinearLayout ) root.findViewById(R.id.catorceavoLinearVehiculo);
+        btnEliminarVehiculoAdministrativo = (ImageView) root.findViewById(R.id.btnEliminarVehiculoAdministrativo);
+        btnCancelarVehiculoAdministrativo = (ImageView)root.findViewById(R.id.btnCancelarVehiculoAdministrativo);
+        btnEditarVehiculoAdministrativo = (ImageView)root.findViewById(R.id.btnEditarVehiculoAdministrativo);
+
         txtObservacionesdelVehiculo = (TextView)root.findViewById(R.id.txtObservacionesdelVehiculo);
         txtObservacionesdelVehiculo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(8000)});
         imgMicrofonoObservacionesdelVehiculo = (ImageView) root.findViewById(R.id.imgMicrofonoObservacionesdelVehiculo);
@@ -169,25 +181,7 @@ public class DescripcionVehiculo extends Fragment {
         });
 
 
-        spMarcaVehiculo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                //Toast.makeText(getContext(), "CLICK VEHICULOS", Toast.LENGTH_LONG).show();
-                descripcionMarca = (String) spMarcaVehiculo.getSelectedItem();
-                String idmarca = dataHelper.getIdMarcaVehiculo(descripcionMarca);
 
-                ArrayList<String> submarcaVehiculos = dataHelper.getValueByIdMarca(idmarca);
-                ArrayAdapter<String> adapterSubMarca = new ArrayAdapter<String>(getActivity(), R.layout.spinner_layout, R.id.txt, submarcaVehiculos);
-                adapterSubMarca.setDropDownViewResource(R.layout.spinner_layout);
-                spSubmarcaVehiculo.setAdapter(adapterSubMarca);
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
 
 
         txtOtroVehiculo.setEnabled(false);
@@ -301,22 +295,62 @@ public class DescripcionVehiculo extends Fragment {
             }
         });
 
-        /**************************************************************************************/
-        /*********************************************************************************************************/
-        //Clic a la lista
-        lvVehiculos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        btnEditarVehiculoAdministrativo.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onClick(View v) {
 
+                if(txtFechaRetencion.getText().toString().length() >= 3 && txthoraRetencion.getText().toString().length() >= 3){
+                    if(rbTerrestre.isChecked() || rbOtro.isChecked()){
+                        if(rbNacional.isChecked() || rbExtranjero.isChecked()){
+                            if(rbParticular.isChecked() || rbTransportePublico.isChecked() || rbCarga.isChecked()){
+                                if(txtDestinoVehiculo.getText().toString().length() >= 3){
+                                    if(txtObservacionesdelVehiculo.getText().toString().length() >= 3){
+                                        Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
+                                        updateDescripcionVehiculos();
+                                    }else{
+                                        Toast.makeText(getActivity().getApplicationContext(),"INGRESA LAS OBSERVACIONES DEL VEHÍCULO ANTES DE CONTINUAR",Toast.LENGTH_SHORT).show();
+                                        novenoLinear.requestFocus();
+                                    }
 
+                                }else{
+                                    Toast.makeText(getActivity().getApplicationContext(),"INGRESA EL DESTINO DEL VEHÍCULO ANTES DE CONTINUAR",Toast.LENGTH_SHORT).show();
+                                    destinoVehiculoAdministrativo.requestFocus();
+                                }
+
+                            }else{
+                                Toast.makeText(getActivity().getApplicationContext(),"SELECCIONA EL USO DEL VEHÍCULO ANTES DE CONTINUAR",Toast.LENGTH_SHORT).show();
+                                usoVehiculoAdministrativo.requestFocus();
+                            }
+
+                        }else{
+                            Toast.makeText(getActivity().getApplicationContext(),"SELECCIONA PROCEDENCIA DEL VEHÍCULO ANTES DE CONTINUAR",Toast.LENGTH_SHORT).show();
+                            procedenciaVehiculoAdministrativo.requestFocus();
+                        }
+
+                    }else{
+                        Toast.makeText(getActivity().getApplicationContext(),"SELECCIONA EL TIPO DE VEHÍCULO ANTES DE CONTINUAR",Toast.LENGTH_SHORT).show();
+                        tipoVehiculoAdministrativo.requestFocus();
+                    }
+
+                }else{
+                    Toast.makeText(getActivity().getApplicationContext(),"NO SE PUEDE ALMACENAR INFORMACIÓN DE VEHÍCULO SIN FECHA Y HORA DE REGISTRO",Toast.LENGTH_SHORT).show();
+                    segundoLinear.requestFocus();
+                }
+
+            }
+        });
+
+        btnEliminarVehiculoAdministrativo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 AlertDialog.Builder builder =
                         new AlertDialog.Builder(getContext()).
-                                setMessage("¿DESEA ELIMINAR EL VEHÍCULO "+ ListaIdVehiculo.get(position) + "" ).
+                                setMessage("¿DESEA ELIMINAR EL VEHÍCULO "+ ListaDatosVehiculo.get(PosicionIPHSeleccionado) + "" ).
                                 setPositiveButton( "ACEPTAR", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         //CONSUME WEB SERVICE PARA ELIMINAR DB
-                                        String IdDetenido = ListaIdVehiculo.get(position);
+                                        String IdDetenido = ListaIdVehiculo.get(PosicionIPHSeleccionado);
                                         EliminarVehiculo(IdDetenido);
                                         dialog.dismiss();
                                     }
@@ -329,6 +363,130 @@ public class DescripcionVehiculo extends Fragment {
                                 });
 
                 builder.create().show();
+
+
+            }
+        });
+
+        btnCancelarVehiculoAdministrativo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            //Limpiar Campos
+
+                txtFechaRetencion.setText("");
+                txthoraRetencion.setText("");
+
+                txtOtroVehiculo.setText("");
+
+                rgTipoVehiculoAdministrativo.clearCheck();
+                rgProcedenciaVehiculoAdministrativo.clearCheck();
+                rgUsoVehiculoAdministrativo.clearCheck();
+
+                spMarcaVehiculo.setSelection(funciones.getIndexSpiner(spMarcaVehiculo, ("")));
+                spSubmarcaVehiculo.setSelection(funciones.getIndexSpiner(spSubmarcaVehiculo, ("")));
+                txtModeloVehiculo.setSelection(funciones.getIndexSpiner(txtModeloVehiculo, ("")));
+                txtColorVehiculo.setSelection(funciones.getIndexSpiner(txtColorVehiculo, ("")));
+
+                txtPlacaVehiculo.setText("");
+                txtSerieVehiculo.setText("");
+                txtDestinoVehiculo.setText("");
+                txtObservacionesdelVehiculo.setText("");
+
+                PosicionIPHSeleccionado=-1;
+
+                //Oculto el botón de Editar y Coloco 2 botones.
+                catorceavoLinearVehiculo.setVisibility(View.GONE);
+                catorceavoLinearGuardarVehiculo.setVisibility(View.VISIBLE);
+            }
+        });
+
+        spMarcaVehiculo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                //Toast.makeText(getContext(), "CLICK VEHICULOS", Toast.LENGTH_LONG).show();
+                descripcionMarca = (String) spMarcaVehiculo.getSelectedItem();
+                String idmarca = dataHelper.getIdMarcaVehiculo(descripcionMarca);
+
+                ArrayList<String> submarcaVehiculos = dataHelper.getValueByIdMarca(idmarca);
+                ArrayAdapter<String> adapterSubMarca = new ArrayAdapter<String>(getActivity(), R.layout.spinner_layout, R.id.txt, submarcaVehiculos);
+                adapterSubMarca.setDropDownViewResource(R.layout.spinner_layout);
+                spSubmarcaVehiculo.setAdapter(adapterSubMarca);
+
+                Log.i("VEHICULOS", "Item change");
+
+                if (PosicionIPHSeleccionado > -1)
+                {
+                    Log.i("VEHICULOS", "entra al If");
+
+                    spSubmarcaVehiculo.setSelection(funciones.getIndexSpiner(spSubmarcaVehiculo, (SubmarcaSeleccionada)));
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
+
+        /**************************************************************************************/
+        /*********************************************************************************************************/
+        //Clic a la lista
+        lvVehiculos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                PosicionIPHSeleccionado = position;
+
+                try {
+                    String Json = ArrayListaIPHAdministrativo[position];
+                    JSONObject jsonjObject = new JSONObject(Json + "}");
+
+                    PosicionIPHSeleccionado= position;
+
+                    //Deserealizar y colocar los valores en los campos.
+
+
+                    txtFechaRetencion.setText(((jsonjObject.getString("Fecha")).equals("null")?"":jsonjObject.getString("Fecha")).replace("-","/").substring(0,10));
+                    txthoraRetencion.setText(((jsonjObject.getString("Hora")).equals("null")?"":jsonjObject.getString("Hora")));
+
+                    //Tipo de vehículo
+                    if ((jsonjObject.getString("Tipo")).equals("TERRESTRE")){rbTerrestre.setChecked(true);}
+                    else{rbOtro.setChecked(true); txtOtroVehiculo.setText((jsonjObject.getString("TipoOtro")).equals("null")?"":jsonjObject.getString("TipoOtro"));}
+
+                    //Procedencia
+                    if ((jsonjObject.getString("Procedencia")).equals("NACIONAL")){varProcedencia = "NACIONAL"; rbNacional.setChecked(true); }
+                    else{varProcedencia = "EXTRANJERO"; rbExtranjero.setChecked(true);  }
+
+                    //Uso del vehículo
+                    if ((jsonjObject.getString("Uso")).equals("PARTICULAR")){rbParticular.setChecked(true);}
+                    else if((jsonjObject.getString("Uso")).equals("CARGA")){rbCarga.setChecked(true);}
+                    else {rbTransportePublico.setChecked(true);}
+
+                    spMarcaVehiculo.setSelection(funciones.getIndexSpiner(spMarcaVehiculo, ((jsonjObject.getString("IdMarca")))));
+                    SubmarcaSeleccionada = (jsonjObject.getString("IdSubMarca"));
+                    txtModeloVehiculo.setSelection(funciones.getIndexSpiner(txtModeloVehiculo, ((jsonjObject.getString("Modelo")))));
+                    txtColorVehiculo.setSelection(funciones.getIndexSpiner(txtColorVehiculo, ((jsonjObject.getString("Color")))));
+
+                    txtPlacaVehiculo.setText((jsonjObject.getString("Placa")).equals("null")?"":jsonjObject.getString("Placa"));
+                    txtSerieVehiculo.setText((jsonjObject.getString("NoSerie")).equals("null")?"":jsonjObject.getString("NoSerie"));
+                    txtDestinoVehiculo.setText((jsonjObject.getString("Destino")).equals("null")?"":jsonjObject.getString("Destino"));
+                    txtObservacionesdelVehiculo.setText((jsonjObject.getString("Observaciones")).equals("null")?"":jsonjObject.getString("Observaciones"));
+
+                    //Oculto el botón de Editar y Coloco 2 botones.
+                    catorceavoLinearVehiculo.setVisibility(View.VISIBLE);
+                    catorceavoLinearGuardarVehiculo.setVisibility(View.GONE);
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getContext(), "ERROR AL DESEREALIZAR EL JSON", Toast.LENGTH_SHORT).show();
+                    Log.i("VEHICULOS", e.toString());
+                }
+
+
             }
         });
         return root;
@@ -423,6 +581,8 @@ public class DescripcionVehiculo extends Fragment {
                                 else{
                                     //SEPARAR CADA detenido EN UN ARREGLO
                                     String[] ArrayIPHAdministrativo = ArregloJson.split(Pattern.quote("},"));
+                                    ArrayListaIPHAdministrativo = ArrayIPHAdministrativo;
+
 
                                     //RECORRE EL ARREGLO PARA AGREGAR EL FOLIO CORRESPONDIENTE DE CADA OBJETJSN
                                     int contadordeDetenido=0;
@@ -432,11 +592,11 @@ public class DescripcionVehiculo extends Fragment {
 
                                             ListaIdVehiculo.add(jsonjObject.getString("IdVehiculo"));
                                             ListaDatosVehiculo.add(
-                                                    "PLACA: "+
+                                                    " PLACA: "+
                                                     ((jsonjObject.getString("Placa")).equals("null")?" - ":jsonjObject.getString("Placa")) +
-                                                    "Número de Serie: "+
+                                                    " Número de Serie: "+
                                                     " "+((jsonjObject.getString("NoSerie")).equals("null")?" - ":jsonjObject.getString("NoSerie")) +
-                                                    "DESTINO:  "+
+                                                    " DESTINO:  "+
                                                     " "+ ((jsonjObject.getString("Destino")).equals("null")?" - ":jsonjObject.getString("Destino"))
                                                      );
 
@@ -600,6 +760,92 @@ public class DescripcionVehiculo extends Fragment {
         });
     }
 
+    //***************** INSERTA A LA BD MEDIANTE EL WS **************************//
+    private void updateDescripcionVehiculos() {
+        DataHelper dataHelper = new DataHelper(getContext());
+
+        descripcionMarca = (String) spMarcaVehiculo.getSelectedItem();
+        String idDesMarca = dataHelper.getIdMarcaVehiculo(descripcionMarca);
+        String idMarca = idDesMarca;
+
+        descripcionSubMarca = (String) spSubmarcaVehiculo.getSelectedItem();
+        String  idDescSubMarca = dataHelper.getIdSubMarcaVehiculos(descripcionSubMarca);
+        String idSubMarca = idDescSubMarca;
+
+        descripcionColor = (String) txtColorVehiculo.getSelectedItem();
+
+        descripcionAnio = (String) txtModeloVehiculo.getSelectedItem();
+
+        ModeloDescripcionVehiculos_Administrativo modeloDescVehiculos = new ModeloDescripcionVehiculos_Administrativo
+                (cargarIdFaltaAdmin, txtFechaRetencion.getText().toString(), txthoraRetencion.getText().toString(), varTipoVehiculo,
+                        txtOtroVehiculo.getText().toString(), varProcedencia,idMarca,
+                        idSubMarca,descripcionAnio, descripcionColor, varUso,
+                        txtPlacaVehiculo.getText().toString(), txtSerieVehiculo.getText().toString(), txtObservacionesdelVehiculo.getText().toString(),
+                        txtDestinoVehiculo.getText().toString(), cargarUsuario);
+
+
+        OkHttpClient client = new OkHttpClient();
+        RequestBody body = new FormBody.Builder()
+                .add("IdFaltaAdmin", modeloDescVehiculos.getIdFaltaAdmin())
+                .add("Fecha",modeloDescVehiculos.getFecha())
+                .add("Hora", modeloDescVehiculos.getHora())
+                .add("Tipo", modeloDescVehiculos.getTipo())
+                .add("TipoOtro", modeloDescVehiculos.getTipoOtro())
+                .add("Procedencia", modeloDescVehiculos.getProcedencia())
+                .add("IdMarca", modeloDescVehiculos.getIdMarca())
+                .add("IdSubMarca", modeloDescVehiculos.getIdSubMarca())
+                .add("Modelo", modeloDescVehiculos.getModelo())
+                .add("Color", modeloDescVehiculos.getColor())
+                .add("Uso",modeloDescVehiculos.getUso())
+                .add("Placa", modeloDescVehiculos.getPlaca())
+                .add("NoSerie", modeloDescVehiculos.getNoSerie())
+                .add("Observaciones", modeloDescVehiculos.getObservaciones())
+                .add("Destino", modeloDescVehiculos.getDestino())
+                .add("IdPoliciaPrimerRespondiente", modeloDescVehiculos.getIdPoliciaPrimerRespondiente())
+                .build();
+        Request request = new Request.Builder()
+                .url("http://189.254.7.167/WebServiceIPH/api/VehiculosInvolucradosAdministrativa/")
+                .put(body)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Looper.prepare(); // to be able to make toast
+                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if(response.code() == 500){
+                    Toast.makeText(getContext(), "EXISTIÓ UN ERROR EN SU CONEXIÓN A INTERNET, INTÉNTELO NUEVAMENTE", Toast.LENGTH_SHORT).show();
+                }else if (response.isSuccessful()) {
+                    final String myResponse = response.body().string();
+                    DescripcionVehiculo.this.getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            String resp = myResponse;
+                            if(resp.equals("true")){
+                                System.out.println("EL DATO SE ENVIO CORRECTAMENTE");
+                                Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+                                txtOtroVehiculo.setText("");
+                                txtPlacaVehiculo.setText("");
+                                txtSerieVehiculo.setText("");
+                                txtDestinoVehiculo.setText("");
+                                txtObservacionesdelVehiculo.setText("");
+                                addFragment(new DescripcionVehiculo());
+
+                            }else{
+                                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, VERIFIQUE SU INFORMACIÓN", Toast.LENGTH_SHORT).show();
+                            }
+                            Log.i("VEHICULOS", resp);
+                        }
+                    });
+                }
+            }
+        });
+    }
     //***************** CONSULTA A LA BD MEDIANTE EL WS **************************//
     private void EliminarVehiculo(String IdVehiculo) {
 
