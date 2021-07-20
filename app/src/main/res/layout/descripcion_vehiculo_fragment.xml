@@ -240,9 +240,9 @@
                         android:id="@+id/rgProcedenciaVehiculoAdministrativo"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:gravity="center_vertical"
                         android:orientation="vertical"
-                        android:padding="@dimen/border"
-                        android:gravity="center_vertical">
+                        android:padding="@dimen/border">
 
                         <RadioButton
                             android:id="@+id/rbNacional"

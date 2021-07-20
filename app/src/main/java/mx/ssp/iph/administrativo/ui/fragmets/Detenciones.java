@@ -92,6 +92,7 @@ public class Detenciones extends Fragment  {
     String[] ArrayListaIPHAdministrativo;
     LinearLayout veinticincoBtnAgregar,veinticincoBtnEditar;
     int PosicionIPHSeleccionado= 0;
+    TextView lblFirmadelDetenido;
 
 
     String cargarIdFaltaAdmin,cargarUsuario,descripcionLugarTraslado,descripcionMunicipio,descripcionNacionalidad,descripcionSexo,
@@ -191,6 +192,7 @@ public class Detenciones extends Fragment  {
         btnCancelarDetencionesAdministrativo = view.findViewById(R.id.btnCancelarDetencionesAdministrativo);
         btnEliminarDetencionesAdministrativo  = view.findViewById(R.id.btnEliminarDetencionesAdministrativo);
 
+        lblFirmadelDetenido = view.findViewById(R.id.lblFirmadelDetenido);
         ListLugarTraslado();
         ListMunicipios();
         ListNacionalidad();
@@ -480,7 +482,161 @@ public class Detenciones extends Fragment  {
         btnEditarDetencionesAdministrativo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(txtFechaDetenido.getText().toString().length() >= 3 && txthoraDetencion.getText().toString().length() > 3){
+                    if(txtPrimerApellidoDetenido.getText().toString().length() >= 3) {
+                        if (txtNombresDetenido.getText().toString().length() >= 3) {
+                            if (txtApodoDetenido.getText().toString().length() >= 3 || chNoAplicaAliasDetenido.isChecked()){
+                                if(aux1 == 34){
+                                    if(txtNacionalidadEspecifiqueDetenido.getText().toString().length() >= 3){
 
+                                        if (txtDescripciondelDetenido.getText().toString().length() >= 3) {
+                                            if (rbNoLesiones.isChecked() || rbSiLesiones.isChecked()) {
+                                                if (rbPadecimiento.isChecked()) {
+
+                                                    if (rbNoGrupoVulnerable.isChecked()) {
+                                                        insertDetenciones();
+                                                    } else if (rbSiGrupoVulnerable.isChecked()) {
+                                                        if (txtCualGrupoVulnerable.getText().toString().length() >= 3) {
+                                                            insertDetenciones();
+                                                        } else {
+                                                            Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL GRUPO VULNERABLE AL QUE PERTENECE", Toast.LENGTH_SHORT).show();
+                                                            diecisietelinear.requestFocus();
+                                                            txtCualGrupoVulnerable.requestFocus();
+                                                        }
+                                                    } else {
+                                                        Toast.makeText(getActivity().getApplicationContext(), "SELECCIONA SI PERTENECE A ALGÚN GRUPO VULNERABLE", Toast.LENGTH_SHORT).show();
+                                                        diecisietelinear.requestFocus();
+                                                    }
+
+                                                } else if (rbSiPadecimiento.isChecked()) {
+                                                    if (txtCualPadecimiento.getText().toString().length() >= 3) {
+
+                                                        if (rbNoGrupoVulnerable.isChecked()) {
+                                                            insertDetenciones();
+                                                        } else if (rbSiGrupoVulnerable.isChecked()) {
+                                                            if (txtCualGrupoVulnerable.getText().toString().length() >= 3) {
+                                                                insertDetenciones();
+                                                            } else {
+                                                                Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL GRUPO VULNERABLE AL QUE PERTENECE EL DETENIDO", Toast.LENGTH_SHORT).show();
+                                                                diecisietelinear.requestFocus();
+                                                                txtCualGrupoVulnerable.requestFocus();
+                                                            }
+                                                        } else {
+                                                            Toast.makeText(getActivity().getApplicationContext(), "SELECCIONA SI PERTENECE A ALGÚN GRUPO VULNERABLE", Toast.LENGTH_SHORT).show();
+                                                            diecisietelinear.requestFocus();
+                                                        }
+
+
+                                                    } else {
+                                                        Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL PADECIMIENTO DEL DETENIDO", Toast.LENGTH_SHORT).show();
+                                                        dieciseisLinear.requestFocus();
+                                                        txtCualPadecimiento.requestFocus();
+                                                    }
+                                                } else {
+                                                    Toast.makeText(getActivity().getApplicationContext(), "SELECCIONA SI TIENE ALGÚN PADECIMIENTO", Toast.LENGTH_SHORT).show();
+                                                    dieciseisLinear.requestFocus();
+                                                }
+
+                                            } else {
+                                                Toast.makeText(getActivity().getApplicationContext(), "SELECCIONA SI PRESENTA LESIONES VISIBLES", Toast.LENGTH_SHORT).show();
+                                                quinceavoLinear.requestFocus();
+                                            }
+
+                                        } else {
+                                            Toast.makeText(getActivity().getApplicationContext(), "INGRESA ALGUNA DESCRIPCIÓN DEL DETENIDO", Toast.LENGTH_SHORT).show();
+                                            catorceavoLinear.requestFocus();
+                                        }
+
+                                    } else{
+                                        Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA LA NACIONALIDAD", Toast.LENGTH_SHORT).show();
+                                        especificaNacionalidad.requestFocus();
+                                        txtNacionalidadEspecifiqueDetenido.requestFocus();
+                                    }
+
+
+                                } else{
+
+                                    if (txtDescripciondelDetenido.getText().toString().length() >= 3) {
+                                        if (rbNoLesiones.isChecked() || rbSiLesiones.isChecked()) {
+                                            if (rbPadecimiento.isChecked()) {
+
+                                                if (rbNoGrupoVulnerable.isChecked()) {
+                                                    insertDetenciones();
+                                                } else if (rbSiGrupoVulnerable.isChecked()) {
+                                                    if (txtCualGrupoVulnerable.getText().toString().length() >= 3) {
+                                                        insertDetenciones();
+                                                    } else {
+                                                        Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL GRUPO VULNERABLE AL QUE PERTENECE", Toast.LENGTH_SHORT).show();
+                                                        diecisietelinear.requestFocus();
+                                                        txtCualGrupoVulnerable.requestFocus();
+                                                    }
+                                                } else {
+                                                    Toast.makeText(getActivity().getApplicationContext(), "SELECCIONA SI PERTENECE A ALGÚN GRUPO VULNERABLE", Toast.LENGTH_SHORT).show();
+                                                    diecisietelinear.requestFocus();
+                                                }
+
+                                            } else if (rbSiPadecimiento.isChecked()) {
+                                                if (txtCualPadecimiento.getText().toString().length() >= 3) {
+
+                                                    if (rbNoGrupoVulnerable.isChecked()) {
+                                                        insertDetenciones();
+                                                    } else if (rbSiGrupoVulnerable.isChecked()) {
+                                                        if (txtCualGrupoVulnerable.getText().toString().length() >= 3) {
+                                                            insertDetenciones();
+                                                        } else {
+                                                            Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL GRUPO VULNERABLE AL QUE PERTENECE EL DETENIDO", Toast.LENGTH_SHORT).show();
+                                                            diecisietelinear.requestFocus();
+                                                            txtCualGrupoVulnerable.requestFocus();
+                                                        }
+                                                    } else {
+                                                        Toast.makeText(getActivity().getApplicationContext(), "SELECCIONA SI PERTENECE A ALGÚN GRUPO VULNERABLE", Toast.LENGTH_SHORT).show();
+                                                        diecisietelinear.requestFocus();
+                                                    }
+
+
+                                                } else {
+                                                    Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL PADECIMIENTO DEL DETENIDO", Toast.LENGTH_SHORT).show();
+                                                    dieciseisLinear.requestFocus();
+                                                    txtCualPadecimiento.requestFocus();
+                                                }
+                                            } else {
+                                                Toast.makeText(getActivity().getApplicationContext(), "SELECCIONA SI TIENE ALGÚN PADECIMIENTO", Toast.LENGTH_SHORT).show();
+                                                dieciseisLinear.requestFocus();
+                                            }
+
+                                        } else {
+                                            Toast.makeText(getActivity().getApplicationContext(), "SELECCIONA SI PRESENTA LESIONES VISIBLES", Toast.LENGTH_SHORT).show();
+                                            quinceavoLinear.requestFocus();
+                                        }
+
+                                    } else {
+                                        Toast.makeText(getActivity().getApplicationContext(), "INGRESA ALGUNA DESCRIPCIÓN DEL DETENIDO", Toast.LENGTH_SHORT).show();
+                                        catorceavoLinear.requestFocus();
+                                    }
+
+                                }
+
+                            } else {
+                                Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA SI TIENE ALGÚN APODO", Toast.LENGTH_SHORT).show();
+                                linearApodoDetenido.requestFocus();
+                            }
+
+                        } else {
+                            Toast.makeText(getActivity().getApplicationContext(), "INGRESA AL MENOS UN NOMBRE DEL DETENIDO", Toast.LENGTH_SHORT).show();
+                            cuartoLinear.requestFocus();
+                            txtNombresDetenido.requestFocus();
+                        }
+
+                    } else {
+                        Toast.makeText(getActivity().getApplicationContext(), "INGRESA AL MENOS EL PRIMER APELLIDO DEL DETENIDO", Toast.LENGTH_SHORT).show();
+                        cuartoLinear.requestFocus();
+                        txtPrimerApellidoDetenido.requestFocus();
+                    }
+
+                } else{
+                    Toast.makeText(getActivity().getApplicationContext(),"NO SE PUEDE ALMACENAR INFORMACIÓN DE DETENCIÓN SIN FECHA Y HORA DE REGISTRO",Toast.LENGTH_SHORT).show();
+                    segundoLinear.requestFocus();
+                }
             }
         });
 
@@ -541,6 +697,11 @@ public class Detenciones extends Fragment  {
                 rbPadecimiento.setChecked(true);
                 txtCualPadecimiento.setText("");
                 txtCualGrupoVulnerable.setText("");
+
+                //Firma
+                lblFirmaOcultaDetenidoBase64.setText("");
+                lblFirmadelDetenido.setText("");
+
 
                 txtNacionalidadDetenido.setSelection(funciones.getIndexSpiner(txtNacionalidadDetenido, ("Mexicano")));
                 spLugarTrasladoPersonaDetenida.setSelection(funciones.getIndexSpiner(spLugarTrasladoPersonaDetenida, ("FISCALIA GENERAL DEL ESTADO")));
@@ -605,7 +766,7 @@ public class Detenciones extends Fragment  {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
 
-//
+//f
                 try {
                     String Json = ArrayListaIPHAdministrativo[position];
                     JSONObject jsonjObject = new JSONObject(Json + "}");
@@ -653,6 +814,9 @@ public class Detenciones extends Fragment  {
 
                     if ((jsonjObject.getString("GrupoVulnerable")).equals("SI")){rbSiGrupoVulnerable.setChecked(true); txtCualGrupoVulnerable.setText(((jsonjObject.getString("DescGrupoVulnerable")).equals("null")?"":jsonjObject.getString("DescGrupoVulnerable")));}
                     else{rbNoGrupoVulnerable.setChecked(true);}
+
+                    firmaURLServer=((jsonjObject.getString("UrlFirmaDetenido")).equals("SIN INFORMACION")?"http://189.254.7.167/WebServiceIPH/Firma/SINFIRMA.jpg":jsonjObject.getString("UrlFirmaDetenido"));
+                    getFirmaFromURL();
 
                     //Autoridad
                     spLugarTrasladoPersonaDetenida.setSelection(funciones.getIndexSpiner(spLugarTrasladoPersonaDetenida, (jsonjObject.getString("LugarTraslado"))));
@@ -997,6 +1161,145 @@ public class Detenciones extends Fragment  {
         Request request = new Request.Builder()
                 .url("http://189.254.7.167/WebServiceIPH/api/DetencionesAdministrativa/")
                 .post(body)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Looper.prepare(); // to be able to make toast
+                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if(response.code() == 500){
+                    Toast.makeText(getContext(), "EXISTIÓ UN ERROR EN SU CONEXIÓN A INTERNET, INTÉNTELO NUEVAMENTE", Toast.LENGTH_SHORT).show();
+                }else if (response.isSuccessful()) {
+                    final String myResponse = response.body().string();
+                    Detenciones.this.getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            String resp = myResponse;
+                            if(resp.equals("true")){
+                                System.out.println("EL DATO SE ENVIO CORRECTAMENTE");
+                                insertImagen();
+                                //Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+                                //guardarFolios();
+                                txtFechaDetenido.setText("");
+                                txthoraDetencion.setText("");
+                                txtFechaNacimientoDetenido.setText("");
+                                txtPrimerApellidoDetenido.setText("");
+                                txtSegundoApellidoDetenido.setText("");
+                                txtNombresDetenido.setText("");
+                                txtApodoDetenido.setText("");
+                                txtColoniaDetenido.setText("");
+                                txtCalleDetenido.setText("");
+                                txtNumeroExteriorDetenido.setText("");
+                                txtNumeroInteriorDetenido.setText("");
+                                txtCodigoPostalDetenido.setText("");
+                                txtReferenciasdelLugarDetenido.setText("");
+                                txtCualGrupoVulnerable.setText("");
+                                txtCualPadecimiento.setText("");
+                                addFragment(new Detenciones());
+
+                            }else{
+                                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, VERIFIQUE SU INFORMACIÓN", Toast.LENGTH_SHORT).show();
+                            }
+                            Log.i("HERE", resp);
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    //***************** Actualiza A LA BD MEDIANTE EL WS **************************//
+    private void updateDetenciones() {
+        DataHelper dataHelper = new DataHelper(getContext());
+
+        descripcionLugarTraslado = (String) spLugarTrasladoPersonaDetenida.getSelectedItem();
+        int idDesLugarTraslado = dataHelper.getIdLugarTraslado(descripcionLugarTraslado);
+        String idLugarTraslado = String.valueOf(idDesLugarTraslado);
+
+        descripcionMunicipio = (String) txtMunicipioDetenido.getSelectedItem();
+        String idDescMunicipio = dataHelper.getIdMunicipio(descripcionMunicipio);
+        String idMunicipio = String.valueOf(idDescMunicipio);
+
+        if(idMunicipio.length() == 1){
+            idMunicipio = "00"+idMunicipio;
+        }else if(idMunicipio.length() == 2){
+            idMunicipio = "0"+idMunicipio;
+        }
+
+        descripcionNacionalidad = (String) txtNacionalidadDetenido.getSelectedItem();
+        int idDescNacionalidad = dataHelper.getIdNacionalidad(descripcionNacionalidad);
+        String idNacionalidad = String.valueOf(idDescNacionalidad);
+
+        descripcionSexo = (String) spGeneroDetenido.getSelectedItem();
+        int idDescSexo = dataHelper.getIdSexo(descripcionSexo);
+        String idSexo = String.valueOf(idDescSexo);
+
+        if(chNoAplicaAliasDetenido.isChecked()){
+            txtApodoDetenido.setText("NA");
+        }
+
+        if(txtNumeroExteriorDetenido.getText().toString().isEmpty()){
+            txtNumeroExteriorDetenido.setText("SN");
+        }
+        if(txtNumeroInteriorDetenido.getText().toString().isEmpty()){
+            txtNumeroInteriorDetenido.setText("NA");
+        }
+
+        String urlImagen = "http://189.254.7.167/WebServiceIPH/FirmaDetenidos/"+cargarIdFaltaAdmin+randomUrlImagen+".jpg";
+
+        ModeloDetenciones_Administrativo modeloDetenciones = new ModeloDetenciones_Administrativo
+                (cargarIdFaltaAdmin, "1",
+                        txtFechaDetenido.getText().toString(), txthoraDetencion.getText().toString(),
+                        txtPrimerApellidoDetenido.getText().toString(), txtSegundoApellidoDetenido.getText().toString(),
+                        txtNombresDetenido.getText().toString(),txtApodoDetenido.getText().toString(), txtDescripciondelDetenido.getText().toString(),
+                        idNacionalidad, idSexo, txtFechaNacimientoDetenido.getText().toString(), urlImagen,"12",idMunicipio,
+                        txtColoniaDetenido.getText().toString(), txtCalleDetenido.getText().toString(),
+                        txtNumeroExteriorDetenido.getText().toString(), txtNumeroInteriorDetenido.getText().toString(),
+                        txtCodigoPostalDetenido.getText().toString(), txtReferenciasdelLugarDetenido.getText().toString(),
+                        varLesiones, varPadecimiento, txtCualPadecimiento.getText().toString(),
+                        varGrupoVulnerable, txtCualGrupoVulnerable.getText().toString(), idLugarTraslado, cargarUsuario);
+
+
+        OkHttpClient client = new OkHttpClient();
+        RequestBody body = new FormBody.Builder()
+                .add("IdFaltaAdmin", modeloDetenciones.getIdFaltaAdmin())
+                .add("NumDetencion", modeloDetenciones.getNumDetencion())
+                .add("Fecha",modeloDetenciones.getFecha())
+                .add("Hora", modeloDetenciones.getHora())
+                .add("APDetenido", modeloDetenciones.getAPDetenido())
+                .add("AMDetenido", modeloDetenciones.getAMDetenido())
+                .add("NomDetenido", modeloDetenciones.getNomDetenido())
+                .add("ApodoAlias", modeloDetenciones.getApodoAlias())
+                .add("DescripcionDetenido", modeloDetenciones.getDescripcionDetenido())
+                .add("IdNacionalidad", modeloDetenciones.getIdNacionalidad())
+                .add("IdSexo", modeloDetenciones.getIdSexo())
+                .add("FechaNacimiento",modeloDetenciones.getFechaNacimiento())
+                .add("UrlFirmaDetenido", modeloDetenciones.getUrlFirmaDetenido())
+                .add("IdEntidadFederativa", modeloDetenciones.getIdEntidadFederativa())
+                .add("IdMunicipio", modeloDetenciones.getIdMunicipio())
+                .add("ColoniaLocalidad", modeloDetenciones.getColoniaLocalidad())
+                .add("CalleTramo", modeloDetenciones.getCalleTramo())
+                .add("NoExterior", modeloDetenciones.getNoExterior())
+                .add("NoInterior", modeloDetenciones.getNoInterior())
+                .add("Cp", modeloDetenciones.getCp())
+                .add("Referencia",modeloDetenciones.getReferencia())
+                .add("Lesiones", modeloDetenciones.getLesiones())
+                .add("Padecimientos", modeloDetenciones.getPadecimientos())
+                .add("DescPadecimientos", modeloDetenciones.getDescPadecimientos())
+                .add("GrupoVulnerable", modeloDetenciones.getGrupoVulnerable())
+                .add("DescGrupoVulnerable", modeloDetenciones.getDescGrupoVulnerable())
+                .add("IdLugarTraslado", modeloDetenciones.getIdLugarTraslado())
+                .add("IdPoliciaPrimerRespondiente", modeloDetenciones.getIdPoliciaPrimerRespondiente())
+                .build();
+        Request request = new Request.Builder()
+                .url("http://189.254.7.167/WebServiceIPH/api/DetencionesAdministrativa/")
+                .put(body)
                 .build();
         client.newCall(request).enqueue(new Callback() {
             @Override

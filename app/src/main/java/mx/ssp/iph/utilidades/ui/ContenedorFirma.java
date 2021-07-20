@@ -73,15 +73,16 @@ public class ContenedorFirma extends DialogFragment {
                 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
                 miimagen.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
                 byte[] byteArray = byteArrayOutputStream .toByteArray();
-
-                String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
+                String encoded = "";
+                encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
                 //Log.i("FIRMA", "BASE64: " + encoded);
                 //Log.i("FIRMA", "BASE64Blank: " + Base64Blank);
                 //Log.i("FIRMA", "BASE64Encode: " + encoded.replaceAll("\n", ""));
 
-                if (Base64Blank.equals(encoded.replaceAll("\n", "")))
+                if (Base64Blank.equals(encoded.replace("\n", "")))
                 {
-                    Toast.makeText(getContext(), "LA FIRMA NO PUEDE SER EN BLANCO", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "LA FIRMA NO PUEDE SER EN BLANCO. VUELVA A INGRESAR LA FIRMA", Toast.LENGTH_SHORT).show();
+                    getDialog().dismiss();
 
                 }
                 else {

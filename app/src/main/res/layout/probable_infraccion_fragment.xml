@@ -120,6 +120,8 @@
         </LinearLayout>
 
 
+
+
         <LinearLayout
             android:id="@+id/cuartoLinear"
             android:layout_width="match_parent"

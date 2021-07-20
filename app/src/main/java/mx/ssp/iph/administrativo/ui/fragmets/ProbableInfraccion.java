@@ -23,6 +23,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.dynamic.IFragmentWrapper;
@@ -58,6 +59,7 @@ public class ProbableInfraccion extends Fragment {
     Funciones funciones;
     String descConocimientoInfraccion;
     Integer aux1;
+    TextView lblOtroProbableInfraccionAdministrativo,lbl911FolioProbableInfraccionAdministrativo;
 
     public static ProbableInfraccion newInstance() {
         return new ProbableInfraccion();
@@ -72,10 +74,15 @@ public class ProbableInfraccion extends Fragment {
         spHechoProbableInfraccionAdministrativo = root.findViewById(R.id.spHechoProbableInfraccionAdministrativo);
         txtOtroProbableInfraccionAdministrativo = root.findViewById(R.id.txtOtroProbableInfraccionAdministrativo);
         txtOtroProbableInfraccionAdministrativo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(250)});
+        btnGuardarProbableInfraccionAdministrativo = root.findViewById(R.id.btnGuardarProbableInfraccionAdministrativo);
 
         txt911FolioProbableInfraccionAdministrativo = root.findViewById(R.id.txt911FolioProbableInfraccionAdministrativo);
         txt911FolioProbableInfraccionAdministrativo.setFilters(new InputFilter[]{new InputFilter.LengthFilter(10)});
-        btnGuardarProbableInfraccionAdministrativo = root.findViewById(R.id.btnGuardarProbableInfraccionAdministrativo);
+
+        lbl911FolioProbableInfraccionAdministrativo = root.findViewById(R.id.lbl911FolioProbableInfraccionAdministrativo);
+        lblOtroProbableInfraccionAdministrativo = root.findViewById(R.id.lblOtroProbableInfraccionAdministrativo);
+
+
         ListConocimientoInfraccion();
 
         funciones= new Funciones();
@@ -97,18 +104,25 @@ public class ProbableInfraccion extends Fragment {
                 if( i == 1 || i == 2 || i == 3){
                     txtOtroProbableInfraccionAdministrativo.setEnabled(false);
                     txt911FolioProbableInfraccionAdministrativo.setEnabled(false);
-                    txt911FolioProbableInfraccionAdministrativo.setText("");
-                    txtOtroProbableInfraccionAdministrativo.setText("");
+
+
+
+
+                    //txt911FolioProbableInfraccionAdministrativo.setText("");
+                    //txtOtroProbableInfraccionAdministrativo.setText("");
                 }else if(i == 4){
                     txtOtroProbableInfraccionAdministrativo.setEnabled(false);
                     txt911FolioProbableInfraccionAdministrativo.setEnabled(true);
-                    txt911FolioProbableInfraccionAdministrativo.setText("");
-                    txtOtroProbableInfraccionAdministrativo.setText("");
+
+
+                    //txt911FolioProbableInfraccionAdministrativo.setText("");
+                    //txtOtroProbableInfraccionAdministrativo.setText("");
                 }else {
                     txtOtroProbableInfraccionAdministrativo.setEnabled(true);
                     txt911FolioProbableInfraccionAdministrativo.setEnabled(false);
-                    txt911FolioProbableInfraccionAdministrativo.setText("");
-                    txtOtroProbableInfraccionAdministrativo.setText("");
+
+                    //txt911FolioProbableInfraccionAdministrativo.setText("");
+                    //txtOtroProbableInfraccionAdministrativo.setText("");
                 }
                 //Toast.makeText(getContext(), "" + i, Toast.LENGTH_LONG).show();
                 aux1 = i;
