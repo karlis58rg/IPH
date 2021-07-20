@@ -76,7 +76,6 @@ public class LugarDeIntervencion_Delictivo extends Fragment {
             }
         });
 
-
         //***************** FIRMA **************************//
         imgCroquisDelictivo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,10 +84,6 @@ public class LugarDeIntervencion_Delictivo extends Fragment {
                 dialog.show( getActivity().getSupportFragmentManager(),"Dia");
             }
         });
-
-
-
-
 
         btnGuardarLugarIntervencionDelictivo.setOnClickListener(new View.OnClickListener() {
             @Override

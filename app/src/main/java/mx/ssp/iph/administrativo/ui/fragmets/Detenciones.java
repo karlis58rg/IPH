@@ -50,6 +50,7 @@ import java.util.regex.Pattern;
 import mx.ssp.iph.R;
 import mx.ssp.iph.SqLite.DataHelper;
 import mx.ssp.iph.administrativo.model.ModeloDetenciones_Administrativo;
+import mx.ssp.iph.administrativo.model.ModeloRecibeDisposicion_Administrativo;
 import mx.ssp.iph.administrativo.viewModel.DetencionesViewModel;
 import mx.ssp.iph.utilidades.ui.ContenedorFirma;
 import mx.ssp.iph.utilidades.ui.Funciones;
@@ -67,7 +68,7 @@ public class Detenciones extends Fragment  {
 
     private DetencionesViewModel mViewModel;
     private static final  int REQ_CODE_SPEECH_INPUT=100;
-    private TextView txtDescripciondelDetenido;
+    private TextView txtDescripciondelDetenido,lblFirmaOcultaDetenidoBase64;
     Integer aux1;
     ImageView img_microfonoDescripcionDetenido,imgFirmaDetencionesAutoridadAdministrativo;
     EditText txtFechaDetenido,txthoraDetencion,txtFechaNacimientoDetenido,txtPrimerApellidoDetenido,txtSegundoApellidoDetenido,txtNombresDetenido,txtApodoDetenido,txtEntidadDetenido,
@@ -86,9 +87,6 @@ public class Detenciones extends Fragment  {
     int numberRandom,randomUrlImagen;
     private ViewGroup linearApodoDetenido, cuartoLinear, segundoLinear, catorceavoLinear, quinceavoLinear, dieciseisLinear, diecisietelinear, especificaNacionalidad;
 
-
-
-
     String cargarIdFaltaAdmin,cargarUsuario,descripcionLugarTraslado,descripcionMunicipio,descripcionNacionalidad,descripcionSexo,
             varLesiones = "NO",varPadecimiento = "NO",varGrupoVulnerable = "NO",varNoAlias;
 
@@ -99,12 +97,9 @@ public class Detenciones extends Fragment  {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-
-
-
-
         View view  = inflater.inflate(R.layout.detenciones_fragment, container, false);
         /********************************************************************************************/
+        random();
         funciones = new Funciones();
         lvDetenidos_Administrativo = (ListView) view.findViewById(R.id.lvDetenidos_Administrativo);
 
@@ -178,6 +173,7 @@ public class Detenciones extends Fragment  {
         especificaNacionalidad  = view.findViewById(R.id.especificaNacionalidad);
 
         imgFirmadelDetenidoMiniatura = view.findViewById(R.id.imgFirmadelDetenidoMiniatura);
+        lblFirmaOcultaDetenidoBase64 = view.findViewById(R.id.lblFirmaOcultaDetenidoBase64);
 
         btnGuardarDetencionesAdministrativo = view.findViewById(R.id.btnGuardarDetencionesAdministrativo);
         ListLugarTraslado();
@@ -213,20 +209,15 @@ public class Detenciones extends Fragment  {
                     txtNacionalidadEspecifiqueDetenido.setText("");
                 }
 
-
-
                 //Toast.makeText(getContext(), "" + i, Toast.LENGTH_LONG).show();
             }
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
 
-
-
         cargarFolios();
         //***************** Cargar Datos si es que existen  **************************//
         CargarDatos();
-
 
         //Fecha
         txtFechaNacimientoDetenido.setOnClickListener(new View.OnClickListener() {
@@ -252,7 +243,6 @@ public class Detenciones extends Fragment  {
                 funciones.Time(R.id.txthoraDetencion,getContext(),getActivity());
             }
         });
-
 
         //HABILITAR - DESHABILITAR EDITTEXT ALIAS O APODO
         chNoAplicaAliasDetenido.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -465,8 +455,6 @@ public class Detenciones extends Fragment  {
                     }
             }
         });
-
-
 
         rgLesiones.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -740,6 +728,43 @@ public class Detenciones extends Fragment  {
         }
     }
 
+    //********************************** INSERTA IMAGEN AL SERVIDOR ***********************************//
+    public void insertImagen() {
+        String cadena = lblFirmaOcultaDetenidoBase64.getText().toString();
+
+        OkHttpClient client = new OkHttpClient();
+        RequestBody body = new FormBody.Builder()
+                .add("Description", cargarIdFaltaAdmin+randomUrlImagen+".jpg")
+                .add("ImageData", cadena)
+                .build();
+        Request request = new Request.Builder()
+                .url("http://189.254.7.167/WebServiceIPH/api/MultimediaFirmaDetenidos/")
+                .post(body)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Looper.prepare(); // to be able to make toast
+                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, FAVOR DE VERIFICAR SU CONEXCIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    final String myResponse = response.body().toString();  /********** ME REGRESA LA RESPUESTA DEL WS ****************/
+                    Detenciones.this.getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            System.out.println("EL DATO DE LA IMAGEN SE ENVIO CORRECTAMENTE");
+                            Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            }
+        });
+    }
+
     //***************** INSERTA A LA BD MEDIANTE EL WS **************************//
     private void insertDetenciones() {
         DataHelper dataHelper = new DataHelper(getContext());
@@ -777,13 +802,14 @@ public class Detenciones extends Fragment  {
             txtNumeroInteriorDetenido.setText("NA");
         }
 
+        String urlImagen = "http://189.254.7.167/WebServiceIPH/FirmaDetenidos/"+cargarIdFaltaAdmin+randomUrlImagen+".jpg";
+
         ModeloDetenciones_Administrativo modeloDetenciones = new ModeloDetenciones_Administrativo
                 (cargarIdFaltaAdmin, "1",
                         txtFechaDetenido.getText().toString(), txthoraDetencion.getText().toString(),
                         txtPrimerApellidoDetenido.getText().toString(), txtSegundoApellidoDetenido.getText().toString(),
                         txtNombresDetenido.getText().toString(),txtApodoDetenido.getText().toString(), txtDescripciondelDetenido.getText().toString(),
-                        idNacionalidad, idSexo, txtFechaNacimientoDetenido.getText().toString(),
-                        "SIN INFORMACION","12",idMunicipio,
+                        idNacionalidad, idSexo, txtFechaNacimientoDetenido.getText().toString(), urlImagen,"12",idMunicipio,
                         txtColoniaDetenido.getText().toString(), txtCalleDetenido.getText().toString(),
                         txtNumeroExteriorDetenido.getText().toString(), txtNumeroInteriorDetenido.getText().toString(),
                         txtCodigoPostalDetenido.getText().toString(), txtReferenciasdelLugarDetenido.getText().toString(),
@@ -847,7 +873,8 @@ public class Detenciones extends Fragment  {
                             String resp = myResponse;
                             if(resp.equals("true")){
                                 System.out.println("EL DATO SE ENVIO CORRECTAMENTE");
-                                Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+                                insertImagen();
+                                //Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
                                 //guardarFolios();
                                 txtFechaDetenido.setText("");
                                 txthoraDetencion.setText("");
@@ -914,7 +941,6 @@ public class Detenciones extends Fragment  {
             spGeneroDetenido.setAdapter(adapter);
         }
     }
-
     public void cargarFolios(){
         share = getContext().getSharedPreferences("main", Context.MODE_PRIVATE);
         cargarIdFaltaAdmin = share.getString("IDFALTAADMIN", "");
@@ -972,7 +998,6 @@ public class Detenciones extends Fragment  {
             }
         });
     }
-
     //Intercambia los Fragmentos
     private void addFragment(Fragment fragment) {
        getActivity().getSupportFragmentManager()

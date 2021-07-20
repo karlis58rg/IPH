@@ -71,7 +71,7 @@ public class PuestaDisposicion_Administrativo extends Fragment {
 
     private PuestaDisposicionAdministrativoViewModel mViewModel;
     private ImageView imgFirmaAutoridadAdministrativo;
-    Integer aux1, aux2;
+    Integer aux1, aux2,banderaFirma = 0;
     CheckBox chDetencionesAnexoAAdministrativo,chDetencionesAnexoBAdministrativo,chSinAnexosAdministrativo,chNoAplicaUnidadDeArriboAdministrativo;
     RadioGroup rgPrimerRespondienteAdministrativo;
     EditText txtFolioInternoAdministrativo,txtFolioSistemaAdministrativo,txtNoReferenciaAdministrativo,
@@ -97,7 +97,6 @@ public class PuestaDisposicion_Administrativo extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.puesta_disposicion_administrativo_fragment, container, false);
-
         //************************************** ACCIONES DE LA VISTA **************************************//
         funciones = new Funciones();
         cargarFolios();
@@ -221,6 +220,7 @@ public class PuestaDisposicion_Administrativo extends Fragment {
         imgFirmaAutoridadAdministrativo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                banderaFirma = 1;
                 ContenedorFirmaPDisposicion dialog = new ContenedorFirmaPDisposicion(R.id.lblFirmaAutoridadRealizadaAdministrativo,R.id.lblFirmaOcultaAutoridadBase64,R.id.imgFirmaAutoridadAdministrativoMiniatura);
                 dialog.show( getActivity().getSupportFragmentManager(),"Dia");
             }
@@ -239,21 +239,6 @@ public class PuestaDisposicion_Administrativo extends Fragment {
             }
         });
 
-
-        /*
-        rgPrimerRespondienteAdministrativo.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == R.id.rbSiPrimerRespondienteAdministrativo) {
-                    varRBPrimerRespondiente = "SI";
-                } else if (checkedId == R.id.rbNoPrimerRespondienteAdministrativo) {
-                    varRBPrimerRespondiente = "NO";
-                }
-
-            }
-        });*/
-
-
         //VALOR DE LISTA ANEXO A
         spDetencionesAnexoAAdministrativo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
@@ -264,9 +249,7 @@ public class PuestaDisposicion_Administrativo extends Fragment {
                 int i = Integer.parseInt(item.toString()) + 1;
 
                 aux1 = i;
-
                 //Toast.makeText(getContext(), "" + i, Toast.LENGTH_LONG).show();
-
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
@@ -282,25 +265,25 @@ public class PuestaDisposicion_Administrativo extends Fragment {
                 int j = Integer.parseInt(item.toString()) + 1;
 
                 aux2 = j;
-
                 //Toast.makeText(getContext(), "" + j, Toast.LENGTH_LONG).show();
-
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
 
-
         btnGuardarPuestaDisposicioAdministrativo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    if(lblFirmaOcultaAutoridadBase64.getText().toString().isEmpty()){
+                if(banderaFirma == 0){
+                    Toast.makeText(getContext(), "LO SENTIMOS, SU FIRMA ES NECESARIA PARA PODER CONTINUAR, FAVOR DE ACTUALIZARLA", Toast.LENGTH_LONG).show();
+                }
+                if(lblFirmaOcultaAutoridadBase64.getText().toString().isEmpty()){
                         Toast.makeText(getContext(), "LO SENTIMOS, SU FIRMA ES NECESARIA PARA PODER CONTINUAR", Toast.LENGTH_LONG).show();
-                    }else{
-                        Toast.makeText(getContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS ", Toast.LENGTH_LONG).show();
+                }else{
+                    Toast.makeText(getContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS ", Toast.LENGTH_LONG).show();
                         updatePuestaDisposicion();
-                    }
+                }
 
                 if(chDetencionesAnexoAAdministrativo.isChecked()){
                     if(aux1 != 1){

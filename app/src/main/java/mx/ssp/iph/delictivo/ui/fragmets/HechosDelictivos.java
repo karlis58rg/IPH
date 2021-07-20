@@ -253,27 +253,57 @@ public class HechosDelictivos extends Fragment {
     //***************** INSERTA A LA BD MEDIANTE EL WS **************************//
     private void insertHechoDelictivo() {
 
-       /* if(chDetencionesAnexoAAdministrativo.isChecked()){
-            varAnexoA = "SI";
-            varNoDetenidos = (String) spDetencionesAnexoAAdministrativo.getSelectedItem();
+        if(chDetencionesAnexoADelictivo.isChecked()){
+            anexoDetenciones = "SI";
+            numAnexoDetenciones = (String) spDetencionesAnexoADelictivo.getSelectedItem();
         }else{
-            varAnexoA = "NO";
-            varNoDetenidos = "000";
+            anexoDetenciones = "NO";
+            numAnexoDetenciones = "000";
         }
 
-        chDetencionesAnexoADelictivo,
-                chAnexosDInventarioArmasDelictivo,
-                chUsoFuerzaAnexoBDelictivo,
-                chEntrevistasAnexoEDelictivo,
-                chAnexosCInspeccionVehiculoDelictivo,
-                chAnexosFEntregaRecepcionDelictivo,
-                chSinAnexosDelictivo;*/
+        if(chUsoFuerzaAnexoBDelictivo.isChecked()){
+            anexoUsoFuerza = "SI";
+            numAnexoUsoFuerza = (String) spUsoFuerzaAnexoBDelictivo.getSelectedItem();
+        }else{
+            anexoUsoFuerza = "NO";
+            numAnexoUsoFuerza = "000";
+        }
 
+        if(chAnexosCInspeccionVehiculoDelictivo.isChecked()){
+            anexoVehiculos = "SI";
+            numAnexoVehiculo = (String) spAnexosCInspeccionVehiculoDelictivo.getSelectedItem();
+        }else{
+            anexoVehiculos = "NO";
+            numAnexoVehiculo = "000";
+        }
 
+        if(chAnexosDInventarioArmasDelictivo.isChecked()){
+            anexoArmasObjetos = "SI";
+            numAnexoArmasObjetos = (String) spAnexosDInventarioArmasDelictivo.getSelectedItem();
+        }else{
+            anexoArmasObjetos = "NO";
+            numAnexoArmasObjetos = "000";
+        }
 
+        if(chEntrevistasAnexoEDelictivo.isChecked()){
+            anexoEntrevista = "SI";
+            numAnexoEntrevista = (String) spEntrevistasAnexoEDelictivo.getSelectedItem();
+        }else{
+            anexoEntrevista = "NO";
+            numAnexoEntrevista = "000";
+        }
 
+        if(chAnexosFEntregaRecepcionDelictivo.isChecked()){
+            anexoLugarIntervencion = "SI";
+            numAnexoLugarIntervencion = (String) spAnexosFEntregaRecepcionDelictivo.getSelectedItem();
+        }else{
+            anexoLugarIntervencion = "NO";
+            numAnexoLugarIntervencion = "000";
+        }
 
-
+        if(chSinAnexosDelictivo.isChecked()){
+            anexoNoSeEntregan = "NO";
+        }
 
         ModeloHechoDelictivo modeloHechoDelictivo = new ModeloHechoDelictivo(
                 cargarIdHechoDelictivo, txtNoReferenciaDelictivo.getText().toString(), txtFechaEntregaReferenciaDelictivo.getText().toString(),
