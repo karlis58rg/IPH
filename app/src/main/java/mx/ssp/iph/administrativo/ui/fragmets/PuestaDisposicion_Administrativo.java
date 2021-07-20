@@ -263,7 +263,7 @@ public class PuestaDisposicion_Administrativo extends Fragment {
             @Override
             public void onClick(View view) {
                 if(banderaFirma == 0){
-                    Toast.makeText(getContext(), "LO SENTIMOS, SU FIRMA ES NECESARIA PARA PODER CONTINUAR, FAVOR DE ACTUALIZARLA", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "LO SENTIMOS, SU FIRMA ES NECESARIA PARA PODER CONTINUAR", Toast.LENGTH_LONG).show();
                 }
                 if(lblFirmaOcultaAutoridadBase64.getText().toString().isEmpty()){
                         Toast.makeText(getContext(), "LO SENTIMOS, SU FIRMA ES NECESARIA PARA PODER CONTINUAR", Toast.LENGTH_LONG).show();

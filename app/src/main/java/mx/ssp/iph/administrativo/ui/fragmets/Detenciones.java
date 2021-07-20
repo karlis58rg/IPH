@@ -91,7 +91,7 @@ public class Detenciones extends Fragment  {
     //Variable para almacenar el jsn detenido y deserealizarlo al darle clic a la lista
     String[] ArrayListaIPHAdministrativo;
     LinearLayout veinticincoBtnAgregar,veinticincoBtnEditar;
-    int PosicionIPHSeleccionado= 0;
+    int PosicionIPHSeleccionado= 0,banderaFirma = 0;
     TextView lblFirmadelDetenido;
 
 
@@ -312,6 +312,7 @@ public class Detenciones extends Fragment  {
         imgFirmaDetencionesAutoridadAdministrativo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                banderaFirma = 1;
                 ContenedorFirma dialog = new ContenedorFirma(R.id.lblFirmadelDetenido,R.id.lblFirmaOcultaDetenidoBase64,R.id.imgFirmadelDetenidoMiniatura);
                 dialog.show( getActivity().getSupportFragmentManager(),"Dia");
             }
@@ -320,7 +321,9 @@ public class Detenciones extends Fragment  {
         btnGuardarDetencionesAdministrativo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if(banderaFirma == 0){
+                    Toast.makeText(getContext(), "LO SENTIMOS, SU FIRMA ES NECESARIA PARA PODER CONTINUAR", Toast.LENGTH_LONG).show();
+                }
                 if(txtFechaDetenido.getText().toString().length() >= 3 && txthoraDetencion.getText().toString().length() > 3){
                     if(txtPrimerApellidoDetenido.getText().toString().length() >= 3) {
                         if (txtNombresDetenido.getText().toString().length() >= 3) {
@@ -482,6 +485,9 @@ public class Detenciones extends Fragment  {
         btnEditarDetencionesAdministrativo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(banderaFirma == 0){
+                    Toast.makeText(getContext(), "LO SENTIMOS, SU FIRMA ES NECESARIA PARA PODER CONTINUAR", Toast.LENGTH_LONG).show();
+                }
                 if(txtFechaDetenido.getText().toString().length() >= 3 && txthoraDetencion.getText().toString().length() > 3){
                     if(txtPrimerApellidoDetenido.getText().toString().length() >= 3) {
                         if (txtNombresDetenido.getText().toString().length() >= 3) {
