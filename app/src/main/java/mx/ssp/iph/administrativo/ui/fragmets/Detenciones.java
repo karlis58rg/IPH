@@ -497,7 +497,7 @@ public class Detenciones extends Fragment  {
                                                         insertDetenciones();
                                                     } else if (rbSiGrupoVulnerable.isChecked()) {
                                                         if (txtCualGrupoVulnerable.getText().toString().length() >= 3) {
-                                                            insertDetenciones();
+                                                            updateDetenciones();
                                                         } else {
                                                             Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL GRUPO VULNERABLE AL QUE PERTENECE", Toast.LENGTH_SHORT).show();
                                                             diecisietelinear.requestFocus();
@@ -515,7 +515,7 @@ public class Detenciones extends Fragment  {
                                                             insertDetenciones();
                                                         } else if (rbSiGrupoVulnerable.isChecked()) {
                                                             if (txtCualGrupoVulnerable.getText().toString().length() >= 3) {
-                                                                insertDetenciones();
+                                                                updateDetenciones();
                                                             } else {
                                                                 Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL GRUPO VULNERABLE AL QUE PERTENECE EL DETENIDO", Toast.LENGTH_SHORT).show();
                                                                 diecisietelinear.requestFocus();
@@ -561,10 +561,10 @@ public class Detenciones extends Fragment  {
                                             if (rbPadecimiento.isChecked()) {
 
                                                 if (rbNoGrupoVulnerable.isChecked()) {
-                                                    insertDetenciones();
+                                                    updateDetenciones();
                                                 } else if (rbSiGrupoVulnerable.isChecked()) {
                                                     if (txtCualGrupoVulnerable.getText().toString().length() >= 3) {
-                                                        insertDetenciones();
+                                                        updateDetenciones();
                                                     } else {
                                                         Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL GRUPO VULNERABLE AL QUE PERTENECE", Toast.LENGTH_SHORT).show();
                                                         diecisietelinear.requestFocus();
@@ -579,10 +579,10 @@ public class Detenciones extends Fragment  {
                                                 if (txtCualPadecimiento.getText().toString().length() >= 3) {
 
                                                     if (rbNoGrupoVulnerable.isChecked()) {
-                                                        insertDetenciones();
+                                                        updateDetenciones();
                                                     } else if (rbSiGrupoVulnerable.isChecked()) {
                                                         if (txtCualGrupoVulnerable.getText().toString().length() >= 3) {
-                                                            insertDetenciones();
+                                                            updateDetenciones();
                                                         } else {
                                                             Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL GRUPO VULNERABLE AL QUE PERTENECE EL DETENIDO", Toast.LENGTH_SHORT).show();
                                                             diecisietelinear.requestFocus();
@@ -783,7 +783,8 @@ public class Detenciones extends Fragment  {
                     txtNombresDetenido.setText((jsonjObject.getString("NomDetenido")).equals("null")?"":jsonjObject.getString("NomDetenido"));
 
                     txtApodoDetenido.setText((jsonjObject.getString("ApodoAlias")).equals("null")?"":jsonjObject.getString("ApodoAlias"));
-                    if(txtApodoDetenido.getText().toString().equals("")){chNoAplicaAliasDetenido.setChecked(true);}
+                    if(jsonjObject.getString("ApodoAlias").equals("NA")){chNoAplicaAliasDetenido.setChecked(true);}
+                   // if(txtApodoDetenido.getText().toString().equals("")){chNoAplicaAliasDetenido.setChecked(true);}
 
                     spGeneroDetenido.setSelection(funciones.getIndexSpiner(spGeneroDetenido, (jsonjObject.getString("Sexo"))));
                     //Revisar cuando es otra
@@ -1325,9 +1326,9 @@ public class Detenciones extends Fragment  {
                                 insertImagen();
                                 //Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
                                 //guardarFolios();
-                                txtFechaDetenido.setText("");
-                                txthoraDetencion.setText("");
-                                txtFechaNacimientoDetenido.setText("");
+                                //txtFechaDetenido.setText("");
+                                //txthoraDetencion.setText("");
+                                /*txtFechaNacimientoDetenido.setText("");
                                 txtPrimerApellidoDetenido.setText("");
                                 txtSegundoApellidoDetenido.setText("");
                                 txtNombresDetenido.setText("");
@@ -1340,7 +1341,8 @@ public class Detenciones extends Fragment  {
                                 txtReferenciasdelLugarDetenido.setText("");
                                 txtCualGrupoVulnerable.setText("");
                                 txtCualPadecimiento.setText("");
-                                addFragment(new Detenciones());
+                                 */
+                                //addFragment(new Detenciones());
 
                             }else{
                                 Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, VERIFIQUE SU INFORMACIÓN", Toast.LENGTH_SHORT).show();
