@@ -1068,6 +1068,7 @@ public class Detenciones extends Fragment  {
                         public void run() {
                             System.out.println("EL DATO DE LA IMAGEN SE ENVIO CORRECTAMENTE");
                             Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+                            addFragment(new Detenciones());
                         }
                     });
                 }
@@ -1186,7 +1187,7 @@ public class Detenciones extends Fragment  {
                                 insertImagen();
                                 //Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
                                 //guardarFolios();
-                                txtFechaDetenido.setText("");
+                               /* txtFechaDetenido.setText("");
                                 txthoraDetencion.setText("");
                                 txtFechaNacimientoDetenido.setText("");
                                 txtPrimerApellidoDetenido.setText("");
@@ -1200,8 +1201,7 @@ public class Detenciones extends Fragment  {
                                 txtCodigoPostalDetenido.setText("");
                                 txtReferenciasdelLugarDetenido.setText("");
                                 txtCualGrupoVulnerable.setText("");
-                                txtCualPadecimiento.setText("");
-                                addFragment(new Detenciones());
+                                txtCualPadecimiento.setText("");*/
 
                             }else{
                                 Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, VERIFIQUE SU INFORMACIÓN", Toast.LENGTH_SHORT).show();
