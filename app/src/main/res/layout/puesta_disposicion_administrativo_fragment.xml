@@ -258,7 +258,10 @@
                     <CheckBox
                         android:id="@+id/chDetencionesAnexoAAdministrativo"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:button="@null"
+                        android:drawableStart="@drawable/chbox"/>
                     <Spinner
                         android:id="@+id/spDetencionesAnexoAAdministrativo"
                         android:layout_width="wrap_content"
@@ -293,7 +296,10 @@
                     <CheckBox
                         android:id="@+id/chDetencionesAnexoBAdministrativo"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:button="@null"
+                        android:drawableStart="@drawable/chbox"/>
                     <Spinner
                         android:id="@+id/spDetencionesAnexoBAdministrativo"
                         android:layout_width="wrap_content"
@@ -336,7 +342,10 @@
                     <CheckBox
                         android:id="@+id/chSinAnexosAdministrativo"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:button="@null"
+                        android:drawableStart="@drawable/chbox"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="0dp"
@@ -423,7 +432,10 @@
                 <CheckBox
                     android:id="@+id/chNoAplicaUnidadDeArriboAdministrativo"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:button="@null"
+                    android:drawableStart="@drawable/chbox"/>
                 <TextView
                     android:id="@+id/lblNoAplicaUnidadDeArriboAdministrativo"
                     android:layout_width="wrap_content"

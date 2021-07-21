@@ -179,14 +179,18 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="0dp"
                             android:text="@string/terrestre"
-                            android:width="100dp"/>
+                            android:width="100dp"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"/>
                         <RadioButton
                             android:id="@+id/rbOtro"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="0dp"
                             android:text="@string/otro"
-                            android:width="100dp"/>
+                            android:width="100dp"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"/>
                     </RadioGroup>
                 </LinearLayout>
 
@@ -248,13 +252,17 @@
                             android:id="@+id/rbNacional"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/nacional" />
+                            android:text="@string/nacional"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"/>
 
                         <RadioButton
                             android:id="@+id/rbExtranjero"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/extranjero" />
+                            android:text="@string/extranjero"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"/>
                     </RadioGroup>
                 </LinearLayout>
 
@@ -282,18 +290,23 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Particular"
-                            />
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"/>
 
                         <RadioButton
                             android:id="@+id/rbTransportePublico"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Transporte Publico" />
+                            android:text="Transporte Publico"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"/>
                         <RadioButton
                             android:id="@+id/rbCarga"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Carga" />
+                            android:text="Carga"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"/>
                     </RadioGroup>
                 </LinearLayout>
 

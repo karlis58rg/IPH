@@ -43,7 +43,7 @@
                 <ImageButton
                     android:id="@+id/imgbtnCerrarSesion"
                     android:layout_width="35dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="25dp"
                     android:padding="1dp"
                     android:layout_margin="8dp"
                     android:layout_marginRight="1dp"

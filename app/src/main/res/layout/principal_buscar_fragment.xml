@@ -64,14 +64,18 @@
                                     android:layout_gravity="center"
                                     android:text=""
                                     android:checked="true"
-                                    android:layout_marginBottom="50dp"/>
+                                    android:layout_marginBottom="50dp"
+                                    android:button="@null"
+                                    android:drawableStart="@drawable/rbbox"/>
 
                                 <RadioButton
                                     android:id="@+id/rbBuscarFecha"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
-                                    android:text="" />
+                                    android:text=""
+                                    android:button="@null"
+                                    android:drawableStart="@drawable/rbbox"/>
                             </RadioGroup>
                         </LinearLayout>
 
@@ -104,7 +108,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:maxLength="50"
-                                android:inputType="textCapCharacters"
+                                android:inputType="number"
                                 android:digits="@string/validacion_numero"
                                 android:singleLine="true"
                                 android:maxLines="1"

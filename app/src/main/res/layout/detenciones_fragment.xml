@@ -255,7 +255,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:scaleX="0.85"
-                            android:scaleY="0.85" />
+                            android:scaleY="0.85"
+                            android:padding="5dp"
+                            android:button="@null"
+                            android:drawableStart="@drawable/chbox"/>
                         <TextView
                             android:id="@+id/lblNoAplicaAlias"
                             android:layout_width="wrap_content"
@@ -746,8 +749,7 @@
                         android:paddingBottom="70dp"
                         android:layout_alignParentBottom="true"
                         android:layout_alignEnd="@+id/txtDescripciondelDetenido"
-                        android:src="@drawable/ic_micro"
-                        />
+                        android:src="@drawable/ic_micro"/>
 
                     <TextView
                         android:id="@+id/lblmax3000"
@@ -805,8 +807,10 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
                             android:layout_gravity="center"
+                            android:text="@string/no"
                             android:padding="10dp"
-                            android:text="@string/no"/>
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"/>
 
                         <RadioButton
                             android:id="@+id/rbSiLesiones"
@@ -814,7 +818,9 @@
                             android:layout_height="wrap_content"
                             android:padding="10dp"
                             android:layout_gravity="center"
-                            android:text="@string/si" />
+                            android:text="@string/si"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"/>
                     </RadioGroup>
                 </LinearLayout>
 
@@ -873,7 +879,9 @@
                             android:layout_marginLeft="20dp"
                             android:layout_gravity="center"
                             android:padding="10dp"
-                            android:text="@string/no" />
+                            android:text="@string/no"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"/>
 
                         <RadioButton
                             android:id="@+id/rbSiPadecimiento"
@@ -881,7 +889,9 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:padding="10dp"
-                            android:text="@string/si" />
+                            android:text="@string/si"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"/>
                     </RadioGroup>
                 </LinearLayout>
 
@@ -958,7 +968,9 @@
                             android:layout_gravity="center"
                             android:padding="10dp"
                             android:layout_marginLeft="20dp"
-                            android:text="@string/no" />
+                            android:text="@string/no"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"/>
 
                         <RadioButton
                             android:id="@+id/rbSiGrupoVulnerable"
@@ -966,7 +978,9 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:padding="10dp"
-                            android:text="@string/si" />
+                            android:text="@string/si"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"/>
                     </RadioGroup>
                 </LinearLayout>
 
