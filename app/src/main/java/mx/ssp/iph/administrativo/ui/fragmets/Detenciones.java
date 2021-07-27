@@ -708,6 +708,9 @@ public class Detenciones extends Fragment  {
                 lblFirmaOcultaDetenidoBase64.setText("");
                 lblFirmadelDetenido.setText("");
 
+                firmaURLServer="http://189.254.7.167/WebServiceIPH/Firma/SINFIRMA.jpg";
+                getFirmaFromURL();
+
 
                 txtNacionalidadDetenido.setSelection(funciones.getIndexSpiner(txtNacionalidadDetenido, ("Mexicano")));
                 spLugarTrasladoPersonaDetenida.setSelection(funciones.getIndexSpiner(spLugarTrasladoPersonaDetenida, ("FISCALIA GENERAL DEL ESTADO")));
@@ -824,6 +827,7 @@ public class Detenciones extends Fragment  {
 
                     firmaURLServer=((jsonjObject.getString("UrlFirmaDetenido")).equals("SIN INFORMACION")?"http://189.254.7.167/WebServiceIPH/Firma/SINFIRMA.jpg":jsonjObject.getString("UrlFirmaDetenido"));
                     getFirmaFromURL();
+                    banderaFirma = 1;
 
                     //Autoridad
                     spLugarTrasladoPersonaDetenida.setSelection(funciones.getIndexSpiner(spLugarTrasladoPersonaDetenida, (jsonjObject.getString("LugarTraslado"))));
@@ -837,9 +841,6 @@ public class Detenciones extends Fragment  {
                     Toast.makeText(getContext(), "ERROR AL DESEREALIZAR EL JSON", Toast.LENGTH_SHORT).show();
                     Log.i("DETENCIONES", e.toString());
                 }
-
-
-
 
             }
         });
