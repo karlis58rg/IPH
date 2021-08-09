@@ -38,8 +38,6 @@
                     android:padding="5dp"
                     android:src="@drawable/ic_justicia_civica">
                 </ImageView>
-
-
                 <ImageButton
                     android:id="@+id/imgbtnCerrarSesion"
                     android:layout_width="35dp"
@@ -52,7 +50,6 @@
             </androidx.appcompat.widget.Toolbar>
 
         </com.google.android.material.appbar.AppBarLayout>
-
         <fragment
             android:id="@+id/fragmentContenedorJusticiacivica"
             android:name="mx.ssp.iph.administrativo.ui.fragmets.Fragment_ContainerBlank_Administrativo"

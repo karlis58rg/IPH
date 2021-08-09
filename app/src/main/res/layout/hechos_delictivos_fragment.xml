@@ -231,7 +231,10 @@
                         <CheckBox
                             android:id="@+id/chDetencionesAnexoADelictivo"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content"
+                            android:padding="5dp"
+                            android:button="@null"
+                            android:drawableStart="@drawable/chbox"/>
                         <Spinner
                             android:id="@+id/spDetencionesAnexoADelictivo"
                             android:layout_width="wrap_content"
@@ -264,7 +267,10 @@
                         <CheckBox
                             android:id="@+id/chAnexosDInventarioArmasDelictivo"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content"
+                            android:padding="5dp"
+                            android:button="@null"
+                            android:drawableStart="@drawable/chbox"/>
                         <Spinner
                             android:id="@+id/spAnexosDInventarioArmasDelictivo"
                             android:layout_width="wrap_content"
@@ -305,7 +311,10 @@
                         <CheckBox
                             android:id="@+id/chUsoFuerzaAnexoBDelictivo"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content"
+                            android:padding="5dp"
+                            android:button="@null"
+                            android:drawableStart="@drawable/chbox"/>
                         <Spinner
                             android:id="@+id/spUsoFuerzaAnexoBDelictivo"
                             android:layout_width="wrap_content"
@@ -336,7 +345,10 @@
                         <CheckBox
                             android:id="@+id/chEntrevistasAnexoEDelictivo"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content"
+                            android:padding="5dp"
+                            android:button="@null"
+                            android:drawableStart="@drawable/chbox"/>
                         <Spinner
                             android:id="@+id/spEntrevistasAnexoEDelictivo"
                             android:layout_width="wrap_content"
@@ -377,7 +389,10 @@
                         <CheckBox
                             android:id="@+id/chAnexosCInspeccionVehiculoDelictivo"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content"
+                            android:padding="5dp"
+                            android:button="@null"
+                            android:drawableStart="@drawable/chbox"/>
                         <Spinner
                             android:id="@+id/spAnexosCInspeccionVehiculoDelictivo"
                             android:layout_width="wrap_content"
@@ -409,7 +424,10 @@
                         <CheckBox
                             android:id="@+id/chAnexosFEntregaRecepcionDelictivo"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content"
+                            android:padding="5dp"
+                            android:button="@null"
+                            android:drawableStart="@drawable/chbox"/>
                         <Spinner
                             android:id="@+id/spAnexosFEntregaRecepcionDelictivo"
                             android:layout_width="wrap_content"
@@ -450,7 +468,10 @@
                         <CheckBox
                             android:id="@+id/chSinAnexosDelictivo"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content"
+                            android:padding="5dp"
+                            android:button="@null"
+                            android:drawableStart="@drawable/chbox"/>
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="0dp"
@@ -509,14 +530,18 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="0dp"
                                     android:text="Si"
-                                    android:width="100dp"/>
+                                    android:width="100dp"
+                                    android:button="@null"
+                                    android:drawableStart="@drawable/rbbox"/>
                                 <RadioButton
                                     android:id="@+id/rbNoAnexosDocumentacionDelictivo"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="0dp"
                                     android:text="No"
-                                    android:width="100dp"/>
+                                    android:width="100dp"
+                                    android:button="@null"
+                                    android:drawableStart="@drawable/rbbox"/>
                             </RadioGroup>
                         </LinearLayout>
 
@@ -526,20 +551,6 @@
                             android:orientation="vertical"
                             android:weightSum="1"
                             android:layout_weight="0.10">
-
-                            <EditText
-                                android:id="@+id/txtOtroVehiculo"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:digits="@string/validacion_nombre"
-                                android:enabled="false"
-                                android:hint="Tipo de vehículo"
-                                android:imeOptions="actionNext"
-                                android:inputType="textCapCharacters"
-                                android:lines="1"
-                                android:maxLength="150"
-                                android:maxLines="1"
-                                android:singleLine="true"/>
                         </LinearLayout>
                     </LinearLayout>
 
@@ -662,27 +673,14 @@
                             android:layout_height="match_parent"
                             android:orientation="vertical"
                             android:weightSum="1"
-                            android:layout_weight="0.60">
+                            android:layout_weight="0.40">
+
+                            <!--Revisar vista general -->
                             <TextView
                                 android:id="@+id/lblFirmaAutoridadRealizadaDelictivo"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent" />
-
-                            <!--Revisar vista general -->
-                            <LinearLayout
-                                android:layout_width="0dp"
                                 android:layout_height="match_parent"
-                                android:orientation="vertical"
-                                android:weightSum="1"
-                                android:layout_weight="0.10"
-                                android:visibility="gone">
-                                <TextView
-                                    android:id="@+id/lblFirmaAutoridadRealizadaDelictivoOculto"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textColor="@color/font"
-                                    android:text=""/>
-                            </LinearLayout>
+                                android:textColor="@color/background_section" />
                             <!--  -->
                 </LinearLayout>
 
@@ -690,18 +688,14 @@
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="60dp"
-                            android:layout_weight="0.20"
+                            android:layout_weight="0.45"
                             android:orientation="horizontal"
-                            android:weightSum="1"
-                            android:padding="@dimen/border"
-                            >
+                            android:weightSum="1">
 
                             <ImageView
-                                android:id="@+id/imgFirmaAutoridadRealizadaDelictivoMiniaturo"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:maxWidth="40dp"
-                                android:maxHeight="40dp"
+                                android:id="@+id/imgFirmaAutoridadRealizadaDelictivoMiniatura"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
                                 android:scaleType="fitXY" />
                         </LinearLayout>
 

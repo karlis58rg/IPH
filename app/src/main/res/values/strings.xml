@@ -335,6 +335,7 @@ preguntas: ¿Quién? (personas), ¿Qué? (hechos), ¿Cómo? (circunstancias), ¿
         <item>ESPACIAL</item>
     </string-array>
 
+
     <string name="latitud">Latitud</string>
     <string name="longitud">Longitud</string>
 

@@ -60,9 +60,15 @@ public class MenuPrincipal extends Fragment {
         lyBtn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            funciones.Procesando(getActivity(),"","Procesando, Por favor espera...");
-                Intent intent = new Intent(getActivity(), Iph_Delictivo_Up.class);
-                startActivity(intent);
+            funciones.Procesando(getActivity(),"","GENERANDO NO. DE FOLIO... Procesando, Por favor espera...");
+                //Genera número de folio aleatorio
+                GenerarNumerodeReferencia();
+
+                //Enviamos el número de Refrerencia generado temporalmente. Se envía cuando el WS es correcto
+                guardarFolioInterno(randomCodigoVerifi);
+                //Consume el webservice
+                // =================================
+                GeneraIPHDelictivo();
             }
         });
 
@@ -142,6 +148,18 @@ public class MenuPrincipal extends Fragment {
         startActivity(intent);
     }
 
+    //***************** GUARDA EL FOLIO INTERNO COMO REFERENCIA **************************//
+    private void guardarFolioInterno(String FolioInterno) {
+        share = getContext().getSharedPreferences("main", getContext().MODE_PRIVATE);
+        editor = share.edit();
+        editor.putString("IDHECHODELICTIVO", FolioInterno );
+        editor.commit();
+
+        //Cambia de Actividad
+        Intent intent = new Intent(getActivity(), Iph_Delictivo_Up.class);
+        startActivity(intent);
+    }
+
     //***************** AGREGA UN NUEVO IPH A LA BASE MEDIANTE EL WEB SERVICE **************************//
     private void GeneraIPHAdministrativo() {
 
@@ -183,6 +201,61 @@ public class MenuPrincipal extends Fragment {
                                 else
                                 {
                                     Toast.makeText(getContext(), "NO FUE POSIBLE GENERAR EL NÚMERO DE FOLIO, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_SHORT).show();
+                                }
+                                //*************************
+                            }
+                        });
+                    }
+                    catch (Exception e){
+                        Toast.makeText(getContext(), "ERROR, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            }
+        });
+    }
+
+    //***************** AGREGA UN NUEVO IPH A LA BASE MEDIANTE EL WEB SERVICE **************************//
+    private void GeneraIPHDelictivo() {
+
+        OkHttpClient client = new OkHttpClient();
+        RequestBody body = new FormBody.Builder()
+                .add("IdHechoDelictivo",randomCodigoVerifi)
+                .build();
+
+        Request request = new Request.Builder()
+                .url("http://189.254.7.167/WebServiceIPH/api/IPHDelictivo")
+                .post(body)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Looper.prepare(); // to be able to make toast
+                Toast.makeText(getContext(), "ERROR AL GENERAR NÚMERO DE FOLIO INTERNO, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    final String myResponse = response.body().string();
+
+                    try {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                String resp = myResponse;
+
+                                //***************** RESPUESTA DEL WEBSERVICE **************************//
+
+                                if(resp.equals("true")) {
+                                    //Enviamos el número de Refrerencia generado
+                                    guardarFolioInterno(randomCodigoVerifi);
+                                }
+                                else
+                                {
+                                    Toast.makeText(getContext(), " ", Toast.LENGTH_SHORT).show();
                                 }
                                 //*************************
                             }

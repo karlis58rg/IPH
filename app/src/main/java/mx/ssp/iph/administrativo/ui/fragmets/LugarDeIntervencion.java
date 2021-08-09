@@ -352,7 +352,6 @@ public class LugarDeIntervencion extends Fragment {
     private void ListCombos() {
         DataHelper dataHelper = new DataHelper(getContext());
         ArrayList<String> municipios = dataHelper.getAllMunicipios();
-        ArrayList<String> instituciones = dataHelper.getAllInstitucion();
         if (municipios.size() > 0) {
             System.out.println("YA EXISTE INFORMACIÓN DE MUNICIPIOS");
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_layout, R.id.txt, municipios);
