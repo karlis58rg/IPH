@@ -1,0 +1,1946 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".delictivo.ui.fragmets.NarrativaHechos_Delictivo">
+
+    <ScrollView
+        android:id="@+id/scrollTransporte"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Apartado D1 -->
+            <LinearLayout
+                android:id="@+id/principalLinear"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:id="@+id/lyHeaderDescripciondelosHechos"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="@color/background_section">
+                    <TextView
+                        android:id="@+id/lblDescripciondelosHechos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="Apartado D.1 Registro de Armas de Fuego" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="320dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:id="@+id/lyArmaFuego"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_margin="@dimen/border"
+                    android:layout_weight=".1"
+                    android:background="@drawable/borde"
+                    android:focusableInTouchMode="true">
+
+                    <TextView
+                        android:id="@+id/lblPersonalqueIngreso"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="italic"
+                        android:text="Marque la casilla si se trata de aportación o inspección, según corresponda." />
+
+
+                    <RadioGroup
+                        android:id="@+id/rgAportacionInspeccionArmaFuego"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="10dp"
+                        android:gravity="center_vertical">
+
+                        <RadioButton
+                            android:paddingTop="10dp"
+                            android:id="@+id/rbAportacion"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Aportación"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"
+                            />
+
+                        <RadioButton
+                            android:paddingTop="10dp"
+                            android:id="@+id/rbInspeccionLugar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Inspección del lugar"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"/>
+                        <RadioButton
+                            android:paddingTop="10dp"
+                            android:id="@+id/rbInspeccionPersona"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Inspección de una Persona"
+                        android:button="@null"
+                        android:drawableStart="@drawable/rbbox"/>
+                        <RadioButton
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:id="@+id/rbInspeccionVehiculo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Inspección de un Vehículo"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"/>
+
+
+
+                            <TextView
+                                android:id="@+id/lblLugarEncontroArma"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/font"
+                                android:text="¿Dónde se encontró el arma?"/>
+                            <EditText
+                                android:id="@+id/txtLugarEncontroArma"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:maxLength="50"
+                                android:inputType="textCapCharacters"
+                                android:digits="@string/validacion_nombre"
+                                android:singleLine="true"
+                                android:maxLines="1"
+                                android:lines="1"
+                                android:imeOptions="actionNext"/>
+
+                    </RadioGroup>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:id="@+id/lyTipoArmaFuego"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_margin="@dimen/border"
+                    android:layout_weight=".1"
+                    android:background="@drawable/borde"
+                    android:focusableInTouchMode="true">
+
+                    <TextView
+                        android:id="@+id/lblTipoArma"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="italic"
+                        android:text="Tipo de arma:" />
+
+
+                    <RadioGroup
+                        android:id="@+id/rgTipoArma"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="10dp"
+                        android:gravity="center_vertical">
+
+                        <RadioButton
+                            android:paddingTop="10dp"
+                            android:id="@+id/rbArmaCorta"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Arma Corta"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"
+                            />
+
+                        <RadioButton
+                            android:paddingTop="10dp"
+                            android:id="@+id/rbArmaLarga"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Arma Larga"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"/>
+                    </RadioGroup>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <!--Observaciones Arma -->
+            <LinearLayout
+                android:id="@+id/LinearlblObservacionesArma"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:background="@color/background_sub_section">
+                <TextView
+                    android:id="@+id/lblObservacionesArma"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="italic"
+                    android:text="Observaciones (de ser el caso, señale además, características, marca, cargadores y cartuchos):" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LinearObservacionesArma"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:focusableInTouchMode="true">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:id="@+id/txtObservacionesArma"
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        android:maxLength="8000"
+                        android:gravity="top"
+                        android:inputType="text|textMultiLine|textCapCharacters"
+                        android:digits="@string/validacion_notas"/>
+
+                    <ImageView
+                        android:id="@+id/imgMicrofonoObservacionesArma"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignEnd="@+id/txtObservacionesArma"
+                        android:layout_alignBottom="@+id/txtObservacionesArma"
+                        android:paddingBottom="15dp"
+                        android:src="@drawable/ic_micro" />
+
+                    <TextView
+                        android:id="@+id/lblmax3000"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txtObservacionesArma"
+                        android:text=""
+                        android:textStyle="italic" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LinearDestinoArma"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:focusableInTouchMode="true">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblDestinoArma"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="Destino que se le dio:"/>
+                    <EditText
+                        android:id="@+id/txtDestinoArma"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionNext"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Firma de la persona a quien se le aseguró el arma -->
+            <LinearLayout
+                android:id="@+id/LinearlblFirmaPropietarioArma"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:background="@color/background_sub_section">
+                <TextView
+                    android:id="@+id/FirmaPropietarioArmatitulo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="italic"
+                    android:text="Ingrese el nombre y firma de la persona a la que se le aseguró el arma:" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LinearNombreFirmaPropietarioArma"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:focusableInTouchMode="true">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblPrimerApellidoPropietarioArma"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="@string/primer_apellido"/>
+                    <EditText
+                        android:id="@+id/txtPrimerApellidoPropietarioArma"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionNext"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblSegundoApellidoPropietarioArma"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="@string/segundo_apellido"/>
+                    <EditText
+                        android:id="@+id/txtSegundoApellidoPropietarioArma"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionNext"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblNombrePropietarioArma"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="@string/nombres"/>
+                    <EditText
+                        android:id="@+id/txtNombresPropietarioArma"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionNext"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/Linear12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp">
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lyFirmaPropietarioArma"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:weightSum="1"
+                    android:layout_weight="0.12">
+
+                    <LinearLayout
+                        android:id="@+id/FirmaPropietarioArma"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:weightSum="1"
+                        android:layout_weight="0.5">
+                        <TextView
+                            android:id="@+id/lblFirmaPropietarioArma"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Firma del Entrevistado" />
+
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:weightSum="1"
+                            android:layout_weight="0.5">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:weightSum="1"
+                                android:layout_weight="0.60">
+                                <TextView
+                                    android:id="@+id/lblFirmadelEntrevistado"
+                                    android:enabled="true"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="60dp"
+                                android:layout_weight="0.20"
+                                android:orientation="horizontal"
+                                android:weightSum="1"
+                                android:padding="@dimen/border"
+                                >
+
+                                <ImageView
+                                    android:id="@+id/imgFirmadelEntrevistadoMiniatura"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:maxWidth="40dp"
+                                    android:maxHeight="40dp"
+                                    android:scaleType="fitXY" />
+                            </LinearLayout>
+
+                            <!--Revisar vista general -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:weightSum="1"
+                                android:layout_weight="0.10"
+                                android:visibility="gone">
+                                <TextView
+                                    android:id="@+id/lblFirmadelEntrevistadoOculto"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/font"
+                                    android:text=""/>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal"
+                                android:weightSum="1"
+                                android:layout_weight="0.20">
+                                <ImageView
+                                    android:id="@+id/imgFirmaEntrevistado"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/ic_firma" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Firma de Testigo 1 -->
+            <LinearLayout
+                android:id="@+id/LinearlblFirmaTestigosArma"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:background="@color/background_sub_section">
+                <TextView
+                    android:id="@+id/lblFirmaTestigosArma"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="italic"
+                    android:text="En caso de que la persona a la que se le aseguró el arma no acceda a firmar, anote nombre y firma de dos testigos:" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LinearTestigo1Arma"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:focusableInTouchMode="true">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblPrimerApellidoTestigo1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="@string/primer_apellido"/>
+                    <EditText
+                        android:id="@+id/txtPrimerApellidoTestigo1Arma"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionNext"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblSegundoApellidoTestigo1Arma"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="@string/segundo_apellido"/>
+                    <EditText
+                        android:id="@+id/txtSegundoApellidoTestigo1Arma"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionNext"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblNombreTestigo1Arma"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="@string/nombres"/>
+                    <EditText
+                        android:id="@+id/txtNombresTestigo1Arma"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionNext"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LinearFirmaTestigo1Arma"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp">
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lyFirmaTestigo1Arma"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:weightSum="1"
+                    android:layout_weight="0.12">
+
+                    <LinearLayout
+                        android:id="@+id/FirmaTestigo1Arma"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:weightSum="1"
+                        android:layout_weight="0.5">
+                        <TextView
+                            android:id="@+id/lblFirmaTestigo1Arma"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Firma del primer Testigo" />
+
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:weightSum="1"
+                            android:layout_weight="0.5">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:weightSum="1"
+                                android:layout_weight="0.60">
+                                <TextView
+                                    android:id="@+id/lblStatusFirmaTestigo1Arma"
+                                    android:enabled="true"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="60dp"
+                                android:layout_weight="0.20"
+                                android:orientation="horizontal"
+                                android:weightSum="1"
+                                android:padding="@dimen/border"
+                                >
+
+                                <ImageView
+                                    android:id="@+id/imgFirmaTestigo1ArmaMiniatura"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:maxWidth="40dp"
+                                    android:maxHeight="40dp"
+                                    android:scaleType="fitXY" />
+                            </LinearLayout>
+
+                            <!--Revisar vista general -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:weightSum="1"
+                                android:layout_weight="0.10"
+                                android:visibility="gone">
+                                <TextView
+                                    android:id="@+id/lblFirmaTestigo1ArmaOculto"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/font"
+                                    android:text=""/>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal"
+                                android:weightSum="1"
+                                android:layout_weight="0.20">
+                                <ImageView
+                                    android:id="@+id/imgFirmaTestigo1Arma"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/ic_firma" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Firma de Testigo 2 -->
+
+            <LinearLayout
+                android:id="@+id/LinearTestigo2Arma"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:focusableInTouchMode="true">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblPrimerApellidoTestigo2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="@string/primer_apellido"/>
+                    <EditText
+                        android:id="@+id/txtPrimerApellidoTestigo2Arma"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionNext"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblSegundoApellidoTestigo2Arma"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="@string/segundo_apellido"/>
+                    <EditText
+                        android:id="@+id/txtSegundoApellidoTestigo2Arma"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionNext"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblNombreTestigo2Arma"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="@string/nombres"/>
+                    <EditText
+                        android:id="@+id/txtNombresTestigo2Arma"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionNext"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LinearFirmaTestigo2Arma"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp">
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lyFirmaTestigo2Arma"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:weightSum="1"
+                    android:layout_weight="0.12">
+
+                    <LinearLayout
+                        android:id="@+id/FirmaTestigo2Arma"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:weightSum="1"
+                        android:layout_weight="0.5">
+                        <TextView
+                            android:id="@+id/lblFirmaTestigo2Arma"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Firma del primer Testigo" />
+
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:weightSum="1"
+                            android:layout_weight="0.5">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:weightSum="1"
+                                android:layout_weight="0.60">
+                                <TextView
+                                    android:id="@+id/lblStatusFirmaTestigo2Arma"
+                                    android:enabled="true"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="60dp"
+                                android:layout_weight="0.20"
+                                android:orientation="horizontal"
+                                android:weightSum="1"
+                                android:padding="@dimen/border"
+                                >
+
+                                <ImageView
+                                    android:id="@+id/imgFirmaTestigo2ArmaMiniatura"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:maxWidth="40dp"
+                                    android:maxHeight="40dp"
+                                    android:scaleType="fitXY" />
+                            </LinearLayout>
+
+                            <!--Revisar vista general -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:weightSum="1"
+                                android:layout_weight="0.10"
+                                android:visibility="gone">
+                                <TextView
+                                    android:id="@+id/lblFirmaTestigo2ArmaOculto"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/font"
+                                    android:text=""/>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal"
+                                android:weightSum="1"
+                                android:layout_weight="0.20">
+                                <ImageView
+                                    android:id="@+id/imgFirmaTestigo2Arma"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/ic_firma" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!--======== Botón Agregar Arma ============ -->
+            <LinearLayout
+                android:id="@+id/LinearAgregarArma"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lyAgregarArma"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:weightSum="1">
+
+                    <ImageView
+                        android:id="@+id/btnAgregarArma"
+                        android:layout_width="230dp"
+                        android:layout_height="45dp"
+                        android:background="@drawable/icn_add"  />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LinearListArmas"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp">
+                <ListView
+                    android:id="@+id/lvArmas"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
+            <!--================================= -->
+            <!--================================= -->
+            <!--================================= -->
+            <!--=========== APARTADO D3 ========= -->
+            <!-- Apartado D3 -->
+            <LinearLayout
+                android:id="@+id/secundarioLinear"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:id="@+id/lyHeaderApartadoD3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="@color/background_section">
+                    <TextView
+                        android:id="@+id/lblApartadoD3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="Apartado D.3 Registro de objetos recolectados y/o asegurados relacionados con el hecho probablemente delictivo" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="320dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:id="@+id/lyObjeto"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_margin="@dimen/border"
+                    android:layout_weight=".1"
+                    android:background="@drawable/borde"
+                    android:focusableInTouchMode="true">
+
+                    <TextView
+                        android:id="@+id/lblQueEncontro"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="italic"
+                        android:text="¿Qué encontró? (apariencia de):" />
+
+
+                    <RadioGroup
+                        android:id="@+id/rgTipoObjeto"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="10dp"
+                        android:gravity="center_vertical">
+
+                        <RadioButton
+                            android:paddingTop="10dp"
+                            android:id="@+id/rbNarcotico"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Narcótico"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"
+                            />
+
+                        <RadioButton
+                            android:paddingTop="10dp"
+                            android:id="@+id/rbHidrocarburo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Hidrocarburo"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"/>
+                        <RadioButton
+                            android:paddingTop="10dp"
+                            android:id="@+id/rbNumerario"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Numerario"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"/>
+
+                        <TextView
+                            android:id="@+id/lblOtroObjeto"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/font"
+                            android:text="¿Dónde se encontró el arma?"/>
+                        <EditText
+                            android:id="@+id/txtOtroObjeto"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLength="50"
+                            android:inputType="textCapCharacters"
+                            android:digits="@string/validacion_nombre"
+                            android:singleLine="true"
+                            android:maxLines="1"
+                            android:lines="1"
+                            android:imeOptions="actionNext"/>
+
+                    </RadioGroup>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="320dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:id="@+id/lyObjetos"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_margin="@dimen/border"
+                    android:layout_weight=".1"
+                    android:background="@drawable/borde"
+                    android:focusableInTouchMode="true">
+
+                    <TextView
+                        android:id="@+id/lblObjetos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="italic"
+                        android:text="Marque la casilla si se trata de aportación o inspección, según corresponda." />
+
+
+                    <RadioGroup
+                        android:id="@+id/rgAportacionInspeccionObjetos"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="10dp"
+                        android:gravity="center_vertical">
+
+                        <RadioButton
+                            android:paddingTop="10dp"
+                            android:id="@+id/rbAportacionObjetos"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Aportación"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"
+                            />
+
+                        <RadioButton
+                            android:paddingTop="10dp"
+                            android:id="@+id/rbInspeccionLugarObjetos"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Inspección del lugar"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"/>
+                        <RadioButton
+                            android:paddingTop="10dp"
+                            android:id="@+id/rbInspeccionPersonaObjetos"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Inspección de una Persona"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"/>
+                        <RadioButton
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:id="@+id/rbInspeccionVehiculoObjetos"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Inspección de un Vehículo"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"/>
+
+
+
+                        <TextView
+                            android:id="@+id/lblLugarEncontroObjetos"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/font"
+                            android:text="¿Dónde se encontró el objeto?"/>
+                        <EditText
+                            android:id="@+id/txtLugarEncontroObjetos"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLength="50"
+                            android:inputType="textCapCharacters"
+                            android:digits="@string/validacion_nombre"
+                            android:singleLine="true"
+                            android:maxLines="1"
+                            android:lines="1"
+                            android:imeOptions="actionNext"/>
+
+                    </RadioGroup>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <!--Observaciones Objetos -->
+            <LinearLayout
+                android:id="@+id/LinearlblObservacionesObjetos"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:background="@color/background_sub_section">
+                <TextView
+                    android:id="@+id/lblObservacionesObjetos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="italic"
+                    android:text="Breve descripción del objeto:" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LinearObservacionesObjetos"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:focusableInTouchMode="true">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:id="@+id/txtObservacionesObjetos"
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        android:maxLength="8000"
+                        android:gravity="top"
+                        android:inputType="text|textMultiLine|textCapCharacters"
+                        android:digits="@string/validacion_notas"/>
+
+                    <ImageView
+                        android:id="@+id/imgMicrofonoObservacionesObjetos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignEnd="@+id/txtObservacionesObjetos"
+                        android:layout_alignBottom="@+id/txtObservacionesObjetos"
+                        android:paddingBottom="15dp"
+                        android:src="@drawable/ic_micro" />
+
+                    <TextView
+                        android:id="@+id/lblmax3000Objetos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txtObservacionesObjetos"
+                        android:text=""
+                        android:textStyle="italic" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LinearDestinoObjetos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:focusableInTouchMode="true">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblDestinoObjetos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="Destino que se le dio:"/>
+                    <EditText
+                        android:id="@+id/txtDestinoObjetos"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionNext"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Firma de la persona a quien se le aseguró el Objeto -->
+            <LinearLayout
+                android:id="@+id/LinearlblFirmaPropietarioObjetos"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:background="@color/background_sub_section">
+                <TextView
+                    android:id="@+id/FirmaPropietarioObjetostitulo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="italic"
+                    android:text="Ingrese el nombre y firma de la persona a la que se le aseguró el arma:" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LinearNombreFirmaPropietarioObjetos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:focusableInTouchMode="true">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblPrimerApellidoPropietarioObjetos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="@string/primer_apellido"/>
+                    <EditText
+                        android:id="@+id/txtPrimerApellidoPropietarioObjetos"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionNext"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblSegundoApellidoPropietarioObjetos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="@string/segundo_apellido"/>
+                    <EditText
+                        android:id="@+id/txtSegundoApellidoPropietarioObjetos"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionNext"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblNombrePropietarioObjetos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="@string/nombres"/>
+                    <EditText
+                        android:id="@+id/txtNombresPropietarioObjetos"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionNext"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/Linear12Firma"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp">
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lyFirmaPropietarioObjetos"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:weightSum="1"
+                    android:layout_weight="0.12">
+
+                    <LinearLayout
+                        android:id="@+id/FirmaPropietarioObjetos"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:weightSum="1"
+                        android:layout_weight="0.5">
+                        <TextView
+                            android:id="@+id/lblFirmaObjetos"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Firma del Entrevistado" />
+
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:weightSum="1"
+                            android:layout_weight="0.5">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:weightSum="1"
+                                android:layout_weight="0.60">
+                                <TextView
+                                    android:id="@+id/lblFirmaPropietarioObjetos"
+                                    android:enabled="true"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="60dp"
+                                android:layout_weight="0.20"
+                                android:orientation="horizontal"
+                                android:weightSum="1"
+                                android:padding="@dimen/border"
+                                >
+
+                                <ImageView
+                                    android:id="@+id/imgFirmadelPropietarioObjetosMiniatura"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:maxWidth="40dp"
+                                    android:maxHeight="40dp"
+                                    android:scaleType="fitXY" />
+                            </LinearLayout>
+
+                            <!--Revisar vista general -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:weightSum="1"
+                                android:layout_weight="0.10"
+                                android:visibility="gone">
+                                <TextView
+                                    android:id="@+id/lblFirmadelPropietarioObjetosOculto"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/font"
+                                    android:text=""/>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal"
+                                android:weightSum="1"
+                                android:layout_weight="0.20">
+                                <ImageView
+                                    android:id="@+id/imgFirmaPropietarioObjetos"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/ic_firma" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Firma de Testigo 1 -->
+            <LinearLayout
+                android:id="@+id/LinearlblFirmaTestigosObjetos"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:background="@color/background_sub_section">
+                <TextView
+                    android:id="@+id/lblFirmaTestigosObjetos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="italic"
+                    android:text="En caso de que la persona a la que se le aseguró el objeto no acceda a firmar, anote nombre y firma de dos testigos:" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LinearTestigo1Objeto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:focusableInTouchMode="true">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblPrimerApellidoTestigo1Objeto"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="@string/primer_apellido"/>
+                    <EditText
+                        android:id="@+id/txtPrimerApellidoTestigo1Objeto"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionNext"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblSegundoApellidoTestigo1Objeto"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="@string/segundo_apellido"/>
+                    <EditText
+                        android:id="@+id/txtSegundoApellidoTestigo1Objeto"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionNext"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblNombreTestigo1Objeto"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="@string/nombres"/>
+                    <EditText
+                        android:id="@+id/txtNombresTestigo1Objeto"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionNext"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LinearFirmaTestigo1Objeto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp">
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lyFirmaTestigo1Objeto"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:weightSum="1"
+                    android:layout_weight="0.12">
+
+                    <LinearLayout
+                        android:id="@+id/FirmaTestigo1Objeto"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:weightSum="1"
+                        android:layout_weight="0.5">
+                        <TextView
+                            android:id="@+id/lblFirmaTestigo1Objeto"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Firma del primer Testigo" />
+
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:weightSum="1"
+                            android:layout_weight="0.5">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:weightSum="1"
+                                android:layout_weight="0.60">
+                                <TextView
+                                    android:id="@+id/lblStatusFirmaTestigo1Objeto"
+                                    android:enabled="true"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="60dp"
+                                android:layout_weight="0.20"
+                                android:orientation="horizontal"
+                                android:weightSum="1"
+                                android:padding="@dimen/border"
+                                >
+
+                                <ImageView
+                                    android:id="@+id/imgFirmaTestigo1ObjetoMiniatura"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:maxWidth="40dp"
+                                    android:maxHeight="40dp"
+                                    android:scaleType="fitXY" />
+                            </LinearLayout>
+
+                            <!--Revisar vista general -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:weightSum="1"
+                                android:layout_weight="0.10"
+                                android:visibility="gone">
+                                <TextView
+                                    android:id="@+id/lblFirmaTestigo1ObjetoOculto"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/font"
+                                    android:text=""/>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal"
+                                android:weightSum="1"
+                                android:layout_weight="0.20">
+                                <ImageView
+                                    android:id="@+id/imgFirmaTestigo1Objeto"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/ic_firma" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Firma de Testigo 2 -->
+
+            <LinearLayout
+                android:id="@+id/LinearTestigo2Objeto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:focusableInTouchMode="true">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblPrimerApellidoTestigo2Objeto"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="@string/primer_apellido"/>
+                    <EditText
+                        android:id="@+id/txtPrimerApellidoTestigo2Objeto"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionNext"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblSegundoApellidoTestigo2Objeto"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="@string/segundo_apellido"/>
+                    <EditText
+                        android:id="@+id/txtSegundoApellidoTestigo2Objeto"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionNext"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblNombreTestigo2Objeto"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="@string/nombres"/>
+                    <EditText
+                        android:id="@+id/txtNombresTestigo2Objeto"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionNext"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LinearFirmaTestigo2Objeto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp">
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lyFirmaTestigo2Objeto"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:weightSum="1"
+                    android:layout_weight="0.12">
+
+                    <LinearLayout
+                        android:id="@+id/FirmaTestigo2Objeto"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:weightSum="1"
+                        android:layout_weight="0.5">
+                        <TextView
+                            android:id="@+id/lblFirmaTestigo2Objeto"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Firma del primer Testigo" />
+
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:weightSum="1"
+                            android:layout_weight="0.5">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:weightSum="1"
+                                android:layout_weight="0.60">
+                                <TextView
+                                    android:id="@+id/lblStatusFirmaTestigo2Objeto"
+                                    android:enabled="true"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="60dp"
+                                android:layout_weight="0.20"
+                                android:orientation="horizontal"
+                                android:weightSum="1"
+                                android:padding="@dimen/border"
+                                >
+
+                                <ImageView
+                                    android:id="@+id/imgFirmaTestigo2ObjetoMiniatura"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:maxWidth="40dp"
+                                    android:maxHeight="40dp"
+                                    android:scaleType="fitXY" />
+                            </LinearLayout>
+
+                            <!--Revisar vista general -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:weightSum="1"
+                                android:layout_weight="0.10"
+                                android:visibility="gone">
+                                <TextView
+                                    android:id="@+id/lblFirmaTestigo2ObjetoOculto"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/font"
+                                    android:text=""/>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal"
+                                android:weightSum="1"
+                                android:layout_weight="0.20">
+                                <ImageView
+                                    android:id="@+id/imgFirmaTestigo2Objeto"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/ic_firma" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!--======== Botón Agregar Arma ============ -->
+            <LinearLayout
+                android:id="@+id/LinearAgregarObjeto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lyAgregarObjeto"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:weightSum="1">
+
+                    <ImageView
+                        android:id="@+id/btnAgregarObjeto"
+                        android:layout_width="230dp"
+                        android:layout_height="45dp"
+                        android:background="@drawable/icn_add"  />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LinearListObjeto"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp">
+                <ListView
+                    android:id="@+id/lvObjeto"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>

@@ -16,30 +16,29 @@
             android:orientation="vertical"
             android:padding="16dp">
 
+            <!-- APARTADO F1 -->
             <LinearLayout
-                android:id="@+id/principalLinear"
+                android:id="@+id/Linear1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
                 <LinearLayout
-                    android:id="@+id/lyHeaderDescripciondelosHechos"
+                    android:id="@+id/lyHeaderApartado1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:background="@color/background_section">
                     <TextView
-                        android:id="@+id/lblDescripciondelosHechos"
+                        android:id="@+id/lblHeaderApartado1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/font"
-                        android:text="Apartado 5.1 Descripción de los hechos y acctuación de la autoridad." />
+                        android:text="Apartado F.1 Preservación del lugar de la intervención" />
                 </LinearLayout>
             </LinearLayout>
 
-
-
             <LinearLayout
-                android:id="@+id/tercerLinear"
+                android:id="@+id/Linear2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
@@ -47,11 +46,936 @@
                 android:focusableInTouchMode="true">
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:id="@+id/txtNarrativaHechos"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:maxLength="8000"
+                        android:gravity="top"
+                        android:inputType="text|textMultiLine|textCapCharacters"
+                        android:digits="@string/validacion_notas"/>
+
+                    <ImageView
+                        android:id="@+id/imgMicrofonoNarrativaHechos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignEnd="@+id/txtNarrativaHechos"
+                        android:layout_alignBottom="@+id/txtNarrativaHechos"
+                        android:paddingBottom="15dp"
+                        android:src="@drawable/ic_micro" />
+
+                    <TextView
+                        android:id="@+id/lblmax3000"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txtNarrativaHechos"
+                        android:text="Explique brevemente las acciones realizadas para la preservación de/lugar de la intervención. (delimitacíon, acordonamiento, clausura en lugar cerrado, etc.)"
+                        android:textStyle="italic" />
+                </RelativeLayout>
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/cuartoLinear"
+                android:id="@+id/Linear3"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/ic_borde_radio"
+                android:layout_height="90dp"
+                android:focusableInTouchMode="true">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.15"
+                    android:gravity="center"
+                    android:layout_marginLeft="@dimen/border">
+                    <TextView
+                        android:id="@+id/lblpregunta"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="¿Solicitó apoyo de alguna autoridad o servicios especializados en el lugar de la intervención?"
+                        android:layout_gravity="center_vertical"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.1">
+                    <RadioGroup
+                        android:id="@+id/rgPadecimiento"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+                        <RadioButton
+                            android:id="@+id/rbPadecimiento"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_gravity="center"
+                            android:padding="10dp"
+                            android:text="@string/no"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"/>
+
+                        <RadioButton
+                            android:id="@+id/rbSiPadecimiento"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:padding="10dp"
+                            android:text="@string/si"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"/>
+                    </RadioGroup>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10"
+                    android:layout_gravity="center"
+                    android:gravity="center">
+                    <TextView
+                        android:id="@+id/lblCualAutoridad"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="Autoridad"/>
+
+                    <EditText
+                        android:id="@+id/txtCualAutoridad"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:hint="Autoridad"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionNext"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- APARTADO F2 -->
+            <LinearLayout
+                android:id="@+id/Linear4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/border">
+                <LinearLayout
+                    android:id="@+id/lyHeaderApartado2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="@color/background_section">
+                    <TextView
+                        android:id="@+id/lblHeaderApartado2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="Apartado F.2 Acciones realizadas despúes de la preservación" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/Linear5"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/ic_borde_radio"
+                android:layout_height="90dp"
+                android:focusableInTouchMode="true">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.15"
+                    android:gravity="center"
+                    android:layout_marginLeft="@dimen/border">
+                    <TextView
+                        android:id="@+id/lblpregunta2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="Después de la preservación del lugar de la intervención, ¿Ingresó alguna persona al lugar?"
+                        android:layout_gravity="center_vertical"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.1">
+                    <RadioGroup
+                        android:id="@+id/rgMotivo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+                        <RadioButton
+                            android:id="@+id/rgNoMotivo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_gravity="center"
+                            android:padding="10dp"
+                            android:text="@string/no"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"/>
+
+                        <RadioButton
+                            android:id="@+id/rgSiMotivo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:padding="10dp"
+                            android:text="@string/si"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"/>
+                    </RadioGroup>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10"
+                    android:layout_gravity="center"
+                    android:gravity="center">
+                    <TextView
+                        android:id="@+id/lblmotivoIngreso"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="Motivo del Ingreso"/>
+                    <EditText
+                        android:id="@+id/txtmotivoIngreso"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:hint="Motivo del Ingreso"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionNext"/>
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/octavoLinearPersonalqueIngreso"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:background="@color/background_sub_section">
+                <TextView
+                    android:id="@+id/lblPersonalqueIngreso"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="italic"
+                    android:text="Datos del personal que ingresó al lugar de la intervención." />
+            </LinearLayout>
+
+        <LinearLayout
+                android:id="@+id/Linear8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:focusableInTouchMode="true">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblPrimerApellido"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="@string/primer_apellido"/>
+                    <EditText
+                        android:id="@+id/txtPrimerApellidoPersonal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionNext"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblSegundoApellido"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="@string/segundo_apellido"/>
+                    <EditText
+                        android:id="@+id/txtSegundoApellidoPersonal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionNext"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblNombreAdministrativo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="@string/nombres"/>
+                    <EditText
+                        android:id="@+id/txtNombresPersonal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionNext"/>
+                </LinearLayout>
+            </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/Linear9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:focusableInTouchMode="true">
+            <LinearLayout
+                android:id="@+id/lyCargoIntervencion"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/lblCargoIntervencion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cargo" />
+
+                <Spinner
+                    android:id="@+id/txtCargoIntervencion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/lyInstitucionIntervencion"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:weightSum="1"
+                android:layout_weight="0.5">
+                <TextView
+                    android:id="@+id/lblInstitucionIntervencion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/institucion" />
+                <Spinner
+                    android:id="@+id/spInstitucionIntervencion"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+            <!-- APARTADO F3 -->
+            <LinearLayout
+                android:id="@+id/Linear10"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/border">
+                <LinearLayout
+                    android:id="@+id/lyHeaderApartado3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="@color/background_section">
+                    <TextView
+                        android:id="@+id/lblHeaderApartado3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="Apartado F.3 Entrega-Recepción del lugar de la intervención" />
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <!--PERSONA ENTREGA LUGAR -->
+            <LinearLayout
+                android:id="@+id/octavoLinearPersonaRecibeEntregaLugar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:background="@color/background_sub_section">
+                <TextView
+                    android:id="@+id/lblInstruccionPersonaRecibeEntregaLugar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="italic"
+                    android:text="Datos de la persona que entrega el lugar de la intervención." />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/LinearPersonaEntregaLugar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:focusableInTouchMode="true">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblPrimerApellidoPersonaEntregaLugar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="@string/primer_apellido"/>
+                    <EditText
+                        android:id="@+id/txtPrimerApellidoPersonalPersonaEntregaLugar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionNext"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblSegundoApellidoPersonaEntregaLugar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="@string/segundo_apellido"/>
+                    <EditText
+                        android:id="@+id/txtSegundoApellidoPersonalPersonaEntregaLugar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionNext"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblNombreAdministrativoPersonaEntregaLugar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="@string/nombres"/>
+                    <EditText
+                        android:id="@+id/txtNombresPersonalPersonaEntregaLugar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionNext"/>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/LinearAdscripcionPersonaEntregaLugar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:focusableInTouchMode="true">
+                <LinearLayout
+                    android:id="@+id/lyAdscripcionPersonaEntregaLugar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.5">
+                    <TextView
+                        android:id="@+id/lblAdscripcionPersonaEntregaLugar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/adscripcion" />
+                    <Spinner
+                        android:id="@+id/txtAdscripcionPersonaEntregaLugar"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lyCargoPersonaEntregaLugar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/lblCargoPersonaEntregaLugar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/cargo" />
+
+                    <Spinner
+                        android:id="@+id/txtCargoPersonaEntregaLugar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <!--FIRMA -->
+                <LinearLayout
+                    android:id="@+id/lyFirmaPersonaEntregaLugar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.5">
+                    <TextView
+                        android:id="@+id/lblFirmaPersonaEntregaLugar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Firma de quien recibe" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:weightSum="1"
+                        android:layout_weight="0.5">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:weightSum="1"
+                            android:layout_weight="0.40">
+                            <TextView
+                                android:id="@+id/lblStatusFirmaPersonaEntregaLugar"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/background_section"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="60dp"
+                            android:layout_weight="0.45"
+                            android:orientation="horizontal"
+                            android:weightSum="1">
+                            <ImageView
+                                android:id="@+id/imgFirmaPersonaEntregaLugarMiniatura"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:scaleType="fitXY"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:weightSum="1"
+                            android:layout_weight="0.15">
+                            <ImageView
+                                android:id="@+id/imgFirmaPersonaEntregaLugar"
+                                android:layout_width="40dp"
+                                android:layout_height="50dp"
+                                android:src="@drawable/ic_firma" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <!--PERSONA RECIBE LUGAR -->
+
+
+            <LinearLayout
+                android:id="@+id/octavoLinearPersonaRecepciondelLugar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:background="@color/background_sub_section">
+                <TextView
+                    android:id="@+id/lblInstruccionPersonaRecepciondelLugar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="italic"
+                    android:text="Datos de la persona que recepciona el lugar de la intervención." />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/LinearPersonaRecepciondelLugar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:focusableInTouchMode="true">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblPrimerApellidoPersonaRecepciondelLugar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="@string/primer_apellido"/>
+                    <EditText
+                        android:id="@+id/txtPrimerApellidoPersonaRecepciondelLugar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionNext"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblSegundoApellidoPersonaRecepciondelLugar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="@string/segundo_apellido"/>
+                    <EditText
+                        android:id="@+id/txtSegundoApellidoPersonaRecepciondelLugar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionNext"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblNombresPersonaRecepciondelLugar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="@string/nombres"/>
+                    <EditText
+                        android:id="@+id/txtNombresPersonaRecepciondelLugar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionNext"/>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/LinearAdscripcionPersonaRecepciondelLugar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:focusableInTouchMode="true">
+                <LinearLayout
+                    android:id="@+id/lyAdscripcionPersonaRecepciondelLugar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.5">
+                    <TextView
+                        android:id="@+id/lblAdscripcionPersonaRecepciondelLugar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/adscripcion" />
+                    <Spinner
+                        android:id="@+id/txtAdscripcionPersonaRecepciondelLugar"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lyCargoPersonaRecepciondelLugar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/lblCargoPersonaRecepciondelLugar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/cargo" />
+
+                    <Spinner
+                        android:id="@+id/txtCargoPersonaRecepciondelLugar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <!--FIRMA -->
+                <LinearLayout
+                    android:id="@+id/lyFirmaPersonaRecepciondelLugar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.5">
+                    <TextView
+                        android:id="@+id/lblFirmaPersonaRecepciondelLugar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Firma de quien recibe" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:weightSum="1"
+                        android:layout_weight="0.5">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:weightSum="1"
+                            android:layout_weight="0.40">
+                            <TextView
+                                android:id="@+id/lblStatusPersonaRecepciondelLugar"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/background_section"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="60dp"
+                            android:layout_weight="0.45"
+                            android:orientation="horizontal"
+                            android:weightSum="1">
+                            <ImageView
+                                android:id="@+id/imgFirmaPersonaRecepciondelLugarMiniatura"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:scaleType="fitXY"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:weightSum="1"
+                            android:layout_weight="0.15">
+                            <ImageView
+                                android:id="@+id/imgFirmaPersonaRecepciondelLugar"
+                                android:layout_width="40dp"
+                                android:layout_height="50dp"
+                                android:src="@drawable/ic_firma" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+
+
+            <LinearLayout
+                android:id="@+id/Linear11ObservacionesLugarIntervencion"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:focusableInTouchMode="true">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:id="@+id/txtObservacionesLugarIntervencion"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:maxLength="8000"
+                        android:gravity="top"
+                        android:inputType="text|textMultiLine|textCapCharacters"
+                        android:digits="@string/validacion_notas"/>
+
+                    <ImageView
+                        android:id="@+id/imgMicrofonoObservacionesLugarIntervencion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignEnd="@+id/txtObservacionesLugarIntervencion"
+                        android:layout_alignBottom="@+id/txtObservacionesLugarIntervencion"
+                        android:paddingBottom="15dp"
+                        android:src="@drawable/ic_micro" />
+
+                    <TextView
+                        android:id="@+id/lblObservacionesLugarIntervencionmax3000"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txtObservacionesLugarIntervencion"
+                        android:text="Observaciones"
+                        android:textStyle="italic" />
+                </RelativeLayout>
+            </LinearLayout>
+            <!-- APARTADO F3 -->
+            <LinearLayout
+                android:id="@+id/LinearFecha"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/border">
+                <LinearLayout
+                    android:id="@+id/lyHeaderApartado4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="@color/background_section">
+                    <TextView
+                        android:id="@+id/lblHeaderApartado4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="Apartado F.4 Fecha y Hora de la entrega - recepción del lugar de la intervención" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LinearEntregaRecepcionLugardelaIntervencion"
+                android:layout_width="match_parent"
+                android:layout_weight="0.5"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:weightSum="1">
+                <LinearLayout
+                    android:id="@+id/lyFechaEntregaRecepcionLugardelaIntervencion"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/lblFechaEntregaRecepcionLugardelaIntervencion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/fecha" />
+
+                    <EditText
+                        android:id="@+id/txtFechaEntregaRecepcionLugardelaIntervencion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:drawableRight="@drawable/ic_calendar"
+                        android:hint="DD/MM/AAAA" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/lyHoraEntregaRecepcionLugardelaIntervencion"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.5">
+                    <TextView
+                        android:id="@+id/lblHoraEntregaRecepcionLugardelaIntervencion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/hora" />
+                    <EditText
+                        android:id="@+id/txtHoraEntregaRecepcionLugardelaIntervencion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:drawableRight="@drawable/ic_time"
+                        android:hint="HH:MM"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Linear Botón GUARDAR -->
+            <LinearLayout
+                android:id="@+id/LinearBoton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -66,7 +990,7 @@
                     android:layout_weight="0.10">
                 </LinearLayout>
                 <LinearLayout
-                    android:id="@+id/lyGuardarNarrativaHechos"
+                    android:id="@+id/lyGuardarEntregaRecepcion"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
@@ -74,7 +998,7 @@
                     android:weightSum="1"
                     android:layout_weight="0.5">
                     <Button
-                        android:id="@+id/btnGuardarNarrativaHechosDelictivo"
+                        android:id="@+id/btnGuardarEntregaRecepcion"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/white"
