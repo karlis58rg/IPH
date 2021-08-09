@@ -58,7 +58,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/como_se_entero_del_hecho" />
                     <Spinner
-                        android:id="@+id/spConocimientoHecho"
+                        android:id="@+id/spConocimientoHechoDelictivo"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
                 </LinearLayout>
@@ -87,7 +87,7 @@
                         android:text="@string/_911_no_solo_en_caso_de_contar_con_el" />
 
                     <EditText
-                        android:id="@+id/txt911FolioConocimientoHecho"
+                        android:id="@+id/txt911FolioConocimientoHechoDelictivo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:digits="@string/validacion_numero"
@@ -166,7 +166,7 @@
                         android:text="@string/fecha" />
 
                     <EditText
-                        android:id="@+id/txtFechaConocimientoHecho"
+                        android:id="@+id/txtFechaConocimientoHechoDelictivo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:focusable="false"
@@ -186,7 +186,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/hora" />
                     <EditText
-                        android:id="@+id/txtHoraConocimientoHecho"
+                        android:id="@+id/txtHoraConocimientoHechoDelictivo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:focusable="false"
@@ -239,7 +239,7 @@
                         android:text="@string/fecha" />
 
                     <EditText
-                        android:id="@+id/txtFechaArriboLugar"
+                        android:id="@+id/txtFechaArriboLugarHD"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:focusable="false"
@@ -259,7 +259,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/hora" />
                     <EditText
-                        android:id="@+id/txtHoraArriboLugar"
+                        android:id="@+id/txtHoraArriboLugarHD"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:focusable="false"
@@ -292,7 +292,7 @@
                     android:weightSum="1"
                     android:layout_weight="0.5">
                     <Button
-                        android:id="@+id/btnGuardarConocimientoHecho"
+                        android:id="@+id/btnGuardarConocimientoHechoDelictivo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/white"

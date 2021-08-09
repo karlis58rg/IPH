@@ -14,18 +14,41 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Random;
+
 import mx.ssp.iph.R;
+import mx.ssp.iph.SqLite.DataHelper;
+import mx.ssp.iph.administrativo.model.ModelLugarIntervencion_Administrativo;
+import mx.ssp.iph.administrativo.ui.fragmets.LugarDeIntervencion;
+import mx.ssp.iph.delictivo.model.ModeloLugarIntervencion_Delictivo;
 import mx.ssp.iph.delictivo.viewModel.LugarDeIntervencionDelictivoViewModel;
 import mx.ssp.iph.utilidades.ui.ContenedorFirma;
 import mx.ssp.iph.utilidades.ui.ContenedorMaps;
 import mx.ssp.iph.utilidades.ui.Funciones;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -38,6 +61,17 @@ public class LugarDeIntervencion_Delictivo extends Fragment {
     private Funciones funciones;
     SharedPreferences share;
     SharedPreferences.Editor editor;
+    TextView lblCroquisDelictivoOculto;
+    EditText txtEntidadUbicacionGeograficaDelictivo,txtColoniaUbicacionGeograficaDelictivo,txtCalleUbicacionGeograficaDelictivo,txtNumeroExteriorUbicacionGeograficaDelictivo,
+            txtNumeroInteriorUbicacionGeograficaDelictivo,txtCodigoPostalUbicacionGeograficaDelictivo,txtReferenciasdelLugarUbicacionGeograficaDelictivo,
+            txtLatitudUbicacionGeograficaDelictivo,txtLongitudUbicacionGeograficaDelictivo,txtEspecificarRiesgoLugarIntervencion;
+    Spinner spMunicipioUbicacionGeograficaDelictivo;
+    RadioGroup rgInspeccionLugarIntervencion,rgObjetosRelacionadosLugarIntervencion,rgPreservoLugarIntervencion,rgPriorizacionLugarIntervencion,rgRiesgoPresentadoLugarIntervencion;
+    String descripcionMunicipio,cargarIdPoliciaPrimerRespondiente,cargarIdHechoDelictivo,rutaCroquis,
+            varInspeccionLugarIntervencion,varObjetosRelacionadosLugarIntervencion,
+            varPreservoLugarIntervencion,varPriorizacionLugarIntervencion,
+            varRiesgoSocialesLugarIntervencion;
+    int numberRandom,randomUrlImagen;
 
     public static LugarDeIntervencion_Delictivo newInstance() {
         return new LugarDeIntervencion_Delictivo();
@@ -48,11 +82,31 @@ public class LugarDeIntervencion_Delictivo extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.lugar_de_intervencion_delictivo_fragment, container, false);
         /*******************************************************************************/
+        cargarDatos();
+        random();
+        txtEntidadUbicacionGeograficaDelictivo = view.findViewById(R.id.txtEntidadUbicacionGeograficaDelictivo);
+        txtColoniaUbicacionGeograficaDelictivo = view.findViewById(R.id.txtColoniaUbicacionGeograficaDelictivo);
+        txtCalleUbicacionGeograficaDelictivo = view.findViewById(R.id.txtCalleUbicacionGeograficaDelictivo);
+        txtNumeroExteriorUbicacionGeograficaDelictivo = view.findViewById(R.id.txtNumeroExteriorUbicacionGeograficaDelictivo);
+        txtNumeroInteriorUbicacionGeograficaDelictivo = view.findViewById(R.id.txtNumeroInteriorUbicacionGeograficaDelictivo);
+        txtCodigoPostalUbicacionGeograficaDelictivo = view.findViewById(R.id.txtCodigoPostalUbicacionGeograficaDelictivo);
+        txtReferenciasdelLugarUbicacionGeograficaDelictivo = view.findViewById(R.id.txtReferenciasdelLugarUbicacionGeograficaDelictivo);
+        txtLatitudUbicacionGeograficaDelictivo = view.findViewById(R.id.txtLatitudUbicacionGeograficaDelictivo);
+        txtLongitudUbicacionGeograficaDelictivo = view.findViewById(R.id.txtLongitudUbicacionGeograficaDelictivo);
+        txtEspecificarRiesgoLugarIntervencion = view.findViewById(R.id.txtEspecificarRiesgoLugarIntervencion);
+        spMunicipioUbicacionGeograficaDelictivo = view.findViewById(R.id.spMunicipioUbicacionGeograficaDelictivo);
+        rgInspeccionLugarIntervencion = view.findViewById(R.id.rgInspeccionLugarIntervencion);
+        rgObjetosRelacionadosLugarIntervencion = view.findViewById(R.id.rgObjetosRelacionadosLugarIntervencion);
+        rgPreservoLugarIntervencion = view.findViewById(R.id.rgPreservoLugarIntervencion);
+        rgPriorizacionLugarIntervencion = view.findViewById(R.id.rgPriorizacionLugarIntervencion);
+        rgRiesgoPresentadoLugarIntervencion = view.findViewById(R.id.rgRiesgoPresentadoLugarIntervencion);
         btnGuardarLugarIntervencionDelictivo = view.findViewById(R.id.btnGuardarLugarIntervencionDelictivo);
         imgMapDelictivo = view.findViewById(R.id.imgMapDelictivo);
         imgCroquisDelictivo = view.findViewById(R.id.imgCroquisDelictivo);
-        funciones = new Funciones();
+        lblCroquisDelictivoOculto = view.findViewById(R.id.lblCroquisDelictivoOculto);
 
+        funciones = new Funciones();
+        ListCombos();
         funciones.CambiarTituloSeccionesDelictivo("SECCIÓN 4. LUGAR DE LA INTERVENCIÓN",getContext(),getActivity());
 
 
@@ -89,15 +143,153 @@ public class LugarDeIntervencion_Delictivo extends Fragment {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
+                updateLugarIntervencionHD();
+            }
+        });
+
+        rgInspeccionLugarIntervencion.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == R.id.rbSiInspeccionLugarIntervencion) {
+                    varInspeccionLugarIntervencion = "SI";
+                } else if (checkedId == R.id.rbNoInspeccionLugarIntervencion) {
+                    varInspeccionLugarIntervencion = "NO";
+                }
+
+            }
+        });
+        rgObjetosRelacionadosLugarIntervencion.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == R.id.rbSiObjetosRelacionadosLugarIntervencion) {
+                    varObjetosRelacionadosLugarIntervencion = "SI";
+                } else if (checkedId == R.id.rbNoObjetosRelacionadosLugarIntervencion) {
+                    varObjetosRelacionadosLugarIntervencion = "NO";
+                }
+
+            }
+        });
+
+        rgPreservoLugarIntervencion.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == R.id.rbSiPreservoLugarIntervencion) {
+                    varPreservoLugarIntervencion = "SI";
+                } else if (checkedId == R.id.rbNoPreservoLugarIntervencion) {
+                    varPreservoLugarIntervencion = "NO";
+                }
+
+            }
+        });
+        rgPriorizacionLugarIntervencion.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == R.id.rbSiPriorizacionLugarIntervencion) {
+                    varPriorizacionLugarIntervencion = "SI";
+                } else if (checkedId == R.id.rbNoPriorizacionLugarIntervencion) {
+                    varPriorizacionLugarIntervencion = "NO";
+                }
+
+            }
+        });
+        rgRiesgoPresentadoLugarIntervencion.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == R.id.rbRiesgoSocialesLugarIntervencion) {
+                    varRiesgoSocialesLugarIntervencion = "SOCIALES";
+                } else if (checkedId == R.id.rbRiesgoNaturalesLugarIntervencion) {
+                    varRiesgoSocialesLugarIntervencion = "NATURALES";
+                }
+
             }
         });
 
 
-
-
-
         /********************************************************************************/
         return view;
+    }
+    //***************** INSERTA A LA BD MEDIANTE EL WS **************************//
+    private void updateLugarIntervencionHD() {
+        DataHelper dataHelper = new DataHelper(getContext());
+        descripcionMunicipio = (String) spMunicipioUbicacionGeograficaDelictivo.getSelectedItem();
+        String idDescMunicipio = dataHelper.getIdMunicipio(descripcionMunicipio);
+        String idMunicipio = String.valueOf(idDescMunicipio);
+
+        if(idMunicipio.length() == 1){
+            idMunicipio = "00"+idMunicipio;
+        }else if(idMunicipio.length() == 2){
+            idMunicipio = "0"+idMunicipio;
+        }
+        rutaCroquis = "http://189.254.7.167/WebServiceIPH/RutaCroquis/"+cargarIdHechoDelictivo+randomUrlImagen+".jpg";
+
+        ModeloLugarIntervencion_Delictivo modeloIntervencion = new ModeloLugarIntervencion_Delictivo
+                (cargarIdHechoDelictivo,"12",
+                        idMunicipio,txtColoniaUbicacionGeograficaDelictivo.getText().toString(),
+                        txtCalleUbicacionGeograficaDelictivo.getText().toString(),
+                        txtNumeroExteriorUbicacionGeograficaDelictivo.getText().toString(),
+                        txtNumeroInteriorUbicacionGeograficaDelictivo.getText().toString(),
+                        txtCodigoPostalUbicacionGeograficaDelictivo.getText().toString(),
+                        txtReferenciasdelLugarUbicacionGeograficaDelictivo.getText().toString(),
+                        txtLatitudUbicacionGeograficaDelictivo.getText().toString(),
+                        txtLongitudUbicacionGeograficaDelictivo.getText().toString(),
+                        rutaCroquis,varInspeccionLugarIntervencion,varObjetosRelacionadosLugarIntervencion,
+                        varPreservoLugarIntervencion,varPriorizacionLugarIntervencion,varRiesgoSocialesLugarIntervencion,
+                        txtEspecificarRiesgoLugarIntervencion.getText().toString());
+
+        OkHttpClient client = new OkHttpClient();
+        RequestBody body = new FormBody.Builder()
+                .add("IdHechoDelictivo",modeloIntervencion.getIdHechoDelictivo())
+                .add("IdEntidadFederativa",modeloIntervencion.getIdEntidadFederativa())
+                .add("IdMunicipio", modeloIntervencion.getIdMunicipio())
+                .add("ColoniaLocalidad", modeloIntervencion.getColoniaLocalidad())
+                .add("CalleTramo", modeloIntervencion.getCalleTramo())
+                .add("NoExterior", modeloIntervencion.getNoExterior())
+                .add("NoInterior", modeloIntervencion.getNoInterior())
+                .add("Cp", modeloIntervencion.getCp())
+                .add("Referencia", modeloIntervencion.getReferencia())
+                .add("Latitud", modeloIntervencion.getLatitud())
+                .add("Longitud", modeloIntervencion.getLongitud())
+                .add("RutaCroquis", modeloIntervencion.getRutaCroquis())
+                .add("RealizoInspeccion", modeloIntervencion.getRealizoInspeccion())
+                .add("AnexoObjetosRelacionados", modeloIntervencion.getAnexoObjetosRelacionados())
+                .add("PreservoLugar", modeloIntervencion.getPreservoLugar())
+                .add("PriorizacionIntervencion", modeloIntervencion.getPriorizacionIntervencion())
+                .add("TipoRiesgoPresentado", modeloIntervencion.getTipoRiesgoPresentado())
+                .add("DesTipoRiesgoPresentado", modeloIntervencion.getDesTipoRiesgoPresentado())
+                .build();
+        Request request = new Request.Builder()
+                .url("http://189.254.7.167/WebServiceIPH/api/HDLugarIntervencion/")
+                .put(body)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Looper.prepare(); // to be able to make toast
+                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    final String myResponse = response.body().string();
+                    LugarDeIntervencion_Delictivo.this.getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            String resp = myResponse;
+                            if(resp.equals("true")){
+                                System.out.println("EL DATO SE ENVIO CORRECTAMENTE");
+                                Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, VERIFIQUE SU INFORMACIÓN", Toast.LENGTH_SHORT).show();
+                            }
+                            Log.i("HERE", resp);
+                        }
+                    });
+                }
+            }
+        });
     }
 
     @Override
@@ -113,6 +305,28 @@ public class LugarDeIntervencion_Delictivo extends Fragment {
         editor = share.edit();
         editor.putString("BANDERAMAPA", Bandera );
         editor.commit();
+    }
+
+    private void ListCombos() {
+        DataHelper dataHelper = new DataHelper(getContext());
+        ArrayList<String> municipios = dataHelper.getAllMunicipios();
+        if (municipios.size() > 0) {
+            System.out.println("YA EXISTE INFORMACIÓN DE MUNICIPIOS");
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_layout, R.id.txt, municipios);
+            spMunicipioUbicacionGeograficaDelictivo.setAdapter(adapter);
+        }else{
+            Toast.makeText(getContext(), "LO SENTIMOS, NO CUENTA CON MUNICIPIOS ACTIVOS", Toast.LENGTH_LONG).show();
+        }
+    }
+    public void cargarDatos() {
+        share = getContext().getSharedPreferences("main", Context.MODE_PRIVATE);
+        cargarIdPoliciaPrimerRespondiente = share.getString("Usuario", "SIN INFORMACION");
+        cargarIdHechoDelictivo = share.getString("IDHECHODELICTIVO", "SIN INFORMACION");
+    }
+    public void random(){
+        Random random = new Random();
+        numberRandom = random.nextInt(9000)*99;
+        randomUrlImagen = numberRandom;
     }
 
 }

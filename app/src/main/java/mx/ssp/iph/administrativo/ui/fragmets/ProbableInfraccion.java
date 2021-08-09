@@ -165,7 +165,6 @@ public class ProbableInfraccion extends Fragment {
     }
 
     private void updateProbableInfraccion(){
-
         DataHelper dataHelper = new DataHelper(getContext());
         descConocimientoInfraccion = (String) spHechoProbableInfraccionAdministrativo.getSelectedItem();
         int idDescConocimiento = dataHelper.getIdConocimientoInfraccion(descConocimientoInfraccion);

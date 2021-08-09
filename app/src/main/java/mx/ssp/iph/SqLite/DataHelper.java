@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class DataHelper extends SQLiteOpenHelper {
     public static final String DataBase_Name = "IPH";
-    public static final int Database_Version = 21 ;
+    public static final int Database_Version = 24 ;
 
     public static final String Table_CatAutoridadAdmin = "CatAutoridadAdmin";
     public static final String Create_CatAutoridadAdmin = "CREATE TABLE IF NOT EXISTS " + Table_CatAutoridadAdmin +"(IdAutoridadAdmin INTEGER PRIMARY KEY, AutoridadAdmin TEXT NOT NULL UNIQUE)";
@@ -54,7 +54,10 @@ public class DataHelper extends SQLiteOpenHelper {
     public static final String Table_CatAnio = "CatAnio";
     public static final String Create_CatAnio = "CREATE TABLE IF NOT EXISTS " + Table_CatAnio +"(MODELO TEXT PRIMARY KEY)";
 
-    //public static final String Delete_Table_CatCargo = "DROP TABLE IF EXISTS "+ Table_CatCargo;
+    public static final String Table_CatIdentificacion = "CatIdentificacion";
+    public static final String Create_CatIdentificacion = "CREATE TABLE IF NOT EXISTS " + Table_CatIdentificacion +"(IdIdentificacion INTEGER PRIMARY KEY, Identificacion TEXT NOT NULL UNIQUE)";
+
+    //public static final String Delete_Table_CatSexo = "DROP TABLE IF EXISTS "+ Table_CatSexo;
     //public static final String Delete_Table_CatMunicipios = "DROP TABLE IF EXISTS "+ Table_CatMunicipios;
 
     @Override
@@ -73,11 +76,12 @@ public class DataHelper extends SQLiteOpenHelper {
         db.execSQL(Create_CatSubMarcaVehiculos);
         db.execSQL(Create_CatColor);
         db.execSQL(Create_CatAnio);
+        db.execSQL(Create_CatIdentificacion);
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //db.execSQL(Delete_Table_CatCargo);
-        //db.execSQL(Delete_Table_CatMunicipios);
+        //db.execSQL(Delete_Table_CatSexo);
         onCreate(db);
     }
 
@@ -994,7 +998,6 @@ public class DataHelper extends SQLiteOpenHelper {
         }
         return idSubMarca;
     }
-
     public ArrayList<String> getValueByIdMarca(String idMarcaVehiculos){
         ArrayList<String> list = new ArrayList<String>();
         SQLiteDatabase dbDatabase = this.getReadableDatabase();
@@ -1039,7 +1042,6 @@ public class DataHelper extends SQLiteOpenHelper {
             dbSqLiteDatabase.close();
         }
     }
-
     public ArrayList<String> getAllColores(){
         ArrayList<String> list = new ArrayList<String>();
         SQLiteDatabase dbDatabase = this.getReadableDatabase();
@@ -1068,7 +1070,6 @@ public class DataHelper extends SQLiteOpenHelper {
         }
         return  list;
     }
-
     /************************************************** CatModelo ********************************************************************/
     public void insertCatModelo(String idModelo){
         SQLiteDatabase dbSqLiteDatabase = this.getWritableDatabase();
@@ -1088,7 +1089,6 @@ public class DataHelper extends SQLiteOpenHelper {
             dbSqLiteDatabase.close();
         }
     }
-
     public ArrayList<String> getAllModelos(){
         ArrayList<String> list = new ArrayList<String>();
         SQLiteDatabase dbDatabase = this.getReadableDatabase();
@@ -1117,4 +1117,81 @@ public class DataHelper extends SQLiteOpenHelper {
         }
         return  list;
     }
+
+    /************************************************** CatSexo ********************************************************************/
+    public void insertCatIdentificacion(int idIdentificacion,String identificacion){
+        SQLiteDatabase dbSqLiteDatabase = this.getWritableDatabase();
+        dbSqLiteDatabase.beginTransaction();
+        ContentValues values;
+        try {
+            values = new ContentValues();
+            values.put("IdIdentificacion",idIdentificacion);
+            values.put("Identificacion",identificacion);
+            dbSqLiteDatabase.insert(Table_CatIdentificacion,null,values);
+            dbSqLiteDatabase.setTransactionSuccessful();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        finally {
+            dbSqLiteDatabase.endTransaction();
+            dbSqLiteDatabase.close();
+        }
+    }
+    public ArrayList<String> getAllIdentificacion(){
+        ArrayList<String> list = new ArrayList<String>();
+        SQLiteDatabase dbDatabase = this.getReadableDatabase();
+        dbDatabase.beginTransaction();
+        try{
+            String selectQuery = "SELECT * FROM " + Table_CatIdentificacion;
+            String selectQuery2 = "SELECT COUNT(*) FROM " + Table_CatIdentificacion;
+            Cursor mCount= dbDatabase.rawQuery(selectQuery2, null);
+            mCount.moveToFirst();
+            int count= mCount.getInt(0);
+            System.out.println(count);
+            Cursor cursor = dbDatabase.rawQuery(selectQuery, null);
+            if(cursor.getCount() > 0){
+                while (cursor.moveToNext()){
+                    String identificacion = cursor.getString(cursor.getColumnIndex("Identificacion"));
+                    list.add(identificacion);
+                }
+            }
+            dbDatabase.setTransactionSuccessful();
+        }catch (Exception e) {e.printStackTrace();}
+        finally {
+            {
+                dbDatabase.endTransaction();
+                dbDatabase.close();
+            }
+        }
+        return  list;
+    }
+    public int getIdIdentificacion(String descIdentificacion){
+        int idIdentificacion = 0;
+        SQLiteDatabase dbDatabase = this.getReadableDatabase();
+        dbDatabase.beginTransaction();
+        try{
+            String selectQuery2 = "SELECT COUNT(*) FROM " + Table_CatIdentificacion;
+            Cursor mCount= dbDatabase.rawQuery(selectQuery2, null);
+            mCount.moveToFirst();
+            int count= mCount.getInt(0);
+            System.out.println(count);
+
+            String selectQuery = "SELECT IdIdentificacion FROM " + Table_CatIdentificacion +" WHERE Identificacion = '"+descIdentificacion+"'";
+            Cursor mCount2= dbDatabase.rawQuery(selectQuery, null);
+            mCount2.moveToFirst();
+            int count2= mCount2.getInt(0);
+            idIdentificacion = count2;
+            System.out.println(count2);
+            dbDatabase.setTransactionSuccessful();
+        }catch (Exception e) {e.printStackTrace();}
+        finally {
+            {
+                dbDatabase.endTransaction();
+                dbDatabase.close();
+            }
+        }
+        return idIdentificacion;
+    }
+
+
 }
