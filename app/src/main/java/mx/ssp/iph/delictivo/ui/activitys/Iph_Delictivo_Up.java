@@ -28,9 +28,12 @@ import mx.ssp.iph.administrativo.ui.fragmets.DescripcionVehiculo;
 import mx.ssp.iph.delictivo.ui.fragmets.ConocimientoHecho;
 import mx.ssp.iph.delictivo.ui.fragmets.DescripcionVehiculoDelictivo;
 import mx.ssp.iph.delictivo.ui.fragmets.Detenciones_Delictivo;
+import mx.ssp.iph.delictivo.ui.fragmets.EntregaRecepcion_Delictivo;
+import mx.ssp.iph.delictivo.ui.fragmets.EntrevistasDelictivo;
 import mx.ssp.iph.delictivo.ui.fragmets.Fragment_ContainerBlank_Delictivo;
 import mx.ssp.iph.delictivo.ui.fragmets.HechosDelictivos;
 import mx.ssp.iph.delictivo.ui.fragmets.InformeUsoFuerza_Delictivo;
+import mx.ssp.iph.delictivo.ui.fragmets.InventarioArmasObjetos;
 import mx.ssp.iph.delictivo.ui.fragmets.LugarDeIntervencion_Delictivo;
 import mx.ssp.iph.delictivo.ui.fragmets.NarrativaHechos_Delictivo;
 import mx.ssp.iph.delictivo.ui.fragmets.PrimerRespondiente;
@@ -68,9 +71,9 @@ public class Iph_Delictivo_Up extends AppCompatActivity{
         anexoa = new Detenciones_Delictivo();
         anexob  = new InformeUsoFuerza_Delictivo();
         anexoc  = new DescripcionVehiculoDelictivo();
-        anexod  = new Fragment_ContainerBlank_Delictivo();
-        anexoe  = new Fragment_ContainerBlank_Delictivo();
-        anexof  = new Fragment_ContainerBlank_Delictivo();
+        anexod  = new InventarioArmasObjetos();
+        anexoe  = new EntrevistasDelictivo();
+        anexof  = new EntregaRecepcion_Delictivo();
 
 
 
