@@ -141,6 +141,13 @@ public class HechosDelictivos extends Fragment {
 
         funciones.CambiarTituloSeccionesDelictivo("SECCIÓN 1. PUESTA A DISPOSICIÓN",getContext(),getActivity());
 
+        //***************** Trae los Datos del Folio de la primera Sección  **************************//
+        //Consulta si hay conexión a internet y realiza la peticion al ws de consulta de los datos.
+        if (funciones.ping(getContext()))
+        {
+            cargarHechoDelictivo();
+        }
+
         //***************** FECHA  **************************//
         txtFechaEntregaReferenciaDelictivo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -503,6 +510,120 @@ public class HechosDelictivos extends Fragment {
         Random random = new Random();
         numberRandom = random.nextInt(9000)*99;
         randomUrlImagen = numberRandom;
+    }
+
+    //***************** CONSULTA A LA BD MEDIANTE EL WS **************************//
+    private void cargarHechoDelictivo() {
+
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("http://189.254.7.167/WebServiceIPH/api/HDHechoDelictivo?folioInterno="+cargarIdHechoDelictivo)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Looper.prepare(); // to be able to make toast
+                Toast.makeText(getContext(), "ERROR AL CONSULTAR DATOS SECCIÓN 1, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    final String myResponse = response.body().string();
+
+                    try {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                String resp = myResponse;
+
+                                //***************** RESPUESTA DEL WEBSERVICE **************************//
+
+                                //CONVERTIR ARREGLO DE JSON A OBJET JSON
+                                String ArregloJson = resp.replace("[", "");
+                                ArregloJson = ArregloJson.replace("]", "");
+
+                                if(ArregloJson.equals(""))
+                                {
+                                    //Sin Información. Todos los campos vacíos. Solo se llena
+                                    txtFolioInternoDelictivo.setText(cargarIdHechoDelictivo);
+                                }
+                                else{
+                                    //Deserializa el json y colcoa el dato correspondiente en cada campo si existe
+                                    try {
+                                        JSONObject jsonjObject = new JSONObject(ArregloJson);
+
+                                        txtNoReferenciaDelictivo.setText((jsonjObject.getString("NumReferencia")).equals("null")?"":jsonjObject.getString("NumReferencia"));
+                                        txtNoExpedienteAdmministrativo.setText((jsonjObject.getString("NumExpediente")).equals("null")?"":jsonjObject.getString("NumExpediente"));
+
+                                        String[] Fecha = (jsonjObject.getString("Fecha").replace("-","/")).split("T");
+                                        txtFechaEntregaReferenciaDelictivo.setText((jsonjObject.getString("Fecha")).equals("null")?"":Fecha[0]);
+                                        txtHoraEntregaReferenciaDelictivo.setText((jsonjObject.getString("Hora")).equals("null")?"":jsonjObject.getString("Hora"));
+
+
+
+
+                                        txtNoReferenciaDelictivo.setText((jsonjObject.getString("NumReferencia")).equals("null")?"":jsonjObject.getString("NumReferencia"));
+                                        txtNoReferenciaDelictivo.setText((jsonjObject.getString("NumReferencia")).equals("null")?"":jsonjObject.getString("NumReferencia"));
+                                        txtNoReferenciaDelictivo.setText((jsonjObject.getString("NumReferencia")).equals("null")?"":jsonjObject.getString("NumReferencia"));
+                                        txtNoReferenciaDelictivo.setText((jsonjObject.getString("NumReferencia")).equals("null")?"":jsonjObject.getString("NumReferencia"));
+                                        txtNoReferenciaDelictivo.setText((jsonjObject.getString("NumReferencia")).equals("null")?"":jsonjObject.getString("NumReferencia"));
+
+
+                                        if((jsonjObject.getString("AnexoNoSeEntregan").equals("SI"))){
+                                            chSinAnexosDelictivo.setChecked(true);
+                                        }
+                                        else {
+                                            if ((jsonjObject.getString("AnexoDetenciones").equals("SI"))) {
+                                                chDetencionesAnexoADelictivo.setChecked(true);
+                                                spDetencionesAnexoADelictivo.setSelection(funciones.getIndexSpiner(spDetencionesAnexoADelictivo, jsonjObject.getString("NumAnexoDetenciones")));
+                                            }
+
+                                            if ((jsonjObject.getString("AnexoUsoFuerza").equals("SI"))) {
+                                                chUsoFuerzaAnexoBDelictivo.setChecked(true);
+                                                spUsoFuerzaAnexoBDelictivo.setSelection(funciones.getIndexSpiner(spUsoFuerzaAnexoBDelictivo, jsonjObject.getString("NumAnexoUsoFuerza")));
+                                            }
+
+                                            if ((jsonjObject.getString("AnexoVehiculos").equals("SI"))) {
+                                                chAnexosCInspeccionVehiculoDelictivo.setChecked(true);
+                                                spAnexosCInspeccionVehiculoDelictivo.setSelection(funciones.getIndexSpiner(spAnexosCInspeccionVehiculoDelictivo, jsonjObject.getString("NumAnexoVehiculo")));
+                                            }
+
+                                            if ((jsonjObject.getString("AnexoArmasObjetos").equals("SI"))) {
+                                                chAnexosDInventarioArmasDelictivo.setChecked(true);
+                                                spAnexosDInventarioArmasDelictivo.setSelection(funciones.getIndexSpiner(spAnexosDInventarioArmasDelictivo, jsonjObject.getString("NumAnexoArmasObjetos")));
+                                            }
+
+                                            if ((jsonjObject.getString("AnexoEntrevista").equals("SI"))) {
+                                                chAnexosFEntregaRecepcionDelictivo.setChecked(true);
+                                                spEntrevistasAnexoEDelictivo.setSelection(funciones.getIndexSpiner(spEntrevistasAnexoEDelictivo, jsonjObject.getString("NumAnexoEntrevista")));
+                                            }
+
+                                            if ((jsonjObject.getString("AnexoLugarIntervencion").equals("SI"))) {
+                                                chAnexosFEntregaRecepcionDelictivo.setChecked(true);
+                                                spAnexosFEntregaRecepcionDelictivo.setSelection(funciones.getIndexSpiner(spAnexosFEntregaRecepcionDelictivo, jsonjObject.getString("NumAnexoLugarIntervencion")));
+                                            }
+                                        }
+
+
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                        Toast.makeText(getContext(), "ERROR AL DESEREALIZAR EL JSON. LLENE TODOS LOS CAMPOS", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                                //*************************
+                            }
+                        });
+                    }
+                    catch (Exception e){
+                        Toast.makeText(getContext(), "ERROR AL SOLICITAR INFORMACIÓN SECCIÓN 1, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            }
+        });
     }
 
 

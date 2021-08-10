@@ -80,6 +80,7 @@ public class NarrativaHechos_Delictivo extends Fragment {
         imgMicrofonoNarrativaHechosDelictivo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                imgMicrofonoNarrativaHechosDelictivo.setImageResource(R.drawable.ic_micro_press);
                 iniciarEntradadeVoz();
             }
         });

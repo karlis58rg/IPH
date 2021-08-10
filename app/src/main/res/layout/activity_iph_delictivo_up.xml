@@ -24,29 +24,31 @@
             android:layout_height="wrap_content"
             android:theme="@style/Theme.IPH.AppBarOverlay">
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbarDelictivo"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                app:popupTheme="@style/Theme.IPH.PopupOverlay" >
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbarDelictivo"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/Theme.IPH.PopupOverlay" >
 
-                <ImageButton
-                    android:id="@+id/imgbtnVolverFlechaDelictivo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="2dp"
-                    android:layout_marginRight="1dp"
-                    android:scaleType="fitCenter"
-                    android:background="@drawable/btn_volver_flecha"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:padding="5dp"
-                    android:layout_marginRight="30dp"
+                    android:layout_marginRight="80dp"
                     android:src="@drawable/ic_hechodelictivo">
                 </ImageView>
+
+                <ImageButton
+                    android:id="@+id/imgbtnCerrarSesionDelictivo"
+                    android:layout_width="35dp"
+                    android:layout_height="25dp"
+                    android:padding="1dp"
+                    android:layout_margin="8dp"
+                    android:layout_marginRight="1dp"
+                    android:scaleType="fitCenter"
+                    android:background="@drawable/ic_cerrar_sesion"/>
             </androidx.appcompat.widget.Toolbar>
 
         </com.google.android.material.appbar.AppBarLayout>

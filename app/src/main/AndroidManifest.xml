@@ -54,7 +54,12 @@
             android:name=".administrativo.ui.activitys.Iph_Administrativo"
             android:screenOrientation="landscape" />
 
-        <activity  android:name=".administrativo.ui.activitys.Iph_Administrativo_Up" android:theme="@style/Theme.IPH.NoActionBar" android:screenOrientation="landscape" /><activity
+        <activity
+            android:name=".administrativo.ui.activitys.Iph_Administrativo_Up"
+            android:theme="@style/Theme.IPH.NoActionBar"
+            android:screenOrientation="landscape" />
+
+        <activity
             android:name=".Login"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.IPH.NoActionBar" />
@@ -62,7 +67,9 @@
         <activity
             android:name=".delictivo.ui.activitys.Iph_Delictivo_Up"
             android:screenOrientation="landscape"
-            android:theme="@style/Theme.IPH.NoActionBar"></activity>
+            android:theme="@style/Theme.IPH.NoActionBar">
+        </activity>
+
         <activity android:name=".utilidades.ui.ExitActivity"></activity>
 
     </application>

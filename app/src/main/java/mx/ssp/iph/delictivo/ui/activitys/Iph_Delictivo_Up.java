@@ -2,6 +2,7 @@ package mx.ssp.iph.delictivo.ui.activitys;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,13 +18,16 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.util.ArrayList;
 
+import mx.ssp.iph.Login;
 import mx.ssp.iph.R;
+import mx.ssp.iph.administrativo.ui.activitys.Iph_Administrativo_Up;
 import mx.ssp.iph.administrativo.ui.fragmets.DescripcionVehiculo;
 import mx.ssp.iph.delictivo.ui.fragmets.ConocimientoHecho;
 import mx.ssp.iph.delictivo.ui.fragmets.DescripcionVehiculoDelictivo;
@@ -39,28 +43,34 @@ import mx.ssp.iph.delictivo.ui.fragmets.NarrativaHechos_Delictivo;
 import mx.ssp.iph.delictivo.ui.fragmets.PrimerRespondiente;
 import mx.ssp.iph.principal.ui.activitys.Principal;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class Iph_Delictivo_Up extends AppCompatActivity{
 
     ArrayList<String> listaSeccionesDelictivo;
     ArrayList<Integer> listaColorStatusDelictivo;
     ListView lvSeccionesDelictivo;
     Fragment seccion1,seccion2,seccion3,seccion4,seccion5,anexoa,anexob,anexoc,anexod,anexoe,anexof;
-    ImageButton imgbtnVolverFlechaDelictivo;
+    ImageView imgbtnCerrarSesionDelictivo;
+    SharedPreferences share;
+    SharedPreferences.Editor editor;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_iph_delictivo_up);
 
+        imgbtnCerrarSesionDelictivo = findViewById(R.id.imgbtnCerrarSesionDelictivo);
 
-        imgbtnVolverFlechaDelictivo = findViewById(R.id.imgbtnVolverFlechaDelictivo);
-        imgbtnVolverFlechaDelictivo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Iph_Delictivo_Up.this, Principal.class);
-                startActivity(intent);
-            }
-        });
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarDelictivo);
+        setSupportActionBar(toolbar);
+
+        //Coloca Flecha atrás al toolbar
+
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         //Instancio los Fragmentos
        // referencia = new HechosDelictivos();
         seccion1 = new HechosDelictivos();
@@ -113,6 +123,19 @@ public class Iph_Delictivo_Up extends AppCompatActivity{
         final SlidingUpPanelLayout slidingUpPanelLayout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
         ActualizarListaEsttus();
         addFragment(seccion1);
+
+        imgbtnCerrarSesionDelictivo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Guarda el usaurio con espacio en blanco
+                guardarUsuario();
+
+                //Redirecciona al Login
+                Intent intent = new Intent(Iph_Delictivo_Up.this, Login.class);
+                startActivity(intent);
+
+            }
+        });
 
 
         //clisk de los elementos de las listas para cambiar de fragmentos
@@ -198,8 +221,15 @@ public class Iph_Delictivo_Up extends AppCompatActivity{
     @Override
     public void onBackPressed()
     {
-        Toast.makeText(this,"PARA SALIR PRESIONE LA FLECHA SUPERIOR IZQUIERDA", Toast.LENGTH_SHORT).show();
-        return;
+        Intent intent = new Intent(Iph_Delictivo_Up.this, Principal.class);
+        startActivity(intent);
+    }
+
+    //Da la acción de volver atrás en Flecha Atrás del toolbar
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return false;
     }
 
     //Instancia el Adptador para recrear la lista de secciones. El menú de secciones.
@@ -246,4 +276,10 @@ public class Iph_Delictivo_Up extends AppCompatActivity{
             return row;
         }
     }
+        private void guardarUsuario() {
+            share = getSharedPreferences("main", MODE_PRIVATE);
+            editor = share.edit();
+            editor.putString("Usuario", "" );
+            editor.commit();
+        }
 }

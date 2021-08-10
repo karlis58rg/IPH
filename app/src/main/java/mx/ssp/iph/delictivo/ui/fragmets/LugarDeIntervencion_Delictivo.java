@@ -106,8 +106,9 @@ public class LugarDeIntervencion_Delictivo extends Fragment {
         lblCroquisDelictivoOculto = view.findViewById(R.id.lblCroquisDelictivoOculto);
 
         funciones = new Funciones();
-        ListCombos();
         funciones.CambiarTituloSeccionesDelictivo("SECCIÓN 4. LUGAR DE LA INTERVENCIÓN",getContext(),getActivity());
+
+        ListCombos();
 
 
         //***************** BOTÓN ABRIR FRAGMENT MAPS  **************************//

@@ -55,6 +55,7 @@ public class Iph_Administrativo_Up extends AppCompatActivity{
         imgbtnCerrarSesion = findViewById(R.id.imgbtnCerrarSesion);
 
 
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarAdministrativo);
         setSupportActionBar(toolbar);
 

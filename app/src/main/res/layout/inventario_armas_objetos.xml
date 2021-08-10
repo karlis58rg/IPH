@@ -829,7 +829,7 @@
                             android:id="@+id/lblFirmaTestigo2Arma"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Firma del primer Testigo" />
+                            android:text="Firma del segundo Testigo" />
 
 
 

@@ -278,7 +278,6 @@ public class ProbableInfraccion extends Fragment {
                                         {
                                             spHechoProbableInfraccionAdministrativo.setSelection(funciones.getIndexSpiner(spHechoProbableInfraccionAdministrativo, jsonjObject.getString("Conocimiento")));
                                         }
-
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                         Toast.makeText(getContext(), "NO SE PUEDE DESEREALIZAR JSN", Toast.LENGTH_SHORT).show();
