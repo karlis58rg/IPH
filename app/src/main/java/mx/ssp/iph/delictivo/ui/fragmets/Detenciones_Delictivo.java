@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -37,6 +38,7 @@ import mx.ssp.iph.R;
 import mx.ssp.iph.SqLite.DataHelper;
 import mx.ssp.iph.delictivo.model.ModeloConocimientoHecho_Delictivo;
 import mx.ssp.iph.delictivo.model.ModeloDetenciones_Delictivo;
+import mx.ssp.iph.delictivo.model.ModeloLugarDetenciones_Delictivo;
 import mx.ssp.iph.delictivo.viewModel.DetencionesDelictivoViewModel;
 import mx.ssp.iph.utilidades.ui.ContenedorFirma;
 import mx.ssp.iph.utilidades.ui.Funciones;
@@ -54,20 +56,20 @@ public class Detenciones_Delictivo extends Fragment {
 
     private DetencionesDelictivoViewModel mViewModel;
     Button btnGuardarPuestaDetencionesDelectivo;
-    private Funciones funciones;
-    private ImageView imgFirmaDerechosDelictivo,img_microfonoDescripcionDetenido;
-    private TextView txtFechaDetenidoDelictivo,txthoraDetencionDelictivo,txtFechaNacimientoDetenidoDelictivo, txtPrimerApellidoDetenidoDelictivo, txtSegundoApellidoDetenidoDelictivo,
+    Funciones funciones;
+    ImageView imgFirmaDerechosDelictivo,img_microfonoDescripcionDetenido;
+    EditText txtFechaDetenidoDelictivo,txthoraDetencionDelictivo,txtFechaNacimientoDetenidoDelictivo, txtPrimerApellidoDetenidoDelictivo, txtSegundoApellidoDetenidoDelictivo,
             txtNombresDetenidoDelictivo, txtApodoDetenidoDelictivo, txtNacionalidadEspecifiqueDetenidoDelictivo, txtEdadDetenidoDelictivo,
             txtEspecifiqueTipoDocumentoDelictivo, txtNumeroIdentificacionDelictivo, txtColoniaDetenidoDelictivo,
             txtCalleDetenidoDelictivo, txtNumeroExteriorDetenidoDelictivo, txtNumeroInteriorDetenidoDelictivo, txtCodigoPostalDetenidoDelictivo, txtReferenciasdelLugarDetenidoDelictivo,
             txtDescripciondelDetenidoDelictivo, txtCualPadecimientoDelictivo, txtCualGrupoVulnerableDelictivo, txtCualGrupoDelictivo, txtPrimerApellidoA3Delictivo,
             txtSegundoApellidoA3Delictivo, txtNombresA3Delictivo, txtNumeroTelefonoA3Delictivo,txtCualLugarTraslado, txtColoniaDetencion, txtCalleDetencion,
-            txtNumeroExteriorDetencion, txtNumeroInteriorDetencion, txtCodigoPostalDetencion, txtReferenciasdelLugarDetencion, txtObservacionesDetencion,
-            txtDetencionPrimerApellido, txtDetencionSegundoApellido, txtDetencionNombres, txtDetencionPrimerApellidoDos, txtDetencionSegundoApellidoDos, txtDetencionNombresDos;
-    private CheckBox chNoAplicaAliasDetenidoDelictivo, chNoProporcionadoDelictivo, chLugarTrasladoDetencionFiscaliaAgencia, chLugarTrasladoDetencionHospital, chLugarTrasladoDetencionOtraDependencia;
-    private RadioGroup rgDocumentoDelictivo, rgLesionesDelictivo, rgPadecimientoDelictivo, rgGrupoVulnerableDelictivo, rgGrupoDelictivo, rgInformeDerechoDetencionesDelictivo,
+            txtNumeroExteriorDetencion, txtNumeroInteriorDetencion, txtCodigoPostalDetencion, txtReferenciasdelLugarDetencion, txtObservacionesDetencion;
+
+    CheckBox chNoAplicaAliasDetenidoDelictivo, chNoProporcionadoDelictivo, chLugarTrasladoDetencionFiscaliaAgencia, chLugarTrasladoDetencionHospital, chLugarTrasladoDetencionOtraDependencia;
+    RadioGroup rgDocumentoDelictivo, rgLesionesDelictivo, rgPadecimientoDelictivo, rgGrupoVulnerableDelictivo, rgGrupoDelictivo, rgInformeDerechoDetencionesDelictivo,
             rgObjetoInspeccionDetenidoDelictivo, rgPertenenciasDetenidoDelictivo, rgLugarDetencionDelictivo;
-    private RadioButton rbNoDocumentoDelictivo, rbSiDocumentoDelictivo, rbNoLesionesDelictivo, rbSiLesionesDelictivo, rbPadecimientoDelictivo, rbSiPadecimientoDelictivo,
+    RadioButton rbNoDocumentoDelictivo, rbSiDocumentoDelictivo, rbNoLesionesDelictivo, rbSiLesionesDelictivo, rbPadecimientoDelictivo, rbSiPadecimientoDelictivo,
             rbNoGrupoVulnerableDelictivo, rbSiGrupoVulnerableDelictivo, rbNoGrupoDelictivo, rbSiGrupoDelictivo, rbNoInformeDerechoDetencionesDelictivo, rbSiInformeDerechoDetencionesDelictivo,
             rbSiObjetoInspeccionDetenidoDelictivo, rbNoObjetoInspeccionDetenidoDelictivo, rbSiPertenenciasDetenidoDelictivo, rbNoPertenenciasDetenidoDelictivo,
             rbSiLugarDetencionDelictivo, rbNoLugarDetencionDelictivo;
@@ -75,7 +77,7 @@ public class Detenciones_Delictivo extends Fragment {
     private static final  int REQ_CODE_SPEECH_INPUT=100;
     SharedPreferences share;
     String cargarIdHechoDelictivo,cargarIdPoliciaPrimerRespondiente,descGeneroHD,descNacionalidadHD,
-            descTipoDocumentoHD,descMunicipioPersonaDetenidaHD,descMunicipioDireccionDetencionHD,
+            descTipoDocumentoHD,descMunicipioPersonaDetenidaHD,descMunicipioLugarDetenidoHD,
             varLesiones,varPadecimientos,varGrupoVulnerable,varGrupoDelictivo,varProporcionoFamiliar,
             varInformoDerechos,rutaFirma,varLugarTraslado,descPadecimiento,descGrupoVulnerable,descGrupoDelictivo;
 
@@ -188,24 +190,6 @@ public class Detenciones_Delictivo extends Fragment {
         txtObservacionesDetencion = view.findViewById(R.id.txtObservacionesDetencion);
         txtObservacionesDetencion.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(8000)});
 
-        txtDetencionPrimerApellido = view.findViewById(R.id.txtDetencionPrimerApellido);
-        txtDetencionPrimerApellido.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
-
-        txtDetencionSegundoApellido = view.findViewById(R.id.txtDetencionSegundoApellido);
-        txtDetencionSegundoApellido.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
-
-        txtDetencionNombres = view.findViewById(R.id.txtDetencionNombres);
-        txtDetencionNombres.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
-
-        txtDetencionPrimerApellidoDos = view.findViewById(R.id.txtDetencionPrimerApellidoDos);
-        txtDetencionPrimerApellidoDos.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
-
-        txtDetencionSegundoApellidoDos = view.findViewById(R.id.txtDetencionSegundoApellidoDos);
-        txtDetencionSegundoApellidoDos.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
-
-        txtDetencionNombresDos = view.findViewById(R.id.txtDetencionNombresDos);
-        txtDetencionNombresDos.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
-
         txtCualLugarTraslado = view.findViewById(R.id.txtCualLugarTraslado);
 
         rgDocumentoDelictivo = view.findViewById(R.id.rgDocumentoDelictivo);
@@ -237,6 +221,9 @@ public class Detenciones_Delictivo extends Fragment {
         rbNoLugarDetencionDelictivo = view.findViewById(R.id.rbNoLugarDetencionDelictivo);
         chNoAplicaAliasDetenidoDelictivo = view.findViewById(R.id.chNoAplicaAliasDetenidoDelictivo);
         chNoProporcionadoDelictivo = view.findViewById(R.id.chNoProporcionadoDelictivo);
+        chLugarTrasladoDetencionFiscaliaAgencia = view.findViewById(R.id.chLugarTrasladoDetencionFiscaliaAgencia);
+        chLugarTrasladoDetencionHospital = view.findViewById(R.id.chLugarTrasladoDetencionHospital);
+        chLugarTrasladoDetencionOtraDependencia = view.findViewById(R.id.chLugarTrasladoDetencionOtraDependencia);
 
 
 
@@ -362,7 +349,7 @@ public class Detenciones_Delictivo extends Fragment {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
-                //updateDetencionesDelictivo();
+                insertDetencionesDelictivo();
             }
         });
 
@@ -372,7 +359,7 @@ public class Detenciones_Delictivo extends Fragment {
     }
 
     //***************** INSERTA A LA BD MEDIANTE EL WS **************************//
-    private void updateDetencionesDelictivo() {
+    private void insertDetencionesDelictivo() {
         DataHelper dataHelper = new DataHelper(getContext());
         descGeneroHD = (String) spGeneroDetenidoDelictivo.getSelectedItem();
         int idDescGeneroHD = dataHelper.getIdSexo(descGeneroHD);
@@ -390,9 +377,9 @@ public class Detenciones_Delictivo extends Fragment {
         String idDescMunicipioPersonaDetenidaHD = dataHelper.getIdMunicipio(descMunicipioPersonaDetenidaHD);
         String idMunicipioPersonaDetenidaHD = String.valueOf(idDescMunicipioPersonaDetenidaHD);
 
-        /*descMunicipioDireccionDetencionHD = (String) spMunicipioDireccionDetencion.getSelectedItem();
-        int idDescMunicipioDireccionDetencionHD = dataHelper.getIdConocimientoInfraccion(descMunicipioDireccionDetencionHD);
-        String idMunicipioDireccionDetencionHD = String.valueOf(idDescMunicipioDireccionDetencionHD);*/
+        if(chNoAplicaAliasDetenidoDelictivo.isChecked()){
+            txtApodoDetenidoDelictivo.setText("NP");
+        }
 
         if(chNoProporcionadoDelictivo.isChecked()){
             varProporcionoFamiliar = "NO";
@@ -402,6 +389,18 @@ public class Detenciones_Delictivo extends Fragment {
             txtNumeroTelefonoA3Delictivo.setText("NP");
         }else{
             varProporcionoFamiliar = "SI";
+        }
+
+        if(chLugarTrasladoDetencionFiscaliaAgencia.isChecked()){
+            varLugarTraslado = "FISCALIA/AGENCIA";
+        }
+
+        if(chLugarTrasladoDetencionHospital.isChecked()){
+            varLugarTraslado = "HOSPITAL";
+        }
+
+        if(chLugarTrasladoDetencionOtraDependencia.isChecked()){
+            varLugarTraslado = "OTRA DEPENDENCIA";
         }
 
         rutaFirma = "http://189.254.7.167/WebServiceIPH/FirmaRDDelictivo/"+cargarIdHechoDelictivo+randomUrlImagen+".jpg";
@@ -459,17 +458,79 @@ public class Detenciones_Delictivo extends Fragment {
                 .add("AMFamiliar", detencionesHechoD.getAMFamiliar())
                 .add("NomFamiliar", detencionesHechoD.getNomFamiliar())
                 .add("TelefonoFamiliar", detencionesHechoD.getTelefonoFamiliar())
-                 .add("InformoDerechos", detencionesHechoD.getInformoDerechos())
+                .add("InformoDerechos", detencionesHechoD.getInformoDerechos())
                 .add("RutaFirma", detencionesHechoD.getRutaFirma())
                 .add("LugarDetencionIntervencion", detencionesHechoD.getLugarDetencionIntervencion())
-                .add("IdLugarTraslado", detencionesHechoD.getIdLugarTraslado())
+                .add("LugarTraslado", detencionesHechoD.getIdLugarTraslado())
                 .add("DescLugarTrasladoOtro", detencionesHechoD.getDescLugarTrasladoOtro())
                 .add("ObservacionesDetencion", detencionesHechoD.getObservacionesDetencion())
                 .add("IdPoliciaPrimerRespondiente", detencionesHechoD.getIdPoliciaPrimerRespondiente())
                 .build();
         Request request = new Request.Builder()
                 .url("http://189.254.7.167/WebServiceIPH/api/HDDetenciones/")
-                .put(body)
+                .post(body)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Looper.prepare(); // to be able to make toast
+                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    final String myResponse = response.body().string();
+                    Detenciones_Delictivo.this.getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            String resp = myResponse;
+                            if(resp.equals("true")){
+                                System.out.println("EL DATO SE ENVIO CORRECTAMENTE");
+                                //Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+                                insertLugarDetencionesDelictivo();
+                            }else{
+                                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, VERIFIQUE SU INFORMACIÓN", Toast.LENGTH_SHORT).show();
+                            }
+                            Log.i("HERE", resp);
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    //***************** INSERTA A LA BD MEDIANTE EL WS **************************//
+    private void insertLugarDetencionesDelictivo() {
+        DataHelper dataHelper = new DataHelper(getContext());
+
+        descMunicipioLugarDetenidoHD = (String) spMunicipioDireccionDetencion.getSelectedItem();
+        String idDescMunicipioLugarDetenidoHD = dataHelper.getIdMunicipio(descMunicipioPersonaDetenidaHD);
+        String idMunicipioLugarDetenidoHD = String.valueOf(idDescMunicipioLugarDetenidoHD);
+
+        ModeloLugarDetenciones_Delictivo modeloLugarDetenciones = new ModeloLugarDetenciones_Delictivo
+                (cargarIdHechoDelictivo, "12", idMunicipioLugarDetenidoHD,
+                        txtColoniaDetencion.getText().toString(), txtCalleDetencion.getText().toString(), txtNumeroExteriorDetencion.getText().toString(),
+                        txtNumeroInteriorDetencion.getText().toString(), txtCodigoPostalDetencion.getText().toString(),
+                        txtReferenciasdelLugarDetencion.getText().toString());
+
+        OkHttpClient client = new OkHttpClient();
+        RequestBody body = new FormBody.Builder()
+                .add("IdHechoDelictivo", modeloLugarDetenciones.getIdHechoDelictivo())
+                .add("IdEntidadFederativa", modeloLugarDetenciones.getIdEntidadFederativa())
+                .add("IdMunicipio", modeloLugarDetenciones.getIdMunicipio())
+                .add("ColoniaLocalidad", modeloLugarDetenciones.getColoniaLocalidad())
+                .add("CalleTramo", modeloLugarDetenciones.getCalleTramo())
+                .add("NoExterior", modeloLugarDetenciones.getNoExterior())
+                .add("NoInterior", modeloLugarDetenciones.getNoInterior())
+                .add("Cp", modeloLugarDetenciones.getCp())
+                .add("Referencia", modeloLugarDetenciones.getReferencia())
+
+                .build();
+        Request request = new Request.Builder()
+                .url("http://189.254.7.167/WebServiceIPH/api/HDLugarDetencion/")
+                .post(body)
                 .build();
         client.newCall(request).enqueue(new Callback() {
             @Override
