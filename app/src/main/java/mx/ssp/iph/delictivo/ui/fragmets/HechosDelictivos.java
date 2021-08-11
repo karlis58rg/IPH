@@ -562,9 +562,6 @@ public class HechosDelictivos extends Fragment {
                                         txtFechaEntregaReferenciaDelictivo.setText((jsonjObject.getString("Fecha")).equals("null")?"":Fecha[0]);
                                         txtHoraEntregaReferenciaDelictivo.setText((jsonjObject.getString("Hora")).equals("null")?"":jsonjObject.getString("Hora"));
 
-
-
-
                                         txtNoReferenciaDelictivo.setText((jsonjObject.getString("NumReferencia")).equals("null")?"":jsonjObject.getString("NumReferencia"));
                                         txtNoReferenciaDelictivo.setText((jsonjObject.getString("NumReferencia")).equals("null")?"":jsonjObject.getString("NumReferencia"));
                                         txtNoReferenciaDelictivo.setText((jsonjObject.getString("NumReferencia")).equals("null")?"":jsonjObject.getString("NumReferencia"));
@@ -607,6 +604,14 @@ public class HechosDelictivos extends Fragment {
                                             }
                                         }
 
+                                        txtFiscaliaAutoridadDelictivo.setText((jsonjObject.getString("IdFiscaliaAutoridad")).equals("null")?"":jsonjObject.getString("IdFiscaliaAutoridad"));
+                                        spAdscripcionDelictivo.setSelection(funciones.getIndexSpiner(spAdscripcionDelictivo, jsonjObject.getString("IdAdscripcion")));
+                                        spCargoDelictivo.setSelection(funciones.getIndexSpiner(spCargoDelictivo, jsonjObject.getString("IdCargo")));
+
+                                        //Pendiente la Firma
+                                        //firmaURLServer=((jsonjObject.getString("UrlFirmaDetenido")).equals("SIN INFORMACION")?"http://189.254.7.167/WebServiceIPH/Firma/SINFIRMA.jpg":jsonjObject.getString("UrlFirmaDetenido"));
+                                        //getFirmaFromURL();
+                                        //banderaFirma = 1;
 
                                     } catch (JSONException e) {
                                         e.printStackTrace();

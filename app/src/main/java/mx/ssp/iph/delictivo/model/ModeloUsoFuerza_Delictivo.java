@@ -1,5 +1,7 @@
 package mx.ssp.iph.delictivo.model;
 
+import android.util.Log;
+
 public class ModeloUsoFuerza_Delictivo {
     private String IdHechoDelictivo;
     private String LesionadosAutoridad;
@@ -22,6 +24,8 @@ public class ModeloUsoFuerza_Delictivo {
                                      String numLesionadosPersona,String fallecidosAutoridad, String numFallecidosAutoridad, String fallecidosPersona,
                                      String numFallecidosPersona, String reduccionMovimientos, String armasIncapacitantes, String armasLetal,
                                      String narrativaUsoFuerza, String asistenciaMedica, String narrativaAsistenciaMedica, String idPoliciaPrimerRespondiente) {
+        Log.i("FUERZA", "Inicia Modelo Uso Fuerza");
+
         IdHechoDelictivo = idHechoDelictivo;
         LesionadosAutoridad = lesionadosAutoridad;
         NumLesionadosAutoridad = numLesionadosAutoridad;

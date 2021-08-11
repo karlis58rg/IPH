@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.os.Looper;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +30,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
@@ -39,6 +43,7 @@ import mx.ssp.iph.administrativo.model.ModelLugarIntervencion_Administrativo;
 import mx.ssp.iph.administrativo.ui.fragmets.LugarDeIntervencion;
 import mx.ssp.iph.delictivo.model.ModeloLugarIntervencion_Delictivo;
 import mx.ssp.iph.delictivo.viewModel.LugarDeIntervencionDelictivoViewModel;
+import mx.ssp.iph.utilidades.ui.ContenedorCroquis;
 import mx.ssp.iph.utilidades.ui.ContenedorFirma;
 import mx.ssp.iph.utilidades.ui.ContenedorMaps;
 import mx.ssp.iph.utilidades.ui.Funciones;
@@ -72,6 +77,8 @@ public class LugarDeIntervencion_Delictivo extends Fragment {
             varPreservoLugarIntervencion,varPriorizacionLugarIntervencion,
             varRiesgoSocialesLugarIntervencion;
     int numberRandom,randomUrlImagen;
+    RadioButton rbSiInspeccionLugarIntervencion,rbNoInspeccionLugarIntervencion,rbNoObjetosRelacionadosLugarIntervencion,rbSiObjetosRelacionadosLugarIntervencion,rbNoPreservoLugarIntervencion;
+    RadioButton rbNoPriorizacionLugarIntervencion,rbSiPriorizacionLugarIntervencion,rbRiesgoSocialesLugarIntervencion,rbRiesgoNaturalesLugarIntervencion,rbSiPreservoLugarIntervencion;
 
     public static LugarDeIntervencion_Delictivo newInstance() {
         return new LugarDeIntervencion_Delictivo();
@@ -105,10 +112,27 @@ public class LugarDeIntervencion_Delictivo extends Fragment {
         imgCroquisDelictivo = view.findViewById(R.id.imgCroquisDelictivo);
         lblCroquisDelictivoOculto = view.findViewById(R.id.lblCroquisDelictivoOculto);
 
+        rbSiInspeccionLugarIntervencion = view.findViewById(R.id.rbSiInspeccionLugarIntervencion);
+        rbNoInspeccionLugarIntervencion = view.findViewById(R.id.rbNoInspeccionLugarIntervencion);
+        rbNoObjetosRelacionadosLugarIntervencion = view.findViewById(R.id.rbNoObjetosRelacionadosLugarIntervencion);
+        rbSiObjetosRelacionadosLugarIntervencion = view.findViewById(R.id.rbSiObjetosRelacionadosLugarIntervencion);
+        rbNoPreservoLugarIntervencion = view.findViewById(R.id.rbNoPreservoLugarIntervencion);
+        rbNoPriorizacionLugarIntervencion = view.findViewById(R.id.rbNoPriorizacionLugarIntervencion);
+        rbSiPriorizacionLugarIntervencion = view.findViewById(R.id.rbSiPriorizacionLugarIntervencion);
+        rbRiesgoSocialesLugarIntervencion = view.findViewById(R.id.rbRiesgoSocialesLugarIntervencion);
+        rbRiesgoNaturalesLugarIntervencion = view.findViewById(R.id.rbRiesgoNaturalesLugarIntervencion);
+        rbSiPreservoLugarIntervencion = view.findViewById(R.id.rbSiPreservoLugarIntervencion);
+
         funciones = new Funciones();
         funciones.CambiarTituloSeccionesDelictivo("SECCIÓN 4. LUGAR DE LA INTERVENCIÓN",getContext(),getActivity());
 
         ListCombos();
+
+        //Consulta si hay conexión a internet y realiza la peticion al ws de consulta de los datos.
+        if (funciones.ping(getContext()))
+        {
+            cargarLugardelaInternvecion();
+        }
 
 
         //***************** BOTÓN ABRIR FRAGMENT MAPS  **************************//
@@ -135,7 +159,7 @@ public class LugarDeIntervencion_Delictivo extends Fragment {
         imgCroquisDelictivo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ContenedorFirma dialog = new ContenedorFirma(R.id.lblCroquisDelictivo,R.id.lblCroquisDelictivoOculto,R.id.imgMapDelictivoMiniatura);
+                ContenedorCroquis dialog = new ContenedorCroquis(R.id.lblCroquisDelictivo,R.id.lblCroquisDelictivoOculto,R.id.imgMapDelictivoMiniatura);
                 dialog.show( getActivity().getSupportFragmentManager(),"Dia");
             }
         });
@@ -328,6 +352,148 @@ public class LugarDeIntervencion_Delictivo extends Fragment {
         Random random = new Random();
         numberRandom = random.nextInt(9000)*99;
         randomUrlImagen = numberRandom;
+    }
+
+    //***************** CONSULTA A LA BD MEDIANTE EL WS **************************//
+    private void cargarLugardelaInternvecion() {
+
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("http://189.254.7.167/WebServiceIPH/api/HDLugarIntervencion?folioInterno="+cargarIdHechoDelictivo)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Looper.prepare(); // to be able to make toast
+                Toast.makeText(getContext(), "ERROR AL CONSULTAR DATOS SECCIÓN 4, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    final String myResponse = response.body().string();
+
+                    try {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                String resp = myResponse;
+
+                                //***************** RESPUESTA DEL WEBSERVICE **************************//
+
+                                //CONVERTIR ARREGLO DE JSON A OBJET JSON
+                                String ArregloJson = resp.replace("[", "");
+                                ArregloJson = ArregloJson.replace("]", "");
+
+                                if(ArregloJson.equals(""))
+                                {
+
+                                }
+                                else{
+                                    //Deserializa el json y colcoa el dato correspondiente en cada campo si existe
+                                    try {
+                                        JSONObject jsonjObject = new JSONObject(ArregloJson);
+
+                                        spMunicipioUbicacionGeograficaDelictivo.setSelection(funciones.getIndexSpiner(spMunicipioUbicacionGeograficaDelictivo, jsonjObject.getString("IdMunicipio")));
+                                        txtColoniaUbicacionGeograficaDelictivo.setText((jsonjObject.getString("ColoniaLocalidad")).equals("null")?"":jsonjObject.getString("ColoniaLocalidad"));
+                                        txtCalleUbicacionGeograficaDelictivo.setText((jsonjObject.getString("CalleTramo")).equals("null")?"":jsonjObject.getString("CalleTramo"));
+                                        txtNumeroExteriorUbicacionGeograficaDelictivo.setText((jsonjObject.getString("NoExterior")).equals("null")?"":jsonjObject.getString("NoExterior"));
+                                        txtNumeroInteriorUbicacionGeograficaDelictivo.setText((jsonjObject.getString("NoInterior")).equals("null")?"":jsonjObject.getString("NoInterior"));
+                                        txtCodigoPostalUbicacionGeograficaDelictivo.setText((jsonjObject.getString("Cp")).equals("null")?"":jsonjObject.getString("Cp"));
+                                        txtReferenciasdelLugarUbicacionGeograficaDelictivo.setText((jsonjObject.getString("Referencia")).equals("null")?"":jsonjObject.getString("Referencia"));
+
+                                        txtLatitudUbicacionGeograficaDelictivo.setText((jsonjObject.getString("Latitud")).equals("null")?"":jsonjObject.getString("Latitud"));
+                                        txtLongitudUbicacionGeograficaDelictivo.setText((jsonjObject.getString("Longitud")).equals("null")?"":jsonjObject.getString("Longitud"));
+
+                                        //========
+                                        if((jsonjObject.getString("RealizoInspeccion")).equals("null"))
+                                        {
+                                        }else{
+                                            if((jsonjObject.getString("RealizoInspeccion")).equals("SI"))
+                                            {
+                                                rbSiInspeccionLugarIntervencion.setChecked(true);
+                                            }
+                                            else
+                                            {
+                                                rbNoInspeccionLugarIntervencion.setChecked(true);
+                                            }
+                                        }
+
+                                        //========
+                                        if((jsonjObject.getString("AnexoObjetosRelacionados")).equals("null"))
+                                        {
+                                        }else{
+                                            if((jsonjObject.getString("AnexoObjetosRelacionados")).equals("SI"))
+                                            {
+                                                rbSiObjetosRelacionadosLugarIntervencion.setChecked(true);
+                                            }
+                                            else
+                                            {
+                                                rbNoObjetosRelacionadosLugarIntervencion.setChecked(true);
+                                            }
+                                        }
+                                        //========
+                                        if((jsonjObject.getString("PreservoLugar")).equals("null"))
+                                        {
+                                        }else{
+                                            if((jsonjObject.getString("PreservoLugar")).equals("SI"))
+                                            {
+                                                rbSiPreservoLugarIntervencion.setChecked(true);
+                                            }
+                                            else
+                                            {
+                                                rbNoPreservoLugarIntervencion.setChecked(true);
+                                            }
+                                        }
+                                        //========
+                                        if((jsonjObject.getString("PriorizacionIntervencion")).equals("null"))
+                                        {
+                                        }else{
+                                            if((jsonjObject.getString("PriorizacionIntervencion")).equals("SI"))
+                                            {
+                                                rbSiPriorizacionLugarIntervencion.setChecked(true);
+                                            }
+                                            else
+                                            {
+                                                rbNoPriorizacionLugarIntervencion.setChecked(true);
+                                            }
+                                        }
+
+                                        //========
+                                        if((jsonjObject.getString("TipoRiesgoPresentado")).equals("null"))
+                                        {
+                                        }else{
+                                            if((jsonjObject.getString("TipoRiesgoPresentado")).equals("SOCIALES"))
+                                            {
+                                                rbRiesgoSocialesLugarIntervencion.setChecked(true);
+                                            }
+                                            else
+                                            {
+                                                rbRiesgoNaturalesLugarIntervencion.setChecked(true);
+                                            }
+                                        }
+
+                                        txtEspecificarRiesgoLugarIntervencion.setText((jsonjObject.getString("DesTipoRiesgoPresentado")).equals("null")?"":jsonjObject.getString("DesTipoRiesgoPresentado"));
+
+
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                        Toast.makeText(getContext(), "ERROR AL DESEREALIZAR EL JSON. LLENE TODOS LOS CAMPOS", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                                //*************************
+                            }
+                        });
+                    }
+                    catch (Exception e){
+                        Toast.makeText(getContext(), "ERROR AL SOLICITAR INFORMACIÓN SECCIÓN 4, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            }
+        });
     }
 
 }

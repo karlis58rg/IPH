@@ -22,6 +22,9 @@ import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -70,6 +73,13 @@ public class PrimerRespondiente extends Fragment {
         chNoArriboElementosLugarIntervencion = view.findViewById(R.id.chNoArriboElementosLugarIntervencion);
         btnGuardarPrimerRespondiente = view.findViewById(R.id.btnGuardarPrimerRespondiente);
         ListCombos();
+
+        //Consulta si hay conexión a internet y realiza la peticion al ws de consulta de los datos.
+        if (funciones.ping(getContext()))
+        {
+            cargarPrimerespondiente();
+        }
+
 
         chNoAplicaUnidadDeArriboDelictivo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -205,6 +215,93 @@ public class PrimerRespondiente extends Fragment {
         share = getContext().getSharedPreferences("main", Context.MODE_PRIVATE);
         cargarIdPoliciaPrimerRespondiente = share.getString("Usuario", "SIN INFORMACION");
         cargarIdHechoDelictivo = share.getString("IDHECHODELICTIVO", "SIN INFORMACION");
+    }
+
+    //***************** CONSULTA A LA BD MEDIANTE EL WS **************************//
+    private void cargarPrimerespondiente() {
+
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("http://189.254.7.167/WebServiceIPH/api/HDHechoDelictivo?folioInterno="+cargarIdHechoDelictivo)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Looper.prepare(); // to be able to make toast
+                Toast.makeText(getContext(), "ERROR AL CONSULTAR DATOS SECCIÓN 2, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    final String myResponse = response.body().string();
+
+                    try {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                String resp = myResponse;
+
+                                //***************** RESPUESTA DEL WEBSERVICE **************************//
+
+                                //CONVERTIR ARREGLO DE JSON A OBJET JSON
+                                String ArregloJson = resp.replace("[", "");
+                                ArregloJson = ArregloJson.replace("]", "");
+
+                                if(ArregloJson.equals(""))
+                                {
+
+                                }
+                                else{
+                                    //Deserializa el json y colcoa el dato correspondiente en cada campo si existe
+                                    try {
+                                        JSONObject jsonjObject = new JSONObject(ArregloJson);
+
+                                        if(jsonjObject.getString("IdUnidad").equals("null"))
+                                        {
+                                        }
+                                        else
+                                        {
+                                            if(jsonjObject.getString("IdUnidad").equals("NO")){
+                                                chNoAplicaUnidadDeArriboDelictivo.setChecked(true);
+                                            }
+                                            else {
+                                                spUnidadDeArriboDelictivo.setSelection(funciones.getIndexSpiner(spUnidadDeArriboDelictivo, jsonjObject.getString("IdUnidad")));
+                                            }
+                                        }
+
+                                        if(jsonjObject.getString("MasElementos").equals("null"))
+                                        {
+                                        }
+                                        else {
+                                            if(jsonjObject.getString("MasElementos").equals("SI"))
+                                            {
+                                                chSiArriboElementosLugarIntervencion.setChecked(true);
+                                                spArriboElementosLugarIntervencion.setSelection(funciones.getIndexSpiner(spArriboElementosLugarIntervencion, jsonjObject.getString("NumElementos")));
+                                            }
+                                            else
+                                            {
+                                                chNoArriboElementosLugarIntervencion.setChecked(true);
+                                            }
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                        Toast.makeText(getContext(), "ERROR AL DESEREALIZAR EL JSON. LLENE TODOS LOS CAMPOS", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                                //*************************
+                            }
+                        });
+                    }
+                    catch (Exception e){
+                        Toast.makeText(getContext(), "ERROR AL SOLICITAR INFORMACIÓN SECCIÓN 2, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            }
+        });
     }
 
 }

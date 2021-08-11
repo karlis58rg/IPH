@@ -21,7 +21,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -75,6 +79,13 @@ public class NarrativaHechos_Delictivo extends Fragment {
         funciones = new Funciones();
 
         funciones.CambiarTituloSeccionesDelictivo("SECCIÓN 5. NARRATIVA DE LOS HECHOS",getContext(),getActivity());
+
+
+        //Consulta si hay conexión a internet y realiza la peticion al ws de consulta de los datos.
+        if (funciones.ping(getContext()))
+        {
+            cargarNarrativaDelictivo();
+        }
 
         //Imagen que funciona para activar la grabación de voz
         imgMicrofonoNarrativaHechosDelictivo.setOnClickListener(new View.OnClickListener() {
@@ -190,5 +201,66 @@ public class NarrativaHechos_Delictivo extends Fragment {
         share = getContext().getSharedPreferences("main", Context.MODE_PRIVATE);
         cargarIdPoliciaPrimerRespondiente = share.getString("Usuario", "SIN INFORMACION");
         cargarIdHechoDelictivo = share.getString("IDHECHODELICTIVO", "SIN INFORMACION");
+    }
+    //***************** CONSULTA A LA BD MEDIANTE EL WS **************************//
+    private void cargarNarrativaDelictivo() {
+
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("http://189.254.7.167/WebServiceIPH/api/HDHechoDelictivo?folioInterno="+cargarIdHechoDelictivo)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Looper.prepare(); // to be able to make toast
+                Toast.makeText(getContext(), "ERROR AL CONSULTAR DATOS SECCIÓN 5, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    final String myResponse = response.body().string();
+
+                    try {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                String resp = myResponse;
+
+                                //***************** RESPUESTA DEL WEBSERVICE **************************//
+
+                                //CONVERTIR ARREGLO DE JSON A OBJET JSON
+                                String ArregloJson = resp.replace("[", "");
+                                ArregloJson = ArregloJson.replace("]", "");
+
+                                if(ArregloJson.equals(""))
+                                {
+
+                                }
+                                else{
+                                    //Deserializa el json y colcoa el dato correspondiente en cada campo si existe
+                                    try {
+                                        JSONObject jsonjObject = new JSONObject(ArregloJson);
+
+                                        txtNarrativaHechosDelictivo.setText((jsonjObject.getString("NarrativaHechos")).equals("null")?"":jsonjObject.getString("NarrativaHechos"));
+
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                        Toast.makeText(getContext(), "ERROR AL DESEREALIZAR EL JSON. LLENE TODOS LOS CAMPOS", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                                //*************************
+                            }
+                        });
+                    }
+                    catch (Exception e){
+                        Toast.makeText(getContext(), "ERROR AL SOLICITAR INFORMACIÓN SECCIÓN 5, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            }
+        });
     }
 }

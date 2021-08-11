@@ -445,6 +445,98 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/LinearSituacion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="@dimen/border"
+                android:layout_marginRight="@dimen/border"
+                android:background="@drawable/borde">
+
+                <LinearLayout
+                    android:id="@+id/LinearunoSituacion2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:layout_margin="5dp">
+                    <TextView
+                        android:id="@+id/lblSituacion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="Situación:"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/LinearunoSituacion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:layout_margin="5dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:weightSum="1"
+                        android:layout_weight="0.10"
+                        android:layout_gravity="center">
+                        <RadioGroup
+                            android:id="@+id/rgSituacionVehiculoDelictivo"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:padding="@dimen/border"
+                            android:layout_weight="0.5"
+                            android:gravity="center"
+                            android:layout_gravity="center">
+                            <RadioButton
+                                android:id="@+id/rbConReporteRoboDelictivo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="0dp"
+                                android:text="Con reporte de robo"
+                                android:layout_gravity="center"
+                               />
+                            <RadioButton
+                                android:id="@+id/rbSinReporteRoboDelictivo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="0dp"
+                                android:text="Sin reporte de robo"
+                                android:layout_gravity="center"
+                               />
+                            <RadioButton
+                                android:id="@+id/rbNoSePuedeSaberReporteRoboDelictivo"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="0dp"
+                                android:text="No se puede saber"
+                                android:layout_gravity="center"
+                              />
+                        </RadioGroup>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <LinearLayout
                 android:id="@+id/octavoLinear"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -571,13 +663,14 @@
 
             <!--======== BOTÓN y ListView============ -->
             <LinearLayout
-                android:id="@+id/catorceavoLinear"
+                android:id="@+id/LinearAgregarVehiculo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="horizontal"
                 android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp">
+                android:layout_marginBottom="20dp"
+                android:visibility="visible">
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -613,6 +706,67 @@
                     android:weightSum="1"
                     android:layout_weight="0.10">
                 </LinearLayout>
+            </LinearLayout>
+
+            <!--======== BOTÓN y ListView============ -->
+            <LinearLayout
+                android:id="@+id/LinearBotonesActualizarVehiculo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:visibility="gone">
+                <LinearLayout
+                    android:id="@+id/lyEditarVehiculo"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:weightSum="1"
+                    android:layout_weight="0.5">
+
+                    <ImageView
+                        android:id="@+id/btnEditarVehiculoDelictivo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/boton_actualizar_delictivo" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lyEliminarVehiculoDelictivo"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:weightSum="1"
+                    android:layout_weight="0.5">
+
+                    <ImageView
+                        android:id="@+id/btnEliminarVehiculoDelictivo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/boton_eliminar_delictivo" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lyCancelarVehiculoDelictivo"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:weightSum="1"
+                    android:layout_weight="0.5">
+
+                    <ImageView
+                        android:id="@+id/btnCancelarVehiculoDelictivo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/boton_cancelar_delictivo" />
+                </LinearLayout>
+
+
             </LinearLayout>
 
             <LinearLayout
