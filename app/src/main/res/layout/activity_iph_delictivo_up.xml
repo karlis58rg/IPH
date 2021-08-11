@@ -91,12 +91,29 @@
 
         </RelativeLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="false"
+        android:orientation="horizontal">
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/lvSeccionesDelictivo"
+                >
+            </ListView>
         <ListView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:id="@+id/lvSeccionesDelictivo">
+            android:id="@+id/lvAnexosDelictivo"
+            >
         </ListView>
+    </LinearLayout>
+
+
+
     </LinearLayout>
 
 </com.sothree.slidinguppanel.SlidingUpPanelLayout>

@@ -47,9 +47,9 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class Iph_Delictivo_Up extends AppCompatActivity{
 
-    ArrayList<String> listaSeccionesDelictivo;
+    ArrayList<String> listaSeccionesDelictivo,listaAnexosDelictivo;
     ArrayList<Integer> listaColorStatusDelictivo;
-    ListView lvSeccionesDelictivo;
+    ListView lvSeccionesDelictivo,lvAnexosDelictivo;
     Fragment seccion1,seccion2,seccion3,seccion4,seccion5,anexoa,anexob,anexoc,anexod,anexoe,anexof;
     ImageView imgbtnCerrarSesionDelictivo;
     SharedPreferences share;
@@ -88,9 +88,13 @@ public class Iph_Delictivo_Up extends AppCompatActivity{
 
 
         //Instancio las listas
+
         listaSeccionesDelictivo = new ArrayList<String>(); //Item completo
+        listaAnexosDelictivo = new ArrayList<String>(); //Item completo
         listaColorStatusDelictivo = new ArrayList<Integer>(); //Item completo
         lvSeccionesDelictivo = findViewById(R.id.lvSeccionesDelictivo);
+        lvAnexosDelictivo = findViewById(R.id.lvAnexosDelictivo);
+
 
         //Agrego los colores de las listas
         listaColorStatusDelictivo.add(R.drawable.indicador_amarillo);
@@ -112,12 +116,13 @@ public class Iph_Delictivo_Up extends AppCompatActivity{
         listaSeccionesDelictivo.add("SECCIÓN 3. CONOCIMIENTO DEL HECHO");
         listaSeccionesDelictivo.add("SECCIÓN 4. LUGAR DE LA INTERVENCIÓN");
         listaSeccionesDelictivo.add("SECCIÓN 5. NARRATIVA DE LOS HECHOS");
-        listaSeccionesDelictivo.add("ANEXO A. DETENCIÓN(ES)");
-        listaSeccionesDelictivo.add("ANEXO B. INFORME DEL USO DE LA FUERZA");
-        listaSeccionesDelictivo.add("ANEXO C. INSPECCIÓN DE VEHÍCULO");
-        listaSeccionesDelictivo.add("ANEXO D. INVENTARIO DE ARMAS Y OBJETOS");
-        listaSeccionesDelictivo.add("ANEXO E. ENTREVISTAS");
-        listaSeccionesDelictivo.add("ANEXO F. ENTREGA-RECEPCIÓN DEL LUGAR DE LA INTERVENSIÓN");
+
+        listaAnexosDelictivo.add("ANEXO A. DETENCIÓN(ES)");
+        listaAnexosDelictivo.add("ANEXO B. INFORME DEL USO DE LA FUERZA");
+        listaAnexosDelictivo.add("ANEXO C. INSPECCIÓN DE VEHÍCULO");
+        listaAnexosDelictivo.add("ANEXO D. INVENTARIO DE ARMAS Y OBJETOS");
+        listaAnexosDelictivo.add("ANEXO E. ENTREVISTAS");
+        listaAnexosDelictivo.add("ANEXO F. ENTREGA-RECEPCIÓN DEL LUGAR DE LA INTERVENSIÓN");
 
         //Lleno la lista con la clase adaptador
         final SlidingUpPanelLayout slidingUpPanelLayout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
@@ -176,37 +181,49 @@ public class Iph_Delictivo_Up extends AppCompatActivity{
                         slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
                         break;
                     }
-                    case 5:
+                }
+            }
+        });
+
+        //clisk de los elementos de las listas para cambiar de fragmentos
+        lvAnexosDelictivo.setClickable(true);
+        lvAnexosDelictivo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                switch (position)
+                {
+                    case 0:
                     {
                         addFragment(anexoa);
                         slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
                         break;
                     }
-                    case 6:
+                    case 1:
                     {
                         addFragment(anexob);
                         slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
                         break;
                     }
-                    case 7:
+                    case 2:
                     {
                         addFragment(anexoc);
                         slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
                         break;
                     }
-                    case 8:
+                    case 3:
                     {
                         addFragment(anexod);
                         slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
                         break;
                     }
-                    case 9:
+                    case 4:
                     {
                         addFragment(anexoe);
                         slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
                         break;
                     }
-                    case 10:
+                    case 5:
                     {
                         addFragment(anexof);
                         slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
@@ -215,6 +232,8 @@ public class Iph_Delictivo_Up extends AppCompatActivity{
                 }
             }
         });
+
+
     }
 
     //Desactivar el botón Atrás en android
@@ -236,6 +255,9 @@ public class Iph_Delictivo_Up extends AppCompatActivity{
     public void ActualizarListaEsttus(){
         MyAdapter adapter = new MyAdapter(Iph_Delictivo_Up.this, listaSeccionesDelictivo,listaColorStatusDelictivo);
         lvSeccionesDelictivo.setAdapter(adapter);
+
+        MyAdapter adapterAnexos = new MyAdapter(Iph_Delictivo_Up.this, listaAnexosDelictivo,listaColorStatusDelictivo);
+        lvAnexosDelictivo.setAdapter(adapterAnexos);
     }
 
     //Remplaza el fragmento

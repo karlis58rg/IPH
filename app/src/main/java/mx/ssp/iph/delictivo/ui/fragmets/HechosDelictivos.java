@@ -52,6 +52,7 @@ import mx.ssp.iph.delictivo.model.ModeloHechoDelictivo;
 import mx.ssp.iph.delictivo.model.ModeloRecibeDisposicion_Delictivo;
 import mx.ssp.iph.delictivo.viewModel.HechosDelictivosViewModel;
 import mx.ssp.iph.principal.ui.activitys.Principal;
+import mx.ssp.iph.utilidades.ui.ContenedorFirmaDelictivo;
 import mx.ssp.iph.utilidades.ui.ContenedorFirmaPDisposicionDelictivo;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -84,6 +85,7 @@ public class HechosDelictivos extends Fragment {
     SharedPreferences share;
     int numberRandom,randomUrlImagen;
 
+
     private Funciones funciones;
 
     public static HechosDelictivos newInstance() {
@@ -98,6 +100,7 @@ public class HechosDelictivos extends Fragment {
         /*********************************************************************************************************/
         cargarDatos();
         random();
+
         btnGuardarHechoDelictivo = view.findViewById(R.id.btnGuardarHechoDelictivo);
         txtFechaEntregaReferenciaDelictivo = view.findViewById(R.id.txtFechaEntregaReferenciaDelictivo);
         txtHoraEntregaReferenciaDelictivo = view.findViewById(R.id.txtHoraEntregaReferenciaDelictivo);
@@ -168,7 +171,7 @@ public class HechosDelictivos extends Fragment {
         imgFirmaAutoridadDelictivo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ContenedorFirmaPDisposicionDelictivo dialog = new ContenedorFirmaPDisposicionDelictivo(R.id.lblFirmaAutoridadRealizadaDelictivo,R.id.lblFirmaOcultaAutoridadBase64HechosDelictivos,R.id.imgFirmaAutoridadRealizadaDelictivoMiniatura);
+                ContenedorFirmaDelictivo dialog = new ContenedorFirmaDelictivo(R.id.lblFirmaAutoridadRealizadaDelictivo,R.id.lblFirmaOcultaAutoridadBase64HechosDelictivos,R.id.imgFirmaAutoridadRealizadaDelictivoMiniatura);
                 dialog.show( getActivity().getSupportFragmentManager(),"Dia");
             }
         });
