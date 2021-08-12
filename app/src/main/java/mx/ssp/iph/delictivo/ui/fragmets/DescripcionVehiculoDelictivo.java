@@ -203,7 +203,7 @@ public class DescripcionVehiculoDelictivo extends Fragment {
         txtFechaRetencionDelictivo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                funciones.calendar(R.id.txtFechaRetencion,getContext(),getActivity());
+                funciones.calendar(R.id.txtFechaRetencionDelictivo,getContext(),getActivity());
             }
         });
 
@@ -211,7 +211,7 @@ public class DescripcionVehiculoDelictivo extends Fragment {
         txthoraRetencionDelictivo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                funciones.Time(R.id.txthoraRetencion,getContext(),getActivity());
+                funciones.Time(R.id.txthoraRetencionDelictivo,getContext(),getActivity());
             }
         });
 
@@ -386,8 +386,8 @@ public class DescripcionVehiculoDelictivo extends Fragment {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         //CONSUME WEB SERVICE PARA ELIMINAR DB
-                                        String IdDetenido = ListaIdVehiculoDelictivo.get(PosicionIPHSeleccionado);
-                                        //EliminarVehiculo(IdDetenido);
+                                        String IdVehiculo = ListaIdVehiculoDelictivo.get(PosicionIPHSeleccionado);
+                                        EliminarVehiculo(IdVehiculo);
                                         dialog.dismiss();
                                     }
                                 })
@@ -401,12 +401,30 @@ public class DescripcionVehiculoDelictivo extends Fragment {
                 builder.create().show();
             }
         });
-
         //Cancelar
         btnCancelarVehiculoDelictivo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 LimpiarCampos();
+            }
+        });
+        //Actualizar
+        btnEditarVehiculoDelictivo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(txtFechaRetencionDelictivo.getText().toString().isEmpty()){
+                    Toast.makeText(getActivity().getApplicationContext(),"INGRESA LA FECHA DE RETENCIÓN DEL VEHÍCULO",Toast.LENGTH_SHORT).show();
+                }else if(txthoraRetencionDelictivo.getText().toString().isEmpty()){
+                    Toast.makeText(getActivity().getApplicationContext(),"INGRESA LA HORA DE RETENCIÓN DEL VEHÍCULO",Toast.LENGTH_SHORT).show();
+                }else if(txtObservacionesdelVehiculoDelictivo.getText().length() < 3){
+                    Toast.makeText(getActivity().getApplicationContext(),"AGREGAR EN OBSERVACIONES AL MENOS 3 CARACTERES",Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
+                    updateDescripcionVehiculos();
+                }
+
+
             }
         });
 
@@ -581,7 +599,7 @@ public class DescripcionVehiculoDelictivo extends Fragment {
                 .add("IdPoliciaPrimerRespondiente", modeloInspeccionVehiculoDelictivo.getIdPoliciaPrimerRespondiente())
                 .build();
         Request request = new Request.Builder()
-                .url("http://189.254.7.167/WebServiceIPH/api/HDHechoDelictivo/")
+                .url("http://189.254.7.167/WebServiceIPH/api/HDInspeccionVehiculo")
                 .post(body)
                 .build();
         client.newCall(request).enqueue(new Callback() {
@@ -605,6 +623,84 @@ public class DescripcionVehiculoDelictivo extends Fragment {
                                 Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
                             }else{
                                 Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, VERIFIQUE SU INFORMACIÓN", Toast.LENGTH_SHORT).show();
+                            }
+                            Log.i("HERE", resp);
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    //***************** ACTUALIZA A LA BD MEDIANTE EL WS **************************//
+    private void updateDescripcionVehiculos() {
+        DataHelper dataHelper = new DataHelper(getContext());
+
+        descripcionMarca = (String) spMarcaVehiculoDelictivo.getSelectedItem();
+        String idDesMarca = dataHelper.getIdMarcaVehiculo(descripcionMarca);
+        String idMarca = idDesMarca;
+
+        descripcionSubMarca = (String) spSubmarcaVehiculoDelictivo.getSelectedItem();
+        String  idDescSubMarca = dataHelper.getIdSubMarcaVehiculos(descripcionSubMarca);
+        String idSubMarca = idDescSubMarca;
+
+        descripcionColor = (String) spColorVehiculoDelictivo.getSelectedItem();
+
+        descripcionAnio = (String) spModeloVehiculoDelictivo.getSelectedItem();
+
+        ModeloInsepccionVehiculo_Delictivo modeloInspeccionVehiculoDelictivo = new ModeloInsepccionVehiculo_Delictivo
+                (cargarIdHechoDelictivo, txtFechaRetencionDelictivo.getText().toString(), txthoraRetencionDelictivo.getText().toString(), varTipoVehiculo, "NA",
+                        varProcedencia, idMarca, idSubMarca, descripcionAnio, descripcionColor,
+                        varUso, txtPlacaVehiculoDelictivo.getText().toString(), txtSerieVehiculoDelictivo.getText().toString(),
+                        varSituacion,txtObservacionesdelVehiculoDelictivo.getText().toString(),
+                        txtDestinoVehiculoDelictivo.getText().toString(), varObjetosRelacionados, cargarIdPoliciaPrimerRespondiente);
+
+        OkHttpClient client = new OkHttpClient();
+        RequestBody body = new FormBody.Builder()
+                .add("IdHechoDelictivo", modeloInspeccionVehiculoDelictivo.getIdHechoDelictivo())
+                .add("Fecha", modeloInspeccionVehiculoDelictivo.getFecha())
+                .add("Hora", modeloInspeccionVehiculoDelictivo.getHora())
+                .add("Tipo", modeloInspeccionVehiculoDelictivo.getTipo())
+                .add("TipoOtro", modeloInspeccionVehiculoDelictivo.getTipoOtro())
+                .add("Procedencia", modeloInspeccionVehiculoDelictivo.getProcedencia())
+                .add("IdMarca", modeloInspeccionVehiculoDelictivo.getIdMarca())
+                .add("IdSubMarca", modeloInspeccionVehiculoDelictivo.getIdSubMarca())
+                .add("Modelo", modeloInspeccionVehiculoDelictivo.getModelo())
+                .add("Color", modeloInspeccionVehiculoDelictivo.getColor())
+                .add("Uso", modeloInspeccionVehiculoDelictivo.getUso())
+                .add("Placa", modeloInspeccionVehiculoDelictivo.getPlaca())
+                .add("NoSerie", modeloInspeccionVehiculoDelictivo.getNoSerie())
+                .add("Situacion", modeloInspeccionVehiculoDelictivo.getSituacion())
+                .add("Observaciones", modeloInspeccionVehiculoDelictivo.getObservaciones())
+                .add("Destino", modeloInspeccionVehiculoDelictivo.getDestino())
+                .add("ObjetosRelacionados", modeloInspeccionVehiculoDelictivo.getObjetosRelacionados())
+                .add("IdPoliciaPrimerRespondiente", modeloInspeccionVehiculoDelictivo.getIdPoliciaPrimerRespondiente())
+                .build();
+        Request request = new Request.Builder()
+                .url("http://189.254.7.167/WebServiceIPH/api/HDInspeccionVehiculo/")
+                .put(body)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Looper.prepare(); // to be able to make toast
+                Toast.makeText(getContext(), "ERROR AL ACTUALIZAR SU REGISTRO, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    final String myResponse = response.body().string();
+                    DescripcionVehiculoDelictivo.this.getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            String resp = myResponse;
+                            if(resp.equals("true")){
+                                System.out.println("EL DATO SE ACTUALIZÓ CORRECTAMENTE");
+                                Toast.makeText(getContext(), "EL DATO SE ACTUALIZÓ CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(getContext(), "ERROR AL ACTUALIZAR SU REGISTRO, VERIFIQUE SU INFORMACIÓN", Toast.LENGTH_SHORT).show();
                             }
                             Log.i("HERE", resp);
                         }
@@ -747,4 +843,55 @@ public class DescripcionVehiculoDelictivo extends Fragment {
         }
     }
 
+    //***************** CONSULTA A LA BD MEDIANTE EL WS **************************//
+    private void EliminarVehiculo(String IdVehiculo) {
+
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("http://189.254.7.167/WebServiceIPH/api/HDInspeccionVehiculo?folioInterno="+cargarIdHechoDelictivo+"&idInspeccionVehiculo="+IdVehiculo)
+                .delete()
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Looper.prepare(); // to be able to make toast
+                Toast.makeText(getContext(), "ERROR AL ELIMINAR VEHÍCULO, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    final String myResponse = response.body().string();
+
+                    try {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                String resp = myResponse;
+
+                                //***************** RESPUESTA DEL WEBSERVICE **************************//
+                                //CONVERTIR ARREGLO DE JSON A OBJET JSON
+                                if(resp.equals("true"))
+                                {
+                                    //***************** MENSAJE MÁS ACTUALIZAR LISTA (Recargando el Fragmento xoxo) **************************//
+                                    Toast.makeText(getContext(), "SE ELIMINÓ CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+                                    addFragment(new DescripcionVehiculoDelictivo());
+                                }
+                                else{
+                                    Toast.makeText(getContext(), "PROBLEMA AL ELIMINAR", Toast.LENGTH_SHORT).show();
+                                }
+                                //*************************
+                            }
+                        });
+                    }
+                    catch (Exception e){
+                        Toast.makeText(getContext(), "ERROR AL ELIMINAR VEHÍCULO, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            }
+        });
+    }
 }

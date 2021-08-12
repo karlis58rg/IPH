@@ -83,7 +83,7 @@ public class Detenciones_Delictivo extends Fragment {
 
     EditText txtFechaDetenidoDelictivo,txthoraDetencionDelictivo,txtFechaNacimientoDetenidoDelictivo, txtPrimerApellidoDetenidoDelictivo, txtSegundoApellidoDetenidoDelictivo,
             txtNombresDetenidoDelictivo, txtApodoDetenidoDelictivo, txtEdadDetenidoDelictivo,
-            txtEspecifiqueTipoDocumentoDelictivo, txtNumeroIdentificacionDelictivo, txtColoniaDetenidoDelictivo,
+            txtNumeroIdentificacionDelictivo, txtColoniaDetenidoDelictivo,
             txtCalleDetenidoDelictivo, txtNumeroExteriorDetenidoDelictivo, txtNumeroInteriorDetenidoDelictivo, txtCodigoPostalDetenidoDelictivo, txtReferenciasdelLugarDetenidoDelictivo,
             txtDescripciondelDetenidoDelictivo, txtCualPadecimientoDelictivo, txtCualGrupoVulnerableDelictivo, txtCualGrupoDelictivo, txtPrimerApellidoA3Delictivo,
             txtSegundoApellidoA3Delictivo, txtNombresA3Delictivo, txtNumeroTelefonoA3Delictivo,txtCualLugarTraslado, txtColoniaDetencion, txtCalleDetencion,
@@ -143,9 +143,6 @@ public class Detenciones_Delictivo extends Fragment {
 
         txtEdadDetenidoDelictivo = view.findViewById(R.id.txtEdadDetenidoDelictivo);
         txtEdadDetenidoDelictivo.setFilters(new InputFilter[]{new InputFilter.LengthFilter(3)});
-
-        txtEspecifiqueTipoDocumentoDelictivo = view.findViewById(R.id.txtEspecifiqueTipoDocumentoDelictivo);
-        txtEspecifiqueTipoDocumentoDelictivo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(250)});
 
         txtNumeroIdentificacionDelictivo = view.findViewById(R.id.txtNumeroIdentificacionDelictivo);
         txtNumeroIdentificacionDelictivo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(25)});
@@ -469,7 +466,6 @@ public class Detenciones_Delictivo extends Fragment {
         rgDocumentoDelictivo.clearCheck();
 
         spTipoDocumentoDelictivo.setSelection(0);
-        txtEspecifiqueTipoDocumentoDelictivo.setText("");
         txtNumeroIdentificacionDelictivo.setText("");
         spMunicipioPersonaDetenidaDelictivo.setSelection(0);
         txtColoniaDetenidoDelictivo.setText("");
@@ -562,7 +558,7 @@ public class Detenciones_Delictivo extends Fragment {
                         txtPrimerApellidoDetenidoDelictivo.getText().toString(), txtSegundoApellidoDetenidoDelictivo.getText().toString(), txtNombresDetenidoDelictivo.getText().toString(),
                         txtApodoDetenidoDelictivo.getText().toString(),txtDescripciondelDetenidoDelictivo.getText().toString(),
                         idNacionalidad, idGenero, txtFechaNacimientoDetenidoDelictivo.getText().toString(),txtEdadDetenidoDelictivo.getText().toString(),
-                        idTipoDocumento, txtEspecifiqueTipoDocumentoDelictivo.getText().toString(), txtNumeroIdentificacionDelictivo.getText().toString(),
+                        idTipoDocumento, "NA", txtNumeroIdentificacionDelictivo.getText().toString(),
                         "12", idMunicipioPersonaDetenidaHD, txtColoniaDetenidoDelictivo.getText().toString(), txtCalleDetenidoDelictivo.getText().toString(),
                         txtNumeroExteriorDetenidoDelictivo.getText().toString(), txtNumeroInteriorDetenidoDelictivo.getText().toString(),
                         txtCodigoPostalDetenidoDelictivo.getText().toString(), txtReferenciasdelLugarDetenidoDelictivo.getText().toString(), varLesiones,
