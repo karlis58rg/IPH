@@ -917,7 +917,6 @@ public class DescripcionVehiculo extends Fragment {
             Toast.makeText(getContext(), "LO SENTIMOS, NO CUENTA CON MODELOS ACTIVOS", Toast.LENGTH_LONG).show();
         }
 
-
     }
 
     //Intercambia los Fragmentos

@@ -44,6 +44,8 @@ import mx.ssp.iph.SqLite.DataHelper;
 import mx.ssp.iph.administrativo.model.ModeloDescripcionVehiculos_Administrativo;
 import mx.ssp.iph.administrativo.ui.fragmets.DescripcionVehiculo;
 import mx.ssp.iph.administrativo.viewModel.DescripcionVehiculoViewModel;
+import mx.ssp.iph.delictivo.model.ModeloConocimientoHecho_Delictivo;
+import mx.ssp.iph.delictivo.model.ModeloInsepccionVehiculo_Delictivo;
 import mx.ssp.iph.delictivo.viewModel.DescripcionVehiculoDelictivoViewModel;
 import mx.ssp.iph.utilidades.ui.Funciones;
 import okhttp3.Call;
@@ -67,10 +69,10 @@ public class DescripcionVehiculoDelictivo extends Fragment {
     private Funciones funciones;
     RadioGroup rgTipoVehiculoDelictivo,rgProcedenciaVehiculoDelictivo,rgUsoVehiculoDelictivo,rgObjetos,rgSituacionVehiculoDelictivo;
     RadioButton rbTerrestreDelictivo,rbAcuaticoDelictivo,rbAereoDelictivo, rbNacionalDelictivo,rbExtranjeroDelictivo,rbParticularDelictivo,rbTransportePublicoDelictivo,rbCargaDelictivo,rbObjetosNODelictivo,rbObjetosSIDelictivo,rbConReporteRoboDelictivo,rbSinReporteRoboDelictivo,rbNoSePuedeSaberReporteRoboDelictivo;
-    Spinner spMarcaVehiculoDelictivo,spSubmarcaVehiculoDelictivo,txtModeloVehiculoDelictivo,txtColorVehiculoDelictivo;
+    Spinner spMarcaVehiculoDelictivo,spSubmarcaVehiculoDelictivo,spModeloVehiculoDelictivo,spColorVehiculoDelictivo;
     TextView txtPlacaVehiculoDelictivo,txtSerieVehiculoDelictivo,txtDestinoVehiculoDelictivo;
     Button btnGuardarVehiculoDelictivo;
-    String varProcedencia,varUso,varTipoVehiculo;
+    String varProcedencia,varTipoVehiculo,varUso,varSituacion,varObjetosRelacionados,descripcionMarca,descripcionSubMarca,descripcionColor,descripcionAnio;
     String cargarIdPoliciaPrimerRespondiente,cargarIdHechoDelictivo;
     String[] ArrayListaIPHDelictivo;
     int PosicionIPHSeleccionado= -1;
@@ -114,8 +116,8 @@ public class DescripcionVehiculoDelictivo extends Fragment {
         txtFechaRetencionDelictivo = (EditText)root.findViewById(R.id.txtFechaRetencionDelictivo);
         lvVehiculosDelictivo = (ListView) root.findViewById(R.id.lvVehiculosDelictivo);
 
-        txtModeloVehiculoDelictivo = root.findViewById(R.id.txtModeloVehiculoDelictivo);
-        txtColorVehiculoDelictivo = root.findViewById(R.id.txtColorVehiculoDelictivo);
+        spModeloVehiculoDelictivo = root.findViewById(R.id.spModeloVehiculoDelictivo);
+        spColorVehiculoDelictivo = root.findViewById(R.id.spColorVehiculoDelictivo);
         txtPlacaVehiculoDelictivo = root.findViewById(R.id.txtPlacaVehiculoDelictivo);
         txtPlacaVehiculoDelictivo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(10)});
         txtSerieVehiculoDelictivo = root.findViewById(R.id.txtSerieVehiculoDelictivo);
@@ -216,6 +218,13 @@ public class DescripcionVehiculoDelictivo extends Fragment {
         rgTipoVehiculoDelictivo.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == R.id.rbTerrestreDelictivo) {
+                    varTipoVehiculo = "TERRESTRE";
+                } else if (checkedId == R.id.rbExtranjero) {
+                    varTipoVehiculo = "ACUATICO";
+                }else if (checkedId == R.id.rbAereoDelictivo) {
+                    varTipoVehiculo = "AEREO";
+                }
             }
         });
         rgProcedenciaVehiculoDelictivo.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -242,6 +251,29 @@ public class DescripcionVehiculoDelictivo extends Fragment {
             }
         });
 
+        rgSituacionVehiculoDelictivo.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
+                if (checkedId == R.id.rbConReporteRoboDelictivo) {
+                    varSituacion = "ROBADO";
+                } else if (checkedId == R.id.rbSinReporteRoboDelictivo) {
+                    varSituacion = "NORMAL";
+                }else if(checkedId == R.id.rbNoSePuedeSaberReporteRoboDelictivo){
+                    varSituacion = "DESCONOCIDO";
+                }
+            }
+        });
+        rgObjetos.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
+                if (checkedId == R.id.rbObjetosNODelictivo) {
+                    varObjetosRelacionados = "NO";
+                } else if (checkedId == R.id.rbObjetosSIDelictivo) {
+                    varObjetosRelacionados = "SI";
+                }
+            }
+        });
+
 
 
         btnGuardarVehiculoDelictivo.setOnClickListener(new View.OnClickListener() {
@@ -255,7 +287,7 @@ public class DescripcionVehiculoDelictivo extends Fragment {
                     Toast.makeText(getActivity().getApplicationContext(),"AGREGAR EN OBSERVACIONES AL MENOS 3 CARACTERES",Toast.LENGTH_SHORT).show();
                 }else {
                     Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
-                    //insertDescripcionVehiculos();
+                    insertDescripcionVehiculos();
                 }
             }
         });
@@ -319,8 +351,8 @@ public class DescripcionVehiculoDelictivo extends Fragment {
 
                     spMarcaVehiculoDelictivo.setSelection(funciones.getIndexSpiner(spMarcaVehiculoDelictivo, jsonjObject.getString("IdMarca")));
                     spSubmarcaVehiculoDelictivo.setSelection(funciones.getIndexSpiner(spSubmarcaVehiculoDelictivo, jsonjObject.getString("IdSubMarca")));
-                    txtModeloVehiculoDelictivo.setSelection(funciones.getIndexSpiner(txtModeloVehiculoDelictivo, jsonjObject.getString("Modelo")));
-                    txtColorVehiculoDelictivo.setSelection(funciones.getIndexSpiner(txtColorVehiculoDelictivo, jsonjObject.getString("Color")));
+                    spModeloVehiculoDelictivo.setSelection(funciones.getIndexSpiner(spModeloVehiculoDelictivo, jsonjObject.getString("Modelo")));
+                    spColorVehiculoDelictivo.setSelection(funciones.getIndexSpiner(spColorVehiculoDelictivo, jsonjObject.getString("Color")));
 
                     txtPlacaVehiculoDelictivo.setText(((jsonjObject.getString("Placa")).equals("null")?"":jsonjObject.getString("Placa")));
                     txtSerieVehiculoDelictivo.setText(((jsonjObject.getString("NoSerie")).equals("null")?"":jsonjObject.getString("NoSerie")));
@@ -393,8 +425,8 @@ public class DescripcionVehiculoDelictivo extends Fragment {
 
         spMarcaVehiculoDelictivo.setSelection(0);
         spSubmarcaVehiculoDelictivo.setSelection(0);
-        txtModeloVehiculoDelictivo.setSelection(0);
-        txtColorVehiculoDelictivo.setSelection(0);
+        spModeloVehiculoDelictivo.setSelection(0);
+        spColorVehiculoDelictivo.setSelection(0);
 
         txtPlacaVehiculoDelictivo.setText("");
         txtSerieVehiculoDelictivo.setText("");
@@ -482,14 +514,14 @@ public class DescripcionVehiculoDelictivo extends Fragment {
         if (list.size() > 0) {
             System.out.println("YA EXISTE INFORMACIÓN DE COLORES");
             ArrayAdapter<String> adapterColores = new ArrayAdapter<String>(getActivity(), R.layout.spinner_layout, R.id.txt, list);
-            txtColorVehiculoDelictivo.setAdapter(adapterColores);
+            spColorVehiculoDelictivo.setAdapter(adapterColores);
         }else{
             Toast.makeText(getContext(), "LO SENTIMOS, NO CUENTA CON COLORES ACTIVOS", Toast.LENGTH_LONG).show();
         }
         if (listM.size() > 0) {
             System.out.println("YA EXISTE INFORMACIÓN DE MODELOS");
             ArrayAdapter<String> adapterModelo = new ArrayAdapter<String>(getActivity(), R.layout.spinner_layout, R.id.txt, listM);
-            txtModeloVehiculoDelictivo.setAdapter(adapterModelo);
+            spModeloVehiculoDelictivo.setAdapter(adapterModelo);
         }else{
             Toast.makeText(getContext(), "LO SENTIMOS, NO CUENTA CON MODELOS ACTIVOS", Toast.LENGTH_LONG).show();
         }
@@ -503,6 +535,83 @@ public class DescripcionVehiculoDelictivo extends Fragment {
                 .replace(R.id.fragmentContenedorJusticiacivica, fragment)
                 //.addToBackStack(null) //Se quita la pila de fragments. Botón atrás
                 .commit();
+    }
+    //***************** INSERTA A LA BD MEDIANTE EL WS **************************//
+    private void insertDescripcionVehiculos() {
+        DataHelper dataHelper = new DataHelper(getContext());
+
+        descripcionMarca = (String) spMarcaVehiculoDelictivo.getSelectedItem();
+        String idDesMarca = dataHelper.getIdMarcaVehiculo(descripcionMarca);
+        String idMarca = idDesMarca;
+
+        descripcionSubMarca = (String) spSubmarcaVehiculoDelictivo.getSelectedItem();
+        String  idDescSubMarca = dataHelper.getIdSubMarcaVehiculos(descripcionSubMarca);
+        String idSubMarca = idDescSubMarca;
+
+        descripcionColor = (String) spColorVehiculoDelictivo.getSelectedItem();
+
+        descripcionAnio = (String) spModeloVehiculoDelictivo.getSelectedItem();
+
+        ModeloInsepccionVehiculo_Delictivo modeloInspeccionVehiculoDelictivo = new ModeloInsepccionVehiculo_Delictivo
+                (cargarIdHechoDelictivo, txtFechaRetencionDelictivo.getText().toString(), txthoraRetencionDelictivo.getText().toString(), varTipoVehiculo, "NA",
+                        varProcedencia, idMarca, idSubMarca, descripcionAnio, descripcionColor,
+                        varUso, txtPlacaVehiculoDelictivo.getText().toString(), txtSerieVehiculoDelictivo.getText().toString(),
+                        varSituacion,txtObservacionesdelVehiculoDelictivo.getText().toString(),
+                        txtDestinoVehiculoDelictivo.getText().toString(), varObjetosRelacionados, cargarIdPoliciaPrimerRespondiente);
+
+        OkHttpClient client = new OkHttpClient();
+        RequestBody body = new FormBody.Builder()
+                .add("IdHechoDelictivo", modeloInspeccionVehiculoDelictivo.getIdHechoDelictivo())
+                .add("Fecha", modeloInspeccionVehiculoDelictivo.getFecha())
+                .add("Hora", modeloInspeccionVehiculoDelictivo.getHora())
+                .add("Tipo", modeloInspeccionVehiculoDelictivo.getTipo())
+                .add("TipoOtro", modeloInspeccionVehiculoDelictivo.getTipoOtro())
+                .add("Procedencia", modeloInspeccionVehiculoDelictivo.getProcedencia())
+                .add("IdMarca", modeloInspeccionVehiculoDelictivo.getIdMarca())
+                .add("IdSubMarca", modeloInspeccionVehiculoDelictivo.getIdSubMarca())
+                .add("Modelo", modeloInspeccionVehiculoDelictivo.getModelo())
+                .add("Color", modeloInspeccionVehiculoDelictivo.getColor())
+                .add("Uso", modeloInspeccionVehiculoDelictivo.getUso())
+                .add("Placa", modeloInspeccionVehiculoDelictivo.getPlaca())
+                .add("NoSerie", modeloInspeccionVehiculoDelictivo.getNoSerie())
+                .add("Situacion", modeloInspeccionVehiculoDelictivo.getSituacion())
+                .add("Observaciones", modeloInspeccionVehiculoDelictivo.getObservaciones())
+                .add("Destino", modeloInspeccionVehiculoDelictivo.getDestino())
+                .add("ObjetosRelacionados", modeloInspeccionVehiculoDelictivo.getObjetosRelacionados())
+                .add("IdPoliciaPrimerRespondiente", modeloInspeccionVehiculoDelictivo.getIdPoliciaPrimerRespondiente())
+                .build();
+        Request request = new Request.Builder()
+                .url("http://189.254.7.167/WebServiceIPH/api/HDHechoDelictivo/")
+                .post(body)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Looper.prepare(); // to be able to make toast
+                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    final String myResponse = response.body().string();
+                    DescripcionVehiculoDelictivo.this.getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            String resp = myResponse;
+                            if(resp.equals("true")){
+                                System.out.println("EL DATO SE ENVIO CORRECTAMENTE");
+                                Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, VERIFIQUE SU INFORMACIÓN", Toast.LENGTH_SHORT).show();
+                            }
+                            Log.i("HERE", resp);
+                        }
+                    });
+                }
+            }
+        });
     }
 
     //***************** CONSULTA A LA BD MEDIANTE EL WS **************************//

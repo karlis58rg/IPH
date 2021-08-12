@@ -58,6 +58,8 @@ public class Detenciones_Delictivo extends Fragment {
     Button btnGuardarPuestaDetencionesDelectivo;
     Funciones funciones;
     ImageView imgFirmaDerechosDelictivo,img_microfonoDescripcionDetenido;
+    TextView lblFirmaOcultaDetenidoBase64Detenciones;
+
     EditText txtFechaDetenidoDelictivo,txthoraDetencionDelictivo,txtFechaNacimientoDetenidoDelictivo, txtPrimerApellidoDetenidoDelictivo, txtSegundoApellidoDetenidoDelictivo,
             txtNombresDetenidoDelictivo, txtApodoDetenidoDelictivo, txtNacionalidadEspecifiqueDetenidoDelictivo, txtEdadDetenidoDelictivo,
             txtEspecifiqueTipoDocumentoDelictivo, txtNumeroIdentificacionDelictivo, txtColoniaDetenidoDelictivo,
@@ -68,11 +70,13 @@ public class Detenciones_Delictivo extends Fragment {
 
     CheckBox chNoAplicaAliasDetenidoDelictivo, chNoProporcionadoDelictivo, chLugarTrasladoDetencionFiscaliaAgencia, chLugarTrasladoDetencionHospital, chLugarTrasladoDetencionOtraDependencia;
     RadioGroup rgDocumentoDelictivo, rgLesionesDelictivo, rgPadecimientoDelictivo, rgGrupoVulnerableDelictivo, rgGrupoDelictivo, rgInformeDerechoDetencionesDelictivo,
-            rgObjetoInspeccionDetenidoDelictivo, rgPertenenciasDetenidoDelictivo, rgLugarDetencionDelictivo;
+            rgObjetoInspeccionDetenidoDelictivo, rgPertenenciasDetenidoDelictivo, rgLugarDetencionDelictivo,rgLugarTrasladoDelictivo;
+
     RadioButton rbNoDocumentoDelictivo, rbSiDocumentoDelictivo, rbNoLesionesDelictivo, rbSiLesionesDelictivo, rbPadecimientoDelictivo, rbSiPadecimientoDelictivo,
             rbNoGrupoVulnerableDelictivo, rbSiGrupoVulnerableDelictivo, rbNoGrupoDelictivo, rbSiGrupoDelictivo, rbNoInformeDerechoDetencionesDelictivo, rbSiInformeDerechoDetencionesDelictivo,
             rbSiObjetoInspeccionDetenidoDelictivo, rbNoObjetoInspeccionDetenidoDelictivo, rbSiPertenenciasDetenidoDelictivo, rbNoPertenenciasDetenidoDelictivo,
             rbSiLugarDetencionDelictivo, rbNoLugarDetencionDelictivo;
+
     Spinner spGeneroDetenidoDelictivo,spNacionalidadDetenidoDelictivo,spTipoDocumentoDelictivo,spMunicipioPersonaDetenidaDelictivo,spMunicipioDireccionDetencion;
     private static final  int REQ_CODE_SPEECH_INPUT=100;
     SharedPreferences share;
@@ -96,6 +100,7 @@ public class Detenciones_Delictivo extends Fragment {
         random();
         funciones = new Funciones();
         btnGuardarPuestaDetencionesDelectivo = view.findViewById(R.id.btnGuardarPuestaDetencionesDelectivo);
+        lblFirmaOcultaDetenidoBase64Detenciones = view.findViewById(R.id.lblFirmaOcultaDetenidoBase64Detenciones);
         imgFirmaDerechosDelictivo = view.findViewById(R.id.imgFirmaDerechosDelictivo);
         img_microfonoDescripcionDetenido = view.findViewById(R.id.img_microfonoDescripcionDetenido);
 
@@ -221,12 +226,7 @@ public class Detenciones_Delictivo extends Fragment {
         rbNoLugarDetencionDelictivo = view.findViewById(R.id.rbNoLugarDetencionDelictivo);
         chNoAplicaAliasDetenidoDelictivo = view.findViewById(R.id.chNoAplicaAliasDetenidoDelictivo);
         chNoProporcionadoDelictivo = view.findViewById(R.id.chNoProporcionadoDelictivo);
-        chLugarTrasladoDetencionFiscaliaAgencia = view.findViewById(R.id.chLugarTrasladoDetencionFiscaliaAgencia);
-        chLugarTrasladoDetencionHospital = view.findViewById(R.id.chLugarTrasladoDetencionHospital);
-        chLugarTrasladoDetencionOtraDependencia = view.findViewById(R.id.chLugarTrasladoDetencionOtraDependencia);
-
-
-
+        rgLugarTrasladoDelictivo = view.findViewById(R.id.rgLugarTrasladoDelictivo);
         spGeneroDetenidoDelictivo = view.findViewById(R.id.spGeneroDetenidoDelictivo);
         spNacionalidadDetenidoDelictivo = view.findViewById(R.id.spNacionalidadDetenidoDelictivo);
         spTipoDocumentoDelictivo = view.findViewById(R.id.spTipoDocumentoDelictivo);
@@ -343,6 +343,19 @@ public class Detenciones_Delictivo extends Fragment {
 
             }
         });
+        rgLugarTrasladoDelictivo.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == R.id.rbLugarTrasladoDetencionFiscaliaAgencia) {
+                    varLugarTraslado = "FISCALIA/AGENCIA";
+                } else if (checkedId == R.id.rbLugarTrasladoDetencionHospital) {
+                    varLugarTraslado = "HOSPITAL";
+                }else if (checkedId == R.id.rbLugarTrasladoDetencionOtraDependencia) {
+                    varLugarTraslado = "OTRA DEPENDENCIA";
+                }
+
+            }
+        });
 
         //***************** GUARDAR **************************//
         btnGuardarPuestaDetencionesDelectivo.setOnClickListener(new View.OnClickListener() {
@@ -389,18 +402,6 @@ public class Detenciones_Delictivo extends Fragment {
             txtNumeroTelefonoA3Delictivo.setText("NP");
         }else{
             varProporcionoFamiliar = "SI";
-        }
-
-        if(chLugarTrasladoDetencionFiscaliaAgencia.isChecked()){
-            varLugarTraslado = "FISCALIA/AGENCIA";
-        }
-
-        if(chLugarTrasladoDetencionHospital.isChecked()){
-            varLugarTraslado = "HOSPITAL";
-        }
-
-        if(chLugarTrasladoDetencionOtraDependencia.isChecked()){
-            varLugarTraslado = "OTRA DEPENDENCIA";
         }
 
         rutaFirma = "http://189.254.7.167/WebServiceIPH/FirmaRDDelictivo/"+cargarIdHechoDelictivo+randomUrlImagen+".jpg";
@@ -489,7 +490,8 @@ public class Detenciones_Delictivo extends Fragment {
                             if(resp.equals("true")){
                                 System.out.println("EL DATO SE ENVIO CORRECTAMENTE");
                                 //Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
-                                insertLugarDetencionesDelictivo();
+                                //insertLugarDetencionesDelictivo();
+                                insertImagen();
                             }else{
                                 Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, VERIFIQUE SU INFORMACIÓN", Toast.LENGTH_SHORT).show();
                             }
@@ -555,6 +557,43 @@ public class Detenciones_Delictivo extends Fragment {
                                 Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, VERIFIQUE SU INFORMACIÓN", Toast.LENGTH_SHORT).show();
                             }
                             Log.i("HERE", resp);
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    //********************************** INSERTA IMAGEN AL SERVIDOR ***********************************//
+    public void insertImagen() {
+        String cadena = lblFirmaOcultaDetenidoBase64Detenciones.getText().toString();
+        OkHttpClient client = new OkHttpClient();
+        RequestBody body = new FormBody.Builder()
+                .add("Description", cargarIdHechoDelictivo+randomUrlImagen+".jpg")
+                .add("ImageData", cadena)
+                .build();
+        Request request = new Request.Builder()
+                .url("http://189.254.7.167/WebServiceIPH/api/MultimediaFirmaDetencionesDerechos")
+                .post(body)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Looper.prepare(); // to be able to make toast
+                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, FAVOR DE VERIFICAR SU CONEXCIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    final String myResponse = response.body().toString();  /********** ME REGRESA LA RESPUESTA DEL WS ****************/
+                    Detenciones_Delictivo.this.getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            System.out.println("EL DATO DE LA IMAGEN SE ENVIO CORRECTAMENTE");
+                            //Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+                            insertLugarDetencionesDelictivo();
                         }
                     });
                 }
