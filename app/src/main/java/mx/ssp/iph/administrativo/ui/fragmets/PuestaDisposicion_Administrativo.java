@@ -688,6 +688,7 @@ public class PuestaDisposicion_Administrativo extends Fragment {
                                         txtFiscaliaAutoridadAdministrativo.setText((jsonjObject.getString("NomRecibePuestaDisp")).equals("null")?"":jsonjObject.getString("NomRecibePuestaDisp"));
                                         lblFirmaAutoridadRealizadaAdministrativo.setText((jsonjObject.getString("UrlFirma")).equals("null")?"":"FIRMA CORRECTA");
                                         firmaURLServer = (jsonjObject.getString("UrlFirma").equals("null")?firmaURLServer:jsonjObject.getString("UrlFirma"));
+                                        lblFirmaOcultaAutoridadBase64.setText(firmaURLServer);
                                         getFirmaFromURL();
                                         //Llenar spiners
                                         txtAdscripcionAdministrativo.setSelection(funciones.getIndexSpiner(txtAdscripcionAdministrativo, jsonjObject.getString("IdFiscaliaAutoridad")));

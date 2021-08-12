@@ -381,7 +381,7 @@ public class DescripcionVehiculoDelictivo extends Fragment {
             public void onClick(View v) {
                 AlertDialog.Builder builder =
                         new AlertDialog.Builder(getContext()).
-                                setMessage("¿DESEA ELIMINAR EL VEHÍCULO "+ ListaIdVehiculoDelictivo.get(PosicionIPHSeleccionado) + "" ).
+                                setMessage("¿DESEA ELIMINAR EL VEHÍCULO "+ ListaIdVehiculoDelictivo.get(PosicionIPHSeleccionado) + "?" ).
                                 setPositiveButton( "ACEPTAR", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
@@ -550,7 +550,7 @@ public class DescripcionVehiculoDelictivo extends Fragment {
     private void addFragment(Fragment fragment) {
         getActivity().getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.fragmentContenedorJusticiacivica, fragment)
+                .replace(R.id.fragmentContenedorDelictivo, fragment)
                 //.addToBackStack(null) //Se quita la pila de fragments. Botón atrás
                 .commit();
     }
@@ -877,6 +877,7 @@ public class DescripcionVehiculoDelictivo extends Fragment {
                                 {
                                     //***************** MENSAJE MÁS ACTUALIZAR LISTA (Recargando el Fragmento xoxo) **************************//
                                     Toast.makeText(getContext(), "SE ELIMINÓ CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+                                    LimpiarCampos();
                                     addFragment(new DescripcionVehiculoDelictivo());
                                 }
                                 else{

@@ -1,8 +1,10 @@
 package mx.ssp.iph.delictivo.ui.fragmets;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -31,6 +33,8 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -76,6 +80,7 @@ public class Detenciones_Delictivo extends Fragment {
     String firmaURLServer = "http://189.254.7.167/WebServiceIPH/Firma/SINFIRMA.jpg";
     TextView lblFirmadelDetenidoDelictivo,lblFirmadelDetenidoDelictivoOculto;
     ImageView imgFirmadelDetenidoDelictivoMiniatura;
+    RadioButton rbLugarTrasladoDetencionFiscaliaAgencia,rbLugarTrasladoDetencionHospital,rbLugarTrasladoDetencionOtraDependencia;
 
 
     ImageView imgFirmaDerechosDelictivo,img_microfonoDescripcionDetenido;
@@ -259,6 +264,9 @@ public class Detenciones_Delictivo extends Fragment {
         lblFirmadelDetenidoDelictivoOculto = view.findViewById(R.id.lblFirmadelDetenidoDelictivoOculto);
         imgFirmadelDetenidoDelictivoMiniatura = view.findViewById(R.id.imgFirmadelDetenidoDelictivoMiniatura);
 
+        rbLugarTrasladoDetencionFiscaliaAgencia = view.findViewById(R.id.rbLugarTrasladoDetencionFiscaliaAgencia);
+        rbLugarTrasladoDetencionHospital = view.findViewById(R.id.rbLugarTrasladoDetencionHospital);
+        rbLugarTrasladoDetencionOtraDependencia = view.findViewById(R.id.rbLugarTrasladoDetencionOtraDependencia);
 
         funciones.CambiarTituloSeccionesDelictivo("ANEXO A. DETENCIÓN(ES)",getContext(),getActivity());
 
@@ -409,8 +417,151 @@ public class Detenciones_Delictivo extends Fragment {
                     veinticinco.setVisibility(View.GONE);
                     veinticincoUpdate.setVisibility(View.VISIBLE);
 
-
                     //Deserealizar y colocar los valores en los campos.
+                    txtFechaDetenidoDelictivo.setText(((jsonjObject.getString("Fecha")).equals("null")?"":jsonjObject.getString("Fecha")).replace("-","/").substring(0,10));
+                    txthoraDetencionDelictivo.setText(((jsonjObject.getString("Hora")).equals("null")?"":jsonjObject.getString("Hora")));
+
+                    txtPrimerApellidoDetenidoDelictivo.setText(((jsonjObject.getString("APDentenido")).equals("null")?"":jsonjObject.getString("APDentenido")));
+                    txtSegundoApellidoDetenidoDelictivo.setText(((jsonjObject.getString("AMDetenido")).equals("null")?"":jsonjObject.getString("AMDetenido")));
+                    txtNombresDetenidoDelictivo.setText(((jsonjObject.getString("NomDetenido")).equals("null")?"":jsonjObject.getString("NomDetenido")));
+
+                   if ((jsonjObject.getString("ApodoAlias")).equals("NP"))
+                    {
+                        chNoAplicaAliasDetenidoDelictivo.setChecked(true);
+                        txtApodoDetenidoDelictivo.setText("");
+                    }else
+                    {
+                        txtApodoDetenidoDelictivo.setText(((jsonjObject.getString("ApodoAlias")).equals("null")?"":jsonjObject.getString("ApodoAlias")));
+                    }
+
+                    spGeneroDetenidoDelictivo.setSelection(funciones.getIndexSpiner(spGeneroDetenidoDelictivo, jsonjObject.getString("IdSexo")));
+                    spNacionalidadDetenidoDelictivo.setSelection(funciones.getIndexSpiner(spNacionalidadDetenidoDelictivo, jsonjObject.getString("IdNacionalidad")));
+
+                    txtFechaNacimientoDetenidoDelictivo.setText(((jsonjObject.getString("FechaNacimiento")).equals("null")?"":jsonjObject.getString("FechaNacimiento")).replace("-","/").substring(0,10));
+                    txtEdadDetenidoDelictivo.setText(((jsonjObject.getString("Edad")).equals("null")?"":jsonjObject.getString("Edad")));
+
+                    if ((jsonjObject.getString("IdentificacionOtro")).equals("SI"))
+                    {
+                        rbSiDocumentoDelictivo.setChecked(true);
+
+                    }else if ((jsonjObject.getString("IdentificacionOtro")).equals("NO"))
+                    {
+                        rbNoDocumentoDelictivo.setChecked(true);
+                    }
+
+                    spTipoDocumentoDelictivo.setSelection(funciones.getIndexSpiner(spTipoDocumentoDelictivo, jsonjObject.getString("IdIdentificacion")));
+                    txtNumeroIdentificacionDelictivo.setText(((jsonjObject.getString("NumIdentificacion")).equals("null")?"":jsonjObject.getString("NumIdentificacion")));
+
+                    spMunicipioPersonaDetenidaDelictivo.setSelection(funciones.getIndexSpiner(spTipoDocumentoDelictivo, jsonjObject.getString("IdMunicipio")));
+                    txtColoniaDetenidoDelictivo.setText(((jsonjObject.getString("ColoniaLocalidad")).equals("null")?"":jsonjObject.getString("ColoniaLocalidad")));
+                    txtCalleDetenidoDelictivo.setText(((jsonjObject.getString("CalleTramo")).equals("null")?"":jsonjObject.getString("CalleTramo")));
+                    txtNumeroExteriorDetenidoDelictivo.setText(((jsonjObject.getString("NoExterior")).equals("null")?"":jsonjObject.getString("NoExterior")));
+                    txtNumeroInteriorDetenidoDelictivo.setText(((jsonjObject.getString("NoInterior")).equals("null")?"":jsonjObject.getString("NoInterior")));
+                    txtCodigoPostalDetenidoDelictivo.setText(((jsonjObject.getString("Cp")).equals("null")?"":jsonjObject.getString("Cp")));
+                    txtReferenciasdelLugarDetenidoDelictivo.setText(((jsonjObject.getString("Referencia")).equals("null")?"":jsonjObject.getString("Referencia")));
+                    txtDescripciondelDetenidoDelictivo.setText(((jsonjObject.getString("DescripcionDetenido")).equals("null")?"":jsonjObject.getString("DescripcionDetenido")));
+
+                    //============= Lesiones
+                    if ((jsonjObject.getString("Lesiones")).equals("SI"))
+                    {
+                        rbSiLesionesDelictivo.setChecked(true);
+
+                    }else if ((jsonjObject.getString("Lesiones")).equals("NO"))
+                    {
+                        rbNoLesionesDelictivo.setChecked(true);
+                    }
+
+                    //============= Padecimientos
+                    if ((jsonjObject.getString("Padecimientos")).equals("SI"))
+                    {
+                        rbPadecimientoDelictivo.setChecked(true);
+                        txtCualPadecimientoDelictivo.setText(((jsonjObject.getString("DescPadecimientos")).equals("null")?"":jsonjObject.getString("DescPadecimientos")));
+                    }else if ((jsonjObject.getString("Padecimientos")).equals("NO"))
+                    {
+                        rbPadecimientoDelictivo.setChecked(true);
+                    }
+
+                    //============= GrupoVulnerable
+                    if ((jsonjObject.getString("GrupoVulnerable")).equals("SI"))
+                    {
+                        rbSiGrupoVulnerableDelictivo.setChecked(true);
+                        txtCualGrupoVulnerableDelictivo.setText(((jsonjObject.getString("DescGrupoVulnerable")).equals("null")?"":jsonjObject.getString("DescGrupoVulnerable")));
+                    }else if ((jsonjObject.getString("GrupoVulnerable")).equals("NO"))
+                    {
+                        rbNoGrupoVulnerableDelictivo.setChecked(true);
+                    }
+
+                    //============= Grupo Delictivo
+                    if ((jsonjObject.getString("GrupoDelictivo")).equals("SI"))
+                    {
+                        rbSiGrupoDelictivo.setChecked(true);
+                        txtCualGrupoDelictivo.setText(((jsonjObject.getString("DescGrupoDelictivo")).equals("null")?"":jsonjObject.getString("DescGrupoDelictivo")));
+                    }else if ((jsonjObject.getString("GrupoDelictivo")).equals("NO"))
+                    {
+                        rbNoGrupoDelictivo.setChecked(true);
+                    }
+
+                    //============= ProporcionoFamiliar
+                    if ((jsonjObject.getString("ProporcionoFamiliar")).equals("SI"))
+                    {
+                        rbSiGrupoDelictivo.setChecked(false);
+                    }else if ((jsonjObject.getString("ProporcionoFamiliar")).equals("NO"))
+                    {
+                        chNoProporcionadoDelictivo.setChecked(true);
+                        txtPrimerApellidoA3Delictivo.setText(((jsonjObject.getString("APFamiliar")).equals("null")?"":jsonjObject.getString("APFamiliar")));
+                        txtSegundoApellidoA3Delictivo.setText(((jsonjObject.getString("AMFamiliar")).equals("null")?"":jsonjObject.getString("AMFamiliar")));
+                        txtNombresA3Delictivo.setText(((jsonjObject.getString("NomFamiliar")).equals("null")?"":jsonjObject.getString("NomFamiliar")));
+                        txtNumeroTelefonoA3Delictivo.setText(((jsonjObject.getString("TelefonoFamiliar")).equals("null")?"":jsonjObject.getString("TelefonoFamiliar")));
+                    }
+
+                    //============= InformoDerechos
+                    if ((jsonjObject.getString("InformoDerechos")).equals("SI"))
+                    {
+                        rbSiInformeDerechoDetencionesDelictivo.setChecked(true);
+                    }else if ((jsonjObject.getString("InformoDerechos")).equals("NO"))
+                    {
+                        rbNoInformeDerechoDetencionesDelictivo.setChecked(true);
+                    }
+
+                    //Firma
+                    lblFirmadelDetenidoDelictivo.setText((jsonjObject.getString("RutaFirma")).equals("null")?"":"FIRMA CORRECTA");
+                    firmaURLServer = (jsonjObject.getString("RutaFirma").equals("null")?firmaURLServer:jsonjObject.getString("UrlFirma"));
+                    lblFirmadelDetenidoDelictivoOculto.setText(firmaURLServer);
+                    getFirmaFromURL();
+
+                    //Pendiente Pertencencias Anexo  y pertenecncias personals
+
+
+                    //=============LugarDetencionIntervencion
+                    if ((jsonjObject.getString("LugarDetencionIntervencion")).equals("SI"))
+                    {
+                        //No hace nada. Se oculta el formulario con la validación de josué
+                    }else if ((jsonjObject.getString("LugarDetencionIntervencion")).equals("NO"))
+                    {
+                        spMunicipioDireccionDetencion.setSelection(funciones.getIndexSpiner(spMunicipioDireccionDetencion, jsonjObject.getString("IdMunicipioLD")));
+                        txtColoniaDetencion.setText(((jsonjObject.getString("ColoniaLocalidadLD")).equals("null")?"":jsonjObject.getString("ColoniaLocalidadLD")));
+                        txtCalleDetencion.setText(((jsonjObject.getString("CalleTramoLD")).equals("null")?"":jsonjObject.getString("CalleTramoLD")));
+                        txtNumeroExteriorDetencion.setText(((jsonjObject.getString("NoExteriorLD")).equals("null")?"":jsonjObject.getString("NoExteriorLD")));
+                        txtNumeroInteriorDetencion.setText(((jsonjObject.getString("NoInteriorLD")).equals("null")?"":jsonjObject.getString("NoInteriorLD")));
+                        txtCodigoPostalDetencion.setText(((jsonjObject.getString("CpLD")).equals("null")?"":jsonjObject.getString("CpLD")));
+                        txtReferenciasdelLugarDetencion.setText(((jsonjObject.getString("ReferenciaLD")).equals("null")?"":jsonjObject.getString("ReferenciaLD")));
+                    }
+
+                    //============= rgLugarTrasladoDelictivo
+                    if ((jsonjObject.getString("IdLugarTraslado")).equals("FISCALIA"))
+                    {
+                        rbLugarTrasladoDetencionFiscaliaAgencia.setChecked(true);
+                    }else if ((jsonjObject.getString("IdLugarTraslado")).equals("HOSPITAL"))
+                    {
+                        rbLugarTrasladoDetencionHospital.setChecked(true);
+
+                    }else if ((jsonjObject.getString("IdLugarTraslado")).equals("OTRA DEPENDENCIA"))
+                    {
+                        rbLugarTrasladoDetencionOtraDependencia.setChecked(true);
+                        txtCualLugarTraslado.setText(((jsonjObject.getString("DescLugarTrasladoOtro")).equals("null")?"":jsonjObject.getString("DescLugarTrasladoOtro")));
+                    }
+
+                    txtObservacionesDetencion .setText(((jsonjObject.getString("ObservacionesDetencion")).equals("null")?"":jsonjObject.getString("ObservacionesDetencion")));
 
 
                 } catch (JSONException e) {
@@ -432,6 +583,27 @@ public class Detenciones_Delictivo extends Fragment {
         btnEliminarDetenidoDelictivo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                AlertDialog.Builder builder =
+                        new AlertDialog.Builder(getContext()).
+                                setMessage("¿DESEA ELIMINAR EL DETENIDO "+ ListaIdDetenido.get(PosicionIPHSeleccionado) + "?" ).
+                                setPositiveButton( "ACEPTAR", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        //CONSUME WEB SERVICE PARA ELIMINAR DB
+                                        String IdDetenido = ListaIdDetenido.get(PosicionIPHSeleccionado);
+                                        EliminarDEtenido(IdDetenido);
+                                        dialog.dismiss();
+                                    }
+                                })
+                                .setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        // User cancelled the dialog
+                                        dialog.dismiss();
+                                    }
+                                });
+
+                builder.create().show();
 
             }
         });
@@ -509,7 +681,7 @@ public class Detenciones_Delictivo extends Fragment {
         txtCodigoPostalDetencion.setText("");
         txtReferenciasdelLugarDetencion.setText("");
 
-        //Pendiente Lugar de traslado
+        rgLugarTrasladoDelictivo.clearCheck();
         txtCualLugarTraslado.setText("");
         txtObservacionesDetencion.setText("");
 
@@ -950,5 +1122,73 @@ public class Detenciones_Delictivo extends Fragment {
 
             return row;
         }
+    }
+
+    public void getFirmaFromURL(){
+        Picasso.get()
+                .load(firmaURLServer)
+                .into(imgFirmadelDetenidoDelictivoMiniatura);
+    }
+
+    //***************** CONSULTA A LA BD MEDIANTE EL WS **************************//
+    private void EliminarDEtenido(String IdDetenido) {
+
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("http://189.254.7.167/WebServiceIPH/api/HDDetenciones?folioInterno="+cargarIdHechoDelictivo+"&idInspeccionVehiculo="+IdDetenido)
+                .delete()
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Looper.prepare(); // to be able to make toast
+                Toast.makeText(getContext(), "ERROR AL ELIMINAR DETENIDO, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    final String myResponse = response.body().string();
+
+                    try {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                String resp = myResponse;
+
+                                //***************** RESPUESTA DEL WEBSERVICE **************************//
+                                //CONVERTIR ARREGLO DE JSON A OBJET JSON
+                                if(resp.equals("true"))
+                                {
+                                    //***************** MENSAJE MÁS ACTUALIZAR LISTA (Recargando el Fragmento xoxo) **************************//
+                                    Toast.makeText(getContext(), "SE ELIMINÓ CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+                                    limpiarCampos();
+                                    addFragment(new DescripcionVehiculoDelictivo());
+                                }
+                                else{
+                                    Toast.makeText(getContext(), "PROBLEMA AL ELIMINAR", Toast.LENGTH_SHORT).show();
+                                }
+                                //*************************
+                            }
+                        });
+                    }
+                    catch (Exception e){
+                        Toast.makeText(getContext(), "ERROR AL ELIMINAR DETENIDO, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            }
+        });
+    }
+
+    //Intercambia los Fragmentos
+    private void addFragment(Fragment fragment) {
+        getActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragmentContenedorDelictivo, fragment)
+                //.addToBackStack(null) //Se quita la pila de fragments. Botón atrás
+                .commit();
     }
 }
