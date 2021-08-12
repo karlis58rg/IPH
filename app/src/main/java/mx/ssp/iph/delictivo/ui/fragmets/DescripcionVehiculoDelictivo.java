@@ -220,7 +220,7 @@ public class DescripcionVehiculoDelictivo extends Fragment {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (checkedId == R.id.rbTerrestreDelictivo) {
                     varTipoVehiculo = "TERRESTRE";
-                } else if (checkedId == R.id.rbExtranjero) {
+                } else if (checkedId == R.id.rbExtranjeroDelictivo) {
                     varTipoVehiculo = "ACUATICO";
                 }else if (checkedId == R.id.rbAereoDelictivo) {
                     varTipoVehiculo = "AEREO";
@@ -230,9 +230,9 @@ public class DescripcionVehiculoDelictivo extends Fragment {
         rgProcedenciaVehiculoDelictivo.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == R.id.rbNacional) {
+                if (checkedId == R.id.rbNacionalDelictivo) {
                     varProcedencia = "NACIONAL";
-                } else if (checkedId == R.id.rbExtranjero) {
+                } else if (checkedId == R.id.rbExtranjeroDelictivo) {
                     varProcedencia = "EXTRANJERO";
                 }
             }
@@ -241,11 +241,11 @@ public class DescripcionVehiculoDelictivo extends Fragment {
         rgUsoVehiculoDelictivo.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == R.id.rbParticular) {
+                if (checkedId == R.id.rbParticularDelictivo) {
                     varUso = "PARTICULAR";
-                } else if (checkedId == R.id.rbTransportePublico) {
+                } else if (checkedId == R.id.rbTransportePublicoDelictivo) {
                     varUso = "TRANSPORTE PUBLICO";
-                }else if(checkedId == R.id.rbCarga){
+                }else if(checkedId == R.id.rbCargaDelictivo){
                     varUso = "CARGA";
                 }
             }
@@ -273,8 +273,6 @@ public class DescripcionVehiculoDelictivo extends Fragment {
                 }
             }
         });
-
-
 
         btnGuardarVehiculoDelictivo.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -109,7 +109,7 @@ public class Detenciones_Delictivo extends Fragment {
     String cargarIdHechoDelictivo,cargarIdPoliciaPrimerRespondiente,descGeneroHD,descNacionalidadHD,
             descTipoDocumentoHD,descMunicipioPersonaDetenidaHD,descMunicipioLugarDetenidoHD,
             varLesiones,varPadecimientos,varGrupoVulnerable,varGrupoDelictivo,varProporcionoFamiliar,
-            varInformoDerechos,rutaFirma,varLugarTraslado,descPadecimiento,descGrupoVulnerable,descGrupoDelictivo;
+            varInformoDerechos,rutaFirma,varLugarTraslado,descPadecimiento,descGrupoVulnerable,descGrupoDelictivo,varIdentificacionDocumento,varLugarDetencionDelictivo;
 
     int numberRandom,randomUrlImagen;
 
@@ -392,6 +392,30 @@ public class Detenciones_Delictivo extends Fragment {
                     varLugarTraslado = "HOSPITAL";
                 }else if (checkedId == R.id.rbLugarTrasladoDetencionOtraDependencia) {
                     varLugarTraslado = "OTRA DEPENDENCIA";
+                }
+
+            }
+        });
+
+        rgDocumentoDelictivo.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == R.id.rbNoDocumentoDelictivo) {
+                    varIdentificacionDocumento = "NO";
+                } else if (checkedId == R.id.rbSiDocumentoDelictivo) {
+                    varIdentificacionDocumento = "SI";
+                }
+
+            }
+        });
+
+        rgLugarDetencionDelictivo.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == R.id.rbNoLugarDetencionDelictivo) {
+                    varLugarDetencionDelictivo = "NO";
+                } else if (checkedId == R.id.rbSiLugarDetencionDelictivo) {
+                    varLugarDetencionDelictivo = "SI";
                 }
 
             }
@@ -730,14 +754,14 @@ public class Detenciones_Delictivo extends Fragment {
                         txtPrimerApellidoDetenidoDelictivo.getText().toString(), txtSegundoApellidoDetenidoDelictivo.getText().toString(), txtNombresDetenidoDelictivo.getText().toString(),
                         txtApodoDetenidoDelictivo.getText().toString(),txtDescripciondelDetenidoDelictivo.getText().toString(),
                         idNacionalidad, idGenero, txtFechaNacimientoDetenidoDelictivo.getText().toString(),txtEdadDetenidoDelictivo.getText().toString(),
-                        idTipoDocumento, "NA", txtNumeroIdentificacionDelictivo.getText().toString(),
+                        idTipoDocumento, varIdentificacionDocumento, txtNumeroIdentificacionDelictivo.getText().toString(),
                         "12", idMunicipioPersonaDetenidaHD, txtColoniaDetenidoDelictivo.getText().toString(), txtCalleDetenidoDelictivo.getText().toString(),
                         txtNumeroExteriorDetenidoDelictivo.getText().toString(), txtNumeroInteriorDetenidoDelictivo.getText().toString(),
                         txtCodigoPostalDetenidoDelictivo.getText().toString(), txtReferenciasdelLugarDetenidoDelictivo.getText().toString(), varLesiones,
                         varPadecimientos, descPadecimiento, varGrupoVulnerable, descGrupoVulnerable,
                         varGrupoDelictivo, descGrupoDelictivo, varProporcionoFamiliar,txtPrimerApellidoA3Delictivo.getText().toString(),
                         txtSegundoApellidoA3Delictivo.getText().toString(),txtNombresA3Delictivo.getText().toString(), txtNumeroTelefonoA3Delictivo.getText().toString(),
-                        varInformoDerechos, rutaFirma, "SI" , varLugarTraslado, txtCualLugarTraslado.getText().toString(),
+                        varInformoDerechos, rutaFirma, varLugarDetencionDelictivo , varLugarTraslado, txtCualLugarTraslado.getText().toString(),
                         txtObservacionesDetencion.getText().toString(), cargarIdPoliciaPrimerRespondiente);
 
         OkHttpClient client = new OkHttpClient();
