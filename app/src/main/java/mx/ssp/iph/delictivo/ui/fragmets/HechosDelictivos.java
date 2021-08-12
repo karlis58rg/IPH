@@ -30,6 +30,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -84,6 +86,8 @@ public class HechosDelictivos extends Fragment {
      numAnexoLugarIntervencion = "000",  anexoNoSeEntregan = "SI";
     SharedPreferences share;
     int numberRandom,randomUrlImagen;
+    String firmaURLServer = "http://189.254.7.167/WebServiceIPH/Firma/SINFIRMA.jpg";
+
 
 
     private Funciones funciones;
@@ -616,6 +620,14 @@ public class HechosDelictivos extends Fragment {
                                         //getFirmaFromURL();
                                         //banderaFirma = 1;
 
+
+                                        //Firma
+                                        lblFirmaAutoridadRealizadaDelictivo.setText((jsonjObject.getString("RutaFirma")).equals("null")?"":"FIRMA CORRECTA");
+                                        firmaURLServer = (jsonjObject.getString("RutaFirma").equals("null")?"http://189.254.7.167/WebServiceIPH/Firma/SINFIRMA.jpg":jsonjObject.getString("UrlFirma"));
+                                        lblFirmaOcultaAutoridadBase64HechosDelictivos.setText(firmaURLServer);
+                                        getFirmaFromURL();
+
+
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                         Toast.makeText(getContext(), "ERROR AL DESEREALIZAR EL JSON. LLENE TODOS LOS CAMPOS", Toast.LENGTH_SHORT).show();
@@ -634,5 +646,9 @@ public class HechosDelictivos extends Fragment {
         });
     }
 
-
+        public void getFirmaFromURL(){
+            Picasso.get()
+                    .load(firmaURLServer)
+                    .into(imgFirmaAutoridadRealizadaDelictivoMiniatura);
+        }
 }

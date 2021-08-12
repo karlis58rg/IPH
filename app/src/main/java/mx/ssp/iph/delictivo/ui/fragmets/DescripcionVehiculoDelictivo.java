@@ -619,6 +619,8 @@ public class DescripcionVehiculoDelictivo extends Fragment {
                             if(resp.equals("true")){
                                 System.out.println("EL DATO SE ENVIO CORRECTAMENTE");
                                 Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+                                LimpiarCampos();
+                                addFragment(new DescripcionVehiculoDelictivo());
                             }else{
                                 Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, VERIFIQUE SU INFORMACIÓN", Toast.LENGTH_SHORT).show();
                             }
@@ -697,6 +699,8 @@ public class DescripcionVehiculoDelictivo extends Fragment {
                             if(resp.equals("true")){
                                 System.out.println("EL DATO SE ACTUALIZÓ CORRECTAMENTE");
                                 Toast.makeText(getContext(), "EL DATO SE ACTUALIZÓ CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+                                LimpiarCampos();
+                                addFragment(new DescripcionVehiculoDelictivo());
                             }else{
                                 Toast.makeText(getContext(), "ERROR AL ACTUALIZAR SU REGISTRO, VERIFIQUE SU INFORMACIÓN", Toast.LENGTH_SHORT).show();
                             }
