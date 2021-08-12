@@ -18,29 +18,38 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Random;
+import java.util.regex.Pattern;
 
 import mx.ssp.iph.R;
 import mx.ssp.iph.SqLite.DataHelper;
+import mx.ssp.iph.administrativo.ui.fragmets.Detenciones;
 import mx.ssp.iph.delictivo.model.ModeloConocimientoHecho_Delictivo;
 import mx.ssp.iph.delictivo.model.ModeloDetenciones_Delictivo;
 import mx.ssp.iph.delictivo.model.ModeloLugarDetenciones_Delictivo;
 import mx.ssp.iph.delictivo.viewModel.DetencionesDelictivoViewModel;
 import mx.ssp.iph.utilidades.ui.ContenedorFirma;
+import mx.ssp.iph.utilidades.ui.ContenedorFirmaDelictivo;
 import mx.ssp.iph.utilidades.ui.Funciones;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -57,9 +66,21 @@ public class Detenciones_Delictivo extends Fragment {
     private DetencionesDelictivoViewModel mViewModel;
     Button btnGuardarPuestaDetencionesDelectivo;
     Funciones funciones;
+    //RecuperarDetenidos
+    ArrayList<String> ListaNombreDetenido,ListaIdDetenido;
+    String[] ArrayListaIPHAdministrativo;
+    ListView lvDetenidos;
+    int PosicionIPHSeleccionado= -1;
+    LinearLayout veinticinco,veinticincoUpdate;
+    ImageView btnEditarDetenidoDelictivo,btnEliminarDetenidoDelictivo,btnCancelarDetenidoDelictivo;
+    String firmaURLServer = "http://189.254.7.167/WebServiceIPH/Firma/SINFIRMA.jpg";
+    TextView lblFirmadelDetenidoDelictivo,lblFirmadelDetenidoDelictivoOculto;
+    ImageView imgFirmadelDetenidoDelictivoMiniatura;
+
+
     ImageView imgFirmaDerechosDelictivo,img_microfonoDescripcionDetenido;
     EditText txtFechaDetenidoDelictivo,txthoraDetencionDelictivo,txtFechaNacimientoDetenidoDelictivo, txtPrimerApellidoDetenidoDelictivo, txtSegundoApellidoDetenidoDelictivo,
-            txtNombresDetenidoDelictivo, txtApodoDetenidoDelictivo, txtNacionalidadEspecifiqueDetenidoDelictivo, txtEdadDetenidoDelictivo,
+            txtNombresDetenidoDelictivo, txtApodoDetenidoDelictivo, txtEdadDetenidoDelictivo,
             txtEspecifiqueTipoDocumentoDelictivo, txtNumeroIdentificacionDelictivo, txtColoniaDetenidoDelictivo,
             txtCalleDetenidoDelictivo, txtNumeroExteriorDetenidoDelictivo, txtNumeroInteriorDetenidoDelictivo, txtCodigoPostalDetenidoDelictivo, txtReferenciasdelLugarDetenidoDelictivo,
             txtDescripciondelDetenidoDelictivo, txtCualPadecimientoDelictivo, txtCualGrupoVulnerableDelictivo, txtCualGrupoDelictivo, txtPrimerApellidoA3Delictivo,
@@ -114,9 +135,6 @@ public class Detenciones_Delictivo extends Fragment {
 
         txtApodoDetenidoDelictivo = view.findViewById(R.id.txtApodoDetenidoDelictivo);
         txtApodoDetenidoDelictivo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
-
-        txtNacionalidadEspecifiqueDetenidoDelictivo = view.findViewById(R.id.txtNacionalidadEspecifiqueDetenidoDelictivo);
-        txtNacionalidadEspecifiqueDetenidoDelictivo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(100)});
 
         txtEdadDetenidoDelictivo = view.findViewById(R.id.txtEdadDetenidoDelictivo);
         txtEdadDetenidoDelictivo.setFilters(new InputFilter[]{new InputFilter.LengthFilter(3)});
@@ -225,8 +243,6 @@ public class Detenciones_Delictivo extends Fragment {
         chLugarTrasladoDetencionHospital = view.findViewById(R.id.chLugarTrasladoDetencionHospital);
         chLugarTrasladoDetencionOtraDependencia = view.findViewById(R.id.chLugarTrasladoDetencionOtraDependencia);
 
-
-
         spGeneroDetenidoDelictivo = view.findViewById(R.id.spGeneroDetenidoDelictivo);
         spNacionalidadDetenidoDelictivo = view.findViewById(R.id.spNacionalidadDetenidoDelictivo);
         spTipoDocumentoDelictivo = view.findViewById(R.id.spTipoDocumentoDelictivo);
@@ -234,8 +250,25 @@ public class Detenciones_Delictivo extends Fragment {
         spMunicipioDireccionDetencion = view.findViewById(R.id.spMunicipioDireccionDetencion);
         ListCombos();
 
+        lvDetenidos = view.findViewById(R.id.lvDetenidos);
+        veinticinco = view.findViewById(R.id.veinticinco);
+        veinticincoUpdate = view.findViewById(R.id.veinticincoUpdate);
+        btnEditarDetenidoDelictivo = view.findViewById(R.id.btnEditarDetenidoDelictivo);
+        btnEliminarDetenidoDelictivo = view.findViewById(R.id.btnEliminarDetenidoDelictivo);
+        btnCancelarDetenidoDelictivo = view.findViewById(R.id.btnCancelarDetenidoDelictivo);
+        lblFirmadelDetenidoDelictivo = view.findViewById(R.id.lblFirmadelDetenidoDelictivo);
+        lblFirmadelDetenidoDelictivoOculto = view.findViewById(R.id.lblFirmadelDetenidoDelictivoOculto);
+        imgFirmadelDetenidoDelictivoMiniatura = view.findViewById(R.id.imgFirmadelDetenidoDelictivoMiniatura);
+
+
         funciones.CambiarTituloSeccionesDelictivo("ANEXO A. DETENCIÓN(ES)",getContext(),getActivity());
 
+        //Consulta si hay conexión a internet y realiza la peticion al ws de consulta de los datos.
+        if (funciones.ping(getContext()))
+        {
+            //Toast.makeText(getContext(), "cargarNoReferenciaAdministrativa()", Toast.LENGTH_LONG).show();
+            cargarDetenidos();
+        }
 
         //***************** FECHA  **************************//
         txtFechaDetenidoDelictivo.setOnClickListener(new View.OnClickListener() {
@@ -265,7 +298,7 @@ public class Detenciones_Delictivo extends Fragment {
         imgFirmaDerechosDelictivo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ContenedorFirma dialog = new ContenedorFirma(R.id.lblFirmadelDetenidoDelictivo,R.id.lblFirmadelDetenidoDelictivoOculto,R.id.imgFirmadelDetenidoDelictivoMiniatura);
+                ContenedorFirmaDelictivo dialog = new ContenedorFirmaDelictivo(R.id.lblFirmadelDetenidoDelictivo,R.id.lblFirmadelDetenidoDelictivoOculto,R.id.imgFirmadelDetenidoDelictivoMiniatura);
                 dialog.show( getActivity().getSupportFragmentManager(),"Dia");
             }
         });
@@ -353,9 +386,125 @@ public class Detenciones_Delictivo extends Fragment {
             }
         });
 
+        lvDetenidos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                try {
+                    String Json = ArrayListaIPHAdministrativo[position];
+                    JSONObject jsonjObject = new JSONObject(Json + "}");
+
+                    PosicionIPHSeleccionado= position;
+                    veinticinco.setVisibility(View.GONE);
+                    veinticincoUpdate.setVisibility(View.VISIBLE);
+
+
+                    //Deserealizar y colocar los valores en los campos.
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getContext(), "ERROR AL DESEREALIZAR EL JSON", Toast.LENGTH_SHORT).show();
+                    Log.i("DETENCIONES", e.toString());
+                }
+
+            }
+        });
+
+        btnCancelarDetenidoDelictivo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                limpiarCampos();
+            }
+        });
+
+        btnEliminarDetenidoDelictivo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        btnEditarDetenidoDelictivo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
 
         /**********************************************************************************/
         return view;
+    }
+
+
+    private void limpiarCampos(){
+
+        txtFechaDetenidoDelictivo.setText("");
+        txthoraDetencionDelictivo.setText("");
+        txtPrimerApellidoDetenidoDelictivo.setText("");
+        txtSegundoApellidoDetenidoDelictivo.setText("");
+        txtNombresDetenidoDelictivo.setText("");
+        txtApodoDetenidoDelictivo.setText("");
+        chNoAplicaAliasDetenidoDelictivo.setChecked(false);
+        spGeneroDetenidoDelictivo.setSelection(0);
+        spNacionalidadDetenidoDelictivo.setSelection(0);
+
+        txtFechaNacimientoDetenidoDelictivo.setText("");
+        txtEdadDetenidoDelictivo.setText("");
+        rgDocumentoDelictivo.clearCheck();
+
+        spTipoDocumentoDelictivo.setSelection(0);
+        txtEspecifiqueTipoDocumentoDelictivo.setText("");
+        txtNumeroIdentificacionDelictivo.setText("");
+        spMunicipioPersonaDetenidaDelictivo.setSelection(0);
+        txtColoniaDetenidoDelictivo.setText("");
+        txtCalleDetenidoDelictivo.setText("");
+
+        txtNumeroExteriorDetenidoDelictivo.setText("");
+        txtNumeroInteriorDetenidoDelictivo.setText("");
+        txtCodigoPostalDetenidoDelictivo.setText("");
+        txtReferenciasdelLugarDetenidoDelictivo.setText("");
+        txtDescripciondelDetenidoDelictivo.setText("");
+        rgLesionesDelictivo.clearCheck();
+        rgPadecimientoDelictivo.clearCheck();
+        txtCualPadecimientoDelictivo.setText("");
+        rgGrupoVulnerableDelictivo.clearCheck();
+        txtCualGrupoVulnerableDelictivo.setText("");
+        rgGrupoDelictivo.clearCheck();
+        txtCualGrupoDelictivo.setText("");
+
+        txtPrimerApellidoA3Delictivo.setText("");
+        txtSegundoApellidoA3Delictivo.setText("");
+        txtNombresA3Delictivo.setText("");
+        txtNumeroTelefonoA3Delictivo.setText("");
+
+        chNoProporcionadoDelictivo.setChecked(false);
+        rgInformeDerechoDetencionesDelictivo.clearCheck();
+
+        //Limpiar Firma
+        lblFirmadelDetenidoDelictivo.setText("");
+        //imgFirmadelDetenidoDelictivoMiniatura
+        lblFirmadelDetenidoDelictivoOculto.setText("");
+
+        rgObjetoInspeccionDetenidoDelictivo.clearCheck();
+        rgPertenenciasDetenidoDelictivo.clearCheck();
+        rgLugarDetencionDelictivo.clearCheck();
+
+        spMunicipioDireccionDetencion.setSelection(0);
+        txtColoniaDetencion.setText("");
+        txtCalleDetencion.setText("");
+        txtNumeroExteriorDetencion.setText("");
+        txtNumeroInteriorDetencion.setText("");
+        txtCodigoPostalDetencion.setText("");
+        txtReferenciasdelLugarDetencion.setText("");
+
+        //Pendiente Lugar de traslado
+        txtCualLugarTraslado.setText("");
+        txtObservacionesDetencion.setText("");
+
+        //Oculta botones de actualizar y muestra botón de guardar
+        veinticinco.setVisibility(View. VISIBLE);
+        veinticincoUpdate.setVisibility(View.GONE);
     }
 
     //***************** INSERTA A LA BD MEDIANTE EL WS **************************//
@@ -648,5 +797,121 @@ public class Detenciones_Delictivo extends Fragment {
         Random random = new Random();
         numberRandom = random.nextInt(9000)*99;
         randomUrlImagen = numberRandom;
+    }
+
+    //***************** CONSULTA A LA BD MEDIANTE EL WS **************************//
+    private void cargarDetenidos() {
+
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("http://189.254.7.167/WebServiceIPH/api/HDDetenciones?folioInterno="+cargarIdHechoDelictivo)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Looper.prepare(); // to be able to make toast
+                Toast.makeText(getContext(), "ERROR AL CONSULTAR DETENIDOS ANEXO A, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    final String myResponse = response.body().string();
+
+                    try {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                String resp = myResponse;
+                                ListaIdDetenido = new ArrayList<String>();
+                                ListaNombreDetenido = new ArrayList<String>();
+
+                                //***************** RESPUESTA DEL WEBSERVICE **************************//
+
+                                //CONVERTIR ARREGLO DE JSON A OBJET JSON
+                                String ArregloJson = resp.replace("[", "");
+                                ArregloJson = ArregloJson.replace("]", "");
+
+                                if(ArregloJson.equals(""))
+                                {
+                                    //Sin Información. Todos los campos vacíos.
+
+                                }
+                                else{
+                                    //SEPARAR CADA detenido EN UN ARREGLO
+                                    String[] ArrayIPHAdministrativo = ArregloJson.split(Pattern.quote("},"));
+                                    ArrayListaIPHAdministrativo = ArrayIPHAdministrativo;
+
+                                    //RECORRE EL ARREGLO PARA AGREGAR EL FOLIO CORRESPONDIENTE DE CADA OBJETJSN
+                                    int contadordeDetenido=0;
+                                    while(contadordeDetenido < ArrayIPHAdministrativo.length){
+                                        try {
+                                            JSONObject jsonjObject = new JSONObject(ArrayIPHAdministrativo[contadordeDetenido] + "}");
+
+                                            //ListaDetenidos.add(jsonjObject);
+
+                                            // ListaIdentificadorDetenido.add(Integer.toString(jsonjObject.getInt("IdDetenido")));
+
+                                            ListaIdDetenido.add(jsonjObject.getString("IdDetenido"));
+                                            ListaNombreDetenido.add(((jsonjObject.getString("APDentenido")).equals("null")?"":jsonjObject.getString("APDentenido")) +
+                                                    " "+((jsonjObject.getString("AMDetenido")).equals("null")?"":jsonjObject.getString("AMDetenido")) +
+                                                    " "+ ((jsonjObject.getString("NomDetenido")).equals("null")?"":jsonjObject.getString("NomDetenido")) +
+                                                    " (" +((jsonjObject.getString("ApodoAlias")).equals("null")?"":jsonjObject.getString("ApodoAlias"))+" )" );
+
+
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                            Toast.makeText(getContext(), "ERROR AL DESEREALIZAR EL JSON", Toast.LENGTH_SHORT).show();
+                                        }
+                                        contadordeDetenido++;
+                                    }
+                                }
+
+                                //AGREGA LOS DATOS AL LISTVIEW MEDIANTE EL ADAPTADOR
+                                Detenciones_Delictivo.MyAdapter adapter = new Detenciones_Delictivo.MyAdapter(getContext(), ListaIdDetenido, ListaNombreDetenido);
+                                lvDetenidos.setAdapter(adapter);
+                                //*************************
+                            }
+                        });
+                    }
+                    catch (Exception e){
+                        Toast.makeText(getContext(), "ERROR AL SOLICITAR INFORMACION NO DE REFERENCIA, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            }
+        });
+    }
+
+
+    //***************** ADAPTADOR PARA LLENAR LISTA DE IPH ADMINISTRATIVO **************************//
+    class MyAdapter extends ArrayAdapter<String> {
+        Context context;
+        ArrayList<String> ListaIdDetenido,ListaNombreDetenido;
+
+        MyAdapter (Context c, ArrayList<String> ListaIdDetenido, ArrayList<String> ListaNombreDetenido) {
+            super(c, R.layout.row_iph, ListaIdDetenido);
+            this.context = c;
+            this.ListaIdDetenido = ListaIdDetenido;
+            this.ListaNombreDetenido = ListaNombreDetenido;
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+            LayoutInflater layoutInflater = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View row = layoutInflater.inflate(R.layout.row_detenidos, parent, false);
+
+            TextView lblNumDetencion = row.findViewById(R.id.lblNumDetencion);
+            TextView lblNombreCompleto = row.findViewById(R.id.lblNombreCompleto);
+
+            // Asigna los valores
+            lblNumDetencion.setText("PERSONA DETENIDA:");
+            lblNombreCompleto.setText(ListaNombreDetenido.get(position));
+
+            return row;
+        }
     }
 }
