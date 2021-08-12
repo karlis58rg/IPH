@@ -175,21 +175,27 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="0dp"
                             android:text="@string/terrestre"
-                            android:width="100dp"/>
+                            android:width="100dp"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"/>
                         <RadioButton
                             android:id="@+id/rbAcuaticoDelictivo"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="0dp"
                             android:text="Acuático"
-                            android:width="100dp"/>
+                            android:width="100dp"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"/>
                         <RadioButton
                             android:id="@+id/rbAereoDelictivo"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="0dp"
                             android:text="Aéreo"
-                            android:width="100dp"/>
+                            android:width="100dp"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"/>
                     </RadioGroup>
                 </LinearLayout>
 
@@ -226,13 +232,17 @@
                             android:id="@+id/rbNacionalDelictivo"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/nacional" />
+                            android:text="@string/nacional"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox" />
 
                         <RadioButton
                             android:id="@+id/rbExtranjeroDelictivo"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/extranjero" />
+                            android:text="@string/extranjero"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"/>
                     </RadioGroup>
                 </LinearLayout>
 
@@ -258,18 +268,23 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Particular"
-                            />
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"/>
 
                         <RadioButton
                             android:id="@+id/rbTransportePublicoDelictivo"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Transporte Publico" />
+                            android:text="Transporte Publico"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"/>
                         <RadioButton
                             android:id="@+id/rbCargaDelictivo"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Carga" />
+                            android:text="Carga"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"/>
                     </RadioGroup>
                 </LinearLayout>
 
@@ -333,7 +348,7 @@
                         android:text="@string/lblModeloVehiculo"/>
 
                     <Spinner
-                        android:id="@+id/txtModeloVehiculoDelictivo"
+                        android:id="@+id/spModeloVehiculoDelictivo"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"/>
                 </LinearLayout>
@@ -351,7 +366,7 @@
                         android:textColor="@color/font"
                         android:text="@string/lblColorVehiculo"/>
                     <Spinner
-                        android:id="@+id/txtColorVehiculoDelictivo"
+                        android:id="@+id/spColorVehiculoDelictivo"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"/>
                 </LinearLayout>
@@ -500,7 +515,8 @@
                                 android:layout_marginTop="0dp"
                                 android:text="Con reporte de robo"
                                 android:layout_gravity="center"
-                               />
+                                android:button="@null"
+                                android:drawableStart="@drawable/rbbox"/>
                             <RadioButton
                                 android:id="@+id/rbSinReporteRoboDelictivo"
                                 android:layout_width="wrap_content"
@@ -508,7 +524,8 @@
                                 android:layout_marginTop="0dp"
                                 android:text="Sin reporte de robo"
                                 android:layout_gravity="center"
-                               />
+                                android:button="@null"
+                                android:drawableStart="@drawable/rbbox"/>
                             <RadioButton
                                 android:id="@+id/rbNoSePuedeSaberReporteRoboDelictivo"
                                 android:layout_width="match_parent"
@@ -516,7 +533,8 @@
                                 android:layout_marginTop="0dp"
                                 android:text="No se puede saber"
                                 android:layout_gravity="center"
-                              />
+                                android:button="@null"
+                                android:drawableStart="@drawable/rbbox"/>
                         </RadioGroup>
                     </LinearLayout>
 
@@ -648,7 +666,9 @@
                             android:layout_marginLeft="20dp"
                             android:layout_gravity="center"
                             android:padding="10dp"
-                            android:text="@string/no" />
+                            android:text="@string/no"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox" />
 
                         <RadioButton
                             android:id="@+id/rbObjetosSIDelictivo"
@@ -656,7 +676,9 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:padding="10dp"
-                            android:text="@string/si" />
+                            android:text="@string/si"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox" />
                     </RadioGroup>
                 </LinearLayout>
             </LinearLayout>

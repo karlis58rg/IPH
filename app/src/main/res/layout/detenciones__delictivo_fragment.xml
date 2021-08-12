@@ -253,7 +253,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:scaleX="0.85"
-                            android:scaleY="0.85"/>
+                            android:scaleY="0.85"
+                            android:button="@null"
+                            android:drawableStart="@drawable/chbox"/>
                         <TextView
                             android:id="@+id/lblNoAplicaAliasDelictivo"
                             android:layout_width="wrap_content"
@@ -424,7 +426,9 @@
                             android:layout_gravity="center"
                             android:padding="10dp"
                             android:layout_marginLeft="20dp"
-                            android:text="@string/no" />
+                            android:text="@string/no"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox" />
 
                         <RadioButton
                             android:id="@+id/rbSiDocumentoDelictivo"
@@ -432,7 +436,9 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:padding="10dp"
-                            android:text="@string/si" />
+                            android:text="@string/si"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox" />
                     </RadioGroup>
                 </LinearLayout>
 
@@ -472,30 +478,6 @@
                         android:id="@+id/spTipoDocumentoDelictivo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:weightSum="1"
-                    android:layout_weight="0.10">
-                    <TextView
-                        android:id="@+id/lblEspecifiqueTipoDocumentoDelictivo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/font"
-                        android:text="Especifique"/>
-                    <EditText
-                        android:id="@+id/txtEspecifiqueTipoDocumentoDelictivo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:maxLength="50"
-                        android:inputType="textCapCharacters"
-                        android:digits="@string/validacion_nombre"
-                        android:singleLine="true"
-                        android:maxLines="1"
-                        android:lines="1"
-                        android:imeOptions="actionNext"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="0dp"
@@ -860,7 +842,9 @@
                             android:layout_marginLeft="20dp"
                             android:layout_gravity="center"
                             android:padding="10dp"
-                            android:text="@string/no"/>
+                            android:text="@string/no"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"/>
 
                         <RadioButton
                             android:id="@+id/rbSiLesionesDelictivo"
@@ -868,7 +852,9 @@
                             android:layout_height="wrap_content"
                             android:padding="10dp"
                             android:layout_gravity="center"
-                            android:text="@string/si" />
+                            android:text="@string/si"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox" />
                     </RadioGroup>
                 </LinearLayout>
 
@@ -926,7 +912,9 @@
                             android:layout_marginLeft="20dp"
                             android:layout_gravity="center"
                             android:padding="10dp"
-                            android:text="@string/no" />
+                            android:text="@string/no"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"/>
 
                         <RadioButton
                             android:id="@+id/rbSiPadecimientoDelictivo"
@@ -934,7 +922,9 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:padding="10dp"
-                            android:text="@string/si" />
+                            android:text="@string/si"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"/>
                     </RadioGroup>
                 </LinearLayout>
 
@@ -1011,7 +1001,9 @@
                             android:layout_gravity="center"
                             android:padding="10dp"
                             android:layout_marginLeft="20dp"
-                            android:text="@string/no" />
+                            android:text="@string/no"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox" />
 
                         <RadioButton
                             android:id="@+id/rbSiGrupoVulnerableDelictivo"
@@ -1019,7 +1011,9 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:padding="10dp"
-                            android:text="@string/si" />
+                            android:text="@string/si"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox" />
                     </RadioGroup>
                 </LinearLayout>
 
@@ -1096,7 +1090,9 @@
                             android:layout_gravity="center"
                             android:padding="10dp"
                             android:layout_marginLeft="20dp"
-                            android:text="@string/no" />
+                            android:text="@string/no"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"/>
 
                         <RadioButton
                             android:id="@+id/rbSiGrupoDelictivo"
@@ -1104,7 +1100,9 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:padding="10dp"
-                            android:text="@string/si" />
+                            android:text="@string/si"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox" />
                     </RadioGroup>
                 </LinearLayout>
 
@@ -1277,7 +1275,9 @@
                     <CheckBox
                         android:id="@+id/chNoProporcionadoDelictivo"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:button="@null"
+                        android:drawableStart="@drawable/chbox"/>
                     <TextView
                         android:id="@+id/lblNoProporcionadoDelictivo"
                         android:layout_width="wrap_content"
@@ -1391,7 +1391,9 @@ adolescentes."/>
                             android:layout_gravity="center"
                             android:padding="10dp"
                             android:layout_marginLeft="20dp"
-                            android:text="@string/no" />
+                            android:text="@string/no"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox" />
 
                         <RadioButton
                             android:id="@+id/rbSiInformeDerechoDetencionesDelictivo"
@@ -1399,7 +1401,9 @@ adolescentes."/>
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:padding="10dp"
-                            android:text="@string/si" />
+                            android:text="@string/si"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox" />
                     </RadioGroup>
                 </LinearLayout>
 
@@ -1518,7 +1522,7 @@ adolescentes."/>
                     android:layout_weight="0.10"
                     android:visibility="gone">
                     <TextView
-                        android:id="@+id/lblFirmaOcultaDetenidoBase64"
+                        android:id="@+id/lblFirmaOcultaDetenidoBase64Detenciones"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/font"
@@ -1595,7 +1599,9 @@ adolescentes."/>
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:padding="10dp"
-                            android:text="Sí (Llene el Anexo D)" />
+                            android:text="Sí (Llene el Anexo D)"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox" />
 
 
                         <RadioButton
@@ -1605,7 +1611,9 @@ adolescentes."/>
                             android:layout_gravity="center"
                             android:layout_marginLeft="20dp"
                             android:padding="10dp"
-                            android:text="@string/no"/>
+                            android:text="@string/no"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"/>
 
                     </RadioGroup>
 
@@ -1655,7 +1663,9 @@ adolescentes."/>
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:padding="10dp"
-                            android:text="Sí (Llene el siguiente registro)" />
+                            android:text="Sí (Llene el siguiente registro)"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox" />
 
 
                         <RadioButton
@@ -1665,7 +1675,9 @@ adolescentes."/>
                             android:layout_gravity="center"
                             android:layout_marginLeft="20dp"
                             android:padding="10dp"
-                            android:text="@string/no" />
+                            android:text="@string/no"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox" />
 
                     </RadioGroup>
 
@@ -1738,7 +1750,9 @@ adolescentes."/>
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:padding="10dp"
-                            android:text="@string/si"/>
+                            android:text="@string/si"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"/>
 
 
                         <RadioButton
@@ -1748,7 +1762,9 @@ adolescentes."/>
                             android:layout_gravity="center"
                             android:layout_marginLeft="20dp"
                             android:padding="10dp"
-                            android:text="No (Indique la dirección)"/>
+                            android:text="No (Indique la dirección)"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"/>
 
                     </RadioGroup>
 
@@ -2039,22 +2055,35 @@ adolescentes."/>
                 android:layout_weight="1"
                 android:orientation="horizontal"
                 android:layout_marginTop="10dp">
+                    <RadioGroup
+                        android:id="@+id/rgLugarTrasladoDelictivo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_gravity="center">
+                        <RadioButton
+                            android:id="@+id/rbLugarTrasladoDetencionFiscaliaAgencia"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Fiscalía/Agencia"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"/>
+                        <RadioButton
+                            android:id="@+id/rbLugarTrasladoDetencionHospital"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Hospital"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"/>
+                        <RadioButton
+                            android:id="@+id/rbLugarTrasladoDetencionOtraDependencia"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Otra Dependencia"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"/>
+                    </RadioGroup>
 
-                    <CheckBox
-                        android:id="@+id/chLugarTrasladoDetencionFiscaliaAgencia"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Fiscalía/Agencia"/>
-                    <CheckBox
-                        android:id="@+id/chLugarTrasladoDetencionHospital"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Hospital"/>
-                    <CheckBox
-                        android:id="@+id/chLugarTrasladoDetencionOtraDependencia"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Otra Dependencia"/>
 
                 </LinearLayout>
 

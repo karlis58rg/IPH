@@ -71,7 +71,9 @@
                 <CheckBox
                     android:id="@+id/chNoAplicaUnidadDeArriboDelictivo"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:button="@null"
+                    android:drawableStart="@drawable/chbox"/>
                 <TextView
                     android:id="@+id/lblNoAplicaUnidadDeArriboDelictivo"
                     android:layout_width="wrap_content"
@@ -113,7 +115,10 @@
                     android:id="@+id/chSiArriboElementosLugarIntervencion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Si"/>
+                    android:padding="5dp"
+                    android:text="Si"
+                    android:button="@null"
+                    android:drawableStart="@drawable/chbox"/>
                 <Spinner
                     android:id="@+id/spArriboElementosLugarIntervencion"
                     android:layout_width="wrap_content"
@@ -132,7 +137,10 @@
                     android:id="@+id/chNoArriboElementosLugarIntervencion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="No"/>
+                    android:padding="5dp"
+                    android:text="No"
+                    android:button="@null"
+                    android:drawableStart="@drawable/chbox"/>
             </LinearLayout>
         </LinearLayout>
 

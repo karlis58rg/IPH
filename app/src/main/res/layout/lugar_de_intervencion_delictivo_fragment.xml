@@ -449,14 +449,18 @@
                             android:layout_marginLeft="20dp"
                             android:layout_gravity="center"
                             android:padding="10dp"
-                            android:text="@string/no"/>
+                            android:text="@string/no"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"/>
                         <RadioButton
                             android:id="@+id/rbSiInspeccionLugarIntervencion"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="10dp"
                             android:layout_gravity="center"
-                            android:text="@string/si" />
+                            android:text="@string/si"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"/>
                     </RadioGroup>
                 </LinearLayout>
             </LinearLayout>
@@ -505,14 +509,18 @@
                             android:layout_marginLeft="20dp"
                             android:layout_gravity="center"
                             android:padding="10dp"
-                            android:text="@string/no"/>
+                            android:text="@string/no"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"/>
                         <RadioButton
                             android:id="@+id/rbSiObjetosRelacionadosLugarIntervencion"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="10dp"
                             android:layout_gravity="center"
-                            android:text="Si, Llene Anexo D." />
+                            android:text="Si, Llene Anexo D."
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"/>
                     </RadioGroup>
                 </LinearLayout>
             </LinearLayout>
@@ -560,14 +568,18 @@
                             android:layout_marginLeft="20dp"
                             android:layout_gravity="center"
                             android:padding="10dp"
-                            android:text="@string/no"/>
+                            android:text="@string/no"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"/>
                         <RadioButton
                             android:id="@+id/rbSiPreservoLugarIntervencion"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="10dp"
                             android:layout_gravity="center"
-                            android:text="Si" />
+                            android:text="Si"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox" />
                     </RadioGroup>
                 </LinearLayout>
             </LinearLayout>
@@ -615,14 +627,18 @@
                             android:layout_marginLeft="20dp"
                             android:layout_gravity="center"
                             android:padding="10dp"
-                            android:text="@string/no"/>
+                            android:text="@string/no"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"/>
                         <RadioButton
                             android:id="@+id/rbSiPriorizacionLugarIntervencion"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="10dp"
                             android:layout_gravity="center"
-                            android:text="Si" />
+                            android:text="Si"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"/>
                     </RadioGroup>
                 </LinearLayout>
             </LinearLayout>
@@ -661,14 +677,18 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:padding="10dp"
-                            android:text="Sociales"/>
+                            android:text="Sociales"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"/>
                         <RadioButton
                             android:id="@+id/rbRiesgoNaturalesLugarIntervencion"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="10dp"
                             android:layout_gravity="center"
-                            android:text="Naturales" />
+                            android:text="Naturales"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox" />
                     </RadioGroup>
                 </LinearLayout>
 
