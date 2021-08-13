@@ -599,14 +599,13 @@ public class HechosDelictivos extends Fragment {
                                     try {
                                         JSONObject jsonjObject = new JSONObject(ArregloJson);
 
-                                        txtNoReferenciaDelictivo.setText((jsonjObject.getString("NumReferencia")).equals("null")?"":jsonjObject.getString("NumReferencia"));
+                                        //txtNoReferenciaDelictivo.setText((jsonjObject.getString("NumReferencia")).equals("null")?"":jsonjObject.getString("NumReferencia"));
                                         txtNoExpedienteAdmministrativo.setText((jsonjObject.getString("NumExpediente")).equals("null")?"":jsonjObject.getString("NumExpediente"));
 
                                         String[] Fecha = (jsonjObject.getString("Fecha").replace("-","/")).split("T");
                                         txtFechaEntregaReferenciaDelictivo.setText((jsonjObject.getString("Fecha")).equals("null")?"":Fecha[0]);
                                         txtHoraEntregaReferenciaDelictivo.setText((jsonjObject.getString("Hora")).equals("null")?"":jsonjObject.getString("Hora"));
 
-                                        txtNoReferenciaDelictivo.setText((jsonjObject.getString("NumReferencia")).equals("null")?"":jsonjObject.getString("NumReferencia"));
 
 
                                         if((jsonjObject.getString("AnexoNoSeEntregan").equals("NO"))){

@@ -13,6 +13,8 @@ import android.util.Log;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -148,5 +150,15 @@ public class Funciones {
         return 0;
     }
 
+    //***************** AJUSTA EL TAMAÑO DEL LIST VIEW **************************//
+    public void  ajustaAlturaListView(ListView listView, int factorAlto){
+        int ancho = 1200;
+        int alto = 120;
+
+        alto = (listView.getAdapter().getCount())*factorAlto;
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ancho, alto);
+        listView.setLayoutParams(params);
+
+    }
 
 }

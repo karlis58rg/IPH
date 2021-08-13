@@ -68,6 +68,7 @@ public class PrincipalBuscar extends Fragment {
     String FechaInicial,FechaFinal,FolioInterno;
     ProgressDialog progressDialog;
 
+
     public static PrincipalBuscar newInstance() {
         return new PrincipalBuscar();
     }
@@ -281,6 +282,8 @@ public class PrincipalBuscar extends Fragment {
                                 //AGREGA LOS DATOS AL LISTVIEW MEDIANTE EL ADAPTADOR
                                 PrincipalBuscar.MyAdapter adapter = new PrincipalBuscar.MyAdapter(getContext(), ListaIdIPH, ListaNumReferenciaDelictivo,ListaTipoIPH,ListaUsuarioIPH);
                                 lvIPHBuscados.setAdapter(adapter);
+                                funciones.ajustaAlturaListView(lvIPHBuscados,250);
+
                                 progressDialog.dismiss();
 
                                 //*************************
@@ -330,6 +333,7 @@ public class PrincipalBuscar extends Fragment {
             lblPrincipalNoRegrenciaAdministrativo.setText(ListaNumReferenciaDelictivo.get(position));
             lblTipoIPH.setText(ListaTipoIPH.get(position));
             lblUsuario.setText(ListaUsuarioIPH.get(position));
+
 
             return row;
         }

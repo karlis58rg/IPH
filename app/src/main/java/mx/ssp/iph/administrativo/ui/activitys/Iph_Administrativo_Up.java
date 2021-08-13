@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -34,6 +36,7 @@ import mx.ssp.iph.administrativo.ui.fragmets.NarrativaHechos;
 import mx.ssp.iph.administrativo.ui.fragmets.NoReferencia_Administrativo;
 import mx.ssp.iph.administrativo.ui.fragmets.ProbableInfraccion;
 import mx.ssp.iph.administrativo.ui.fragmets.PuestaDisposicion_Administrativo;
+import mx.ssp.iph.delictivo.ui.activitys.Iph_Delictivo_Up;
 import mx.ssp.iph.principal.ui.activitys.Principal;
 
 public class Iph_Administrativo_Up extends AppCompatActivity{
@@ -46,7 +49,31 @@ public class Iph_Administrativo_Up extends AppCompatActivity{
     SharedPreferences share;
     SharedPreferences.Editor editor;
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater().inflate(R.menu.menu_cerrar_sesion,menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId())
+        {
+            case R.id.item_btnCerrarSession:
+                //Guarda el usaurio con espacio en blanco
+                guardarUsuario();
+
+                //Redirecciona al Login
+                Intent intent = new Intent(Iph_Administrativo_Up.this, Login.class);
+                startActivity(intent);
+                break;
+            default:
+                //Hacer algo cuando por default
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +86,7 @@ public class Iph_Administrativo_Up extends AppCompatActivity{
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarAdministrativo);
         setSupportActionBar(toolbar);
 
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         //Coloca Flecha atrás al toolbar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //getSupportActionBar().setDisplayShowHomeEnabled(true);

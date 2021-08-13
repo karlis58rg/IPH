@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -55,6 +57,30 @@ public class Iph_Delictivo_Up extends AppCompatActivity{
     SharedPreferences share;
     SharedPreferences.Editor editor;
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater().inflate(R.menu.menu_cerrar_sesion,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId())
+        {
+            case R.id.item_btnCerrarSession:
+                //Guarda el usaurio con espacio en blanco
+                guardarUsuario();
+                //Redirecciona al Login
+                Intent intent = new Intent(Iph_Delictivo_Up.this, Login.class);
+                startActivity(intent);
+                break;
+            default:
+                //Hacer algo cuando por default
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -141,6 +167,7 @@ public class Iph_Delictivo_Up extends AppCompatActivity{
 
             }
         });
+
 
 
         //clisk de los elementos de las listas para cambiar de fragmentos
