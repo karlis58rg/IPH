@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -88,6 +89,11 @@ public class HechosDelictivos extends Fragment {
     int numberRandom,randomUrlImagen;
     String firmaURLServer = "http://189.254.7.167/WebServiceIPH/Firma/SINFIRMA.jpg";
 
+    ViewGroup lyAnexosUno, quintoLinear1, quintoLinear2, lyDetencionesAnexoADelictivo, lyInventarioArmasDelictivo,
+            lyUsoFuerzaAnexoBDelictivo, lyEntrevistasDelictivo, lyInspeccionVehiculoDelictivo, lyEntregaRecepcionDelictivo, lyFiscaliaAutoridadDelictivo;
+
+    Integer aux1, aux2, aux3, aux4, aux5, aux6;
+
 
 
     private Funciones funciones;
@@ -140,6 +146,17 @@ public class HechosDelictivos extends Fragment {
         imgFirmaAutoridadDelictivo = view.findViewById(R.id.imgFirmaAutoridadDelictivo);
         lblFirmaOcultaAutoridadBase64HechosDelictivos = view.findViewById(R.id.lblFirmaOcultaAutoridadBase64HechosDelictivos);
 
+        lyAnexosUno = view.findViewById(R.id.lyAnexosUno);
+        quintoLinear1 = view.findViewById(R.id.quintoLinear1);
+        quintoLinear2 = view.findViewById(R.id.quintoLinear2);
+        lyDetencionesAnexoADelictivo = view.findViewById(R.id.lyDetencionesAnexoADelictivo);
+        lyInventarioArmasDelictivo = view.findViewById(R.id.lyInventarioArmasDelictivo);
+        lyUsoFuerzaAnexoBDelictivo = view.findViewById(R.id.lyUsoFuerzaAnexoBDelictivo);
+        lyEntrevistasDelictivo = view.findViewById(R.id.lyEntrevistasDelictivo);
+        lyInspeccionVehiculoDelictivo = view.findViewById(R.id.lyInspeccionVehiculoDelictivo);
+        lyEntregaRecepcionDelictivo = view.findViewById(R.id.lyEntregaRecepcionDelictivo);
+        lyFiscaliaAutoridadDelictivo = view.findViewById(R.id.lyFiscaliaAutoridadDelictivo);
+
         ListCombos();
         getNumReferencia();
         txtFolioInternoDelictivo.setText(cargarIdHechoDelictivo);
@@ -180,17 +197,243 @@ public class HechosDelictivos extends Fragment {
             }
         });
 
+
+        //VALOR DE LISTA ANEXO A
+        spDetencionesAnexoADelictivo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+
+                Object item = parent.getItemIdAtPosition(pos);
+
+                int i = Integer.parseInt(item.toString()) + 1;
+
+                aux1 = i;
+                //Toast.makeText(getContext(), "" + i, Toast.LENGTH_LONG).show();
+            }
+
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        //VALOR DE LISTA ANEXO B
+        spUsoFuerzaAnexoBDelictivo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+
+                Object item = parent.getItemIdAtPosition(pos);
+
+                int i = Integer.parseInt(item.toString()) + 1;
+
+                aux2 = i;
+                //Toast.makeText(getContext(), "" + i, Toast.LENGTH_LONG).show();
+            }
+
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        //VALOR DE LISTA ANEXO C
+        spAnexosCInspeccionVehiculoDelictivo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+
+                Object item = parent.getItemIdAtPosition(pos);
+
+                int i = Integer.parseInt(item.toString()) + 1;
+
+                aux3 = i;
+                //Toast.makeText(getContext(), "" + i, Toast.LENGTH_LONG).show();
+            }
+
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        //VALOR DE LISTA ANEXO D
+        spAnexosDInventarioArmasDelictivo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+
+                Object item = parent.getItemIdAtPosition(pos);
+
+                int i = Integer.parseInt(item.toString()) + 1;
+
+                aux4 = i;
+                //Toast.makeText(getContext(), "" + i, Toast.LENGTH_LONG).show();
+            }
+
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        //VALOR DE LISTA ANEXO E
+        spEntrevistasAnexoEDelictivo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+
+                Object item = parent.getItemIdAtPosition(pos);
+
+                int i = Integer.parseInt(item.toString()) + 1;
+
+                aux5 = i;
+                //Toast.makeText(getContext(), "" + i, Toast.LENGTH_LONG).show();
+            }
+
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        //VALOR DE LISTA ANEXO F
+        spAnexosFEntregaRecepcionDelictivo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+                    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+
+                        Object item = parent.getItemIdAtPosition(pos);
+
+                        int i = Integer.parseInt(item.toString()) + 1;
+
+                        aux6 = i;
+                        //Toast.makeText(getContext(), "" + i, Toast.LENGTH_LONG).show();
+                    }
+
+                    public void onNothingSelected(AdapterView<?> parent) {
+                    }
+                });
+
+
+
         btnGuardarHechoDelictivo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
-                updateHechoDelictivo();
+
+                CeroValidacion();
+
             }
         });
 
         /******************************************************************************/
         return  view;
     }
+
+    public void CeroValidacion() {
+        if(chDetencionesAnexoADelictivo.isChecked() || chAnexosDInventarioArmasDelictivo.isChecked() || chUsoFuerzaAnexoBDelictivo.isChecked() ||
+                chEntrevistasAnexoEDelictivo.isChecked() || chAnexosCInspeccionVehiculoDelictivo.isChecked() ||
+                chAnexosFEntregaRecepcionDelictivo.isChecked() || chSinAnexosDelictivo.isChecked()){
+            PrimeraValidacion();
+        } else {
+            Toast.makeText(getActivity().getApplicationContext(), "SELECCIONA SI HAY ANEXOS", Toast.LENGTH_SHORT).show();
+            lyAnexosUno.requestFocus();
+            quintoLinear1.requestFocus();
+            quintoLinear1.requestFocus();
+        }
+
+    }
+
+    public void PrimeraValidacion() {
+        if (chDetencionesAnexoADelictivo.isChecked()){
+            if(aux1 != 1){
+                SegundaValidacion();
+            } else {
+                Toast.makeText(getActivity().getApplicationContext(), "SELECCIONA LA CANTIDAD DE ANEXOS A", Toast.LENGTH_SHORT).show();
+                lyAnexosUno.requestFocus();
+                lyDetencionesAnexoADelictivo.requestFocus();
+            }
+
+        } else {
+            SegundaValidacion();
+        }
+    }
+
+    public void SegundaValidacion() {
+        if (chDetencionesAnexoADelictivo.isChecked()){
+            if(aux2 != 1){
+                TerceraValidacion();
+            } else {
+                Toast.makeText(getActivity().getApplicationContext(), "SELECCIONA LA CANTIDAD DE ANEXOS B", Toast.LENGTH_SHORT).show();
+                lyAnexosUno.requestFocus();
+                lyUsoFuerzaAnexoBDelictivo.requestFocus();
+            }
+
+        } else {
+            TerceraValidacion();
+        }
+    }
+
+    public void TerceraValidacion() {
+        if (chDetencionesAnexoADelictivo.isChecked()){
+            if(aux3 != 1){
+                CuartaValidacion();
+            } else {
+                Toast.makeText(getActivity().getApplicationContext(), "SELECCIONA LA CANTIDAD DE ANEXOS C", Toast.LENGTH_SHORT).show();
+                lyAnexosUno.requestFocus();
+                lyInspeccionVehiculoDelictivo.requestFocus();
+            }
+
+        } else {
+            CuartaValidacion();
+        }
+    }
+
+    public void CuartaValidacion() {
+        if (chDetencionesAnexoADelictivo.isChecked()){
+            if(aux4 != 1){
+                QuintaValidacion();
+            } else {
+                Toast.makeText(getActivity().getApplicationContext(), "SELECCIONA LA CANTIDAD DE ANEXOS D", Toast.LENGTH_SHORT).show();
+                lyAnexosUno.requestFocus();
+                lyInventarioArmasDelictivo.requestFocus();
+            }
+
+        } else {
+            QuintaValidacion();
+        }
+    }
+
+    public void QuintaValidacion() {
+        if (chDetencionesAnexoADelictivo.isChecked()){
+            if(aux5 != 1){
+                SextaValidacion();
+            } else {
+                Toast.makeText(getActivity().getApplicationContext(), "SELECCIONA LA CANTIDAD DE ANEXOS E", Toast.LENGTH_SHORT).show();
+                lyAnexosUno.requestFocus();
+                lyEntrevistasDelictivo.requestFocus();
+            }
+
+        } else {
+            SextaValidacion();
+        }
+    }
+
+    public void SextaValidacion() {
+        if (chDetencionesAnexoADelictivo.isChecked()){
+            if(aux6 != 1){
+                if(txtFiscaliaAutoridadDelictivo.getText().toString().length() >= 3){
+                    Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
+                    updateHechoDelictivo();
+                } else {
+                    Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA LA FISCALÍA O AUTORIDAD A LA QUE PERTENECE", Toast.LENGTH_SHORT).show();
+                    txtFiscaliaAutoridadDelictivo.requestFocus();
+                    lyFiscaliaAutoridadDelictivo.requestFocus();
+                }
+            } else {
+                Toast.makeText(getActivity().getApplicationContext(), "SELECCIONA LA CANTIDAD DE ANEXOS F", Toast.LENGTH_SHORT).show();
+                lyAnexosUno.requestFocus();
+                lyEntregaRecepcionDelictivo.requestFocus();
+            }
+
+        } else {
+            if(txtFiscaliaAutoridadDelictivo.getText().toString().length() >= 3){
+                Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
+                updateHechoDelictivo();
+            } else {
+                Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA LA FISCALÍA O AUTORIDAD A LA QUE PERTENECE", Toast.LENGTH_SHORT).show();
+                txtFiscaliaAutoridadDelictivo.requestFocus();
+                lyFiscaliaAutoridadDelictivo.requestFocus();
+            }
+        }
+    }
+
+
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {

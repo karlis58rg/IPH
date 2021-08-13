@@ -100,7 +100,7 @@ public class NarrativaHechos_Delictivo extends Fragment {
         btnGuardarNarrativaHechosDelictivo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(txtNarrativaHechosDelictivo.getText().length() < 3){
+                if(txtNarrativaHechosDelictivo.getText().length() <= 3){
                     Toast.makeText(getActivity().getApplicationContext(),"INGRESA LA DESCRIPCIÓN DE LOS HECHOS",Toast.LENGTH_SHORT).show();
                     tercerLinear.requestFocus();
                 } else {

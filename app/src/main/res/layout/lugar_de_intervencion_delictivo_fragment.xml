@@ -412,7 +412,8 @@
                 android:layout_weight="1"
                 android:orientation="horizontal"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/ic_borde_radio">
+                android:background="@drawable/ic_borde_radio"
+                android:focusableInTouchMode="true">
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -472,7 +473,8 @@
                 android:layout_weight="1"
                 android:orientation="horizontal"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/ic_borde_radio">
+                android:background="@drawable/ic_borde_radio"
+                android:focusableInTouchMode="true">
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -532,7 +534,8 @@
                 android:layout_weight="1"
                 android:orientation="horizontal"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/ic_borde_radio">
+                android:background="@drawable/ic_borde_radio"
+                android:focusableInTouchMode="true">
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -591,7 +594,8 @@
                 android:layout_weight="1"
                 android:orientation="horizontal"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/ic_borde_radio">
+                android:background="@drawable/ic_borde_radio"
+                android:focusableInTouchMode="true">
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -650,15 +654,18 @@
                 android:layout_weight="1"
                 android:orientation="horizontal"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/ic_borde_radio">
+                android:background="@drawable/ic_borde_radio"
+                android:focusableInTouchMode="true">
                 <LinearLayout
+                    android:id="@+id/lyTipoRiesgoLI"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:weightSum="1"
                     android:layout_weight="0.10"
                     android:gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/border">
+                    android:layout_marginLeft="@dimen/border"
+                    android:focusableInTouchMode="true">
                     <TextView
                         android:id="@+id/lblpregunta5Header"
                         android:layout_width="wrap_content"
@@ -693,6 +700,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/lyEspecifiqueDelictivoLI"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical"

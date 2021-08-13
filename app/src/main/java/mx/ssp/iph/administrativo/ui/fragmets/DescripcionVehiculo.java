@@ -180,11 +180,8 @@ public class DescripcionVehiculo extends Fragment {
             }
         });
 
-
-
-
-
         txtOtroVehiculo.setEnabled(false);
+
         //Imagen que funciona para activar la grabación de voz
         imgMicrofonoObservacionesdelVehiculo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -225,6 +222,7 @@ public class DescripcionVehiculo extends Fragment {
                 }
             }
         });
+
         rgProcedenciaVehiculoAdministrativo.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -250,48 +248,10 @@ public class DescripcionVehiculo extends Fragment {
         });
 
 
-
         btnGuardarVehiculo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if(txtFechaRetencion.getText().toString().length() >= 3 && txthoraRetencion.getText().toString().length() >= 3){
-                    if(rbTerrestre.isChecked() || rbOtro.isChecked()){
-                        if(rbNacional.isChecked() || rbExtranjero.isChecked()){
-                            if(rbParticular.isChecked() || rbTransportePublico.isChecked() || rbCarga.isChecked()){
-                                if(txtDestinoVehiculo.getText().toString().length() >= 3){
-                                    if(txtObservacionesdelVehiculo.getText().toString().length() >= 3){
-                                        Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
-                                        insertDescripcionVehiculos();
-                                    }else{
-                                        Toast.makeText(getActivity().getApplicationContext(),"INGRESA LAS OBSERVACIONES DEL VEHÍCULO ANTES DE CONTINUAR",Toast.LENGTH_SHORT).show();
-                                        novenoLinear.requestFocus();
-                                    }
-
-                                }else{
-                                    Toast.makeText(getActivity().getApplicationContext(),"INGRESA EL DESTINO DEL VEHÍCULO ANTES DE CONTINUAR",Toast.LENGTH_SHORT).show();
-                                    destinoVehiculoAdministrativo.requestFocus();
-                                }
-
-                            }else{
-                                Toast.makeText(getActivity().getApplicationContext(),"SELECCIONA EL USO DEL VEHÍCULO ANTES DE CONTINUAR",Toast.LENGTH_SHORT).show();
-                                usoVehiculoAdministrativo.requestFocus();
-                            }
-
-                        }else{
-                            Toast.makeText(getActivity().getApplicationContext(),"SELECCIONA PROCEDENCIA DEL VEHÍCULO ANTES DE CONTINUAR",Toast.LENGTH_SHORT).show();
-                            procedenciaVehiculoAdministrativo.requestFocus();
-                        }
-
-                    }else{
-                        Toast.makeText(getActivity().getApplicationContext(),"SELECCIONA EL TIPO DE VEHÍCULO ANTES DE CONTINUAR",Toast.LENGTH_SHORT).show();
-                        tipoVehiculoAdministrativo.requestFocus();
-                    }
-
-                }else{
-                    Toast.makeText(getActivity().getApplicationContext(),"NO SE PUEDE ALMACENAR INFORMACIÓN DE VEHÍCULO SIN FECHA Y HORA DE REGISTRO",Toast.LENGTH_SHORT).show();
-                    segundoLinear.requestFocus();
-                }
+                PrimeraValidacion();
             }
         });
 
@@ -299,43 +259,7 @@ public class DescripcionVehiculo extends Fragment {
             @Override
             public void onClick(View v) {
 
-                if(txtFechaRetencion.getText().toString().length() >= 3 && txthoraRetencion.getText().toString().length() >= 3){
-                    if(rbTerrestre.isChecked() || rbOtro.isChecked()){
-                        if(rbNacional.isChecked() || rbExtranjero.isChecked()){
-                            if(rbParticular.isChecked() || rbTransportePublico.isChecked() || rbCarga.isChecked()){
-                                if(txtDestinoVehiculo.getText().toString().length() >= 3){
-                                    if(txtObservacionesdelVehiculo.getText().toString().length() >= 3){
-                                        Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
-                                        updateDescripcionVehiculos();
-                                    }else{
-                                        Toast.makeText(getActivity().getApplicationContext(),"INGRESA LAS OBSERVACIONES DEL VEHÍCULO ANTES DE CONTINUAR",Toast.LENGTH_SHORT).show();
-                                        novenoLinear.requestFocus();
-                                    }
-
-                                }else{
-                                    Toast.makeText(getActivity().getApplicationContext(),"INGRESA EL DESTINO DEL VEHÍCULO ANTES DE CONTINUAR",Toast.LENGTH_SHORT).show();
-                                    destinoVehiculoAdministrativo.requestFocus();
-                                }
-
-                            }else{
-                                Toast.makeText(getActivity().getApplicationContext(),"SELECCIONA EL USO DEL VEHÍCULO ANTES DE CONTINUAR",Toast.LENGTH_SHORT).show();
-                                usoVehiculoAdministrativo.requestFocus();
-                            }
-
-                        }else{
-                            Toast.makeText(getActivity().getApplicationContext(),"SELECCIONA PROCEDENCIA DEL VEHÍCULO ANTES DE CONTINUAR",Toast.LENGTH_SHORT).show();
-                            procedenciaVehiculoAdministrativo.requestFocus();
-                        }
-
-                    }else{
-                        Toast.makeText(getActivity().getApplicationContext(),"SELECCIONA EL TIPO DE VEHÍCULO ANTES DE CONTINUAR",Toast.LENGTH_SHORT).show();
-                        tipoVehiculoAdministrativo.requestFocus();
-                    }
-
-                }else{
-                    Toast.makeText(getActivity().getApplicationContext(),"NO SE PUEDE ALMACENAR INFORMACIÓN DE VEHÍCULO SIN FECHA Y HORA DE REGISTRO",Toast.LENGTH_SHORT).show();
-                    segundoLinear.requestFocus();
-                }
+                PrimeraValidacionUPD();
 
             }
         });
@@ -491,6 +415,115 @@ public class DescripcionVehiculo extends Fragment {
         });
         return root;
     }
+
+
+
+    // VALIDACIONES INSERTA
+    public void PrimeraValidacion(){
+        if(txtFechaRetencion.getText().toString().length() >= 3 && txthoraRetencion.getText().toString().length() >= 3){
+            if(rbTerrestre.isChecked()){
+                SegundaValidacion();
+            } else if(rbOtro.isChecked()) {
+                if(txtOtroVehiculo.getText().toString().length() >= 3){
+                    SegundaValidacion();
+                } else {
+                    Toast.makeText(getActivity().getApplicationContext(),"SELECCIONA EL TIPO DE VEHÍCULO ANTES DE CONTINUAR",Toast.LENGTH_SHORT).show();
+                    txtOtroVehiculo.requestFocus();
+                    otroTipoVehiculoAdministrativo.requestFocus();
+                }
+            }  else {
+                Toast.makeText(getActivity().getApplicationContext(),"SELECCIONA EL TIPO DE VEHÍCULO ANTES DE CONTINUAR",Toast.LENGTH_SHORT).show();
+                tipoVehiculoAdministrativo.requestFocus();
+            }
+        }else{
+            Toast.makeText(getActivity().getApplicationContext(),"NO SE PUEDE ALMACENAR INFORMACIÓN DE VEHÍCULO SIN FECHA Y HORA DE REGISTRO",Toast.LENGTH_SHORT).show();
+            segundoLinear.requestFocus();
+        }
+    }
+
+    public void SegundaValidacion(){
+
+        if(rbNacional.isChecked() || rbExtranjero.isChecked()){
+            if(rbParticular.isChecked() || rbTransportePublico.isChecked() || rbCarga.isChecked()){
+                if(txtDestinoVehiculo.getText().toString().length() >= 3){
+                    if(txtObservacionesdelVehiculo.getText().toString().length() >= 3){
+                        Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
+                        insertDescripcionVehiculos();
+                    }else{
+                        Toast.makeText(getActivity().getApplicationContext(),"INGRESA LAS OBSERVACIONES DEL VEHÍCULO ANTES DE CONTINUAR",Toast.LENGTH_SHORT).show();
+                        novenoLinear.requestFocus();
+                    }
+
+                }else{
+                    Toast.makeText(getActivity().getApplicationContext(),"INGRESA EL DESTINO DEL VEHÍCULO ANTES DE CONTINUAR",Toast.LENGTH_SHORT).show();
+                    destinoVehiculoAdministrativo.requestFocus();
+                }
+
+            }else{
+                Toast.makeText(getActivity().getApplicationContext(),"SELECCIONA EL USO DEL VEHÍCULO ANTES DE CONTINUAR",Toast.LENGTH_SHORT).show();
+                usoVehiculoAdministrativo.requestFocus();
+            }
+
+        }else{
+            Toast.makeText(getActivity().getApplicationContext(),"SELECCIONA PROCEDENCIA DEL VEHÍCULO ANTES DE CONTINUAR",Toast.LENGTH_SHORT).show();
+            procedenciaVehiculoAdministrativo.requestFocus();
+        }
+
+    }
+
+    // VALIDACIONES ACTUALIZAR
+    public void PrimeraValidacionUPD(){
+        if(txtFechaRetencion.getText().toString().length() >= 3 && txthoraRetencion.getText().toString().length() >= 3){
+            if(rbTerrestre.isChecked()){
+                SegundaValidacionUPD();
+            } else if(rbOtro.isChecked()) {
+                if(txtOtroVehiculo.getText().toString().length() >= 3){
+                    SegundaValidacionUPD();
+                } else {
+                    Toast.makeText(getActivity().getApplicationContext(),"SELECCIONA EL TIPO DE VEHÍCULO ANTES DE CONTINUAR",Toast.LENGTH_SHORT).show();
+                    txtOtroVehiculo.requestFocus();
+                    otroTipoVehiculoAdministrativo.requestFocus();
+                }
+            }  else {
+                Toast.makeText(getActivity().getApplicationContext(),"SELECCIONA EL TIPO DE VEHÍCULO ANTES DE CONTINUAR",Toast.LENGTH_SHORT).show();
+                tipoVehiculoAdministrativo.requestFocus();
+            }
+        }else{
+            Toast.makeText(getActivity().getApplicationContext(),"NO SE PUEDE ALMACENAR INFORMACIÓN DE VEHÍCULO SIN FECHA Y HORA DE REGISTRO",Toast.LENGTH_SHORT).show();
+            segundoLinear.requestFocus();
+        }
+    }
+
+    public void SegundaValidacionUPD(){
+
+        if(rbNacional.isChecked() || rbExtranjero.isChecked()){
+            if(rbParticular.isChecked() || rbTransportePublico.isChecked() || rbCarga.isChecked()){
+                if(txtDestinoVehiculo.getText().toString().length() >= 3){
+                    if(txtObservacionesdelVehiculo.getText().toString().length() >= 3){
+                        Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
+                        updateDescripcionVehiculos();
+                    }else{
+                        Toast.makeText(getActivity().getApplicationContext(),"INGRESA LAS OBSERVACIONES DEL VEHÍCULO ANTES DE CONTINUAR",Toast.LENGTH_SHORT).show();
+                        novenoLinear.requestFocus();
+                    }
+
+                }else{
+                    Toast.makeText(getActivity().getApplicationContext(),"INGRESA EL DESTINO DEL VEHÍCULO ANTES DE CONTINUAR",Toast.LENGTH_SHORT).show();
+                    destinoVehiculoAdministrativo.requestFocus();
+                }
+
+            }else{
+                Toast.makeText(getActivity().getApplicationContext(),"SELECCIONA EL USO DEL VEHÍCULO ANTES DE CONTINUAR",Toast.LENGTH_SHORT).show();
+                usoVehiculoAdministrativo.requestFocus();
+            }
+
+        }else{
+            Toast.makeText(getActivity().getApplicationContext(),"SELECCIONA PROCEDENCIA DEL VEHÍCULO ANTES DE CONTINUAR",Toast.LENGTH_SHORT).show();
+            procedenciaVehiculoAdministrativo.requestFocus();
+        }
+
+    }
+
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {

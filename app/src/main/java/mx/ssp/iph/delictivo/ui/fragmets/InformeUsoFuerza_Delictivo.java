@@ -65,6 +65,7 @@ public class InformeUsoFuerza_Delictivo extends Fragment {
     private int banderaPostPut=0;
     private RadioButton rbNoReduccionFisicaDelictivo,rbSiReduccionFisicaDelictivo,rbNoArmasIncapacitantesDelictivo,rbSiArmasIncapacitantesDelictivo,rbNoArmasFuegoDelictivo,rbSiArmasFuegoDelictivo;
     private  RadioButton rbSiAsistenciaMedicaUsoFuerza,rbNoAsistenciaMedicaUsoFuerza,rbSiNuevoElementoUsoFuerza,rbNoNuevoElementoUsoFuerza;
+    ViewGroup quinceavoLinearFuerza, OpcionesUnoDelic, lyOpcionesDosDelic, catorceavoLinear, principalLinear1, catorceavoLinear1;
 
     private Funciones funciones;
 
@@ -98,6 +99,13 @@ public class InformeUsoFuerza_Delictivo extends Fragment {
         rbSiArmasFuegoDelictivo = view.findViewById(R.id.rbSiArmasFuegoDelictivo);
         rbSiAsistenciaMedicaUsoFuerza = view.findViewById(R.id.rbSiAsistenciaMedicaUsoFuerza);
         rbNoAsistenciaMedicaUsoFuerza = view.findViewById(R.id.rbNoAsistenciaMedicaUsoFuerza);
+
+        quinceavoLinearFuerza = view.findViewById(R.id.quinceavoLinearFuerza);
+        OpcionesUnoDelic = view.findViewById(R.id.OpcionesUnoDelic);
+        lyOpcionesDosDelic = view.findViewById(R.id.lyOpcionesDosDelic);
+        catorceavoLinear = view.findViewById(R.id.catorceavoLinear);
+        principalLinear1 = view.findViewById(R.id.principalLinear1);
+        catorceavoLinear1 = view.findViewById(R.id.catorceavoLinear1);
 
         img_microfonoDescripcionUsoFuerza = view.findViewById(R.id.img_microfonoDescripcionUsoFuerza);
         img_microfonoDescripcionAsistenciaMedicaUsoFuerza = view.findViewById(R.id.img_microfonoDescripcionAsistenciaMedicaUsoFuerza);
@@ -162,12 +170,12 @@ public class InformeUsoFuerza_Delictivo extends Fragment {
 
                 if (banderaPostPut == 0)
                 {
-                    insertUsoFuerza();
+                    PrimeraValidacion();
                 }
                 else    {
                     updateUsoFuerza();
-
                 }
+
             }
         });
 
@@ -201,6 +209,65 @@ public class InformeUsoFuerza_Delictivo extends Fragment {
         return view;
     }
 
+    public void PrimeraValidacion(){
+
+        if(rbNoReduccionFisicaDelictivo.isChecked() || rbSiReduccionFisicaDelictivo.isChecked()){
+            if(rbNoArmasIncapacitantesDelictivo.isChecked() || rbSiArmasIncapacitantesDelictivo.isChecked()){
+                if(rbNoArmasFuegoDelictivo.isChecked() || rbSiArmasFuegoDelictivo.isChecked()){
+                    if (txtDescripciondelUsoFuerza.getText().toString().length() >= 3){
+
+                        //Segunda Valicacion
+                        SegundaValidacion();
+
+                    } else {
+                        Toast.makeText(getActivity().getApplicationContext(), "DESCRIBE LAS CONDUCTAS QUE MOTIVARON EL USO DE LA FUERZA", Toast.LENGTH_SHORT).show();
+                        catorceavoLinear.requestFocus();
+                    }
+                } else {
+                    Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA SI SE UTILIZARON ARMAS DE FUEGO O FUERZA LETAL", Toast.LENGTH_SHORT).show();
+                    OpcionesUnoDelic.requestFocus();
+                    lyOpcionesDosDelic.requestFocus();
+                    quinceavoLinearFuerza.requestFocus();
+                }
+            } else {
+                Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA SI SE UTILIZARON ARMAS INCAPACITANTES MENOS LETALES", Toast.LENGTH_SHORT).show();
+                OpcionesUnoDelic.requestFocus();
+                lyOpcionesDosDelic.requestFocus();
+                quinceavoLinearFuerza.requestFocus();
+            }
+        } else {
+            Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA SI HUBO REDUCCIÓN FÍSICA DE MOVIMIENTOS", Toast.LENGTH_SHORT).show();
+            OpcionesUnoDelic.requestFocus();
+            lyOpcionesDosDelic.requestFocus();
+            quinceavoLinearFuerza.requestFocus();
+        }
+
+
+
+
+
+    }
+
+    public void SegundaValidacion(){
+        if(rbSiAsistenciaMedicaUsoFuerza.isChecked()){
+            if(txtDescripcionAsistenciaMedicaUsoFuerza.getText().toString().length() >= 3){
+                Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
+                insertUsoFuerza();
+
+            } else {
+                Toast.makeText(getActivity().getApplicationContext(), "EXPLIQUE LA ASISTENCIA MÉDICA QUE SOLICITÓ O BRINDÓ", Toast.LENGTH_SHORT).show();
+                catorceavoLinear1.requestFocus();
+            }
+        } else if (rbNoAsistenciaMedicaUsoFuerza.isChecked()){
+            Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
+            insertUsoFuerza();
+        } else {
+            Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA SI BRINDÓ O SOLICITÓ ASISTENCIA MÉDICA", Toast.LENGTH_SHORT).show();
+            principalLinear1.requestFocus();
+        }
+    }
+
+
     private void iniciarEntradadeVoz() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
@@ -221,6 +288,7 @@ public class InformeUsoFuerza_Delictivo extends Fragment {
         mViewModel = new ViewModelProvider(this).get(InformeUsoFuerzaDelictivoViewModel.class);
         // TODO: Use the ViewModel
     }
+
 
     //***************** INSERTA A LA BD MEDIANTE EL WS **************************//
     private void updateUsoFuerza() {

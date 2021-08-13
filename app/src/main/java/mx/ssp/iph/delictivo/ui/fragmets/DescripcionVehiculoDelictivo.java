@@ -153,7 +153,6 @@ public class DescripcionVehiculoDelictivo extends Fragment {
         funciones.CambiarTituloSeccionesDelictivo("ANEXO C. INSPECCIÓN DE VEHÍCULO",getContext(),getActivity());
 
 
-
         //Consulta si hay conexión a internet y realiza la peticion al ws de consulta de los datos.
         if (funciones.ping(getContext()))
         {
@@ -227,6 +226,7 @@ public class DescripcionVehiculoDelictivo extends Fragment {
                 }
             }
         });
+
         rgProcedenciaVehiculoDelictivo.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -263,6 +263,7 @@ public class DescripcionVehiculoDelictivo extends Fragment {
                 }
             }
         });
+
         rgObjetos.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
@@ -373,6 +374,8 @@ public class DescripcionVehiculoDelictivo extends Fragment {
 
             }
         });
+
+
         //btnEliminarVehiculoDelictivo
         btnEliminarVehiculoDelictivo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -399,6 +402,8 @@ public class DescripcionVehiculoDelictivo extends Fragment {
                 builder.create().show();
             }
         });
+
+
         //Cancelar
         btnCancelarVehiculoDelictivo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -406,6 +411,8 @@ public class DescripcionVehiculoDelictivo extends Fragment {
                 LimpiarCampos();
             }
         });
+
+
         //Actualizar
         btnEditarVehiculoDelictivo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -522,7 +529,6 @@ public class DescripcionVehiculoDelictivo extends Fragment {
 
 
     //***************** CONSULTA A LA BD MEDIANTE EL WS **************************//
-
     private void ListCombos() {
         DataHelper dataHelper = new DataHelper(getContext());
         ArrayList<String> list = dataHelper.getAllColores();
@@ -544,6 +550,7 @@ public class DescripcionVehiculoDelictivo extends Fragment {
 
 
     }
+
     //Intercambia los Fragmentos
     private void addFragment(Fragment fragment) {
         getActivity().getSupportFragmentManager()
@@ -552,6 +559,7 @@ public class DescripcionVehiculoDelictivo extends Fragment {
                 //.addToBackStack(null) //Se quita la pila de fragments. Botón atrás
                 .commit();
     }
+
     //***************** INSERTA A LA BD MEDIANTE EL WS **************************//
     private void insertDescripcionVehiculos() {
         DataHelper dataHelper = new DataHelper(getContext());
@@ -812,7 +820,6 @@ public class DescripcionVehiculoDelictivo extends Fragment {
             }
         });
     }
-
 
     //***************** ADAPTADOR PARA LLENAR LISTA DE IPH ADMINISTRATIVO **************************//
     class MyAdapter extends ArrayAdapter<String> {
