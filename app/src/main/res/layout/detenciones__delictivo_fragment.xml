@@ -497,7 +497,7 @@
                         android:layout_height="wrap_content"
                         android:maxLength="50"
                         android:inputType="textCapCharacters"
-                        android:digits="@string/validacion_nombre"
+                        android:digits="@string/validacion_numexpediente"
                         android:singleLine="true"
                         android:maxLines="1"
                         android:lines="1"
@@ -1257,9 +1257,9 @@
                         android:id="@+id/txtNumeroTelefonoA3Delictivo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:maxLength="50"
-                        android:inputType="textCapCharacters"
-                        android:digits="@string/validacion_nombre"
+                        android:maxLength="10"
+                        android:inputType="number"
+                        android:digits="@string/validacion_numero"
                         android:singleLine="true"
                         android:maxLines="1"
                         android:lines="1"
@@ -1691,10 +1691,10 @@ adolescentes."/>
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp">
-        </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/LinearPertenencias"
                 android:layout_width="match_parent"
@@ -1775,6 +1775,40 @@ adolescentes."/>
                         android:imeOptions="actionNext"/>
                 </LinearLayout>
             </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LinearBtnPertenencias"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_gravity="center"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/btnAgregarPertenencia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/boton_agregar" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LinearListaPertenencias"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp">
+                <ListView
+                    android:id="@+id/lvPertenenciasDetenido"
+                    android:layout_width="match_parent"
+                    android:layout_height="350dp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+
 
 
 

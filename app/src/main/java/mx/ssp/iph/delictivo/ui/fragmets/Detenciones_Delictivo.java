@@ -89,6 +89,10 @@ public class Detenciones_Delictivo extends Fragment {
     RadioButton rbLugarTrasladoDetencionFiscaliaAgencia,rbLugarTrasladoDetencionHospital,rbLugarTrasladoDetencionOtraDependencia;
     private Target target;
 
+    ImageView btnAgregarPertenencia;
+    EditText txtPertenenciaDetenido,txtDescripcionPertenenciaDetenido,txtDestinoPertenenciaDetenido;
+    ListView lvPertenenciasDetenido;
+
 
 
     ImageView imgFirmaDerechosDelictivo,img_microfonoDescripcionDetenido;
@@ -263,6 +267,13 @@ public class Detenciones_Delictivo extends Fragment {
         spMunicipioPersonaDetenidaDelictivo = view.findViewById(R.id.spMunicipioPersonaDetenidaDelictivo);
         spMunicipioDireccionDetencion = view.findViewById(R.id.spMunicipioDireccionDetencion);
         ListCombos();
+
+        //Pertenencias
+        btnAgregarPertenencia = view.findViewById(R.id.btnAgregarPertenencia);
+        txtPertenenciaDetenido = view.findViewById(R.id.txtPertenenciaDetenido);
+        txtDescripcionPertenenciaDetenido = view.findViewById(R.id.txtDescripcionPertenenciaDetenido);
+        txtDestinoPertenenciaDetenido = view.findViewById(R.id.txtDestinoPertenenciaDetenido);
+        lvPertenenciasDetenido = view.findViewById(R.id.lvPertenenciasDetenido);
 
         lvDetenidos = view.findViewById(R.id.lvDetenidos);
         veinticinco = view.findViewById(R.id.veinticinco);
@@ -473,6 +484,21 @@ public class Detenciones_Delictivo extends Fragment {
             public void onClick(View view) {
                 Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
                 insertDetencionesDelictivo();
+            }
+        });
+
+        btnAgregarPertenencia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (txtPertenenciaDetenido.getText().toString().equals("") || txtDescripcionPertenenciaDetenido.getText().toString().equals("") || txtDestinoPertenenciaDetenido.getText().toString().equals(""))
+                {
+                    Toast.makeText(getActivity().getApplicationContext(), "COMPLETA TODOS LOS CAMPOS", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    insertPertenenciasDetenido();
+                }
             }
         });
 
@@ -952,6 +978,49 @@ public class Detenciones_Delictivo extends Fragment {
             }
         });
     }
+
+
+    //********************************** INSERTAR PERTENENCIAS AL SERVIDOR ***********************************//
+    public void insertPertenenciasDetenido() {
+        String cadena = lblFirmaOcultaDetenidoBase64Detenciones.getText().toString();
+        OkHttpClient client = new OkHttpClient();
+        RequestBody body = new FormBody.Builder()
+                .add("IdHechoDelictivo", cargarIdHechoDelictivo)
+                .add("Pertenencia", txtPertenenciaDetenido.getText().toString())
+                .add("DesPertenencia", txtDescripcionPertenenciaDetenido.getText().toString())
+                .add("Destino", txtDestinoPertenenciaDetenido.getText().toString())
+                .build();
+        Request request = new Request.Builder()
+                .url("http://189.254.7.167/WebServiceIPH/api/HDTempoPertenenciasDetenido")
+                .post(body)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Looper.prepare(); // to be able to make toast
+                Toast.makeText(getContext(), "ERROR AL AGREGAR PERTENENCIA, FAVOR DE VERIFICAR SU CONEXCIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    final String myResponse = response.body().toString();  /********** ME REGRESA LA RESPUESTA DEL WS ****************/
+                    Detenciones_Delictivo.this.getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getContext(), "PERTENENCIA AGREGADA CORRECTAMENTE", Toast.LENGTH_LONG).show();
+                            System.out.println("PERTENENCIA AGREGADA CORRECTAMENTE");
+                            txtPertenenciaDetenido.setText("");
+                            txtDescripcionPertenenciaDetenido.setText("");
+                            txtDescripcionPertenenciaDetenido.setText("");
+                        }
+                    });
+                }
+            }
+        });
+    }
+
 
     //********************************** INSERTA IMAGEN AL SERVIDOR ***********************************//
     public void insertImagen() {
