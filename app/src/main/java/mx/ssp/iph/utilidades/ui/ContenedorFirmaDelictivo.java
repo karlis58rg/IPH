@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -90,6 +91,8 @@ public class ContenedorFirmaDelictivo extends DialogFragment {
 
                     lblFirmaBase64 = (TextView) getActivity().findViewById(idlblFirmaBase64);
                     lblFirmaBase64.setText(encoded);
+                    Log.i("FIRMA", "FIRMA REALIZADA:"+ encoded);
+
 
                     imgFirmaMiniatura = (ImageView) getActivity().findViewById(IdimgFirmaMiniatura);
 

@@ -549,7 +549,7 @@ public class Detenciones_Delictivo extends Fragment {
 
                     //Firma
                     lblFirmadelDetenidoDelictivo.setText((jsonjObject.getString("RutaFirma")).equals("null")?"":"FIRMA CORRECTA");
-                    firmaURLServer = (jsonjObject.getString("RutaFirma").equals("null")?"http://189.254.7.167/WebServiceIPH/Firma/SINFIRMA.jpg":jsonjObject.getString("UrlFirma"));
+                    firmaURLServer = (jsonjObject.getString("RutaFirma").equals("null")?"http://189.254.7.167/WebServiceIPH/Firma/SINFIRMA.jpg":jsonjObject.getString("RutaFirma"));
                     lblFirmadelDetenidoDelictivoOculto.setText(firmaURLServer);
                     getFirmaFromURL();
 
