@@ -1289,7 +1289,7 @@ public class Detenciones_Delictivo extends Fragment {
 
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url("http://189.254.7.167/WebServiceIPH/api/HDDetenciones?folioInterno="+cargarIdHechoDelictivo+"&idInspeccionVehiculo="+IdDetenido)
+                .url("http://189.254.7.167/WebServiceIPH/api/HDDetenciones?folioInterno="+cargarIdHechoDelictivo+"&idDetencion="+IdDetenido)
                 .delete()
                 .build();
         client.newCall(request).enqueue(new Callback() {
@@ -1319,7 +1319,7 @@ public class Detenciones_Delictivo extends Fragment {
                                     //***************** MENSAJE MÁS ACTUALIZAR LISTA (Recargando el Fragmento xoxo) **************************//
                                     Toast.makeText(getContext(), "SE ELIMINÓ CORRECTAMENTE", Toast.LENGTH_SHORT).show();
                                     limpiarCampos();
-                                    addFragment(new DescripcionVehiculoDelictivo());
+                                    addFragment(new Detenciones_Delictivo());
                                 }
                                 else{
                                     Toast.makeText(getContext(), "PROBLEMA AL ELIMINAR", Toast.LENGTH_SHORT).show();

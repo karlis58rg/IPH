@@ -284,7 +284,7 @@ public class LugarDeIntervencion_Delictivo extends Fragment {
         }else if(idMunicipio.length() == 2){
             idMunicipio = "0"+idMunicipio;
         }
-        rutaCroquis = "http://189.254.7.167/WebServiceIPH/RutaCroquis/"+cargarIdHechoDelictivo+randomUrlImagen+".jpg";
+        rutaCroquis = "http://189.254.7.167/WebServiceIPH/MultimediaCroquis/"+cargarIdHechoDelictivo+randomUrlImagen+".jpg";
 
         ModeloLugarIntervencion_Delictivo modeloIntervencion = new ModeloLugarIntervencion_Delictivo
                 (cargarIdHechoDelictivo,"12",

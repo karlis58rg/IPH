@@ -607,10 +607,6 @@ public class HechosDelictivos extends Fragment {
                                         txtHoraEntregaReferenciaDelictivo.setText((jsonjObject.getString("Hora")).equals("null")?"":jsonjObject.getString("Hora"));
 
                                         txtNoReferenciaDelictivo.setText((jsonjObject.getString("NumReferencia")).equals("null")?"":jsonjObject.getString("NumReferencia"));
-                                        txtNoReferenciaDelictivo.setText((jsonjObject.getString("NumReferencia")).equals("null")?"":jsonjObject.getString("NumReferencia"));
-                                        txtNoReferenciaDelictivo.setText((jsonjObject.getString("NumReferencia")).equals("null")?"":jsonjObject.getString("NumReferencia"));
-                                        txtNoReferenciaDelictivo.setText((jsonjObject.getString("NumReferencia")).equals("null")?"":jsonjObject.getString("NumReferencia"));
-                                        txtNoReferenciaDelictivo.setText((jsonjObject.getString("NumReferencia")).equals("null")?"":jsonjObject.getString("NumReferencia"));
 
 
                                         if((jsonjObject.getString("AnexoNoSeEntregan").equals("NO"))){

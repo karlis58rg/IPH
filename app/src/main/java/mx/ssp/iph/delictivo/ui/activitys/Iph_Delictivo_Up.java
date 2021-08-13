@@ -213,20 +213,26 @@ public class Iph_Delictivo_Up extends AppCompatActivity{
                     }
                     case 3:
                     {
-                        addFragment(anexod);
-                        slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                        Toast.makeText(Iph_Delictivo_Up.this, "Esta función estará disponible próximamente.", Toast.LENGTH_LONG).show();
+
+                        //addFragment(anexod);
+                        //slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
                         break;
                     }
                     case 4:
                     {
-                        addFragment(anexoe);
-                        slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                        Toast.makeText(Iph_Delictivo_Up.this, "Esta función estará disponible próximamente.", Toast.LENGTH_LONG).show();
+
+                        //addFragment(anexoe);
+                        //slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
                         break;
                     }
                     case 5:
                     {
-                        addFragment(anexof);
-                        slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                        Toast.makeText(Iph_Delictivo_Up.this, "Esta función estará disponible próximamente.", Toast.LENGTH_LONG).show();
+
+                        //addFragment(anexof);
+                        //slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
                         break;
                     }
                 }
