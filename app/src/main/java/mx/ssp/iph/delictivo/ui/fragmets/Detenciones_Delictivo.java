@@ -7,6 +7,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,6 +19,7 @@ import androidx.fragment.app.Fragment;
 import android.os.Looper;
 import android.speech.RecognizerIntent;
 import android.text.InputFilter;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,10 +39,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -81,9 +87,12 @@ public class Detenciones_Delictivo extends Fragment {
     TextView lblFirmadelDetenidoDelictivo,lblFirmadelDetenidoDelictivoOculto;
     ImageView imgFirmadelDetenidoDelictivoMiniatura;
     RadioButton rbLugarTrasladoDetencionFiscaliaAgencia,rbLugarTrasladoDetencionHospital,rbLugarTrasladoDetencionOtraDependencia;
+    private Target target;
+
 
 
     ImageView imgFirmaDerechosDelictivo,img_microfonoDescripcionDetenido;
+    ImageView img_microfonoObservacionesDetencion;
     TextView lblFirmaOcultaDetenidoBase64Detenciones;
 
     EditText txtFechaDetenidoDelictivo,txthoraDetencionDelictivo,txtFechaNacimientoDetenidoDelictivo, txtPrimerApellidoDetenidoDelictivo, txtSegundoApellidoDetenidoDelictivo,
@@ -129,6 +138,7 @@ public class Detenciones_Delictivo extends Fragment {
         lblFirmaOcultaDetenidoBase64Detenciones = view.findViewById(R.id.lblFirmaOcultaDetenidoBase64Detenciones);
         imgFirmaDerechosDelictivo = view.findViewById(R.id.imgFirmaDerechosDelictivo);
         img_microfonoDescripcionDetenido = view.findViewById(R.id.img_microfonoDescripcionDetenido);
+        img_microfonoObservacionesDetencion = view.findViewById(R.id.img_microfonoObservacionesDetencion);
 
         txtFechaDetenidoDelictivo = view.findViewById(R.id.txtFechaDetenidoDelictivo);
         txthoraDetencionDelictivo = view.findViewById(R.id.txthoraDetencionDelictivo);
@@ -270,6 +280,31 @@ public class Detenciones_Delictivo extends Fragment {
 
         funciones.CambiarTituloSeccionesDelictivo("ANEXO A. DETENCIÓN(ES)",getContext(),getActivity());
 
+
+        target = new Target() {
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.PNG, 70, baos);
+                byte[] imgBytes = baos.toByteArray();
+
+                String imgString = android.util.Base64.encodeToString(imgBytes, android.util.Base64.NO_WRAP);
+                lblFirmadelDetenidoDelictivoOculto.setText(imgString);
+
+                byte[] decodedString = Base64.decode(imgString, Base64.DEFAULT);
+                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                imgFirmadelDetenidoDelictivoMiniatura.setImageBitmap(decodedByte);
+            }
+            @Override
+            public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+            }
+        };
+
         //Consulta si hay conexión a internet y realiza la peticion al ws de consulta de los datos.
         if (funciones.ping(getContext()))
         {
@@ -314,6 +349,17 @@ public class Detenciones_Delictivo extends Fragment {
         img_microfonoDescripcionDetenido.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                img_microfonoDescripcionDetenido.setImageResource(R.drawable.ic_micro_press);
+                img_microfonoDescripcionDetenido.setTag(R.drawable.ic_micro_press);
+                iniciarEntradadeVoz();
+            }
+        });
+
+        img_microfonoObservacionesDetencion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                img_microfonoObservacionesDetencion.setImageResource(R.drawable.ic_micro_press);
+                img_microfonoObservacionesDetencion.setTag(R.drawable.ic_micro_press);
                 iniciarEntradadeVoz();
             }
         });
@@ -970,18 +1016,33 @@ public class Detenciones_Delictivo extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        switch (requestCode){
-            case REQ_CODE_SPEECH_INPUT:{
-                if (resultCode== RESULT_OK && null != data)
-                {
+        switch (requestCode) {
+            case REQ_CODE_SPEECH_INPUT: {
+                if (resultCode == RESULT_OK && null != data) {
                     ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    String textoActual = txtDescripciondelDetenidoDelictivo.getText().toString();
-                    txtDescripciondelDetenidoDelictivo.setText(textoActual+" " + result.get(0));
+                    Integer resource = (Integer) img_microfonoDescripcionDetenido.getTag();
+
+                    if (resource == R.drawable.ic_micro_press) {
+                        String textoActual = txtDescripciondelDetenidoDelictivo.getText().toString();
+                        txtDescripciondelDetenidoDelictivo.setText(textoActual + " " + result.get(0));
+                    } else {
+                        String textoActual = txtObservacionesDetencion.getText().toString();
+                        txtObservacionesDetencion.setText(textoActual + " " + result.get(0));
+                    }
+
                 }
                 break;
             }
         }
+
+        img_microfonoDescripcionDetenido.setImageResource(R.drawable.ic_micro);
+        img_microfonoDescripcionDetenido.setTag(R.drawable.ic_micro);
+
+        img_microfonoObservacionesDetencion.setImageResource(R.drawable.ic_micro);
+        img_microfonoObservacionesDetencion.setTag(R.drawable.ic_micro);
     }
+
+
 
     private void ListCombos() {
         DataHelper dataHelper = new DataHelper(getContext());
@@ -1151,7 +1212,7 @@ public class Detenciones_Delictivo extends Fragment {
     public void getFirmaFromURL(){
         Picasso.get()
                 .load(firmaURLServer)
-                .into(imgFirmadelDetenidoDelictivoMiniatura);
+                .into(target);
     }
 
     //***************** CONSULTA A LA BD MEDIANTE EL WS **************************//
@@ -1215,4 +1276,6 @@ public class Detenciones_Delictivo extends Fragment {
                 //.addToBackStack(null) //Se quita la pila de fragments. Botón atrás
                 .commit();
     }
+
+
 }

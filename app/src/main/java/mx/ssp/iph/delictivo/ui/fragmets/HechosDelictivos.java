@@ -196,6 +196,7 @@ public class HechosDelictivos extends Fragment {
             }
         });
 
+        //***************** Tarjet para cachar la imagen de picaso  **************************//
         target = new Target() {
             @Override
             public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
