@@ -30,6 +30,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -62,11 +64,12 @@ public class LugarDeIntervencion_Delictivo extends Fragment {
     private LugarDeIntervencionDelictivoViewModel mViewModel;
     Button btnGuardarLugarIntervencionDelictivo;
     private ImageView imgMapDelictivo,imgCroquisDelictivo;
+    private ImageView imgMapDelictivoMiniatura;
     final private int REQUEST_CODE_ASK_PERMISSION = 111;
     private Funciones funciones;
     SharedPreferences share;
     SharedPreferences.Editor editor;
-    TextView lblCroquisDelictivoOculto;
+    TextView lblCroquisDelictivoOculto,lblCroquisDelictivo;
     EditText txtEntidadUbicacionGeograficaDelictivo,txtColoniaUbicacionGeograficaDelictivo,txtCalleUbicacionGeograficaDelictivo,txtNumeroExteriorUbicacionGeograficaDelictivo,
             txtNumeroInteriorUbicacionGeograficaDelictivo,txtCodigoPostalUbicacionGeograficaDelictivo,txtReferenciasdelLugarUbicacionGeograficaDelictivo,
             txtLatitudUbicacionGeograficaDelictivo,txtLongitudUbicacionGeograficaDelictivo,txtEspecificarRiesgoLugarIntervencion;
@@ -79,6 +82,8 @@ public class LugarDeIntervencion_Delictivo extends Fragment {
     int numberRandom,randomUrlImagen;
     RadioButton rbSiInspeccionLugarIntervencion,rbNoInspeccionLugarIntervencion,rbNoObjetosRelacionadosLugarIntervencion,rbSiObjetosRelacionadosLugarIntervencion,rbNoPreservoLugarIntervencion;
     RadioButton rbNoPriorizacionLugarIntervencion,rbSiPriorizacionLugarIntervencion,rbRiesgoSocialesLugarIntervencion,rbRiesgoNaturalesLugarIntervencion,rbSiPreservoLugarIntervencion;
+    String firmaURLServer = "http://189.254.7.167/WebServiceIPH/Firma/SINFIRMA.jpg";
+
 
     ViewGroup segundoLinear, principalLinear, lyEspecifiqueDelictivoLI, quinceavoLinear, quinceavoLinearDos, quinceavoLinearTres, quinceavoLinearCuatro, quinceavoLinearCinco, lyTipoRiesgoLI;
 
@@ -112,7 +117,10 @@ public class LugarDeIntervencion_Delictivo extends Fragment {
         btnGuardarLugarIntervencionDelictivo = view.findViewById(R.id.btnGuardarLugarIntervencionDelictivo);
         imgMapDelictivo = view.findViewById(R.id.imgMapDelictivo);
         imgCroquisDelictivo = view.findViewById(R.id.imgCroquisDelictivo);
+
+        lblCroquisDelictivo = view.findViewById(R.id.lblCroquisDelictivo);
         lblCroquisDelictivoOculto = view.findViewById(R.id.lblCroquisDelictivoOculto);
+        imgMapDelictivoMiniatura = view.findViewById(R.id.imgMapDelictivoMiniatura);
 
         rbSiInspeccionLugarIntervencion = view.findViewById(R.id.rbSiInspeccionLugarIntervencion);
         rbNoInspeccionLugarIntervencion = view.findViewById(R.id.rbNoInspeccionLugarIntervencion);
@@ -167,7 +175,7 @@ public class LugarDeIntervencion_Delictivo extends Fragment {
             }
         });
 
-        //***************** FIRMA **************************//
+        //***************** Croquis **************************//
         imgCroquisDelictivo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -509,6 +517,13 @@ public class LugarDeIntervencion_Delictivo extends Fragment {
                                         txtLatitudUbicacionGeograficaDelictivo.setText((jsonjObject.getString("Latitud")).equals("null")?"":jsonjObject.getString("Latitud"));
                                         txtLongitudUbicacionGeograficaDelictivo.setText((jsonjObject.getString("Longitud")).equals("null")?"":jsonjObject.getString("Longitud"));
 
+                                        //Firma
+                                        lblCroquisDelictivo.setText((jsonjObject.getString("RutaCroquis")).equals("null")?"":"CROQUIS CORRECTO");
+                                        firmaURLServer = (jsonjObject.getString("RutaCroquis").equals("null")?"http://189.254.7.167/WebServiceIPH/Firma/SINFIRMA.jpg":jsonjObject.getString("RutaCroquis"));
+                                        lblCroquisDelictivoOculto.setText(firmaURLServer);
+                                        getFirmaFromURL();
+
+
                                         //========
                                         if((jsonjObject.getString("RealizoInspeccion")).equals("null"))
                                         {
@@ -596,6 +611,12 @@ public class LugarDeIntervencion_Delictivo extends Fragment {
                 }
             }
         });
+    }
+
+    public void getFirmaFromURL(){
+        Picasso.get()
+                .load(firmaURLServer)
+                .into(imgMapDelictivoMiniatura);
     }
 
 }

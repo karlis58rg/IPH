@@ -5,6 +5,10 @@ import androidx.lifecycle.ViewModelProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.os.Looper;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,10 +37,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -88,6 +95,7 @@ public class HechosDelictivos extends Fragment {
     SharedPreferences share;
     int numberRandom,randomUrlImagen;
     String firmaURLServer = "http://189.254.7.167/WebServiceIPH/Firma/SINFIRMA.jpg";
+    private Target target;
 
     ViewGroup lyAnexosUno, quintoLinear1, quintoLinear2, lyDetencionesAnexoADelictivo, lyInventarioArmasDelictivo,
             lyUsoFuerzaAnexoBDelictivo, lyEntrevistasDelictivo, lyInspeccionVehiculoDelictivo, lyEntregaRecepcionDelictivo, lyFiscaliaAutoridadDelictivo;
@@ -310,6 +318,34 @@ public class HechosDelictivos extends Fragment {
 
             }
         });
+
+        target = new Target() {
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.PNG, 70, baos);
+                byte[] imgBytes = baos.toByteArray();
+
+                String imgString = android.util.Base64.encodeToString(imgBytes, android.util.Base64.NO_WRAP);
+                lblFirmaOcultaAutoridadBase64HechosDelictivos.setText(imgString);
+
+                byte[] decodedString = Base64.decode(imgString, Base64.DEFAULT);
+                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                imgFirmaAutoridadRealizadaDelictivoMiniatura.setImageBitmap(decodedByte);
+
+            }
+
+            @Override
+            public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+            }
+        };
+
 
         /******************************************************************************/
         return  view;
@@ -819,7 +855,7 @@ public class HechosDelictivos extends Fragment {
                                         txtNoReferenciaDelictivo.setText((jsonjObject.getString("NumReferencia")).equals("null")?"":jsonjObject.getString("NumReferencia"));
 
 
-                                        if((jsonjObject.getString("AnexoNoSeEntregan").equals("SI"))){
+                                        if((jsonjObject.getString("AnexoNoSeEntregan").equals("NO"))){
                                             chSinAnexosDelictivo.setChecked(true);
                                         }
                                         else {
@@ -844,7 +880,7 @@ public class HechosDelictivos extends Fragment {
                                             }
 
                                             if ((jsonjObject.getString("AnexoEntrevista").equals("SI"))) {
-                                                chAnexosFEntregaRecepcionDelictivo.setChecked(true);
+                                                chEntrevistasAnexoEDelictivo.setChecked(true);
                                                 spEntrevistasAnexoEDelictivo.setSelection(funciones.getIndexSpiner(spEntrevistasAnexoEDelictivo, jsonjObject.getString("NumAnexoEntrevista")));
                                             }
 
@@ -866,7 +902,7 @@ public class HechosDelictivos extends Fragment {
 
                                         //Firma
                                         lblFirmaAutoridadRealizadaDelictivo.setText((jsonjObject.getString("RutaFirma")).equals("null")?"":"FIRMA CORRECTA");
-                                        firmaURLServer = (jsonjObject.getString("RutaFirma").equals("null")?"http://189.254.7.167/WebServiceIPH/Firma/SINFIRMA.jpg":jsonjObject.getString("UrlFirma"));
+                                        firmaURLServer = (jsonjObject.getString("RutaFirma").equals("null")?"http://189.254.7.167/WebServiceIPH/Firma/SINFIRMA.jpg":jsonjObject.getString("RutaFirma"));
                                         lblFirmaOcultaAutoridadBase64HechosDelictivos.setText(firmaURLServer);
                                         getFirmaFromURL();
 
@@ -892,6 +928,7 @@ public class HechosDelictivos extends Fragment {
         public void getFirmaFromURL(){
             Picasso.get()
                     .load(firmaURLServer)
-                    .into(imgFirmaAutoridadRealizadaDelictivoMiniatura);
-        }
+                    .into(target);
+                    }
+
 }
