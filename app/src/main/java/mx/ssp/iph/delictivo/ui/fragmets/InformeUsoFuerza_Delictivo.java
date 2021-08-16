@@ -173,7 +173,7 @@ public class InformeUsoFuerza_Delictivo extends Fragment {
                     PrimeraValidacion();
                 }
                 else    {
-                    updateUsoFuerza();
+                    PrimeraValidacionUPD();
                 }
 
             }
@@ -209,6 +209,7 @@ public class InformeUsoFuerza_Delictivo extends Fragment {
         return view;
     }
 
+    //VALIDACIONES INSERTAR
     public void PrimeraValidacion(){
 
         if(rbNoReduccionFisicaDelictivo.isChecked() || rbSiReduccionFisicaDelictivo.isChecked()){
@@ -247,7 +248,6 @@ public class InformeUsoFuerza_Delictivo extends Fragment {
 
 
     }
-
     public void SegundaValidacion(){
         if(rbSiAsistenciaMedicaUsoFuerza.isChecked()){
             if(txtDescripcionAsistenciaMedicaUsoFuerza.getText().toString().length() >= 3){
@@ -261,6 +261,65 @@ public class InformeUsoFuerza_Delictivo extends Fragment {
         } else if (rbNoAsistenciaMedicaUsoFuerza.isChecked()){
             Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
             insertUsoFuerza();
+        } else {
+            Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA SI BRINDÓ O SOLICITÓ ASISTENCIA MÉDICA", Toast.LENGTH_SHORT).show();
+            principalLinear1.requestFocus();
+        }
+    }
+
+
+    //VALIDACIONES ACTUALIZAR
+    public void PrimeraValidacionUPD(){
+
+        if(rbNoReduccionFisicaDelictivo.isChecked() || rbSiReduccionFisicaDelictivo.isChecked()){
+            if(rbNoArmasIncapacitantesDelictivo.isChecked() || rbSiArmasIncapacitantesDelictivo.isChecked()){
+                if(rbNoArmasFuegoDelictivo.isChecked() || rbSiArmasFuegoDelictivo.isChecked()){
+                    if (txtDescripciondelUsoFuerza.getText().toString().length() >= 3){
+
+                        //Segunda Valicacion
+                        SegundaValidacionUPD();
+
+                    } else {
+                        Toast.makeText(getActivity().getApplicationContext(), "DESCRIBE LAS CONDUCTAS QUE MOTIVARON EL USO DE LA FUERZA", Toast.LENGTH_SHORT).show();
+                        catorceavoLinear.requestFocus();
+                    }
+                } else {
+                    Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA SI SE UTILIZARON ARMAS DE FUEGO O FUERZA LETAL", Toast.LENGTH_SHORT).show();
+                    OpcionesUnoDelic.requestFocus();
+                    lyOpcionesDosDelic.requestFocus();
+                    quinceavoLinearFuerza.requestFocus();
+                }
+            } else {
+                Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA SI SE UTILIZARON ARMAS INCAPACITANTES MENOS LETALES", Toast.LENGTH_SHORT).show();
+                OpcionesUnoDelic.requestFocus();
+                lyOpcionesDosDelic.requestFocus();
+                quinceavoLinearFuerza.requestFocus();
+            }
+        } else {
+            Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA SI HUBO REDUCCIÓN FÍSICA DE MOVIMIENTOS", Toast.LENGTH_SHORT).show();
+            OpcionesUnoDelic.requestFocus();
+            lyOpcionesDosDelic.requestFocus();
+            quinceavoLinearFuerza.requestFocus();
+        }
+
+
+
+
+
+    }
+    public void SegundaValidacionUPD(){
+        if(rbSiAsistenciaMedicaUsoFuerza.isChecked()){
+            if(txtDescripcionAsistenciaMedicaUsoFuerza.getText().toString().length() >= 3){
+                Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
+                updateUsoFuerza();
+
+            } else {
+                Toast.makeText(getActivity().getApplicationContext(), "EXPLIQUE LA ASISTENCIA MÉDICA QUE SOLICITÓ O BRINDÓ", Toast.LENGTH_SHORT).show();
+                catorceavoLinear1.requestFocus();
+            }
+        } else if (rbNoAsistenciaMedicaUsoFuerza.isChecked()){
+            Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
+            updateUsoFuerza();
         } else {
             Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA SI BRINDÓ O SOLICITÓ ASISTENCIA MÉDICA", Toast.LENGTH_SHORT).show();
             principalLinear1.requestFocus();
