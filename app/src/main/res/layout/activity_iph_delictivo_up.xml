@@ -22,23 +22,27 @@
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:theme="@style/Theme.IPH.AppBarOverlay">
+            android:theme="@style/Theme.IPH.AppBarOverlay"
+            android:gravity="center"
+            >
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbarDelictivo"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/Theme.IPH.PopupOverlay" >
+            app:popupTheme="@style/Theme.IPH.PopupOverlay"
+            android:gravity="center"
+            android:layout_gravity="center">
 
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:padding="5dp"
-                    android:layout_marginRight="80dp"
-                    android:src="@drawable/ic_hechodelictivo">
-                </ImageView>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:padding="5dp"
+                android:scaleType="center"
+                android:layout_marginLeft="70dp"
+                android:src="@drawable/ic_hechodelictivo"></ImageView>
 
                 <ImageButton
                     android:id="@+id/imgbtnCerrarSesionDelictivo"
@@ -48,7 +52,8 @@
                     android:layout_margin="8dp"
                     android:layout_marginRight="1dp"
                     android:scaleType="fitCenter"
-                    android:background="@drawable/ic_cerrar_sesion"/>
+                    android:background="@drawable/ic_cerrar_sesion"
+                    android:visibility="gone"/>
             </androidx.appcompat.widget.Toolbar>
 
         </com.google.android.material.appbar.AppBarLayout>

@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".principal.ui.fragments.PrincipalBuscar"
     android:background="#FAFAFA">
 
@@ -35,61 +35,61 @@
             </LinearLayout>
 
             <!-- =============== LINEAR FILTROS  =====================-->
-                <LinearLayout
-                    android:id="@+id/LineaFiltrosdeBusqueda"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+            <LinearLayout
+                android:id="@+id/LineaFiltrosdeBusqueda"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-                    <!-- =============== LINEAR IZQUIERO  =====================-->
+                <!-- =============== LINEAR IZQUIERO  =====================-->
+                <LinearLayout
+                    android:id="@+id/linearIzquierdo"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
                     <LinearLayout
-                        android:id="@+id/linearIzquierdo"
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="16dp">
-                        <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+                        <RadioGroup
+                            android:id="@+id/rgFiltrosBuscar"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="vertical">
-                            <RadioGroup
-                                android:id="@+id/rgFiltrosBuscar"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="vertical">
-                                <RadioButton
-                                    android:id="@+id/rbBuscarFolioInterno"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:text=""
-                                    android:checked="true"
-                                    android:layout_marginBottom="50dp"
-                                    android:button="@null"
-                                    android:drawableStart="@drawable/rbbox"/>
+                            <RadioButton
+                                android:id="@+id/rbBuscarFolioInterno"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text=""
+                                android:checked="true"
+                                android:layout_marginBottom="50dp"
+                                android:button="@null"
+                                android:drawableStart="@drawable/rbbox"/>
 
-                                <RadioButton
-                                    android:id="@+id/rbBuscarFecha"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:text=""
-                                    android:button="@null"
-                                    android:drawableStart="@drawable/rbbox"/>
-                            </RadioGroup>
-                        </LinearLayout>
-
+                            <RadioButton
+                                android:id="@+id/rbBuscarFecha"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text=""
+                                android:button="@null"
+                                android:drawableStart="@drawable/rbbox"/>
+                        </RadioGroup>
                     </LinearLayout>
 
-                    <!-- =============== LINEAR DERECHO  =====================-->
-                    <LinearLayout
-                        android:id="@+id/linearDerecho"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="16dp">
+                </LinearLayout>
 
-                        <!-- =============== BUSCAR FOLIO INTERNO  =====================-->
+                <!-- =============== LINEAR DERECHO  =====================-->
+                <LinearLayout
+                    android:id="@+id/linearDerecho"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <!-- =============== BUSCAR FOLIO INTERNO  =====================-->
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -115,66 +115,90 @@
                                 android:lines="1"
                                 android:imeOptions="actionDone"/>
                         </LinearLayout>
-
-                        <!-- =============== BUSCAR POR FECHAS  =====================-->
-
-                        <LinearLayout
-                            android:id="@+id/segundoLinear"
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:weightSum="1"
+                        android:layout_weight="0.10">
+                        <TextView
+                            android:id="@+id/lblBuscarFolioInterno"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/font"
+                            android:text="Folio Interno"/>
+                        <EditText
+                            android:id="@+id/txtBuscarFolioInterno"
                             android:layout_width="match_parent"
-                            android:layout_weight="0.5"
+                            android:layout_height="wrap_content"
+                            android:maxLength="50"
+                            android:inputType="number"
+                            android:digits="@string/validacion_numero"
+                            android:singleLine="true"
+                            android:maxLines="1"
+                            android:lines="1"
+                            android:imeOptions="actionNext"/>
+                    </LinearLayout>
+
+                    <!-- =============== BUSCAR POR FECHAS  =====================-->
+
+                    <LinearLayout
+                        android:id="@+id/segundoLinear"
+                        android:layout_width="match_parent"
+                        android:layout_weight="0.5"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:weightSum="1"
+                        android:layout_marginTop="20dp">
+                        <LinearLayout
+                            android:id="@+id/lyFechaInicio"
+                            android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="horizontal"
-                            android:weightSum="1"
-                            android:layout_marginTop="20dp">
-                            <LinearLayout
-                                android:id="@+id/lyFechaInicio"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="0.5"
-                                android:orientation="vertical">
-                                <TextView
-                                    android:id="@+id/lblFechaInicio"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Selecciona la Fecha Inicial" />
+                            android:layout_weight="0.5"
+                            android:orientation="vertical">
+                            <TextView
+                                android:id="@+id/lblFechaInicio"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Selecciona la Fecha Inicial" />
 
-                                <EditText
-                                    android:id="@+id/txtFechaInicio"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:focusable="false"
-                                    android:drawableRight="@drawable/ic_calendar"
-                                    android:enabled="false"
-                                    android:hint="AAAA/MM/DD">
-
-                                </EditText>
-                            </LinearLayout>
-                            <LinearLayout
-                                android:id="@+id/lyFechaFinal"
+                            <EditText
+                                android:id="@+id/txtFechaInicio"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="vertical"
-                                android:weightSum="1"
-                                android:layout_weight="0.5">
-                                <TextView
-                                    android:id="@+id/lblFechaFinal"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Selecciona la Fecha Final" />
-                                <EditText
-                                    android:id="@+id/txtFechaFinal"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:focusable="false"
-                                    android:enabled="false"
-                                    android:drawableRight="@drawable/ic_calendar"
-                                    android:hint="AAAA/MM/DD"/>
-                            </LinearLayout>
+                                android:layout_height="wrap_content"
+                                android:focusable="false"
+                                android:drawableRight="@drawable/ic_calendar"
+                                android:enabled="false"
+                                android:hint="AAAA/MM/DD">
+
+                            </EditText>
                         </LinearLayout>
-
+                        <LinearLayout
+                            android:id="@+id/lyFechaFinal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:weightSum="1"
+                            android:layout_weight="0.5">
+                            <TextView
+                                android:id="@+id/lblFechaFinal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Selecciona la Fecha Final" />
+                            <EditText
+                                android:id="@+id/txtFechaFinal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:focusable="false"
+                                android:enabled="false"
+                                android:drawableRight="@drawable/ic_calendar"
+                                android:hint="AAAA/MM/DD"/>
+                        </LinearLayout>
                     </LinearLayout>
 
                 </LinearLayout>
+
+            </LinearLayout>
 
             <!-- =============== BOTÓN  =====================-->
             <LinearLayout
@@ -205,7 +229,7 @@
                 <ListView
                     android:id="@+id/lvIPHBuscados"
                     android:layout_width="match_parent"
-                    android:layout_height="1000dp" />
+                    android:layout_height="130dp" />
             </LinearLayout>
 
 

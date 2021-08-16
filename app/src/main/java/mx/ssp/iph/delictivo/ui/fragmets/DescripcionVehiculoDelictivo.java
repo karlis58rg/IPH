@@ -219,7 +219,7 @@ public class DescripcionVehiculoDelictivo extends Fragment {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (checkedId == R.id.rbTerrestreDelictivo) {
                     varTipoVehiculo = "TERRESTRE";
-                } else if (checkedId == R.id.rbExtranjeroDelictivo) {
+                } else if (checkedId == R.id.rbAcuaticoDelictivo) {
                     varTipoVehiculo = "ACUATICO";
                 }else if (checkedId == R.id.rbAereoDelictivo) {
                     varTipoVehiculo = "AEREO";
@@ -325,6 +325,20 @@ public class DescripcionVehiculoDelictivo extends Fragment {
                         rbAereoDelictivo.setChecked(true);
                     }
 
+
+                    ///////Uso
+                    if ((jsonjObject.getString("Uso")).equals("PARTICULAR"))
+                    {
+                        rbParticularDelictivo.setChecked(true);
+                    }else if((jsonjObject.getString("Uso")).equals("TRANSPORTE PUBLICO"))
+                    {
+                        rbTransportePublicoDelictivo.setChecked(true);
+                    }
+                    else if((jsonjObject.getString("Uso")).equals("CARGA"))
+                    {
+                        rbCargaDelictivo.setChecked(true);
+                    }
+
                     ///////rgProcedenciaVehiculoDelictivo
                     if ((jsonjObject.getString("Procedencia")).equals("NACIONAL"))
                     {
@@ -428,8 +442,6 @@ public class DescripcionVehiculoDelictivo extends Fragment {
                     Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
                     updateDescripcionVehiculos();
                 }
-
-
             }
         });
 
@@ -685,7 +697,7 @@ public class DescripcionVehiculoDelictivo extends Fragment {
                 .add("IdPoliciaPrimerRespondiente", modeloInspeccionVehiculoDelictivo.getIdPoliciaPrimerRespondiente())
                 .build();
         Request request = new Request.Builder()
-                .url("http://189.254.7.167/WebServiceIPH/api/HDInspeccionVehiculo/")
+                .url("http://189.254.7.167/WebServiceIPH/api/HDInspeccionVehiculo")
                 .put(body)
                 .build();
         client.newCall(request).enqueue(new Callback() {
@@ -693,7 +705,7 @@ public class DescripcionVehiculoDelictivo extends Fragment {
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
                 Looper.prepare(); // to be able to make toast
-                Toast.makeText(getContext(), "ERROR AL ACTUALIZAR SU REGISTRO, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_LONG).show();
                 Looper.loop();
             }
             @Override
@@ -705,12 +717,12 @@ public class DescripcionVehiculoDelictivo extends Fragment {
                         public void run() {
                             String resp = myResponse;
                             if(resp.equals("true")){
-                                System.out.println("EL DATO SE ACTUALIZÓ CORRECTAMENTE");
-                                Toast.makeText(getContext(), "EL DATO SE ACTUALIZÓ CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+                                System.out.println("EL DATO SE ENVIO CORRECTAMENTE");
+                                Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
                                 LimpiarCampos();
                                 addFragment(new DescripcionVehiculoDelictivo());
                             }else{
-                                Toast.makeText(getContext(), "ERROR AL ACTUALIZAR SU REGISTRO, VERIFIQUE SU INFORMACIÓN", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, VERIFIQUE SU INFORMACIÓN", Toast.LENGTH_SHORT).show();
                             }
                             Log.i("HERE", resp);
                         }
@@ -803,10 +815,10 @@ public class DescripcionVehiculoDelictivo extends Fragment {
                                 }
 
                                 //AGREGA LOS DATOS AL LISTVIEW MEDIANTE EL ADAPTADOR
-                                Log.i("VEHICULOS", "ANTES DE ADAPTER:");
                                 DescripcionVehiculoDelictivo.MyAdapter adapter = new DescripcionVehiculoDelictivo.MyAdapter(getContext(), ListaDatosVehiculoDelictivo,ListaDatosVehiculoDelictivo);
                                 lvVehiculosDelictivo.setAdapter(adapter);
-                                Log.i("VEHICULOS", "DESPUÉS DE ADAPTER:");
+                                funciones.ajustaAlturaListView(lvVehiculosDelictivo,250);
+
 
                                 //*************************
                             }

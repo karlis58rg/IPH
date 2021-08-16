@@ -7,6 +7,9 @@ import android.Manifest;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -16,6 +19,7 @@ import androidx.fragment.app.Fragment;
 
 import android.os.Looper;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,10 +35,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
@@ -83,6 +89,7 @@ public class LugarDeIntervencion_Delictivo extends Fragment {
     RadioButton rbSiInspeccionLugarIntervencion,rbNoInspeccionLugarIntervencion,rbNoObjetosRelacionadosLugarIntervencion,rbSiObjetosRelacionadosLugarIntervencion,rbNoPreservoLugarIntervencion;
     RadioButton rbNoPriorizacionLugarIntervencion,rbSiPriorizacionLugarIntervencion,rbRiesgoSocialesLugarIntervencion,rbRiesgoNaturalesLugarIntervencion,rbSiPreservoLugarIntervencion;
     String firmaURLServer = "http://189.254.7.167/WebServiceIPH/Firma/SINFIRMA.jpg";
+    private Target target;
 
 
     ViewGroup segundoLinear, principalLinear, lyEspecifiqueDelictivoLI, quinceavoLinear, quinceavoLinearDos, quinceavoLinearTres, quinceavoLinearCuatro, quinceavoLinearCinco, lyTipoRiesgoLI;
@@ -154,6 +161,30 @@ public class LugarDeIntervencion_Delictivo extends Fragment {
             cargarLugardelaInternvecion();
         }
 
+        //***************** Tarjet para cachar la imagen de picaso  **************************//
+        target = new Target() {
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.PNG, 70, baos);
+                byte[] imgBytes = baos.toByteArray();
+
+                String imgString = android.util.Base64.encodeToString(imgBytes, android.util.Base64.NO_WRAP);
+                lblCroquisDelictivoOculto.setText(imgString);
+
+                byte[] decodedString = Base64.decode(imgString, Base64.DEFAULT);
+                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                imgMapDelictivoMiniatura.setImageBitmap(decodedByte);
+            }
+            @Override
+            public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+            }
+        };
 
         //***************** BOTÓN ABRIR FRAGMENT MAPS  **************************//
         imgMapDelictivo.setOnClickListener(new View.OnClickListener() {
@@ -318,7 +349,7 @@ public class LugarDeIntervencion_Delictivo extends Fragment {
         }else if(idMunicipio.length() == 2){
             idMunicipio = "0"+idMunicipio;
         }
-        rutaCroquis = "http://189.254.7.167/WebServiceIPH/RutaCroquis/"+cargarIdHechoDelictivo+randomUrlImagen+".jpg";
+        rutaCroquis = "http://189.254.7.167/WebServiceIPH/MultimediaCroquis/"+cargarIdHechoDelictivo+randomUrlImagen+".jpg";
 
         ModeloLugarIntervencion_Delictivo modeloIntervencion = new ModeloLugarIntervencion_Delictivo
                 (cargarIdHechoDelictivo,"12",
@@ -616,7 +647,7 @@ public class LugarDeIntervencion_Delictivo extends Fragment {
     public void getFirmaFromURL(){
         Picasso.get()
                 .load(firmaURLServer)
-                .into(imgMapDelictivoMiniatura);
+                .into(target);
     }
 
 }

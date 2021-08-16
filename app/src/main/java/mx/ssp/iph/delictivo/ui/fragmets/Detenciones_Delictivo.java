@@ -7,6 +7,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,6 +19,7 @@ import androidx.fragment.app.Fragment;
 import android.os.Looper;
 import android.speech.RecognizerIntent;
 import android.text.InputFilter;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,10 +40,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -82,10 +88,17 @@ public class Detenciones_Delictivo extends Fragment {
     TextView lblFirmadelDetenidoDelictivo,lblFirmadelDetenidoDelictivoOculto;
     ImageView imgFirmadelDetenidoDelictivoMiniatura;
     RadioButton rbLugarTrasladoDetencionFiscaliaAgencia,rbLugarTrasladoDetencionHospital,rbLugarTrasladoDetencionOtraDependencia;
+    private Target target;
+
+    ImageView btnAgregarPertenencia;
+    EditText txtPertenenciaDetenido,txtDescripcionPertenenciaDetenido,txtDestinoPertenenciaDetenido;
+    ListView lvPertenenciasDetenido;
+
 
 
     ImageView imgFirmaDerechosDelictivo,img_microfonoDescripcionDetenido;
     TextView lblFirmaOcultaDetenidoBase64Detenciones, lblCualLugarTraslado;
+    ImageView img_microfonoObservacionesDetencion;
 
     EditText txtFechaDetenidoDelictivo,txthoraDetencionDelictivo,txtFechaNacimientoDetenidoDelictivo, txtPrimerApellidoDetenidoDelictivo, txtSegundoApellidoDetenidoDelictivo,
             txtNombresDetenidoDelictivo, txtApodoDetenidoDelictivo, txtEdadDetenidoDelictivo,
@@ -138,6 +151,7 @@ public class Detenciones_Delictivo extends Fragment {
         lblFirmaOcultaDetenidoBase64Detenciones = view.findViewById(R.id.lblFirmaOcultaDetenidoBase64Detenciones);
         imgFirmaDerechosDelictivo = view.findViewById(R.id.imgFirmaDerechosDelictivo);
         img_microfonoDescripcionDetenido = view.findViewById(R.id.img_microfonoDescripcionDetenido);
+        img_microfonoObservacionesDetencion = view.findViewById(R.id.img_microfonoObservacionesDetencion);
 
         txtFechaDetenidoDelictivo = view.findViewById(R.id.txtFechaDetenidoDelictivo);
         txthoraDetencionDelictivo = view.findViewById(R.id.txthoraDetencionDelictivo);
@@ -266,6 +280,13 @@ public class Detenciones_Delictivo extends Fragment {
         spMunicipioDireccionDetencion = view.findViewById(R.id.spMunicipioDireccionDetencion);
         ListCombos();
 
+        //Pertenencias
+        btnAgregarPertenencia = view.findViewById(R.id.btnAgregarPertenencia);
+        txtPertenenciaDetenido = view.findViewById(R.id.txtPertenenciaDetenido);
+        txtDescripcionPertenenciaDetenido = view.findViewById(R.id.txtDescripcionPertenenciaDetenido);
+        txtDestinoPertenenciaDetenido = view.findViewById(R.id.txtDestinoPertenenciaDetenido);
+        lvPertenenciasDetenido = view.findViewById(R.id.lvPertenenciasDetenido);
+
         lvDetenidos = view.findViewById(R.id.lvDetenidos);
         veinticinco = view.findViewById(R.id.veinticinco);
         veinticincoUpdate = view.findViewById(R.id.veinticincoUpdate);
@@ -282,6 +303,31 @@ public class Detenciones_Delictivo extends Fragment {
         rbLugarTrasladoDetencionOtraDependencia = view.findViewById(R.id.rbLugarTrasladoDetencionOtraDependencia);
 
         funciones.CambiarTituloSeccionesDelictivo("ANEXO A. DETENCIÓN(ES)",getContext(),getActivity());
+
+
+        target = new Target() {
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.PNG, 70, baos);
+                byte[] imgBytes = baos.toByteArray();
+
+                String imgString = android.util.Base64.encodeToString(imgBytes, android.util.Base64.NO_WRAP);
+                lblFirmadelDetenidoDelictivoOculto.setText(imgString);
+
+                byte[] decodedString = Base64.decode(imgString, Base64.DEFAULT);
+                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                imgFirmadelDetenidoDelictivoMiniatura.setImageBitmap(decodedByte);
+            }
+            @Override
+            public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+            }
+        };
 
         //Consulta si hay conexión a internet y realiza la peticion al ws de consulta de los datos.
         if (funciones.ping(getContext()))
@@ -327,6 +373,17 @@ public class Detenciones_Delictivo extends Fragment {
         img_microfonoDescripcionDetenido.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                img_microfonoDescripcionDetenido.setImageResource(R.drawable.ic_micro_press);
+                img_microfonoDescripcionDetenido.setTag(R.drawable.ic_micro_press);
+                iniciarEntradadeVoz();
+            }
+        });
+
+        img_microfonoObservacionesDetencion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                img_microfonoObservacionesDetencion.setImageResource(R.drawable.ic_micro_press);
+                img_microfonoObservacionesDetencion.setTag(R.drawable.ic_micro_press);
                 iniciarEntradadeVoz();
             }
         });
@@ -592,6 +649,21 @@ public class Detenciones_Delictivo extends Fragment {
             @Override
             public void onClick(View view) {
                 PrimeraValidacion();
+            }
+        });
+
+        btnAgregarPertenencia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (txtPertenenciaDetenido.getText().toString().equals("") || txtDescripcionPertenenciaDetenido.getText().toString().equals("") || txtDestinoPertenenciaDetenido.getText().toString().equals(""))
+                {
+                    Toast.makeText(getActivity().getApplicationContext(), "COMPLETA TODOS LOS CAMPOS", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    insertPertenenciasDetenido();
+                }
             }
         });
 
@@ -1471,6 +1543,49 @@ public class Detenciones_Delictivo extends Fragment {
         });
     }
 
+
+    //********************************** INSERTAR PERTENENCIAS AL SERVIDOR ***********************************//
+    public void insertPertenenciasDetenido() {
+        String cadena = lblFirmaOcultaDetenidoBase64Detenciones.getText().toString();
+        OkHttpClient client = new OkHttpClient();
+        RequestBody body = new FormBody.Builder()
+                .add("IdHechoDelictivo", cargarIdHechoDelictivo)
+                .add("Pertenencia", txtPertenenciaDetenido.getText().toString())
+                .add("DesPertenencia", txtDescripcionPertenenciaDetenido.getText().toString())
+                .add("Destino", txtDestinoPertenenciaDetenido.getText().toString())
+                .build();
+        Request request = new Request.Builder()
+                .url("http://189.254.7.167/WebServiceIPH/api/HDTempoPertenenciasDetenido")
+                .post(body)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Looper.prepare(); // to be able to make toast
+                Toast.makeText(getContext(), "ERROR AL AGREGAR PERTENENCIA, FAVOR DE VERIFICAR SU CONEXCIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    final String myResponse = response.body().toString();  /********** ME REGRESA LA RESPUESTA DEL WS ****************/
+                    Detenciones_Delictivo.this.getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getContext(), "PERTENENCIA AGREGADA CORRECTAMENTE", Toast.LENGTH_LONG).show();
+                            System.out.println("PERTENENCIA AGREGADA CORRECTAMENTE");
+                            txtPertenenciaDetenido.setText("");
+                            txtDescripcionPertenenciaDetenido.setText("");
+                            txtDescripcionPertenenciaDetenido.setText("");
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+
     //********************************** INSERTA IMAGEN AL SERVIDOR ***********************************//
     public void insertImagen() {
         String cadena = lblFirmaOcultaDetenidoBase64Detenciones.getText().toString();
@@ -1534,18 +1649,33 @@ public class Detenciones_Delictivo extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        switch (requestCode){
-            case REQ_CODE_SPEECH_INPUT:{
-                if (resultCode== RESULT_OK && null != data)
-                {
+        switch (requestCode) {
+            case REQ_CODE_SPEECH_INPUT: {
+                if (resultCode == RESULT_OK && null != data) {
                     ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    String textoActual = txtDescripciondelDetenidoDelictivo.getText().toString();
-                    txtDescripciondelDetenidoDelictivo.setText(textoActual+" " + result.get(0));
+                    Integer resource = (Integer) img_microfonoDescripcionDetenido.getTag();
+
+                    if (resource == R.drawable.ic_micro_press) {
+                        String textoActual = txtDescripciondelDetenidoDelictivo.getText().toString();
+                        txtDescripciondelDetenidoDelictivo.setText(textoActual + " " + result.get(0));
+                    } else {
+                        String textoActual = txtObservacionesDetencion.getText().toString();
+                        txtObservacionesDetencion.setText(textoActual + " " + result.get(0));
+                    }
+
                 }
                 break;
             }
         }
+
+        img_microfonoDescripcionDetenido.setImageResource(R.drawable.ic_micro);
+        img_microfonoDescripcionDetenido.setTag(R.drawable.ic_micro);
+
+        img_microfonoObservacionesDetencion.setImageResource(R.drawable.ic_micro);
+        img_microfonoObservacionesDetencion.setTag(R.drawable.ic_micro);
     }
+
+
 
     private void ListCombos() {
         DataHelper dataHelper = new DataHelper(getContext());
@@ -1715,7 +1845,7 @@ public class Detenciones_Delictivo extends Fragment {
     public void getFirmaFromURL(){
         Picasso.get()
                 .load(firmaURLServer)
-                .into(imgFirmadelDetenidoDelictivoMiniatura);
+                .into(target);
     }
 
     //***************** CONSULTA A LA BD MEDIANTE EL WS **************************//
@@ -1723,7 +1853,7 @@ public class Detenciones_Delictivo extends Fragment {
 
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url("http://189.254.7.167/WebServiceIPH/api/HDDetenciones?folioInterno="+cargarIdHechoDelictivo+"&idInspeccionVehiculo="+IdDetenido)
+                .url("http://189.254.7.167/WebServiceIPH/api/HDDetenciones?folioInterno="+cargarIdHechoDelictivo+"&idDetencion="+IdDetenido)
                 .delete()
                 .build();
         client.newCall(request).enqueue(new Callback() {
@@ -1753,7 +1883,7 @@ public class Detenciones_Delictivo extends Fragment {
                                     //***************** MENSAJE MÁS ACTUALIZAR LISTA (Recargando el Fragmento xoxo) **************************//
                                     Toast.makeText(getContext(), "SE ELIMINÓ CORRECTAMENTE", Toast.LENGTH_SHORT).show();
                                     limpiarCampos();
-                                    addFragment(new DescripcionVehiculoDelictivo());
+                                    addFragment(new Detenciones_Delictivo());
                                 }
                                 else{
                                     Toast.makeText(getContext(), "PROBLEMA AL ELIMINAR", Toast.LENGTH_SHORT).show();
@@ -1779,4 +1909,6 @@ public class Detenciones_Delictivo extends Fragment {
                 //.addToBackStack(null) //Se quita la pila de fragments. Botón atrás
                 .commit();
     }
+
+
 }

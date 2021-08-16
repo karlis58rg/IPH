@@ -68,6 +68,7 @@ public class PrincipalBuscar extends Fragment {
     String FechaInicial,FechaFinal,FolioInterno;
     ProgressDialog progressDialog;
 
+
     public static PrincipalBuscar newInstance() {
         return new PrincipalBuscar();
     }
@@ -94,15 +95,24 @@ public class PrincipalBuscar extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                if (ListaTipoIPH.get(position).equals("Administrativo"))
+                if (ListaIdIPH.get(position).equals("SIN INFORMACION"))
                 {
-                    Log.i("buscar", "Seleccionó IPH Administrativo");
-                    guardarIPHAdministrativo(ListaIdIPH.get(position),ListaNumReferenciaDelictivo.get(position));
-                }else {
-                    Log.i("buscar", "Seleccionó IPH Delictivo");
-                    guardarIPHDelictivo(ListaIdIPH.get(position),ListaNumReferenciaDelictivo.get(position));
-
+                    Toast.makeText(getContext(), "EL REGISTRO NO CONTIENE INFORMACIÓN", Toast.LENGTH_SHORT).show();
                 }
+                else
+                {
+                    if (ListaTipoIPH.get(position).equals("Administrativo"))
+                    {
+                        Log.i("buscar", "Seleccionó IPH Administrativo");
+                        guardarIPHAdministrativo(ListaIdIPH.get(position),ListaNumReferenciaDelictivo.get(position));
+                    }else {
+                        Log.i("buscar", "Seleccionó IPH Delictivo");
+                        guardarIPHDelictivo(ListaIdIPH.get(position),ListaNumReferenciaDelictivo.get(position));
+
+                    }
+                }
+
+
 
                 //Recupera el no. folio interno y lo guarda como preferencia y cambia de Actividad
                 //guardarFolioInterno(ListaIdFaltaAdmin.get(position),ListaNumReferencia.get(position));
@@ -272,6 +282,8 @@ public class PrincipalBuscar extends Fragment {
                                 //AGREGA LOS DATOS AL LISTVIEW MEDIANTE EL ADAPTADOR
                                 PrincipalBuscar.MyAdapter adapter = new PrincipalBuscar.MyAdapter(getContext(), ListaIdIPH, ListaNumReferenciaDelictivo,ListaTipoIPH,ListaUsuarioIPH);
                                 lvIPHBuscados.setAdapter(adapter);
+                                funciones.ajustaAlturaListView(lvIPHBuscados,250);
+
                                 progressDialog.dismiss();
 
                                 //*************************
@@ -321,6 +333,7 @@ public class PrincipalBuscar extends Fragment {
             lblPrincipalNoRegrenciaAdministrativo.setText(ListaNumReferenciaDelictivo.get(position));
             lblTipoIPH.setText(ListaTipoIPH.get(position));
             lblUsuario.setText(ListaUsuarioIPH.get(position));
+
 
             return row;
         }
