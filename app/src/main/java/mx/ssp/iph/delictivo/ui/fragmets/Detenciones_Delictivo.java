@@ -87,6 +87,8 @@ public class Detenciones_Delictivo extends Fragment {
     ArrayList<String> ListaJsonPertenencias;
     ArrayList<String> ListPertenencia,ListDescripcionPertenencia,ListDestino,ListaTablaPertenencias,ListaIdPertenencias;
 
+    //Bandera para determinar si el listview cuenta con datos o es vacío. Se llena en el adapter
+    int bndlvPertenenciasDetenido= 0;
 
     int IdDetenidoSeleccionado = -1;
     String[] ArrayListaIPHAdministrativo,ArrayPertenenciasReal;
@@ -103,8 +105,6 @@ public class Detenciones_Delictivo extends Fragment {
     ImageView btnAgregarPertenencia;
     EditText txtPertenenciaDetenido,txtDescripcionPertenenciaDetenido,txtDestinoPertenenciaDetenido;
     ListView lvPertenenciasDetenido;
-
-
 
     ImageView imgFirmaDerechosDelictivo,img_microfonoDescripcionDetenido;
     ImageView img_microfonoObservacionesDetencion;
@@ -135,6 +135,7 @@ public class Detenciones_Delictivo extends Fragment {
             varLesiones,varPadecimientos,varGrupoVulnerable,varGrupoDelictivo,varProporcionoFamiliar,
             varInformoDerechos,rutaFirma,varLugarTraslado,descPadecimiento,descGrupoVulnerable,descGrupoDelictivo,
             varIdentificacionDocumento,varLugarDetencionDelictivo,varPertenenciasDetenidoDelictivo="NO";
+
 
     ViewGroup segundoLinear, cuartoLinear, quintoUnoLinear,
             quintoTresLinear, catorceavoLinear, quinceavoLinear,
@@ -315,8 +316,38 @@ public class Detenciones_Delictivo extends Fragment {
         rbLugarTrasladoDetencionHospital = view.findViewById(R.id.rbLugarTrasladoDetencionHospital);
         rbLugarTrasladoDetencionOtraDependencia = view.findViewById(R.id.rbLugarTrasladoDetencionOtraDependencia);
 
-        funciones.CambiarTituloSeccionesDelictivo("ANEXO A. DETENCIÓN(ES)",getContext(),getActivity());
+        //Pendiente Pertencencias Anexo  y pertenecncias personals
 
+        segundoLinear = view.findViewById(R.id.segundoLinear);
+        cuartoLinear = view.findViewById(R.id.cuartoLinear);
+        quintoUnoLinear = view.findViewById(R.id.quintoUnoLinear);
+        quintoTresLinear = view.findViewById(R.id.quintoTresLinear);
+        catorceavoLinear = view.findViewById(R.id.catorceavoLinear);
+        quinceavoLinear = view.findViewById(R.id.quinceavoLinear);
+        dieciseisLinear = view.findViewById(R.id.dieciseisLinear);
+        diecisietelinear = view.findViewById(R.id.diecisietelinear);
+        diecisietelinear2 = view.findViewById(R.id.diecisietelinear2);
+        lyLecturaDerechos = view.findViewById(R.id.lyLecturaDerechos);
+        septimounoLinear = view.findViewById(R.id.septimounoLinear);
+        septimodosLinear = view.findViewById(R.id.septimodosLinear);
+        septimotresLinear = view.findViewById(R.id.septimotresLinear);
+        treintaicuatroLinear = view.findViewById(R.id.treintaicuatroLinear);
+        treintaicincoLinear = view.findViewById(R.id.treintaicincoLinear);
+        lyLesiones = view.findViewById(R.id.lyLesiones);
+        treintaidosLinear = view.findViewById(R.id.treintaidosLinear);
+        treintaLinear = view.findViewById(R.id.treintaLinear);
+        lyColoniaDetencionDelictivo = view.findViewById(R.id.lyColoniaDetencionDelictivo);
+        veintinueveLinear = view.findViewById(R.id.veintinueveLinear);
+        septimoLinear = view.findViewById(R.id.septimoLinear);
+        lyGrupoDelictivoDelictivo = view.findViewById(R.id.lyGrupoDelictivoDelictivo);
+        lyPrimerApFamDet = view.findViewById(R.id.lyPrimerApFamDet);
+        lyNomFamDet = view.findViewById(R.id.lyNomFamDet);
+        lyTelFamDet = view.findViewById(R.id.lyTelFamDet);
+        lyCalleTramoDet = view.findViewById(R.id.lyCalleTramoDet);
+        lyReferenciaLugarDet = view.findViewById(R.id.lyReferenciaLugarDet);
+        treintaicuatrounoLinear = view.findViewById(R.id.treintaicuatrounoLinear);
+
+        funciones.CambiarTituloSeccionesDelictivo("ANEXO A. DETENCIÓN(ES)",getContext(),getActivity());
 
         target = new Target() {
             @Override
@@ -598,25 +629,14 @@ public class Detenciones_Delictivo extends Fragment {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (checkedId == R.id.rbLugarTrasladoDetencionFiscaliaAgencia) {
                     varLugarTraslado = "FISCALIA/AGENCIA";
-                    txtCualLugarTraslado.setVisibility(view.INVISIBLE);
-                    txtCualLugarTraslado.setEnabled(false);
-                    txtCualLugarTraslado.setText("");
                 } else if (checkedId == R.id.rbLugarTrasladoDetencionHospital) {
                     varLugarTraslado = "HOSPITAL";
-                    txtCualLugarTraslado.setVisibility(view.INVISIBLE);
-                    txtCualLugarTraslado.setEnabled(false);
-                    txtCualLugarTraslado.setText("");
                 }else if (checkedId == R.id.rbLugarTrasladoDetencionOtraDependencia) {
                     varLugarTraslado = "OTRA DEPENDENCIA";
-                    txtCualLugarTraslado.setVisibility(view.VISIBLE);
-                    txtCualLugarTraslado.setEnabled(true);
-                    txtCualLugarTraslado.setText("");
                 }
 
             }
         });
-
-
 
 
         //******* HABILITAR DESHABILITAR CAMPO DE TEXTO APODO *******//
@@ -633,7 +653,6 @@ public class Detenciones_Delictivo extends Fragment {
                     //varNoAlias = "";
                     txtApodoDetenidoDelictivo.setText("");
                 }
-
             }
         });
 
@@ -673,7 +692,9 @@ public class Detenciones_Delictivo extends Fragment {
         btnGuardarPuestaDetencionesDelectivo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PrimeraValidacion();
+                if (validacionesLogicaApp()){
+                    PrimeraValidacion();
+                }
             }
         });
 
@@ -853,37 +874,6 @@ public class Detenciones_Delictivo extends Fragment {
                     //lblFirmaOcultaDetenidoBase64Detenciones.setText(firmaURLServer);
                     getFirmaFromURL();
 
-                    //Pendiente Pertencencias Anexo  y pertenecncias personals
-
-        segundoLinear = view.findViewById(R.id.segundoLinear);
-        cuartoLinear = view.findViewById(R.id.cuartoLinear);
-        quintoUnoLinear = view.findViewById(R.id.quintoUnoLinear);
-        quintoTresLinear = view.findViewById(R.id.quintoTresLinear);
-        catorceavoLinear = view.findViewById(R.id.catorceavoLinear);
-        quinceavoLinear = view.findViewById(R.id.quinceavoLinear);
-        dieciseisLinear = view.findViewById(R.id.dieciseisLinear);
-        diecisietelinear = view.findViewById(R.id.diecisietelinear);
-        diecisietelinear2 = view.findViewById(R.id.diecisietelinear2);
-        lyLecturaDerechos = view.findViewById(R.id.lyLecturaDerechos);
-        septimounoLinear = view.findViewById(R.id.septimounoLinear);
-        septimodosLinear = view.findViewById(R.id.septimodosLinear);
-        septimotresLinear = view.findViewById(R.id.septimotresLinear);
-        treintaicuatroLinear = view.findViewById(R.id.treintaicuatroLinear);
-        treintaicincoLinear = view.findViewById(R.id.treintaicincoLinear);
-        lyLesiones = view.findViewById(R.id.lyLesiones);
-        treintaidosLinear = view.findViewById(R.id.treintaidosLinear);
-        treintaLinear = view.findViewById(R.id.treintaLinear);
-        lyColoniaDetencionDelictivo = view.findViewById(R.id.lyColoniaDetencionDelictivo);
-        veintinueveLinear = view.findViewById(R.id.veintinueveLinear);
-        septimoLinear = view.findViewById(R.id.septimoLinear);
-        lyGrupoDelictivoDelictivo = view.findViewById(R.id.lyGrupoDelictivoDelictivo);
-        lyPrimerApFamDet = view.findViewById(R.id.lyPrimerApFamDet);
-        lyNomFamDet = view.findViewById(R.id.lyNomFamDet);
-        lyTelFamDet = view.findViewById(R.id.lyTelFamDet);
-        lyCalleTramoDet = view.findViewById(R.id.lyCalleTramoDet);
-        lyReferenciaLugarDet = view.findViewById(R.id.lyReferenciaLugarDet);
-        treintaicuatrounoLinear = view.findViewById(R.id.treintaicuatrounoLinear);
-
 
                     //=============RecolectoPertenencias
                     if ((jsonjObject.getString("RecolectoPertenencias")).equals("SI"))
@@ -977,8 +967,11 @@ public class Detenciones_Delictivo extends Fragment {
         btnEditarDetenidoDelictivo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
-                UpdateDetencionesDelictivo();
+
+                if (validacionesLogicaApp()){
+                    Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
+                    UpdateDetencionesDelictivo();
+                }
             }
         });
 
@@ -1929,6 +1922,7 @@ public class Detenciones_Delictivo extends Fragment {
                                 //*************************
                                 Detenciones_Delictivo.MyAdapterPertenencias adapter = new Detenciones_Delictivo.MyAdapterPertenencias(getContext(), ListaIdPertenencias, ListPertenencia);
                                 lvPertenenciasDetenido.setAdapter(adapter);
+                                bndlvPertenenciasDetenido = lvPertenenciasDetenido.getAdapter().getCount();
                                 funciones.ajustaAlturaListView(lvPertenenciasDetenido,80);
 
                             }
@@ -2011,6 +2005,7 @@ public class Detenciones_Delictivo extends Fragment {
                                 //*************************
                                 Detenciones_Delictivo.MyAdapterPertenencias adapter = new Detenciones_Delictivo.MyAdapterPertenencias(getContext(), ListaIdPertenencias, ListPertenencia);
                                 lvPertenenciasDetenido.setAdapter(adapter);
+                                bndlvPertenenciasDetenido = lvPertenenciasDetenido.getAdapter().getCount();
                                 funciones.ajustaAlturaListView(lvPertenenciasDetenido,80);
 
                             }
@@ -2524,6 +2519,24 @@ public class Detenciones_Delictivo extends Fragment {
                 }
             }
         });
+    }
+
+    public Boolean validacionesLogicaApp(){
+        // Si el radio se encuentra en false. No ha leído los derechos.
+        if (rbSiInformeDerechoDetencionesDelictivo.isChecked() == false)
+        {
+            funciones.mensajeAlertDialog("Recuerda informarle sus derechos a la persona detenida. Si ya lo hiciste marca la opción 'SI' para continuar.","ENTENDIDO","Alerta",getContext());
+            return false;
+        }
+
+        //Marcó que ingresa pertenencias en si y el grid se encuentra vacío
+        if (rbSiPertenenciasDetenidoDelictivo.isChecked() == true && bndlvPertenenciasDetenido <= 0 )
+        {
+            funciones.mensajeAlertDialog("Agrega las pertenencias encontradas o marca la opción 'No se recolecataron pertenencias'","ENTENDIDO","Alerta",getContext());
+            return false;
+        }
+
+        return true;
     }
 
 }
