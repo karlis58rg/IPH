@@ -119,8 +119,8 @@ public class Detenciones_Delictivo extends Fragment {
             txtNumeroExteriorDetencion, txtNumeroInteriorDetencion, txtCodigoPostalDetencion, txtReferenciasdelLugarDetencion, txtObservacionesDetencion;
 
     CheckBox chNoAplicaAliasDetenidoDelictivo, chNoProporcionadoDelictivo;
-    RadioGroup rgDocumentoDelictivo, rgLesionesDelictivo, rgPadecimientoDelictivo, rgGrupoVulnerableDelictivo, rgGrupoDelictivo, rgInformeDerechoDetencionesDelictivo,
-            rgObjetoInspeccionDetenidoDelictivo, rgPertenenciasDetenidoDelictivo, rgLugarDetencionDelictivo,rgLugarTrasladoDelictivo;
+    RadioGroup rgObjetoInspeccionDetenidoDelictivo,rgDocumentoDelictivo, rgLesionesDelictivo, rgPadecimientoDelictivo, rgGrupoVulnerableDelictivo, rgGrupoDelictivo, rgInformeDerechoDetencionesDelictivo,
+             rgPertenenciasDetenidoDelictivo, rgLugarDetencionDelictivo,rgLugarTrasladoDelictivo;
 
     RadioButton rbNoDocumentoDelictivo, rbSiDocumentoDelictivo, rbNoLesionesDelictivo, rbSiLesionesDelictivo, rbPadecimientoDelictivo, rbSiPadecimientoDelictivo,
             rbNoGrupoVulnerableDelictivo, rbSiGrupoVulnerableDelictivo, rbNoGrupoDelictivo, rbSiGrupoDelictivo, rbNoInformeDerechoDetencionesDelictivo, rbSiInformeDerechoDetencionesDelictivo,
@@ -255,12 +255,12 @@ public class Detenciones_Delictivo extends Fragment {
         txtCualLugarTraslado = view.findViewById(R.id.txtCualLugarTraslado);
 
         rgDocumentoDelictivo = view.findViewById(R.id.rgDocumentoDelictivo);
+        rgObjetoInspeccionDetenidoDelictivo= view.findViewById(R.id.rgObjetoInspeccionDetenidoDelictivo);
         rgLesionesDelictivo = view.findViewById(R.id.rgLesionesDelictivo);
         rgPadecimientoDelictivo = view.findViewById(R.id.rgPadecimientoDelictivo);
         rgGrupoVulnerableDelictivo = view.findViewById(R.id.rgGrupoVulnerableDelictivo);
         rgGrupoDelictivo = view.findViewById(R.id.rgGrupoDelictivo);
         rgInformeDerechoDetencionesDelictivo = view.findViewById(R.id.rgInformeDerechoDetencionesDelictivo);
-        rgObjetoInspeccionDetenidoDelictivo = view.findViewById(R.id.rgObjetoInspeccionDetenidoDelictivo);
         rgPertenenciasDetenidoDelictivo = view.findViewById(R.id.rgPertenenciasDetenidoDelictivo);
         rgLugarDetencionDelictivo = view.findViewById(R.id.rgLugarDetencionDelictivo);
         rbNoDocumentoDelictivo = view.findViewById(R.id.rbNoDocumentoDelictivo);

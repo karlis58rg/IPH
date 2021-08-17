@@ -176,7 +176,7 @@
                         android:layout_height="wrap_content"
                         android:maxLength="50"
                         android:inputType="textCapCharacters"
-                        android:digits="@string/validacion_nombre"
+                        android:digits="@string/validacion_numexpediente"
                         android:singleLine="true"
                         android:maxLines="1"
                         android:lines="1"
@@ -200,7 +200,7 @@
                         android:layout_height="wrap_content"
                         android:maxLength="50"
                         android:inputType="textCapCharacters"
-                        android:digits="@string/validacion_nombre"
+                        android:digits="@string/validacion_numexpediente"
                         android:singleLine="true"
                         android:maxLines="1"
                         android:lines="1"
@@ -1578,6 +1578,7 @@ adolescentes."/>
             </LinearLayout>
 
                 <!--======== OBJETO RELACIONADO CON LOS HECHOS ============ -->
+
             <LinearLayout
                 android:id="@+id/septimounoLinear"
                 android:layout_width="match_parent"
@@ -1743,7 +1744,7 @@ adolescentes."/>
                         android:layout_height="wrap_content"
                         android:maxLength="50"
                         android:inputType="textCapCharacters"
-                        android:digits="@string/validacion_nombre"
+                        android:digits="@string/validacion_numexpediente"
                         android:singleLine="true"
                         android:maxLines="1"
                         android:lines="1"

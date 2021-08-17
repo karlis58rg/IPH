@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -48,7 +49,8 @@ public class PrimerRespondiente extends Fragment {
     private PrimerRespondienteViewModel mViewModel;
     Button btnGuardarPrimerRespondiente;
     Spinner spUnidadDeArriboDelictivo,spArriboElementosLugarIntervencion;
-    CheckBox chNoAplicaUnidadDeArriboDelictivo,chSiArriboElementosLugarIntervencion,chNoArriboElementosLugarIntervencion;
+    CheckBox chNoAplicaUnidadDeArriboDelictivo;
+    RadioButton chSiArriboElementosLugarIntervencion,chNoArriboElementosLugarIntervencion;
     String descUnidad,varIdUnidad,varArriboOtroElemento,varNoElementos,cargarIdHechoDelictivo,cargarIdPoliciaPrimerRespondiente;
     SharedPreferences share;
     private Funciones funciones;
