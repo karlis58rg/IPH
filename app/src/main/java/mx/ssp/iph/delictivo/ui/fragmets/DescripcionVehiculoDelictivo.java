@@ -76,6 +76,9 @@ public class DescripcionVehiculoDelictivo extends Fragment {
     String cargarIdPoliciaPrimerRespondiente,cargarIdHechoDelictivo;
     String[] ArrayListaIPHDelictivo;
     int PosicionIPHSeleccionado= -1;
+    ViewGroup quintoLinear, lyTipoVehiDelic, sextoLineardos, lyProceVehiDelic,
+            lyUsoVehiDelic, lyDestiVehiDelic, LinearSituacion, lySituaVehiDelic,
+            octavoLinear, novenoLinear, dieciseisLinear;
 
 
     //Actualizar
@@ -146,6 +149,22 @@ public class DescripcionVehiculoDelictivo extends Fragment {
         rbConReporteRoboDelictivo = root.findViewById(R.id.rbConReporteRoboDelictivo);
         rbSinReporteRoboDelictivo = root.findViewById(R.id.rbSinReporteRoboDelictivo);
         rbNoSePuedeSaberReporteRoboDelictivo = root.findViewById(R.id.rbNoSePuedeSaberReporteRoboDelictivo);
+
+        quintoLinear = root.findViewById(R.id.quintoLinear);
+        lyTipoVehiDelic = root.findViewById(R.id.lyTipoVehiDelic);
+
+        sextoLineardos = root.findViewById(R.id.sextoLineardos);
+        lyProceVehiDelic = root.findViewById(R.id.lyProceVehiDelic);
+        lyUsoVehiDelic = root.findViewById(R.id.lyUsoVehiDelic);
+        lyDestiVehiDelic = root.findViewById(R.id.lyDestiVehiDelic);
+
+        LinearSituacion = root.findViewById(R.id.LinearSituacion);
+        lySituaVehiDelic = root.findViewById(R.id.lySituaVehiDelic);
+
+        octavoLinear = root.findViewById(R.id.octavoLinear);
+        novenoLinear = root.findViewById(R.id.novenoLinear);
+
+        dieciseisLinear = root.findViewById(R.id.dieciseisLinear);
 
 
 
@@ -275,21 +294,6 @@ public class DescripcionVehiculoDelictivo extends Fragment {
             }
         });
 
-        btnGuardarVehiculoDelictivo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(txtFechaRetencionDelictivo.getText().toString().isEmpty()){
-                    Toast.makeText(getActivity().getApplicationContext(),"INGRESA LA FECHA DE RETENCIÓN DEL VEHÍCULO",Toast.LENGTH_SHORT).show();
-                }else if(txthoraRetencionDelictivo.getText().toString().isEmpty()){
-                    Toast.makeText(getActivity().getApplicationContext(),"INGRESA LA HORA DE RETENCIÓN DEL VEHÍCULO",Toast.LENGTH_SHORT).show();
-                }else if(txtObservacionesdelVehiculoDelictivo.getText().length() < 3){
-                    Toast.makeText(getActivity().getApplicationContext(),"AGREGAR EN OBSERVACIONES AL MENOS 3 CARACTERES",Toast.LENGTH_SHORT).show();
-                }else {
-                    Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
-                    insertDescripcionVehiculos();
-                }
-            }
-        });
 
         /**************************************************************************************/
         /*********************************************************************************************************/
@@ -431,24 +435,122 @@ public class DescripcionVehiculoDelictivo extends Fragment {
         btnEditarVehiculoDelictivo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if(txtFechaRetencionDelictivo.getText().toString().isEmpty()){
-                    Toast.makeText(getActivity().getApplicationContext(),"INGRESA LA FECHA DE RETENCIÓN DEL VEHÍCULO",Toast.LENGTH_SHORT).show();
-                }else if(txthoraRetencionDelictivo.getText().toString().isEmpty()){
-                    Toast.makeText(getActivity().getApplicationContext(),"INGRESA LA HORA DE RETENCIÓN DEL VEHÍCULO",Toast.LENGTH_SHORT).show();
-                }else if(txtObservacionesdelVehiculoDelictivo.getText().length() < 3){
-                    Toast.makeText(getActivity().getApplicationContext(),"AGREGAR EN OBSERVACIONES AL MENOS 3 CARACTERES",Toast.LENGTH_SHORT).show();
-                }else {
-                    Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
-                    updateDescripcionVehiculos();
-                }
+                PrimeraValidacionUPD();
             }
         });
 
-
+        //Guardar
+        btnGuardarVehiculoDelictivo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PrimeraValidacion();
+            }
+        });
 
         return root;
     }
+
+    //VALIDACIONES INSERTAR
+    public void PrimeraValidacion(){
+        if(rbTerrestreDelictivo.isChecked() || rbAcuaticoDelictivo.isChecked() || rbAereoDelictivo.isChecked()){
+            if(rbNacionalDelictivo.isChecked() || rbExtranjeroDelictivo.isChecked()){
+                if(rbParticularDelictivo.isChecked() || rbTransportePublicoDelictivo.isChecked() || rbCargaDelictivo.isChecked()){
+                    SegundaValidacion();
+                } else {
+                    Toast.makeText(getActivity().getApplicationContext(),"ESPECIFICA EL USO DEL VEHÍCULO",Toast.LENGTH_SHORT).show();
+                    sextoLineardos.requestFocus();
+                    lyUsoVehiDelic.requestFocus();
+                }
+            } else {
+                Toast.makeText(getActivity().getApplicationContext(),"ESPECIFICA LA PROCEDENCIA DEL VEHÍCULO",Toast.LENGTH_SHORT).show();
+                sextoLineardos.requestFocus();
+                lyProceVehiDelic.requestFocus();
+            }
+        } else {
+            Toast.makeText(getActivity().getApplicationContext(),"EPECIFICA EL TIPO DE VEHÍCULO",Toast.LENGTH_SHORT).show();
+            quintoLinear.requestFocus();
+            lyTipoVehiDelic.requestFocus();
+        }
+    }
+    public void SegundaValidacion(){
+        if(txtDestinoVehiculoDelictivo.getText().toString().length() >= 3){
+            if(rbConReporteRoboDelictivo.isChecked() || rbSinReporteRoboDelictivo.isChecked() || rbNoSePuedeSaberReporteRoboDelictivo.isChecked()){
+                if(txtObservacionesdelVehiculoDelictivo.getText().toString().length() >= 3){
+                    if(rbObjetosNODelictivo.isChecked() || rbObjetosSIDelictivo.isChecked()){
+                        Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
+                        insertDescripcionVehiculos();
+                    } else {
+                        Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA SI ENCONTRÓ OBJETOS EN EL VEHÍCULO RELACIONADOS CON LOS HECHOS", Toast.LENGTH_SHORT).show();
+                        dieciseisLinear.requestFocus();
+                    }
+                } else {
+                    Toast.makeText(getActivity().getApplicationContext(), "INGRESA AL MENOS UNA OBSERVACIÓN DEL VEHÍCULO", Toast.LENGTH_SHORT).show();
+                    octavoLinear.requestFocus();
+                    novenoLinear.requestFocus();
+                }
+            } else {
+                Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA LA SITUACIÓN DEL VEHÍCULO", Toast.LENGTH_SHORT).show();
+                LinearSituacion.requestFocus();
+                lySituaVehiDelic.requestFocus();
+            }
+        } else {
+            Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL DESTINO DEL VEHÍCULO", Toast.LENGTH_SHORT).show();
+            lyDestiVehiDelic.requestFocus();
+            txtDestinoVehiculoDelictivo.requestFocus();
+        }
+    }
+
+
+    //VALIDACIONES ACTUALIZAR
+    public void PrimeraValidacionUPD(){
+        if(rbTerrestreDelictivo.isChecked() || rbAcuaticoDelictivo.isChecked() || rbAereoDelictivo.isChecked()){
+            if(rbNacionalDelictivo.isChecked() || rbExtranjeroDelictivo.isChecked()){
+                if(rbParticularDelictivo.isChecked() || rbTransportePublicoDelictivo.isChecked() || rbCargaDelictivo.isChecked()){
+                    SegundaValidacionUPD();
+                } else {
+                    Toast.makeText(getActivity().getApplicationContext(),"ESPECIFICA EL USO DEL VEHÍCULO",Toast.LENGTH_SHORT).show();
+                    sextoLineardos.requestFocus();
+                    lyUsoVehiDelic.requestFocus();
+                }
+            } else {
+                Toast.makeText(getActivity().getApplicationContext(),"ESPECIFICA LA PROCEDENCIA DEL VEHÍCULO",Toast.LENGTH_SHORT).show();
+                sextoLineardos.requestFocus();
+                lyProceVehiDelic.requestFocus();
+            }
+        } else {
+            Toast.makeText(getActivity().getApplicationContext(),"EPECIFICA EL TIPO DE VEHÍCULO",Toast.LENGTH_SHORT).show();
+            quintoLinear.requestFocus();
+            lyTipoVehiDelic.requestFocus();
+        }
+    }
+    public void SegundaValidacionUPD(){
+        if(txtDestinoVehiculoDelictivo.getText().toString().length() >= 3){
+            if(rbConReporteRoboDelictivo.isChecked() || rbSinReporteRoboDelictivo.isChecked() || rbNoSePuedeSaberReporteRoboDelictivo.isChecked()){
+                if(txtObservacionesdelVehiculoDelictivo.getText().toString().length() >= 3){
+                    if(rbObjetosNODelictivo.isChecked() || rbObjetosSIDelictivo.isChecked()){
+                        Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
+                        updateDescripcionVehiculos();
+                    } else {
+                        Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA SI ENCONTRÓ OBJETOS EN EL VEHÍCULO RELACIONADOS CON LOS HECHOS", Toast.LENGTH_SHORT).show();
+                        dieciseisLinear.requestFocus();
+                    }
+                } else {
+                    Toast.makeText(getActivity().getApplicationContext(), "INGRESA AL MENOS UNA OBSERVACIÓN DEL VEHÍCULO", Toast.LENGTH_SHORT).show();
+                    octavoLinear.requestFocus();
+                    novenoLinear.requestFocus();
+                }
+            } else {
+                Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA LA SITUACIÓN DEL VEHÍCULO", Toast.LENGTH_SHORT).show();
+                LinearSituacion.requestFocus();
+                lySituaVehiDelic.requestFocus();
+            }
+        } else {
+            Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL DESTINO DEL VEHÍCULO", Toast.LENGTH_SHORT).show();
+            lyDestiVehiDelic.requestFocus();
+            txtDestinoVehiculoDelictivo.requestFocus();
+        }
+    }
+
 
     private void LimpiarCampos(){
         txtFechaRetencionDelictivo.setText("");

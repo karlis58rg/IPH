@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment;
 
 import android.os.Looper;
 import android.provider.MediaStore;
+import android.text.InputFilter;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -107,14 +108,23 @@ public class LugarDeIntervencion_Delictivo extends Fragment {
         random();
         txtEntidadUbicacionGeograficaDelictivo = view.findViewById(R.id.txtEntidadUbicacionGeograficaDelictivo);
         txtColoniaUbicacionGeograficaDelictivo = view.findViewById(R.id.txtColoniaUbicacionGeograficaDelictivo);
+        txtColoniaUbicacionGeograficaDelictivo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(250)});
         txtCalleUbicacionGeograficaDelictivo = view.findViewById(R.id.txtCalleUbicacionGeograficaDelictivo);
+        txtCalleUbicacionGeograficaDelictivo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(500)});
         txtNumeroExteriorUbicacionGeograficaDelictivo = view.findViewById(R.id.txtNumeroExteriorUbicacionGeograficaDelictivo);
+        txtNumeroExteriorUbicacionGeograficaDelictivo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         txtNumeroInteriorUbicacionGeograficaDelictivo = view.findViewById(R.id.txtNumeroInteriorUbicacionGeograficaDelictivo);
+        txtNumeroInteriorUbicacionGeograficaDelictivo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         txtCodigoPostalUbicacionGeograficaDelictivo = view.findViewById(R.id.txtCodigoPostalUbicacionGeograficaDelictivo);
+        txtCodigoPostalUbicacionGeograficaDelictivo.setFilters(new InputFilter[]{new InputFilter.LengthFilter(5)});
         txtReferenciasdelLugarUbicacionGeograficaDelictivo = view.findViewById(R.id.txtReferenciasdelLugarUbicacionGeograficaDelictivo);
+        txtReferenciasdelLugarUbicacionGeograficaDelictivo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(500)});
         txtLatitudUbicacionGeograficaDelictivo = view.findViewById(R.id.txtLatitudUbicacionGeograficaDelictivo);
+        txtLatitudUbicacionGeograficaDelictivo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(20)});
         txtLongitudUbicacionGeograficaDelictivo = view.findViewById(R.id.txtLongitudUbicacionGeograficaDelictivo);
+        txtLongitudUbicacionGeograficaDelictivo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(20)});
         txtEspecificarRiesgoLugarIntervencion = view.findViewById(R.id.txtEspecificarRiesgoLugarIntervencion);
+        txtEspecificarRiesgoLugarIntervencion.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(500)});
         spMunicipioUbicacionGeograficaDelictivo = view.findViewById(R.id.spMunicipioUbicacionGeograficaDelictivo);
         rgInspeccionLugarIntervencion = view.findViewById(R.id.rgInspeccionLugarIntervencion);
         rgObjetosRelacionadosLugarIntervencion = view.findViewById(R.id.rgObjetosRelacionadosLugarIntervencion);
@@ -308,14 +318,14 @@ public class LugarDeIntervencion_Delictivo extends Fragment {
                                     updateLugarIntervencionHD();
                                 } else {
                                     Toast.makeText(getContext(), "INGRESA LA ESPECIFICACIÓN DE TIPO DE RIESGO", Toast.LENGTH_LONG).show();
-                                    txtEspecificarRiesgoLugarIntervencion.requestFocus();
                                     lyEspecifiqueDelictivoLI.requestFocus();
                                     quinceavoLinearCinco.requestFocus();
+                                    txtEspecificarRiesgoLugarIntervencion.requestFocus();
                                 }
                             } else {
                                 Toast.makeText(getContext(), "ESPECIFICA SI HUBO UN TIPO DE RIESGO", Toast.LENGTH_LONG).show();
                                 quinceavoLinearCinco.requestFocus();
-                                lyEspecifiqueDelictivoLI.requestFocus();
+                                //lyEspecifiqueDelictivoLI.requestFocus();
                             }
                         } else {
                             Toast.makeText(getContext(), "ESPECIFICA SI LLEVÓ A CABO LA PRIORIZACIÓN EN EL LUGAR DE LA INTERVENCIÓN", Toast.LENGTH_LONG).show();
