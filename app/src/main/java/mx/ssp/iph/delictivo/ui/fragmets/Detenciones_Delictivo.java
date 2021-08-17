@@ -1,6 +1,7 @@
 package mx.ssp.iph.delictivo.ui.fragmets;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.NotificationCompatSideChannelService;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Context;
@@ -26,6 +27,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -57,6 +59,7 @@ import mx.ssp.iph.administrativo.ui.fragmets.Detenciones;
 import mx.ssp.iph.delictivo.model.ModeloConocimientoHecho_Delictivo;
 import mx.ssp.iph.delictivo.model.ModeloDetenciones_Delictivo;
 import mx.ssp.iph.delictivo.model.ModeloLugarDetenciones_Delictivo;
+import mx.ssp.iph.delictivo.model.ModeloUpateDetenido;
 import mx.ssp.iph.delictivo.viewModel.DetencionesDelictivoViewModel;
 import mx.ssp.iph.utilidades.ui.ContenedorFirma;
 import mx.ssp.iph.utilidades.ui.ContenedorFirmaDelictivo;
@@ -70,6 +73,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 import static android.app.Activity.RESULT_OK;
+import static android.content.ComponentCallbacks2.TRIM_MEMORY_RUNNING_CRITICAL;
 
 public class Detenciones_Delictivo extends Fragment {
 
@@ -78,7 +82,13 @@ public class Detenciones_Delictivo extends Fragment {
     Funciones funciones;
     //RecuperarDetenidos
     ArrayList<String> ListaNombreDetenido,ListaIdDetenido;
-    String[] ArrayListaIPHAdministrativo;
+
+    ArrayList<String> ListaJsonPertenencias;
+    ArrayList<String> ListPertenencia,ListDescripcionPertenencia,ListDestino,ListaTablaPertenencias,ListaIdPertenencias;
+
+
+    int IdDetenidoSeleccionado = -1;
+    String[] ArrayListaIPHAdministrativo,ArrayPertenenciasReal;
     ListView lvDetenidos;
     int PosicionIPHSeleccionado= -1;
     LinearLayout veinticinco,veinticincoUpdate;
@@ -122,7 +132,8 @@ public class Detenciones_Delictivo extends Fragment {
     String cargarIdHechoDelictivo,cargarIdPoliciaPrimerRespondiente,descGeneroHD,descNacionalidadHD,
             descTipoDocumentoHD,descMunicipioPersonaDetenidaHD,descMunicipioLugarDetenidoHD,
             varLesiones,varPadecimientos,varGrupoVulnerable,varGrupoDelictivo,varProporcionoFamiliar,
-            varInformoDerechos,rutaFirma,varLugarTraslado,descPadecimiento,descGrupoVulnerable,descGrupoDelictivo,varIdentificacionDocumento,varLugarDetencionDelictivo;
+            varInformoDerechos,rutaFirma,varLugarTraslado,descPadecimiento,descGrupoVulnerable,descGrupoDelictivo,
+            varIdentificacionDocumento,varLugarDetencionDelictivo,varPertenenciasDetenidoDelictivo="NO";
 
     int numberRandom,randomUrlImagen;
 
@@ -137,12 +148,15 @@ public class Detenciones_Delictivo extends Fragment {
         /***********************************************************************************/
         cargarDatos();
         random();
+
         funciones = new Funciones();
         btnGuardarPuestaDetencionesDelectivo = view.findViewById(R.id.btnGuardarPuestaDetencionesDelectivo);
         lblFirmaOcultaDetenidoBase64Detenciones = view.findViewById(R.id.lblFirmaOcultaDetenidoBase64Detenciones);
         imgFirmaDerechosDelictivo = view.findViewById(R.id.imgFirmaDerechosDelictivo);
         img_microfonoDescripcionDetenido = view.findViewById(R.id.img_microfonoDescripcionDetenido);
         img_microfonoObservacionesDetencion = view.findViewById(R.id.img_microfonoObservacionesDetencion);
+        img_microfonoDescripcionDetenido.setTag(R.drawable.ic_micro);
+        img_microfonoObservacionesDetencion.setTag(R.drawable.ic_micro);
 
         txtFechaDetenidoDelictivo = view.findViewById(R.id.txtFechaDetenidoDelictivo);
         txthoraDetencionDelictivo = view.findViewById(R.id.txthoraDetencionDelictivo);
@@ -301,7 +315,7 @@ public class Detenciones_Delictivo extends Fragment {
                 byte[] imgBytes = baos.toByteArray();
 
                 String imgString = android.util.Base64.encodeToString(imgBytes, android.util.Base64.NO_WRAP);
-                lblFirmadelDetenidoDelictivoOculto.setText(imgString);
+                lblFirmaOcultaDetenidoBase64Detenciones.setText(imgString);
 
                 byte[] decodedString = Base64.decode(imgString, Base64.DEFAULT);
                 Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
@@ -351,7 +365,7 @@ public class Detenciones_Delictivo extends Fragment {
         imgFirmaDerechosDelictivo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ContenedorFirmaDelictivo dialog = new ContenedorFirmaDelictivo(R.id.lblFirmadelDetenidoDelictivo,R.id.lblFirmadelDetenidoDelictivoOculto,R.id.imgFirmadelDetenidoDelictivoMiniatura);
+                ContenedorFirmaDelictivo dialog = new ContenedorFirmaDelictivo(R.id.lblFirmadelDetenidoDelictivo,R.id.lblFirmaOcultaDetenidoBase64Detenciones,R.id.imgFirmadelDetenidoDelictivoMiniatura);
                 dialog.show( getActivity().getSupportFragmentManager(),"Dia");
             }
         });
@@ -387,6 +401,7 @@ public class Detenciones_Delictivo extends Fragment {
             }
         });
 
+
         rgPadecimientoDelictivo.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -397,9 +412,9 @@ public class Detenciones_Delictivo extends Fragment {
                     varPadecimientos = "NO";
                     descPadecimiento = "NA";
                 }
-
             }
         });
+
 
         rgGrupoVulnerableDelictivo.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -478,6 +493,18 @@ public class Detenciones_Delictivo extends Fragment {
             }
         });
 
+        rgPertenenciasDetenidoDelictivo.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == R.id.rbNoPertenenciasDetenidoDelictivo) {
+                    varPertenenciasDetenidoDelictivo = "NO";
+                } else if (checkedId == R.id.rbSiPertenenciasDetenidoDelictivo) {
+                    varPertenenciasDetenidoDelictivo = "SI";
+                }
+
+            }
+        });
+
         //***************** GUARDAR **************************//
         btnGuardarPuestaDetencionesDelectivo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -502,10 +529,43 @@ public class Detenciones_Delictivo extends Fragment {
             }
         });
 
+        lvPertenenciasDetenido.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                AlertDialog.Builder builder =
+                        new AlertDialog.Builder(getContext()).
+                                setMessage("¿DESEA ELIMINAR "+ ListPertenencia.get(position) + "?" ).
+                                setPositiveButton( "ACEPTAR", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        //CONSUME WEB SERVICE PARA ELIMINAR DB
+                                        String Tabla = ListaTablaPertenencias.get(position);
+                                        if (Tabla.equals("REAL"))
+                                        {
+                                            EliminarPertenenciaReal(ListaIdPertenencias.get(position),Integer.toString(IdDetenidoSeleccionado));
+                                        }
+                                        else if (Tabla.equals("TEMPORAL")) {
+                                            EliminarPertenenciaTemporal(ListaIdPertenencias.get(position));
+                                        }
+                                        dialog.dismiss();
+                                    }
+                                })
+                                .setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        // User cancelled the dialog
+                                        dialog.dismiss();
+                                    }
+                                });
+
+                builder.create().show();
+            }
+        });
+
         lvDetenidos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 try {
+
                     String Json = ArrayListaIPHAdministrativo[position];
                     JSONObject jsonjObject = new JSONObject(Json + "}");
 
@@ -570,7 +630,7 @@ public class Detenciones_Delictivo extends Fragment {
                     //============= Padecimientos
                     if ((jsonjObject.getString("Padecimientos")).equals("SI"))
                     {
-                        rbPadecimientoDelictivo.setChecked(true);
+                        rbSiPadecimientoDelictivo.setChecked(true);
                         txtCualPadecimientoDelictivo.setText(((jsonjObject.getString("DescPadecimientos")).equals("null")?"":jsonjObject.getString("DescPadecimientos")));
                     }else if ((jsonjObject.getString("Padecimientos")).equals("NO"))
                     {
@@ -598,12 +658,17 @@ public class Detenciones_Delictivo extends Fragment {
                     }
 
                     //============= ProporcionoFamiliar
-                    if ((jsonjObject.getString("ProporcionoFamiliar")).equals("SI"))
-                    {
-                        rbSiGrupoDelictivo.setChecked(false);
-                    }else if ((jsonjObject.getString("ProporcionoFamiliar")).equals("NO"))
+                    if ((jsonjObject.getString("ProporcionoFamiliar")).equals("NO"))
                     {
                         chNoProporcionadoDelictivo.setChecked(true);
+                        txtPrimerApellidoA3Delictivo.setText("");
+                        txtSegundoApellidoA3Delictivo.setText("");
+                        txtNombresA3Delictivo.setText("");
+                        txtNumeroTelefonoA3Delictivo.setText("");
+
+                    }else if ((jsonjObject.getString("ProporcionoFamiliar")).equals("SI"))
+                    {
+                        chNoProporcionadoDelictivo.setChecked(false);
                         txtPrimerApellidoA3Delictivo.setText(((jsonjObject.getString("APFamiliar")).equals("null")?"":jsonjObject.getString("APFamiliar")));
                         txtSegundoApellidoA3Delictivo.setText(((jsonjObject.getString("AMFamiliar")).equals("null")?"":jsonjObject.getString("AMFamiliar")));
                         txtNombresA3Delictivo.setText(((jsonjObject.getString("NomFamiliar")).equals("null")?"":jsonjObject.getString("NomFamiliar")));
@@ -622,18 +687,28 @@ public class Detenciones_Delictivo extends Fragment {
                     //Firma
                     lblFirmadelDetenidoDelictivo.setText((jsonjObject.getString("RutaFirma")).equals("null")?"":"FIRMA CORRECTA");
                     firmaURLServer = (jsonjObject.getString("RutaFirma").equals("null")?"http://189.254.7.167/WebServiceIPH/Firma/SINFIRMA.jpg":jsonjObject.getString("RutaFirma"));
-                    lblFirmadelDetenidoDelictivoOculto.setText(firmaURLServer);
+                    //lblFirmaOcultaDetenidoBase64Detenciones.setText(firmaURLServer);
                     getFirmaFromURL();
-
                     //Pendiente Pertencencias Anexo  y pertenecncias personals
+
+
+                    //=============RecolectoPertenencias
+                    if ((jsonjObject.getString("RecolectoPertenencias")).equals("SI"))
+                    {
+                        rbSiPertenenciasDetenidoDelictivo.setChecked(true);
+                    }else if ((jsonjObject.getString("RecolectoPertenencias")).equals("NO"))
+                    {
+                        rbNoPertenenciasDetenidoDelictivo.setChecked(true);
+                    }
 
 
                     //=============LugarDetencionIntervencion
                     if ((jsonjObject.getString("LugarDetencionIntervencion")).equals("SI"))
                     {
-                        //No hace nada. Se oculta el formulario con la validación de josué
+                        rbSiLugarDetencionDelictivo.setChecked(true);
                     }else if ((jsonjObject.getString("LugarDetencionIntervencion")).equals("NO"))
                     {
+                        rbNoLugarDetencionDelictivo.setChecked(true);
                         spMunicipioDireccionDetencion.setSelection(funciones.getIndexSpiner(spMunicipioDireccionDetencion, jsonjObject.getString("IdMunicipioLD")));
                         txtColoniaDetencion.setText(((jsonjObject.getString("ColoniaLocalidadLD")).equals("null")?"":jsonjObject.getString("ColoniaLocalidadLD")));
                         txtCalleDetencion.setText(((jsonjObject.getString("CalleTramoLD")).equals("null")?"":jsonjObject.getString("CalleTramoLD")));
@@ -654,11 +729,13 @@ public class Detenciones_Delictivo extends Fragment {
                     }else if ((jsonjObject.getString("IdLugarTraslado")).equals("OTRA DEPENDENCIA"))
                     {
                         rbLugarTrasladoDetencionOtraDependencia.setChecked(true);
-                        txtCualLugarTraslado.setText(((jsonjObject.getString("DescLugarTrasladoOtro")).equals("null")?"":jsonjObject.getString("DescLugarTrasladoOtro")));
                     }
+                    txtCualLugarTraslado.setText(((jsonjObject.getString("DescLugarTrasladoOtro")).equals("null")?"":jsonjObject.getString("DescLugarTrasladoOtro")));
 
                     txtObservacionesDetencion .setText(((jsonjObject.getString("ObservacionesDetencion")).equals("null")?"":jsonjObject.getString("ObservacionesDetencion")));
 
+                    IdDetenidoSeleccionado =  Integer.parseInt(jsonjObject.getString("IdDetenido"));
+                    CargarPertenencias();
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -707,7 +784,8 @@ public class Detenciones_Delictivo extends Fragment {
         btnEditarDetenidoDelictivo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
+                UpdateDetencionesDelictivo();
             }
         });
 
@@ -761,9 +839,12 @@ public class Detenciones_Delictivo extends Fragment {
         rgInformeDerechoDetencionesDelictivo.clearCheck();
 
         //Limpiar Firma
-        lblFirmadelDetenidoDelictivo.setText("");
-        //imgFirmadelDetenidoDelictivoMiniatura
         lblFirmadelDetenidoDelictivoOculto.setText("");
+        //Firma
+        lblFirmadelDetenidoDelictivo.setText("");
+        firmaURLServer = ("http://189.254.7.167/WebServiceIPH/Firma/SINFIRMA.jpg");
+        getFirmaFromURL();
+
 
         rgObjetoInspeccionDetenidoDelictivo.clearCheck();
         rgPertenenciasDetenidoDelictivo.clearCheck();
@@ -780,6 +861,8 @@ public class Detenciones_Delictivo extends Fragment {
         rgLugarTrasladoDelictivo.clearCheck();
         txtCualLugarTraslado.setText("");
         txtObservacionesDetencion.setText("");
+        //colaca la posición del
+        IdDetenidoSeleccionado = -1;
 
         //Oculta botones de actualizar y muestra botón de guardar
         veinticinco.setVisibility(View. VISIBLE);
@@ -819,7 +902,7 @@ public class Detenciones_Delictivo extends Fragment {
             varProporcionoFamiliar = "SI";
         }
 
-        rutaFirma = "http://189.254.7.167/WebServiceIPH/FirmaRDDelictivo/"+cargarIdHechoDelictivo+randomUrlImagen+".jpg";
+        rutaFirma = "http://189.254.7.167/WebServiceIPH/FirmaDetencionesDerechos/"+cargarIdHechoDelictivo+randomUrlImagen+".jpg";
 
         ModeloDetenciones_Delictivo detencionesHechoD = new ModeloDetenciones_Delictivo
                 (cargarIdHechoDelictivo, ""+randomUrlImagen+"", txtFechaDetenidoDelictivo.getText().toString(), txthoraDetencionDelictivo.getText().toString(),
@@ -833,7 +916,7 @@ public class Detenciones_Delictivo extends Fragment {
                         varPadecimientos, descPadecimiento, varGrupoVulnerable, descGrupoVulnerable,
                         varGrupoDelictivo, descGrupoDelictivo, varProporcionoFamiliar,txtPrimerApellidoA3Delictivo.getText().toString(),
                         txtSegundoApellidoA3Delictivo.getText().toString(),txtNombresA3Delictivo.getText().toString(), txtNumeroTelefonoA3Delictivo.getText().toString(),
-                        varInformoDerechos, rutaFirma, varLugarDetencionDelictivo , varLugarTraslado, txtCualLugarTraslado.getText().toString(),
+                        varInformoDerechos, rutaFirma,varPertenenciasDetenidoDelictivo,varLugarDetencionDelictivo , varLugarTraslado, txtCualLugarTraslado.getText().toString(),
                         txtObservacionesDetencion.getText().toString(), cargarIdPoliciaPrimerRespondiente);
 
         OkHttpClient client = new OkHttpClient();
@@ -864,11 +947,11 @@ public class Detenciones_Delictivo extends Fragment {
                 .add("Referencia", detencionesHechoD.getReferencia())
                 .add("Lesiones", detencionesHechoD.getLesiones())
                 .add("Padecimientos", detencionesHechoD.getPadecimientos())
-                .add("DescPadecimientos", detencionesHechoD.getDescPadecimientos())
-                .add("GrupoVulnerable", detencionesHechoD.getGrupoVulnerable())
-                .add("DescGrupoVulnerable", detencionesHechoD.getDescGrupoVulnerable())
-                .add("GrupoDelictivo", detencionesHechoD.getGrupoDelictivo())
-                .add("DescGrupoDelictivo", detencionesHechoD.getDescGrupoDelictivo())
+                .add("DescPadecimientos", txtCualPadecimientoDelictivo.getText().toString())
+                .add("GrupoVulnerable", varGrupoVulnerable)
+                .add("DescGrupoVulnerable", txtCualGrupoVulnerableDelictivo.getText().toString())
+                .add("GrupoDelictivo", varGrupoDelictivo)
+                .add("DescGrupoDelictivo", txtCualGrupoDelictivo.getText().toString())
                 .add("ProporcionoFamiliar", detencionesHechoD.getProporcionoFamiliar())
                 .add("APFamiliar", detencionesHechoD.getAPFamiliar())
                 .add("AMFamiliar", detencionesHechoD.getAMFamiliar())
@@ -876,6 +959,7 @@ public class Detenciones_Delictivo extends Fragment {
                 .add("TelefonoFamiliar", detencionesHechoD.getTelefonoFamiliar())
                 .add("InformoDerechos", detencionesHechoD.getInformoDerechos())
                 .add("RutaFirma", detencionesHechoD.getRutaFirma())
+                .add("RecolectoPertenencias", varPertenenciasDetenidoDelictivo)
                 .add("LugarDetencionIntervencion", detencionesHechoD.getLugarDetencionIntervencion())
                 .add("LugarTraslado", detencionesHechoD.getIdLugarTraslado())
                 .add("DescLugarTrasladoOtro", detencionesHechoD.getDescLugarTrasladoOtro())
@@ -968,6 +1052,163 @@ public class Detenciones_Delictivo extends Fragment {
                             if(resp.equals("true")){
                                 System.out.println("EL DATO SE ENVIO CORRECTAMENTE");
                                 Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+                                addFragment(new Detenciones_Delictivo());
+                                limpiarCampos();
+                            }else{
+                                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, VERIFIQUE SU INFORMACIÓN", Toast.LENGTH_SHORT).show();
+                            }
+                            Log.i("HERE", resp);
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    //***************** UPDATE A LA BD MEDIANTE EL WS **************************//
+    private void UpdateDetencionesDelictivo() {
+        DataHelper dataHelper = new DataHelper(getContext());
+        descGeneroHD = (String) spGeneroDetenidoDelictivo.getSelectedItem();
+        int idDescGeneroHD = dataHelper.getIdSexo(descGeneroHD);
+        String idGenero = String.valueOf(idDescGeneroHD);
+
+        descNacionalidadHD = (String) spNacionalidadDetenidoDelictivo.getSelectedItem();
+        int idDescNacionalidadHD = dataHelper.getIdNacionalidad(descNacionalidadHD);
+        String idNacionalidad = String.valueOf(idDescNacionalidadHD);
+
+        descTipoDocumentoHD = (String) spTipoDocumentoDelictivo.getSelectedItem();
+        int idDescTipoDocumentoHD = dataHelper.getIdIdentificacion(descTipoDocumentoHD);
+        String idTipoDocumento = String.valueOf(idDescTipoDocumentoHD);
+
+        descMunicipioPersonaDetenidaHD = (String) spMunicipioPersonaDetenidaDelictivo.getSelectedItem();
+        String idDescMunicipioPersonaDetenidaHD = dataHelper.getIdMunicipio(descMunicipioPersonaDetenidaHD);
+        String idMunicipioPersonaDetenidaHD = String.valueOf(idDescMunicipioPersonaDetenidaHD);
+
+        descMunicipioLugarDetenidoHD = (String) spMunicipioDireccionDetencion.getSelectedItem();
+        String idDescMunicipioLugarDetenidoHD = dataHelper.getIdMunicipio(descMunicipioPersonaDetenidaHD);
+        String idMunicipioLugarDetenidoHD = String.valueOf(idDescMunicipioLugarDetenidoHD);
+
+        if(chNoAplicaAliasDetenidoDelictivo.isChecked()){
+            txtApodoDetenidoDelictivo.setText("NP");
+        }
+
+        if(chNoProporcionadoDelictivo.isChecked()){
+            varProporcionoFamiliar = "NO";
+            txtPrimerApellidoA3Delictivo.setText("NP");
+            txtSegundoApellidoA3Delictivo.setText("NP");
+            txtNombresA3Delictivo.setText("NP");
+            txtNumeroTelefonoA3Delictivo.setText("NP");
+        }else{
+            varProporcionoFamiliar = "SI";
+        }
+
+        rutaFirma = "http://189.254.7.167/WebServiceIPH/FirmaDetencionesDerechos/"+cargarIdHechoDelictivo+randomUrlImagen+".jpg";
+
+        ModeloUpateDetenido detencionesHechoD = new ModeloUpateDetenido
+                (cargarIdHechoDelictivo, Integer.toString(IdDetenidoSeleccionado),+randomUrlImagen+"", txtFechaDetenidoDelictivo.getText().toString(), txthoraDetencionDelictivo.getText().toString(),
+                        txtPrimerApellidoDetenidoDelictivo.getText().toString(), txtSegundoApellidoDetenidoDelictivo.getText().toString(), txtNombresDetenidoDelictivo.getText().toString(),
+                        txtApodoDetenidoDelictivo.getText().toString(),txtDescripciondelDetenidoDelictivo.getText().toString(),
+                        idNacionalidad, idGenero, txtFechaNacimientoDetenidoDelictivo.getText().toString(),txtEdadDetenidoDelictivo.getText().toString(),
+                        idTipoDocumento, varIdentificacionDocumento, txtNumeroIdentificacionDelictivo.getText().toString(),
+                        "12", idMunicipioPersonaDetenidaHD, txtColoniaDetenidoDelictivo.getText().toString(), txtCalleDetenidoDelictivo.getText().toString(),
+                        txtNumeroExteriorDetenidoDelictivo.getText().toString(), txtNumeroInteriorDetenidoDelictivo.getText().toString(),
+                        txtCodigoPostalDetenidoDelictivo.getText().toString(), txtReferenciasdelLugarDetenidoDelictivo.getText().toString(), varLesiones,
+                        varPadecimientos, descPadecimiento, varGrupoVulnerable, descGrupoVulnerable,
+                        varGrupoDelictivo, descGrupoDelictivo, varProporcionoFamiliar,txtPrimerApellidoA3Delictivo.getText().toString(),
+                        txtSegundoApellidoA3Delictivo.getText().toString(),txtNombresA3Delictivo.getText().toString(), txtNumeroTelefonoA3Delictivo.getText().toString(),
+                        varInformoDerechos, rutaFirma,varPertenenciasDetenidoDelictivo, varLugarDetencionDelictivo , varLugarTraslado, txtCualLugarTraslado.getText().toString(),
+                        txtObservacionesDetencion.getText().toString(), cargarIdPoliciaPrimerRespondiente,
+                        "12", idMunicipioLugarDetenidoHD,
+                        txtColoniaDetencion.getText().toString(), txtCalleDetencion.getText().toString(), txtNumeroExteriorDetencion.getText().toString(),
+                        txtNumeroInteriorDetencion.getText().toString(), txtCodigoPostalDetencion.getText().toString(),
+                        txtReferenciasdelLugarDetencion.getText().toString());
+
+        OkHttpClient client = new OkHttpClient();
+        RequestBody body = new FormBody.Builder()
+                .add("IdHechoDelictivo", detencionesHechoD.getIdHechoDelictivo())
+                .add("IdDetenido", detencionesHechoD.getIdDetenido())
+                .add("NumDetencionRND", detencionesHechoD.getNumDetencionRND())
+                .add("Fecha", detencionesHechoD.getFecha())
+                .add("Hora", detencionesHechoD.getHora())
+                .add("APDentenido", detencionesHechoD.getAPDentenido())
+                .add("AMDetenido", detencionesHechoD.getAMDetenido())
+                .add("NomDetenido", detencionesHechoD.getNomDetenido())
+                .add("ApodoAlias", detencionesHechoD.getApodoAlias())
+                .add("DescripcionDetenido", detencionesHechoD.getDescripcionDetenido())
+                .add("IdNacionalidad", detencionesHechoD.getIdNacionalidad())
+                .add("IdSexo", detencionesHechoD.getIdSexo())
+                .add("FechaNacimiento", detencionesHechoD.getFechaNacimiento())
+                .add("Edad", detencionesHechoD.getEdad())
+                .add("IdIdentificacion", detencionesHechoD.getIdIdentificacion())
+                .add("IdentificacionOtro", detencionesHechoD.getIdentificacionOtro())
+                .add("NumIdentificacion", detencionesHechoD.getNumIdentificacion())
+                .add("IdEntidadfederativa", detencionesHechoD.getIdEntidadfederativa())
+                .add("IdMunicipio", detencionesHechoD.getIdMunicipio())
+                .add("ColoniaLocalidad", detencionesHechoD.getColoniaLocalidad())
+                .add("CalleTramo", detencionesHechoD.getCalleTramo())
+                .add("NoExterior", detencionesHechoD.getNoExterior())
+                .add("NoInterior", detencionesHechoD.getNoInterior())
+                .add("Cp", detencionesHechoD.getCp())
+                .add("Referencia", detencionesHechoD.getReferencia())
+                .add("Lesiones", detencionesHechoD.getLesiones())
+                .add("Padecimientos", detencionesHechoD.getPadecimientos())
+                .add("DescPadecimientos", txtCualPadecimientoDelictivo.getText().toString())
+                .add("GrupoVulnerable", varGrupoVulnerable)
+                .add("DescGrupoVulnerable", txtCualGrupoVulnerableDelictivo.getText().toString())
+                .add("GrupoDelictivo", varGrupoDelictivo)
+                .add("DescGrupoDelictivo", txtCualGrupoDelictivo.getText().toString())
+                .add("ProporcionoFamiliar", detencionesHechoD.getProporcionoFamiliar())
+                .add("APFamiliar", detencionesHechoD.getAPFamiliar())
+                .add("AMFamiliar", detencionesHechoD.getAMFamiliar())
+                .add("NomFamiliar", detencionesHechoD.getNomFamiliar())
+                .add("TelefonoFamiliar", detencionesHechoD.getTelefonoFamiliar())
+                .add("InformoDerechos", detencionesHechoD.getInformoDerechos())
+                .add("RutaFirma", detencionesHechoD.getRutaFirma())
+                .add("RecolectoPertenencias", varPertenenciasDetenidoDelictivo)
+                .add("LugarDetencionIntervencion", detencionesHechoD.getLugarDetencionIntervencion())
+                .add("LugarTraslado", detencionesHechoD.getIdLugarTraslado())
+                .add("DescLugarTrasladoOtro", detencionesHechoD.getDescLugarTrasladoOtro())
+                .add("ObservacionesDetencion", detencionesHechoD.getObservacionesDetencion())
+                .add("IdPoliciaPrimerRespondiente", detencionesHechoD.getIdPoliciaPrimerRespondiente())
+
+
+                .add("IdEntidadFederativaLD", detencionesHechoD.getIdEntidadFederativaLD())
+                .add("IdMunicipioLD", detencionesHechoD.getIdMunicipioLD())
+                .add("ColoniaLocalidadLD", detencionesHechoD.getColoniaLocalidadLD())
+                .add("CalleTramoLD", detencionesHechoD.getCalleTramoLD())
+                .add("NoExteriorLD", detencionesHechoD.getNoExteriorLD())
+                .add("NoInteriorLD", detencionesHechoD.getNoInteriorLD())
+                .add("CpLD", detencionesHechoD.getCpLD())
+                .add("ReferenciaLD", detencionesHechoD.getReferenciaLD())
+                .add("LatitudLD", "")
+                .add("LongitudLD", "")
+
+                .build();
+        Request request = new Request.Builder()
+                .url("http://189.254.7.167/WebServiceIPH/api/HDDetenciones/")
+                .put(body)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Looper.prepare(); // to be able to make toast
+                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    final String myResponse = response.body().string();
+                    Detenciones_Delictivo.this.getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            String resp = myResponse;
+                            if(resp.equals("true")){
+                                System.out.println("EL DATO SE ENVIO CORRECTAMENTE");
+                                //Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+                                //insertLugarDetencionesDelictivo();
+                                insertImagenUpdate();
                             }else{
                                 Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, VERIFIQUE SU INFORMACIÓN", Toast.LENGTH_SHORT).show();
                             }
@@ -982,7 +1223,6 @@ public class Detenciones_Delictivo extends Fragment {
 
     //********************************** INSERTAR PERTENENCIAS AL SERVIDOR ***********************************//
     public void insertPertenenciasDetenido() {
-        String cadena = lblFirmaOcultaDetenidoBase64Detenciones.getText().toString();
         OkHttpClient client = new OkHttpClient();
         RequestBody body = new FormBody.Builder()
                 .add("IdHechoDelictivo", cargarIdHechoDelictivo)
@@ -991,7 +1231,7 @@ public class Detenciones_Delictivo extends Fragment {
                 .add("Destino", txtDestinoPertenenciaDetenido.getText().toString())
                 .build();
         Request request = new Request.Builder()
-                .url("http://189.254.7.167/WebServiceIPH/api/HDTempoPertenenciasDetenido")
+                .url("http://189.254.7.167/WebServiceIPH/api/HDTempPertenencias")
                 .post(body)
                 .build();
         client.newCall(request).enqueue(new Callback() {
@@ -1005,15 +1245,33 @@ public class Detenciones_Delictivo extends Fragment {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {
-                    final String myResponse = response.body().toString();  /********** ME REGRESA LA RESPUESTA DEL WS ****************/
+                    final String myResponse = response.body().string();  /********** ME REGRESA LA RESPUESTA DEL WS ****************/
+                    Log.i("INSERTAR-PERTENENCIAS", myResponse);
+
                     Detenciones_Delictivo.this.getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(getContext(), "PERTENENCIA AGREGADA CORRECTAMENTE", Toast.LENGTH_LONG).show();
-                            System.out.println("PERTENENCIA AGREGADA CORRECTAMENTE");
-                            txtPertenenciaDetenido.setText("");
-                            txtDescripcionPertenenciaDetenido.setText("");
-                            txtDescripcionPertenenciaDetenido.setText("");
+                            try {
+                                String resp = myResponse;
+
+                                if(resp.length() == 4)
+                                {
+                                    Toast.makeText(getContext(), "PERTENENCIA AGREGADA CORRECTAMENTE", Toast.LENGTH_LONG).show();
+                                    txtPertenenciaDetenido.setText("");
+                                    txtDescripcionPertenenciaDetenido.setText("");
+                                    txtDestinoPertenenciaDetenido.setText("");
+                                    CargarPertenencias();
+                                }
+                                else
+                                {
+                                    Toast.makeText(getContext(), "VUELVA A INTENTARLO", Toast.LENGTH_LONG).show();
+                                }
+                            }
+                            catch (Exception e)
+                            {
+
+                            }
+
                         }
                     });
                 }
@@ -1021,6 +1279,188 @@ public class Detenciones_Delictivo extends Fragment {
         });
     }
 
+    private void CargarPertenencias(){
+
+        ListaJsonPertenencias = new ArrayList<String>();
+        ListaTablaPertenencias = new ArrayList<String>();
+        ListPertenencia = new ArrayList<String>();
+        ListDescripcionPertenencia = new ArrayList<String>();
+        ListDestino = new ArrayList<String>();
+        ListaIdPertenencias = new ArrayList<String>();
+
+        Log.i("PERTENENCIAS", "POSICIÓN:"+ Integer.toString(IdDetenidoSeleccionado) );
+
+        CargarPertenenciasTempo();
+        if(IdDetenidoSeleccionado > 0)
+        {
+            CargarPertenenciasReal(IdDetenidoSeleccionado);
+        }
+    }
+
+    //***************** agregar pertencias a list temporal **************************//
+    private void CargarPertenenciasTempo() {
+
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("http://189.254.7.167/WebServiceIPH/api/HDTempPertenencias?folioInternoPertenencias="+cargarIdHechoDelictivo)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Looper.prepare(); // to be able to make toast
+                Toast.makeText(getContext(), "ERROR AL CONSULTAR DETENIDOS ANEXO A, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    final String myResponse = response.body().string();
+
+                    try {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                String resp = myResponse;
+
+
+                                //***************** RESPUESTA DEL WEBSERVICE **************************//
+
+                                //CONVERTIR ARREGLO DE JSON A OBJET JSON
+                                String ArregloJson = resp.replace("[", "");
+                                ArregloJson = ArregloJson.replace("]", "");
+
+                                if(ArregloJson.equals(""))
+                                {
+                                    //Sin Información. Todos los campos vacíos.
+
+                                }
+                                else{
+                                    //SEPARAR CADA detenido EN UN ARREGLO
+                                    String[] ArrayPertenenciasReal = ArregloJson.split(Pattern.quote("},"));
+                                    ArrayPertenenciasReal = ArrayPertenenciasReal;
+
+                                    //RECORRE EL ARREGLO PARA AGREGAR EL FOLIO CORRESPONDIENTE DE CADA OBJETJSN
+                                    int contadordePertenencias=0;
+                                    while(contadordePertenencias < ArrayPertenenciasReal.length){
+                                        try {
+                                            JSONObject jsonjObject = new JSONObject(ArrayPertenenciasReal[contadordePertenencias] + "}");
+
+                                                ListaIdPertenencias.add(jsonjObject.getString("IdPertenencia"));
+                                                ListPertenencia.add(jsonjObject.getString("Pertenencia"));
+                                                ListDescripcionPertenencia.add(jsonjObject.getString("DesPertenencia"));
+                                                ListDestino.add(jsonjObject.getString("Destino"));
+                                                ListaTablaPertenencias.add("TEMPORAL");
+
+
+
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                            Toast.makeText(getContext(), "ERROR AL DESEREALIZAR EL JSON", Toast.LENGTH_SHORT).show();
+                                        }
+                                        contadordePertenencias++;
+                                    }
+                                }
+
+                                //*************************
+                                Detenciones_Delictivo.MyAdapterPertenencias adapter = new Detenciones_Delictivo.MyAdapterPertenencias(getContext(), ListaIdPertenencias, ListPertenencia);
+                                lvPertenenciasDetenido.setAdapter(adapter);
+                                funciones.ajustaAlturaListView(lvPertenenciasDetenido,80);
+
+                            }
+                        });
+                    }
+
+                    catch (Exception e){
+                        Toast.makeText(getContext(), "ERROR AL SOLICITAR INFORMACION PERTENENCIAS, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            }
+        });
+    }
+
+    //***************** agregar pertencias a list real **************************//
+    private void CargarPertenenciasReal(int idDetenido) {
+
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("http://189.254.7.167/WebServiceIPH/api/HDPerteneciasDetenido?idHechoDelictivo="+cargarIdHechoDelictivo+"&idDetenido="+idDetenido)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Looper.prepare(); // to be able to make toast
+                Toast.makeText(getContext(), "ERROR AL CONSULTAR DETENIDOS ANEXO A, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    final String myResponse = response.body().string();
+
+                    try {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                String resp = myResponse;
+                                //***************** RESPUESTA DEL WEBSERVICE **************************//
+
+                                //CONVERTIR ARREGLO DE JSON A OBJET JSON
+                                String ArregloJson = resp.replace("[", "");
+                                ArregloJson = ArregloJson.replace("]", "");
+
+                                if(ArregloJson.equals(""))
+                                {
+                                    //Sin Información. Todos los campos vacíos.
+
+                                }
+                                else{
+                                    Log.i("PERTENENCIAS", "INGRESA A RESPUESTA DIFERENTE DE ''");
+
+                                    //SEPARAR CADA detenido EN UN ARREGLO
+                                    String[] ArrayPertenenciasReal = ArregloJson.split(Pattern.quote("},"));
+                                    ArrayPertenenciasReal = ArrayPertenenciasReal;
+
+                                    //RECORRE EL ARREGLO PARA AGREGAR EL FOLIO CORRESPONDIENTE DE CADA OBJETJSN
+                                    int contadordePertenencias=0;
+                                    while(contadordePertenencias < ArrayPertenenciasReal.length){
+                                        try {
+                                            JSONObject jsonjObject = new JSONObject(ArrayPertenenciasReal[contadordePertenencias] + "}");
+
+                                            ListaIdPertenencias.add(jsonjObject.getString("IdPertenencia"));
+                                            ListPertenencia.add(jsonjObject.getString("Pertenencia"));
+                                            ListDescripcionPertenencia.add(jsonjObject.getString("DesPertenencia"));
+                                            ListDestino.add(jsonjObject.getString("Destino"));
+                                            ListaTablaPertenencias.add("REAL");
+
+
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                            Toast.makeText(getContext(), "ERROR AL DESEREALIZAR EL JSON", Toast.LENGTH_SHORT).show();
+                                        }
+                                        contadordePertenencias++;
+                                    }
+                                }
+                                //*************************
+                                Detenciones_Delictivo.MyAdapterPertenencias adapter = new Detenciones_Delictivo.MyAdapterPertenencias(getContext(), ListaIdPertenencias, ListPertenencia);
+                                lvPertenenciasDetenido.setAdapter(adapter);
+                                funciones.ajustaAlturaListView(lvPertenenciasDetenido,80);
+
+                            }
+                        });
+                    }
+                    catch (Exception e){
+                        Toast.makeText(getContext(), "ERROR AL SOLICITAR INFORMACION PERTENENCIAS, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            }
+        });
+    }
 
     //********************************** INSERTA IMAGEN AL SERVIDOR ***********************************//
     public void insertImagen() {
@@ -1051,7 +1491,45 @@ public class Detenciones_Delictivo extends Fragment {
                         public void run() {
                             System.out.println("EL DATO DE LA IMAGEN SE ENVIO CORRECTAMENTE");
                             //Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+
                             insertLugarDetencionesDelictivo();
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    public void insertImagenUpdate() {
+        String cadena = lblFirmaOcultaDetenidoBase64Detenciones.getText().toString();
+        OkHttpClient client = new OkHttpClient();
+        RequestBody body = new FormBody.Builder()
+                .add("Description", cargarIdHechoDelictivo+randomUrlImagen+".jpg")
+                .add("ImageData", cadena)
+                .build();
+        Request request = new Request.Builder()
+                .url("http://189.254.7.167/WebServiceIPH/api/MultimediaFirmaDetencionesDerechos")
+                .post(body)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Looper.prepare(); // to be able to make toast
+                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, FAVOR DE VERIFICAR SU CONEXCIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    final String myResponse = response.body().toString();  /********** ME REGRESA LA RESPUESTA DEL WS ****************/
+                    Detenciones_Delictivo.this.getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            System.out.println("EL DATO DE LA IMAGEN SE ENVIO CORRECTAMENTE");
+                            Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+                            addFragment(new Detenciones_Delictivo());
+                            limpiarCampos();
                         }
                     });
                 }
@@ -1089,9 +1567,9 @@ public class Detenciones_Delictivo extends Fragment {
             case REQ_CODE_SPEECH_INPUT: {
                 if (resultCode == RESULT_OK && null != data) {
                     ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    Integer resource = (Integer) img_microfonoDescripcionDetenido.getTag();
+                    Integer resource2 = (Integer) img_microfonoDescripcionDetenido.getTag();
 
-                    if (resource == R.drawable.ic_micro_press) {
+                    if (resource2 == R.drawable.ic_micro_press ) {
                         String textoActual = txtDescripciondelDetenidoDelictivo.getText().toString();
                         txtDescripciondelDetenidoDelictivo.setText(textoActual + " " + result.get(0));
                     } else {
@@ -1109,7 +1587,7 @@ public class Detenciones_Delictivo extends Fragment {
 
         img_microfonoObservacionesDetencion.setImageResource(R.drawable.ic_micro);
         img_microfonoObservacionesDetencion.setTag(R.drawable.ic_micro);
-    }
+            }
 
 
 
@@ -1235,6 +1713,7 @@ public class Detenciones_Delictivo extends Fragment {
                                 //AGREGA LOS DATOS AL LISTVIEW MEDIANTE EL ADAPTADOR
                                 Detenciones_Delictivo.MyAdapter adapter = new Detenciones_Delictivo.MyAdapter(getContext(), ListaIdDetenido, ListaNombreDetenido);
                                 lvDetenidos.setAdapter(adapter);
+                                funciones.ajustaAlturaListView(lvDetenidos,250);
                                 //*************************
                             }
                         });
@@ -1249,7 +1728,7 @@ public class Detenciones_Delictivo extends Fragment {
     }
 
 
-    //***************** ADAPTADOR PARA LLENAR LISTA DE IPH ADMINISTRATIVO **************************//
+    //***************** ADAPTADOR PARA LLENAR LISTA DE IPH DELICTIVO **************************//
     class MyAdapter extends ArrayAdapter<String> {
         Context context;
         ArrayList<String> ListaIdDetenido,ListaNombreDetenido;
@@ -1282,6 +1761,37 @@ public class Detenciones_Delictivo extends Fragment {
         Picasso.get()
                 .load(firmaURLServer)
                 .into(target);
+    }
+
+    //***************** ADAPTADOR PARA LLENAR LISTA DE PERTENENCIAS **************************//
+    class MyAdapterPertenencias extends ArrayAdapter<String> {
+        Context context;
+        ArrayList<String> ListaTablaPertenencias,ListaPertenencias;
+
+        MyAdapterPertenencias (Context c, ArrayList<String> ListaTablaPertenencias, ArrayList<String> ListaPertenencias) {
+            super(c, R.layout.row_pertenencias, ListaTablaPertenencias);
+            this.context = c;
+            this.ListaTablaPertenencias = ListaTablaPertenencias;
+            this.ListaPertenencias = ListaPertenencias;
+        }
+        @NonNull
+        @Override
+        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+            LayoutInflater layoutInflater = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View row = layoutInflater.inflate(R.layout.row_pertenencias, parent, false);
+
+            TextView lblPertenencia = row.findViewById(R.id.lblPertenencia);
+            TextView lblDescripcion = row.findViewById(R.id.lblDescripcion);
+            TextView lblDestino = row.findViewById(R.id.lblDestino);
+
+
+            // Asigna los valores
+            lblPertenencia.setText(ListPertenencia.get(position));
+            lblDescripcion.setText(ListDescripcionPertenencia.get(position));
+            lblDestino.setText(ListDestino.get(position));
+
+            return row;
+        }
     }
 
     //***************** CONSULTA A LA BD MEDIANTE EL WS **************************//
@@ -1346,5 +1856,111 @@ public class Detenciones_Delictivo extends Fragment {
                 .commit();
     }
 
+    //***************** EliminarPertenenciaReal**************************//
+    private void EliminarPertenenciaReal(String IdPertenencia,String IdDetenido) {
+        String a = "http://189.254.7.167/WebServiceIPH/api/HDPerteneciasDetenido?folioInterno="+cargarIdHechoDelictivo+"&idPertenencia="+IdPertenencia+"&idDetenido="+IdDetenido;
+        Log.i("DETENCIONES", "Liga: "+a);
+
+
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("http://189.254.7.167/WebServiceIPH/api/HDPerteneciasDetenido?folioInterno="+cargarIdHechoDelictivo+"&idPertenencia="+IdPertenencia+"&idDetenido="+IdDetenido)
+                .delete()
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Looper.prepare(); // to be able to make toast
+                Toast.makeText(getContext(), "ERROR AL ELIMINAR VEHÍCULO, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    final String myResponse = response.body().string();
+
+                    try {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                String resp = myResponse;
+
+                                //***************** RESPUESTA DEL WEBSERVICE **************************//
+                                //CONVERTIR ARREGLO DE JSON A OBJET JSON
+                                if(resp.equals("true"))
+                                {
+                                    //***************** MENSAJE MÁS ACTUALIZAR LISTA (Recargando el Fragmento xoxo) **************************//
+                                    Toast.makeText(getContext(), "SE ELIMINÓ CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+                                    CargarPertenencias();
+                                }
+                                else{
+                                    Toast.makeText(getContext(), "PROBLEMA AL ELIMINAR", Toast.LENGTH_SHORT).show();
+                                }
+                                //*************************
+                            }
+                        });
+                    }
+                    catch (Exception e){
+                        Toast.makeText(getContext(), "ERROR AL ELIMINAR VEHÍCULO, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            }
+        });
+    }
+
+    //***************** EliminarPertenencia Temporales**************************//
+    private void EliminarPertenenciaTemporal(String IdPertenencia) {
+
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("http://189.254.7.167/WebServiceIPH/api/HDTempPertenencias?tempoFolioInterno="+cargarIdHechoDelictivo+"&tempoIdPertenencia="+IdPertenencia)
+                .delete()
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Looper.prepare(); // to be able to make toast
+                Toast.makeText(getContext(), "ERROR AL ELIMINAR, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    final String myResponse = response.body().string();
+
+                    try {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                String resp = myResponse;
+
+                                //***************** RESPUESTA DEL WEBSERVICE **************************//
+                                //CONVERTIR ARREGLO DE JSON A OBJET JSON
+                                if(resp.equals("true"))
+                                {
+                                    //***************** MENSAJE MÁS ACTUALIZAR LISTA (Recargando el Fragmento xoxo) **************************//
+                                    Toast.makeText(getContext(), "SE ELIMINÓ CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+                                    CargarPertenencias();
+                                }
+                                else{
+                                    Toast.makeText(getContext(), "PROBLEMA AL ELIMINAR", Toast.LENGTH_SHORT).show();
+                                }
+                                //*************************
+                            }
+                        });
+                    }
+                    catch (Exception e){
+                        Toast.makeText(getContext(), "ERROR AL ELIMINAR PERTENENCIAS TEMPO, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            }
+        });
+    }
 
 }

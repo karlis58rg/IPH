@@ -63,8 +63,9 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:text=""
+                                android:padding="@dimen/border"
                                 android:checked="true"
-                                android:layout_marginBottom="50dp"
+                                android:layout_marginBottom="20dp"
                                 android:button="@null"
                                 android:drawableStart="@drawable/rbbox"/>
 
@@ -74,6 +75,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:text=""
+                                android:padding="@dimen/border"
                                 android:button="@null"
                                 android:drawableStart="@drawable/rbbox"/>
                         </RadioGroup>

@@ -357,7 +357,7 @@ public class HechosDelictivos extends Fragment {
         }
 
         ModeloHechoDelictivo modeloHechoDelictivo = new ModeloHechoDelictivo(
-                cargarIdHechoDelictivo, noReferencia, txtFechaEntregaReferenciaDelictivo.getText().toString(),
+                cargarIdHechoDelictivo, txtNoReferenciaDelictivo.getText().toString(), txtFechaEntregaReferenciaDelictivo.getText().toString(),
                 txtHoraEntregaReferenciaDelictivo.getText().toString(),
                 txtNoExpedienteAdmministrativo.getText().toString(), anexoDetenciones,
                 numAnexoDetenciones, anexoUsoFuerza,  numAnexoUsoFuerza,  anexoVehiculos,
@@ -599,7 +599,7 @@ public class HechosDelictivos extends Fragment {
                                     try {
                                         JSONObject jsonjObject = new JSONObject(ArregloJson);
 
-                                        //txtNoReferenciaDelictivo.setText((jsonjObject.getString("NumReferencia")).equals("null")?"":jsonjObject.getString("NumReferencia"));
+                                        txtNoReferenciaDelictivo.setText((jsonjObject.getString("NumReferencia")).equals("null")?"":jsonjObject.getString("NumReferencia"));
                                         txtNoExpedienteAdmministrativo.setText((jsonjObject.getString("NumExpediente")).equals("null")?"":jsonjObject.getString("NumExpediente"));
 
                                         String[] Fecha = (jsonjObject.getString("Fecha").replace("-","/")).split("T");

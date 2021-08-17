@@ -32,7 +32,6 @@ public class Funciones {
 
     ProgressDialog progressDialog;
 
-
     //***************** Calendario Picker **************************//
     public void calendar(Integer idCajadeTextoCalendario, Context context, Activity activity){
         Calendar c;
@@ -154,6 +153,7 @@ public class Funciones {
     public void  ajustaAlturaListView(ListView listView, int factorAlto){
         int ancho = 1200;
         int alto = 120;
+        Log.i("LISTVIEW", "TOTAL DE ITEMS" + listView.getAdapter().getCount());
 
         alto = (listView.getAdapter().getCount())*factorAlto;
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ancho, alto);

@@ -1,8 +1,9 @@
 package mx.ssp.iph.delictivo.model;
 
-public class ModeloDetenciones_Delictivo {
+public class ModeloUpateDetenido {
 
     private String IdHechoDelictivo;
+    private String IdDetenido;
     private String NumDetencionRND;
     private String Fecha;
     private String Hora;
@@ -47,19 +48,30 @@ public class ModeloDetenciones_Delictivo {
     private String ObservacionesDetencion;
     private String IdPoliciaPrimerRespondiente;
 
-    public ModeloDetenciones_Delictivo(String idHechoDelictivo, String numDetencionRND, String fecha, String hora,
-                                       String APDentenido, String AMDetenido, String nomDetenido, String apodoAlias,
-                                       String descripcionDetenido, String idNacionalidad, String idSexo, String fechaNacimiento,
-                                       String edad, String idIdentificacion, String identificacionOtro, String numIdentificacion,
-                                       String idEntidadfederativa, String idMunicipio, String coloniaLocalidad, String calleTramo,
-                                       String noExterior, String noInterior, String cp, String referencia, String lesiones,
-                                       String padecimientos, String descPadecimientos, String grupoVulnerable, String descGrupoVulnerable,
-                                       String grupoDelictivo, String descGrupoDelictivo, String proporcionoFamiliar, String APFamiliar,
-                                       String AMFamiliar, String nomFamiliar, String telefonoFamiliar, String informoDerechos, String rutaFirma,
-                                       String recolectoPertenencias, String lugarDetencionIntervencion, String idLugarTraslado, String descLugarTrasladoOtro,
-                                       String observacionesDetencion, String idPoliciaPrimerRespondiente) {
+    private String IdEntidadFederativaLD;
+    private String IdMunicipioLD;
+    private String ColoniaLocalidadLD;
+    private String CalleTramoLD;
+    private String NoExteriorLD;
+    private String NoInteriorLD;
+    private String CpLD;
+    private String ReferenciaLD;
+
+    public ModeloUpateDetenido(String idHechoDelictivo, String idDetenido, String numDetencionRND,
+                               String fecha, String hora, String APDentenido, String AMDetenido, String  nomDetenido, String apodoAlias,
+                               String descripcionDetenido, String idNacionalidad,String idSexo, String fechaNacimiento, String edad,
+                               String idIdentificacion, String identificacionOtro,
+                               String numIdentificacion, String idEntidadfederativa, String idMunicipio, String coloniaLocalidad, String calleTramo,
+                               String noExterior, String noInterior, String cp, String referencia, String lesiones, String padecimientos,
+                               String descPadecimientos, String grupoVulnerable, String descGrupoVulnerable, String grupoDelictivo, String descGrupoDelictivo,
+                               String proporcionoFamiliar, String APFamiliar, String AMFamiliar, String nomFamiliar, String telefonoFamiliar, String informoDerechos,
+                               String rutaFirma, String recolectoPertenencias, String lugarDetencionIntervencion, String idLugarTraslado, String descLugarTrasladoOtro,
+                               String observacionesDetencion, String idPoliciaPrimerRespondiente,
+                               String idEntidadFederativaLD, String idMunicipioLD, String coloniaLocalidadLD,
+                               String calleTramoLD, String noExteriorLD, String noInteriorLD, String cpLD, String referenciaLD) {
 
         IdHechoDelictivo = idHechoDelictivo;
+        IdDetenido = idDetenido;
         NumDetencionRND = numDetencionRND;
         Fecha = fecha;
         Hora = hora;
@@ -103,6 +115,14 @@ public class ModeloDetenciones_Delictivo {
         DescLugarTrasladoOtro = descLugarTrasladoOtro;
         ObservacionesDetencion = observacionesDetencion;
         IdPoliciaPrimerRespondiente = idPoliciaPrimerRespondiente;
+        IdEntidadFederativaLD = idEntidadFederativaLD;
+        IdMunicipioLD = idMunicipioLD;
+        ColoniaLocalidadLD = coloniaLocalidadLD;
+        CalleTramoLD = calleTramoLD;
+        NoExteriorLD = noExteriorLD;
+        NoInteriorLD = noInteriorLD;
+        CpLD = cpLD;
+        ReferenciaLD = referenciaLD;
     }
 
     public String getIdHechoDelictivo() {
@@ -111,6 +131,14 @@ public class ModeloDetenciones_Delictivo {
 
     public void setIdHechoDelictivo(String idHechoDelictivo) {
         IdHechoDelictivo = idHechoDelictivo;
+    }
+
+    public String getIdDetenido() {
+        return IdDetenido;
+    }
+
+    public void setIdDetenido(String idDetenido) {
+        IdDetenido = idDetenido;
     }
 
     public String getNumDetencionRND() {
@@ -412,9 +440,11 @@ public class ModeloDetenciones_Delictivo {
     public String getRecolectoPertenencias() {
         return RecolectoPertenencias;
     }
+
     public void setRecolectoPertenencias(String recolectoPertenencias) {
         RecolectoPertenencias = recolectoPertenencias;
     }
+
     public String getLugarDetencionIntervencion() {
         return LugarDetencionIntervencion;
     }
@@ -454,4 +484,70 @@ public class ModeloDetenciones_Delictivo {
     public void setIdPoliciaPrimerRespondiente(String idPoliciaPrimerRespondiente) {
         IdPoliciaPrimerRespondiente = idPoliciaPrimerRespondiente;
     }
+
+    public String getIdEntidadFederativaLD() {
+        return IdEntidadFederativaLD;
+    }
+
+    public void setIdEntidadFederativaLD(String idEntidadFederativaLD) {
+        IdEntidadFederativaLD = idEntidadFederativaLD;
+    }
+
+    public String getIdMunicipioLD() {
+        return IdMunicipioLD;
+    }
+
+    public void setIdMunicipioLD(String idMunicipioLD) {
+        IdMunicipioLD = idMunicipioLD;
+    }
+
+    public String getColoniaLocalidadLD() {
+        return ColoniaLocalidadLD;
+    }
+
+    public void setColoniaLocalidadLD(String coloniaLocalidadLD) {
+        ColoniaLocalidadLD = coloniaLocalidadLD;
+    }
+
+    public String getCalleTramoLD() {
+        return CalleTramoLD;
+    }
+
+    public void setCalleTramoLD(String calleTramoLD) {
+        CalleTramoLD = calleTramoLD;
+    }
+
+    public String getNoExteriorLD() {
+        return NoExteriorLD;
+    }
+
+    public void setNoExteriorLD(String noExteriorLD) {
+        NoExteriorLD = noExteriorLD;
+    }
+
+    public String getNoInteriorLD() {
+        return NoInteriorLD;
+    }
+
+    public void setNoInteriorLD(String noInteriorLD) {
+        NoInteriorLD = noInteriorLD;
+    }
+
+    public String getCpLD() {
+        return CpLD;
+    }
+
+    public void setCpLD(String cpLD) {
+        CpLD = cpLD;
+    }
+
+    public String getReferenciaLD() {
+        return ReferenciaLD;
+    }
+
+    public void setReferenciaLD(String referenciaLD) {
+        ReferenciaLD = referenciaLD;
+    }
+
+
 }

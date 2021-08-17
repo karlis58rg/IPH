@@ -809,7 +809,7 @@ public class DescripcionVehiculoDelictivo extends Fragment {
                                 //AGREGA LOS DATOS AL LISTVIEW MEDIANTE EL ADAPTADOR
                                 DescripcionVehiculoDelictivo.MyAdapter adapter = new DescripcionVehiculoDelictivo.MyAdapter(getContext(), ListaDatosVehiculoDelictivo,ListaDatosVehiculoDelictivo);
                                 lvVehiculosDelictivo.setAdapter(adapter);
-                                funciones.ajustaAlturaListView(lvVehiculosDelictivo,250);
+                                funciones.ajustaAlturaListView(lvVehiculosDelictivo,60);
 
 
                                 //*************************
