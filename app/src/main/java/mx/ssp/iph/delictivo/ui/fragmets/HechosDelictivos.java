@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.os.Looper;
+import android.text.InputFilter;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -126,10 +127,13 @@ public class HechosDelictivos extends Fragment {
         txtFolioInternoDelictivo = view.findViewById(R.id.txtFolioInternoDelictivo);
         txtFolioSistemaDelictivo = view.findViewById(R.id.txtFolioSistemaDelictivo);
         txtNoReferenciaDelictivo = view.findViewById(R.id.txtNoReferenciaDelictivo);
+        txtNoReferenciaDelictivo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(25)});
         txtNoExpedienteAdmministrativo = view.findViewById(R.id.txtNoExpedienteAdmministrativo);
+        txtNoExpedienteAdmministrativo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(25)});
         txtFechaEntregaReferenciaDelictivo = view.findViewById(R.id.txtFechaEntregaReferenciaDelictivo);
         txtHoraEntregaReferenciaDelictivo = view.findViewById(R.id.txtHoraEntregaReferenciaDelictivo);
         txtFiscaliaAutoridadDelictivo = view.findViewById(R.id.txtFiscaliaAutoridadDelictivo);
+        txtFiscaliaAutoridadDelictivo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
 
         chDetencionesAnexoADelictivo = view.findViewById(R.id.chDetencionesAnexoADelictivo);
         chAnexosDInventarioArmasDelictivo = view.findViewById(R.id.chAnexosDInventarioArmasDelictivo);

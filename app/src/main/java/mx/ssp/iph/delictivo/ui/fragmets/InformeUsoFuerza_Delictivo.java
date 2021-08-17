@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 
 import android.os.Looper;
 import android.speech.RecognizerIntent;
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -88,7 +89,9 @@ public class InformeUsoFuerza_Delictivo extends Fragment {
         spPersonasLesionadasUsoFuerza = view.findViewById(R.id.spPersonasLesionadasUsoFuerza);
         spPersonasFallecidasUsoFuerza = view.findViewById(R.id.spPersonasFallecidasUsoFuerza);
         txtDescripciondelUsoFuerza = view.findViewById(R.id.txtDescripciondelUsoFuerza);
+        txtDescripciondelUsoFuerza.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(8000)});
         txtDescripcionAsistenciaMedicaUsoFuerza = view.findViewById(R.id.txtDescripcionAsistenciaMedicaUsoFuerza);
+        txtDescripcionAsistenciaMedicaUsoFuerza.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(8000)});
         btnGuardarUsoFuerza = view.findViewById(R.id.btnGuardarUsoFuerza);
 
         rbNoReduccionFisicaDelictivo = view.findViewById(R.id.rbNoReduccionFisicaDelictivo);
