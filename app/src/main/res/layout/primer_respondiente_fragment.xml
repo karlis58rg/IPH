@@ -90,6 +90,7 @@
             android:layout_weight="1"
             android:orientation="horizontal"
             android:layout_marginTop="20dp">
+
             <LinearLayout
                 android:id="@+id/lyDatosIdentificacion"
                 android:layout_width="0dp"
@@ -102,46 +103,53 @@
                     android:id="@+id/lblDatosIdentificacion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="¿Arribó más de un elemento al lugar de la intervención?" />
+                    android:text="¿Arribó más de un elemento al lugar de la intervención?"/>
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/lyDetencionesAnexoAAdministrativo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:weightSum="1"
-                android:layout_weight="0.10">
-                <CheckBox
-                    android:id="@+id/chSiArriboElementosLugarIntervencion"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:text="Si"
-                    android:button="@null"
-                    android:drawableStart="@drawable/chbox"/>
-                <Spinner
-                    android:id="@+id/spArriboElementosLugarIntervencion"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:entries="@array/arrayTotalesAnexos"/>
+                android:layout_weight="0.20">
+                <RadioGroup
+                    android:id="@+id/rgArribanMasElementos"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center">
+                    <RadioButton
+                        android:id="@+id/chSiArriboElementosLugarIntervencion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_gravity="center"
+                        android:padding="10dp"
+                        android:text="Sí"
+                        android:button="@null"
+                        android:drawableStart="@drawable/rbbox"/>
+                    <Spinner
+                        android:id="@+id/spArriboElementosLugarIntervencion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:entries="@array/arrayTotalesAnexos"
+                        android:padding="10dp"
+                        android:visibility="invisible"/>
+
+                    <RadioButton
+                        android:id="@+id/chNoArriboElementosLugarIntervencion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:layout_gravity="center"
+                        android:text="No"
+                        android:button="@null"
+                        android:drawableStart="@drawable/rbbox"/>
+                </RadioGroup>
+
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/lyDetencionesAnexoBAdministrativo"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="1"
-                android:layout_weight="0.10">
-                <CheckBox
-                    android:id="@+id/chNoArriboElementosLugarIntervencion"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:text="No"
-                    android:button="@null"
-                    android:drawableStart="@drawable/chbox"/>
-            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout

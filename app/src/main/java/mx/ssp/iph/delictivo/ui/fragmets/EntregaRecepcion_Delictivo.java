@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import android.speech.RecognizerIntent;
+import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,8 +57,9 @@ public class EntregaRecepcion_Delictivo extends Fragment {
 
         //EditText
         txtAccionesRealizadas = view.findViewById(R.id.txtAccionesRealizadas);
+        txtAccionesRealizadas.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(8000)});
         txtObservacionesLugarIntervencion = view.findViewById(R.id.txtObservacionesLugarIntervencion);
-
+        txtObservacionesLugarIntervencion.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(8000)});
 
         //Imagen que funciona para activar la grabación de voz
         imgMicrofonoAccionesRealizadas.setOnClickListener(new View.OnClickListener() {
@@ -80,15 +82,10 @@ public class EntregaRecepcion_Delictivo extends Fragment {
             }
         });
 
-
-
-
-
-
-
         /***************************************************************************************/
         return view;
     }
+
 
     private void iniciarEntradadeVoz() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);

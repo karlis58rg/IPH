@@ -217,6 +217,7 @@
                 android:layout_marginTop="20dp">
 
                 <LinearLayout
+                    android:id="@+id/quintoUnoLinear"
                     android:layout_width="0dp"
                     android:layout_height="85dp"
                     android:orientation="horizontal"
@@ -224,7 +225,8 @@
                     android:layout_weight="0.20"
                     android:background="@drawable/ic_apodo"
                     android:padding="@dimen/border"
-                    android:layout_marginRight="24dp">
+                    android:layout_marginRight="24dp"
+                    android:focusableInTouchMode="true">
 
                     <LinearLayout
                         android:layout_width="200dp"
@@ -409,12 +411,14 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/quintoTresLinear"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:weightSum="1"
                     android:layout_weight="0.1"
-                    android:layout_marginBottom="24dp">
+                    android:layout_marginBottom="24dp"
+                    android:focusableInTouchMode="true">
                     <RadioGroup
                         android:id="@+id/rgDocumentoDelictivo"
                         android:layout_width="match_parent"
@@ -568,11 +572,13 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/lyColoniaDetencionDelictivo"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:weightSum="1"
-                    android:layout_weight="0.10">
+                    android:layout_weight="0.10"
+                    android:focusableInTouchMode="true">
                     <TextView
                         android:id="@+id/lblColonia"
                         android:layout_width="wrap_content"
@@ -825,6 +831,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/lyLesiones"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
@@ -952,7 +959,9 @@
                         android:singleLine="true"
                         android:maxLines="1"
                         android:lines="1"
-                        android:imeOptions="actionNext"/>
+                        android:imeOptions="actionNext"
+                        android:visibility="invisible"
+                        android:enabled="false"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -1041,7 +1050,8 @@
                         android:lines="1"
                         android:imeOptions="actionDone"
                         android:gravity="center"
-                        />
+                        android:visibility="invisible"
+                        android:enabled="false"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -1053,7 +1063,8 @@
                 android:layout_weight="1"
                 android:orientation="horizontal"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/ic_borde_radio">
+                android:background="@drawable/ic_borde_radio"
+                android:focusableInTouchMode="true">
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -1108,6 +1119,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/lyGrupoDelictivoDelictivo"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
@@ -1115,7 +1127,7 @@
                     android:layout_weight="0.10"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    >
+                    android:focusableInTouchMode="true">
 
                     <EditText
                         android:id="@+id/txtCualGrupoDelictivo"
@@ -1130,7 +1142,8 @@
                         android:lines="1"
                         android:imeOptions="actionDone"
                         android:gravity="center"
-                        />
+                        android:visibility="invisible"
+                        android:enabled="false"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -1162,11 +1175,13 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="20dp">
                 <LinearLayout
+                    android:id="@+id/lyPrimerApFamDet"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:weightSum="1"
-                    android:layout_weight="0.10">
+                    android:layout_weight="0.10"
+                    android:focusableInTouchMode="true">
                     <TextView
                         android:id="@+id/lblPrimerApellidoA3Delictivo"
                         android:layout_width="wrap_content"
@@ -1210,11 +1225,13 @@
                         android:imeOptions="actionNext"/>
                 </LinearLayout>
                 <LinearLayout
+                    android:id="@+id/lyNomFamDet"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:weightSum="1"
-                    android:layout_weight="0.10">
+                    android:layout_weight="0.10"
+                    android:focusableInTouchMode="true">
                     <TextView
                         android:id="@+id/lblNombreA3Delictivo"
                         android:layout_width="wrap_content"
@@ -1243,11 +1260,13 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="20dp">
                 <LinearLayout
+                    android:id="@+id/lyTelFamDet"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:weightSum="1"
-                    android:layout_weight="0.10">
+                    android:layout_weight="0.10"
+                    android:focusableInTouchMode="true">
                     <TextView
                         android:id="@+id/lblNumeroTelefonoA3Delictivo"
                         android:layout_width="wrap_content"
@@ -1376,11 +1395,13 @@ adolescentes."/>
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/lyLecturaDerechos"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:weightSum="1"
-                    android:layout_weight="0.10">
+                    android:layout_weight="0.10"
+                    android:focusableInTouchMode="true">
                     <RadioGroup
                         android:id="@+id/rgInformeDerechoDetencionesDelictivo"
                         android:layout_width="match_parent"
@@ -2067,11 +2088,13 @@ adolescentes."/>
                         android:orientation="horizontal"
                         android:layout_marginTop="20dp">
                         <LinearLayout
+                            android:id="@+id/lyCalleTramoDet"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:orientation="vertical"
                             android:weightSum="1"
-                            android:layout_weight="0.10">
+                            android:layout_weight="0.10"
+                            android:focusableInTouchMode="true">
                             <TextView
                                 android:id="@+id/lblCalleDetencion"
                                 android:layout_width="wrap_content"
@@ -2185,11 +2208,13 @@ adolescentes."/>
                         android:orientation="horizontal"
                         android:layout_marginTop="20dp">
                         <LinearLayout
+                            android:id="@+id/lyReferenciaLugarDet"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:orientation="vertical"
                             android:weightSum="1"
-                            android:layout_weight="0.10">
+                            android:layout_weight="0.10"
+                            android:focusableInTouchMode="true">
                             <TextView
                                 android:id="@+id/lblReferenciasDetencion"
                                 android:layout_width="wrap_content"
@@ -2290,7 +2315,8 @@ adolescentes."/>
                     android:id="@+id/lblCualLugarTraslado"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="¿Cuál?" />
+                    android:text="¿Cuál?"
+                    android:visibility="invisible"/>
                 <EditText
                     android:id="@+id/txtCualLugarTraslado"
                     android:layout_width="match_parent"
@@ -2301,7 +2327,9 @@ adolescentes."/>
                     android:singleLine="true"
                     android:maxLines="1"
                     android:lines="1"
-                    android:imeOptions="actionNext"/>
+                    android:imeOptions="actionNext"
+                    android:visibility="invisible"
+                    android:enabled="false"/>
 
             </LinearLayout>
 

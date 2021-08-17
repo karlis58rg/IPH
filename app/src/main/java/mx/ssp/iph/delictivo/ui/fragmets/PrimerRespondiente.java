@@ -91,41 +91,46 @@ public class PrimerRespondiente extends Fragment {
                 }
             }
         });
+
         chSiArriboElementosLugarIntervencion.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean chselect) {
                 if(chselect == true){
-                    chNoArriboElementosLugarIntervencion.setEnabled(false);
+                    spArriboElementosLugarIntervencion.setVisibility(View.VISIBLE);
                 }else{
-                    chNoArriboElementosLugarIntervencion.setEnabled(true);
+                    spArriboElementosLugarIntervencion.setVisibility(View.INVISIBLE);
+                    spArriboElementosLugarIntervencion.setSelection(0);
                 }
 
-            }
-        });
-        chNoArriboElementosLugarIntervencion.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean chselect) {
-                if(chselect == true){
-                    chSiArriboElementosLugarIntervencion.setEnabled(false);
-                    spArriboElementosLugarIntervencion.setEnabled(true);
-                }else{
-                    spArriboElementosLugarIntervencion.setVisibility(View.VISIBLE);
-                    spArriboElementosLugarIntervencion.setSelection(funciones.getIndexSpiner(spArriboElementosLugarIntervencion, "--Selecciona--"));
-                }
             }
         });
 
         btnGuardarPrimerRespondiente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
-                updatePrimerRespondiente();
+                PrimeraValidacion();
             }
         });
 
 
         /*********************************************************************************/
         return view;
+    }
+
+    public void PrimeraValidacion(){
+        if(chSiArriboElementosLugarIntervencion.isChecked()){
+            if(spArriboElementosLugarIntervencion.getSelectedItem().equals("--Selecciona--")){
+                Toast.makeText(getActivity().getApplicationContext(), "SELECCIONA CUANTOS ELEMENTOS ARRIBARON AL LUGAR DE LA INTERVENCIÓN", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
+                updatePrimerRespondiente();
+            }
+        } else if (chNoAplicaUnidadDeArriboDelictivo.isChecked()){
+            Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
+            updatePrimerRespondiente();
+        } else {
+            Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA SI ARRIBARON MÁS ELEMENTOS AL LUGAR DE LA INTERVENCIÓN", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

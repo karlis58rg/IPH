@@ -75,7 +75,7 @@ public class MenuPrincipal extends Fragment {
         lyBtn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            funciones.Procesando(getActivity(),"","GENERANDO NO. DE FOLIO... Procesando, Por favor espera...");
+            funciones.Procesando(getActivity(),"","GENERANDO NO. DE FOLIO... \n PROCESANDO, POR FAVOR ESPERA...");
                 //Genera número de folio aleatorio
                 getNumReferencia();
 
@@ -86,7 +86,7 @@ public class MenuPrincipal extends Fragment {
             @Override
             public void onClick(View v) {
                 //Abre Dialog de por favor espere
-                funciones.Procesando(getActivity(),"","GENERANDO NO. DE FOLIO... Procesando, Por favor espera...");
+                funciones.Procesando(getActivity(),"","GENERANDO NO. DE FOLIO... \n PROCESANDO, POR FAVOR ESPERA...");
 
                 //Genera número de folio aleatorio
                 GenerarNumerodeReferencia();

@@ -262,15 +262,20 @@ public class PuestaDisposicion_Administrativo extends Fragment {
         btnGuardarPuestaDisposicioAdministrativo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 if(banderaFirma == 0){
                     Toast.makeText(getContext(), "LO SENTIMOS, SU FIRMA ES NECESARIA PARA PODER CONTINUAR", Toast.LENGTH_LONG).show();
                 }
+
                 if(lblFirmaOcultaAutoridadBase64.getText().toString().isEmpty()){
                         Toast.makeText(getContext(), "LO SENTIMOS, SU FIRMA ES NECESARIA PARA PODER CONTINUAR", Toast.LENGTH_LONG).show();
                 }else{
                     Toast.makeText(getContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS ", Toast.LENGTH_LONG).show();
                         updatePuestaDisposicion();
                 }
+
+
+
 
                 if(chDetencionesAnexoAAdministrativo.isChecked()){
                     if(aux1 != 1){

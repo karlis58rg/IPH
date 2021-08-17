@@ -192,13 +192,15 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/lyAnexosUno"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:layout_marginTop="@dimen/border"
                 android:paddingLeft="@dimen/border"
                 android:paddingRight="@dimen/border"
-                android:background="@drawable/ic_anexos_delictivo">
+                android:background="@drawable/ic_anexos_delictivo"
+                android:focusableInTouchMode="true">
 
                 <LinearLayout
                     android:id="@+id/quintoLinear1"
@@ -206,7 +208,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="horizontal"
-                    android:layout_marginTop="20dp">
+                    android:layout_marginTop="20dp"
+                    android:focusableInTouchMode="true">
                     <LinearLayout
                         android:id="@+id/lyAnexosADetencionDelictivo"
                         android:layout_width="0dp"
@@ -587,7 +590,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="0.5"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:focusableInTouchMode="true">
                     <TextView
                         android:id="@+id/lblFiscaliaAutoridadDelictivo"
                         android:layout_width="wrap_content"

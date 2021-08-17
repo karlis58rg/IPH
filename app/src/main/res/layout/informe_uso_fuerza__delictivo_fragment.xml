@@ -121,16 +121,19 @@
                 android:layout_marginTop="20dp"
                 android:layout_weight="1"
                 android:background="@drawable/ic_borde_radio"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:focusableInTouchMode="true">
 
                 <LinearLayout
+                    android:id="@+id/OpcionesUnoDelic"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="@dimen/border"
                     android:layout_weight="0.15"
                     android:gravity="center_vertical"
                     android:orientation="vertical"
-                    android:weightSum="1">
+                    android:weightSum="1"
+                    android:focusableInTouchMode="true">
 
                     <TextView
                         android:id="@+id/lblpregunta1"
@@ -162,11 +165,13 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/lyOpcionesDosDelic"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.1"
                     android:orientation="vertical"
-                    android:weightSum="1">
+                    android:weightSum="1"
+                    android:focusableInTouchMode="true">
 
                     <RadioGroup
                         android:id="@+id/rgReduccionFisicaDelictivo"
@@ -271,7 +276,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="20dp"
+                android:focusableInTouchMode="true">
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -311,7 +317,8 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
                 android:weightSum="1"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="20dp"
+                android:focusableInTouchMode="true">
                 <LinearLayout
                     android:id="@+id/lyAsistenciaMedica"
                     android:layout_width="match_parent"
@@ -357,7 +364,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="20dp"
+                android:focusableInTouchMode="true">
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">

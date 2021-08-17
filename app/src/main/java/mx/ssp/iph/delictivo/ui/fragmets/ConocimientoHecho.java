@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.os.Looper;
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,6 +65,7 @@ public class ConocimientoHecho extends Fragment {
         cargarDatos();
         spConocimientoHechoDelictivo = view.findViewById(R.id.spConocimientoHechoDelictivo);
         txt911FolioConocimientoHechoDelictivo = view.findViewById(R.id.txt911FolioConocimientoHechoDelictivo);
+        txt911FolioConocimientoHechoDelictivo.setFilters(new InputFilter[]{new InputFilter.LengthFilter(10)});
         txtFechaConocimientoHechoDelictivo = view.findViewById(R.id.txtFechaConocimientoHechoDelictivo);
         txtHoraConocimientoHechoDelictivo = view.findViewById(R.id.txtHoraConocimientoHechoDelictivo);
         txtFechaArriboLugarHD = view.findViewById(R.id.txtFechaArriboLugarHD);
