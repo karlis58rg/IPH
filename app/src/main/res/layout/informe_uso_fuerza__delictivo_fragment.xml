@@ -341,7 +341,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:padding="10dp"
-                            android:text="Si"
+                            android:text="Sí"
                             android:button="@null"
                             android:drawableStart="@drawable/rbbox" />
 

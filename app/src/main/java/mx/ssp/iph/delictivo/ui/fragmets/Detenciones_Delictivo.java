@@ -97,7 +97,7 @@ public class Detenciones_Delictivo extends Fragment {
     LinearLayout veinticinco,veinticincoUpdate;
     ImageView btnEditarDetenidoDelictivo,btnEliminarDetenidoDelictivo,btnCancelarDetenidoDelictivo;
     String firmaURLServer = "http://189.254.7.167/WebServiceIPH/Firma/SINFIRMA.jpg";
-    TextView lblFirmadelDetenidoDelictivo,lblFirmadelDetenidoDelictivoOculto;
+    TextView lblFirmadelDetenidoDelictivo,lblFirmadelDetenidoDelictivoOculto, lblPertenencia, lblDescripcion, lblDestino;
     ImageView imgFirmadelDetenidoDelictivoMiniatura;
     RadioButton rbLugarTrasladoDetencionFiscaliaAgencia,rbLugarTrasladoDetencionHospital,rbLugarTrasladoDetencionOtraDependencia;
     private Target target;
@@ -108,7 +108,7 @@ public class Detenciones_Delictivo extends Fragment {
 
     ImageView imgFirmaDerechosDelictivo,img_microfonoDescripcionDetenido;
     ImageView img_microfonoObservacionesDetencion;
-    TextView lblFirmaOcultaDetenidoBase64Detenciones;
+    TextView lblFirmaOcultaDetenidoBase64Detenciones, lblTipoDocumentoDelictivo, lblNumeroIdentificacionDelictivo;
 
     EditText txtFechaDetenidoDelictivo,txthoraDetencionDelictivo,txtFechaNacimientoDetenidoDelictivo, txtPrimerApellidoDetenidoDelictivo, txtSegundoApellidoDetenidoDelictivo,
             txtNombresDetenidoDelictivo, txtApodoDetenidoDelictivo, txtEdadDetenidoDelictivo,
@@ -143,9 +143,13 @@ public class Detenciones_Delictivo extends Fragment {
             septimounoLinear, septimodosLinear, septimotresLinear, treintaicuatroLinear, treintaicincoLinear,
             lyLesiones, treintaidosLinear, treintaLinear, lyColoniaDetencionDelictivo, veintinueveLinear,
             septimoLinear, lyGrupoDelictivoDelictivo, lyPrimerApFamDet, lyNomFamDet, lyTelFamDet,
-            lyCalleTramoDet, lyReferenciaLugarDet, treintaicuatrounoLinear;
+            lyCalleTramoDet, lyReferenciaLugarDet, treintaicuatrounoLinear, lyFechaHoradelaDetencion, lyHoraDetencion,
+            LinearPrincipalPertenencias, lyFirma, lyFirmaDetenido;
 
     int numberRandom,randomUrlImagen;
+
+    //LugarDeIntervencion_Delictivo lugIntDel = new LugarDeIntervencion_Delictivo();
+
 
     public static Detenciones_Delictivo newInstance() {
         return new Detenciones_Delictivo();
@@ -346,8 +350,30 @@ public class Detenciones_Delictivo extends Fragment {
         lyCalleTramoDet = view.findViewById(R.id.lyCalleTramoDet);
         lyReferenciaLugarDet = view.findViewById(R.id.lyReferenciaLugarDet);
         treintaicuatrounoLinear = view.findViewById(R.id.treintaicuatrounoLinear);
+        lyFechaHoradelaDetencion = view.findViewById(R.id.lyFechaHoradelaDetencion);
+        lyHoraDetencion = view.findViewById(R.id.lyHoraDetencion);
+        LinearPrincipalPertenencias = view.findViewById(R.id.LinearPrincipalPertenencias);
+        lblTipoDocumentoDelictivo = view.findViewById(R.id.lblTipoDocumentoDelictivo);
+        lblNumeroIdentificacionDelictivo = view.findViewById(R.id.lblNumeroIdentificacionDelictivo);
+        lyFirma = view.findViewById(R.id.lyFirma);
+        lyFirmaDetenido = view.findViewById(R.id.lyFirmaDetenido);
+        lblPertenencia = view.findViewById(R.id.lblPertenencia);
+        lblDescripcion = view.findViewById(R.id.lblDescripcion);
+        lblDestino = view.findViewById(R.id.lblDestino);
 
         funciones.CambiarTituloSeccionesDelictivo("ANEXO A. DETENCIÓN(ES)",getContext(),getActivity());
+
+        spTipoDocumentoDelictivo.setEnabled(false);
+
+        txtPertenenciaDetenido.setEnabled(false);
+        txtDescripcionPertenenciaDetenido.setEnabled(false);
+        txtDestinoPertenenciaDetenido.setEnabled(false);
+        btnAgregarPertenencia.setEnabled(false);
+        lblPertenencia.setEnabled(false);
+        lblDescripcion.setEnabled(false);
+        lblDestino.setEnabled(false);
+
+
 
         target = new Target() {
             @Override
@@ -518,12 +544,14 @@ public class Detenciones_Delictivo extends Fragment {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (checkedId == R.id.rbSiDocumentoDelictivo) {
                     varIdentificacionDocumento = "SI";
-                    spTipoDocumentoDelictivo.setVisibility(view.VISIBLE);
+                    spTipoDocumentoDelictivo.setEnabled(true);
                     txtNumeroIdentificacionDelictivo.setEnabled(true);
                 } else if (checkedId == R.id.rbNoDocumentoDelictivo) {
                     varIdentificacionDocumento = "NO";
-                    spTipoDocumentoDelictivo.setVisibility(view.INVISIBLE);
+                    spTipoDocumentoDelictivo.setEnabled(false);
+                    spTipoDocumentoDelictivo.setSelection(0);
                     txtNumeroIdentificacionDelictivo.setEnabled(false);
+
                     txtNumeroIdentificacionDelictivo.setText("");
                 }
 
@@ -664,14 +692,20 @@ public class Detenciones_Delictivo extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean chselect) {
                 if(chselect == true){
                     txtNumeroTelefonoA3Delictivo.setEnabled(false);
-                    //varNoAlias = "NA";
                     txtNumeroTelefonoA3Delictivo.setText("");
+                    txtPrimerApellidoA3Delictivo.setEnabled(false);
+                    txtPrimerApellidoA3Delictivo.setText("");
+                    txtSegundoApellidoA3Delictivo.setEnabled(false);
+                    txtSegundoApellidoA3Delictivo.setText("");
+                    txtNombresA3Delictivo.setEnabled(false);
+                    txtNombresA3Delictivo.setText("");
                 } else if(chselect == false) {
                     txtNumeroTelefonoA3Delictivo.setEnabled(true);
-                    //varNoAlias = "";
-                    txtNumeroTelefonoA3Delictivo.setText("");
+                    txtNumeroTelefonoA3Delictivo.setEnabled(true);
+                    txtPrimerApellidoA3Delictivo.setEnabled(true);
+                    txtSegundoApellidoA3Delictivo.setEnabled(true);
+                    txtNombresA3Delictivo.setEnabled(true);
                 }
-
             }
         });
 
@@ -681,8 +715,22 @@ public class Detenciones_Delictivo extends Fragment {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (checkedId == R.id.rbNoPertenenciasDetenidoDelictivo) {
                     varPertenenciasDetenidoDelictivo = "NO";
+                    txtPertenenciaDetenido.setEnabled(false);
+                    txtDescripcionPertenenciaDetenido.setEnabled(false);
+                    txtDestinoPertenenciaDetenido.setEnabled(false);
+                    btnAgregarPertenencia.setEnabled(false);
+                    lblPertenencia.setEnabled(false);
+                    lblDescripcion.setEnabled(false);
+                    lblDestino.setEnabled(false);
                 } else if (checkedId == R.id.rbSiPertenenciasDetenidoDelictivo) {
                     varPertenenciasDetenidoDelictivo = "SI";
+                    txtPertenenciaDetenido.setEnabled(true);
+                    txtDescripcionPertenenciaDetenido.setEnabled(true);
+                    txtDestinoPertenenciaDetenido.setEnabled(true);
+                    btnAgregarPertenencia.setEnabled(true);
+                    lblPertenencia.setEnabled(true);
+                    lblDescripcion.setEnabled(true);
+                    lblDestino.setEnabled(true);
                 }
 
             }
@@ -692,7 +740,7 @@ public class Detenciones_Delictivo extends Fragment {
         btnGuardarPuestaDetencionesDelectivo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (validacionesLogicaApp()){
+                if (true){
                     PrimeraValidacion();
                 }
             }
@@ -968,7 +1016,7 @@ public class Detenciones_Delictivo extends Fragment {
             @Override
             public void onClick(View v) {
 
-                if (validacionesLogicaApp()){
+                if (true){
                     Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
                     UpdateDetencionesDelictivo();
                 }
@@ -1008,6 +1056,8 @@ public class Detenciones_Delictivo extends Fragment {
         } else {
             Toast.makeText(getActivity().getApplicationContext(), "NO SE PUEDE ALMACENAR INFORMACIÓN DE DETENCIÓN SIN FECHA Y HORA DE REGISTRO", Toast.LENGTH_SHORT).show();
             segundoLinear.requestFocus();
+            lyFechaHoradelaDetencion.requestFocus();
+            lyHoraDetencion.requestFocus();
         }
 
     }
@@ -1022,6 +1072,7 @@ public class Detenciones_Delictivo extends Fragment {
                 else
                 {
                     Toast.makeText(getActivity().getApplicationContext(), "INGRESA DESCRIPCIÓN DEL DETENIDO", Toast.LENGTH_SHORT).show();
+                    catorceavoLinear.requestFocus();
                 }
             } else if (rbNoDocumentoDelictivo.isChecked()) {
                 if (txtDescripciondelDetenidoDelictivo.getText().toString().length() >= 3) {
@@ -1031,6 +1082,7 @@ public class Detenciones_Delictivo extends Fragment {
                 else
                 {
                     Toast.makeText(getActivity().getApplicationContext(), "INGRESA DESCRIPCIÓN DEL DETENIDO", Toast.LENGTH_SHORT).show();
+                    catorceavoLinear.requestFocus();
                 }
             } else {
                 Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA SI SE IDENTIFICÓ CON ALGÚN DOCUMENTO", Toast.LENGTH_SHORT).show();
@@ -1143,34 +1195,71 @@ public class Detenciones_Delictivo extends Fragment {
     }
 
     public void CuartaValidacion(){
-        if(txtPrimerApellidoA3Delictivo.getText().toString().length() >= 3){
-            if(txtNombresA3Delictivo.getText().toString().length() >= 3){
-                if(chNoProporcionadoDelictivo.isChecked()){
+
+        if(chNoProporcionadoDelictivo.isChecked()){
+            //VALIDACION INFORME DERECHOS
+            if(rbNoInformeDerechoDetencionesDelictivo.isChecked()){
+                //HABILITAR ANEXO D
+                if(rbSiPertenenciasDetenidoDelictivo.isChecked()){
+                    //LLENAR PERTENENCIAS
+                    QuintaValidacion();
+                } else if (rbNoPertenenciasDetenidoDelictivo.isChecked()){
+                    QuintaValidacion();
+                } else {
+                    Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA SI SE RECOLECTÓ ALGUNA PERTENENCIA DE LA PERSONA DETENIDA", Toast.LENGTH_SHORT).show();
+                    septimodosLinear.requestFocus();
+                }
+            }
+            else if (rbSiInformeDerechoDetencionesDelictivo.isChecked()){
+                //IF VALIDACION FIRMA REALIZADA
+                if(firmaURLServer == "http://189.254.7.167/WebServiceIPH/Firma/SINFIRMA.jpg"){
+                    Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA FIRMA DEL DETENIDO ACEPTANDO LA LECTURA DE SUS DERECHOS " + imgFirmadelDetenidoDelictivoMiniatura + "  -  " + lblFirmadelDetenidoDelictivo + "  -  " + lblFirmaOcultaDetenidoBase64Detenciones, Toast.LENGTH_SHORT).show();
+                    lyFirma.requestFocus();
+                    lyFirmaDetenido.requestFocus();
+                }
+                else {
+                    //HABILITAR ANEXO D
+                    if(rbSiPertenenciasDetenidoDelictivo.isChecked()){
+                        //LLENAR PERTENENCIAS
+                        QuintaValidacion();
+                    } else if (rbNoPertenenciasDetenidoDelictivo.isChecked()){
+                        QuintaValidacion();
+                    } else {
+                        Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA SI SE RECOLECTÓ ALGUNA PERTENENCIA DE LA PERSONA DETENIDA", Toast.LENGTH_SHORT).show();
+                        septimodosLinear.requestFocus();
+                    }
+                }
+                //CIERRE IF VALIDACION FIRMA REALIZADA
+            }
+            else {
+                Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA SI LE INFORMÓ SUS DERECHOS AL DETENIDO", Toast.LENGTH_SHORT).show();
+                septimoLinear.requestFocus();
+            }
+        }
+        else {
+            if(txtPrimerApellidoA3Delictivo.getText().toString().length() >= 3){
+                if(txtNombresA3Delictivo.getText().toString().length() >= 3){
                     //VALIDACION INFORME DERECHOS
                     if(rbNoInformeDerechoDetencionesDelictivo.isChecked()){
-                        if(rbSiObjetoInspeccionDetenidoDelictivo.isChecked()){
-                            //HABILITAR ANEXO D
-                            if(rbSiPertenenciasDetenidoDelictivo.isChecked()){
-                                //LLENAR PERTENENCIAS
-                                QuintaValidacion();
-                            } else if (rbNoPertenenciasDetenidoDelictivo.isChecked()){
-                                QuintaValidacion();
-                            } else {
-                                Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA SI SE RECOLECTÓ ALGUNA PERTENENCIA DE LA PERSONA DETENIDA", Toast.LENGTH_SHORT).show();
-                                septimodosLinear.requestFocus();
-                            }
-
-                        } else if(rbNoObjetoInspeccionDetenidoDelictivo.isChecked()){
-
+                        //HABILITAR ANEXO D
+                        if(rbSiPertenenciasDetenidoDelictivo.isChecked()){
+                            //LLENAR PERTENENCIAS
+                            QuintaValidacion();
+                        } else if (rbNoPertenenciasDetenidoDelictivo.isChecked()){
+                            QuintaValidacion();
                         } else {
-                            Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA SI ENCONTRÓ ALGÚN OBJETO RELACIONADO CON LOS HECHOS", Toast.LENGTH_SHORT).show();
-                            septimounoLinear.requestFocus();
+                            Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA SI SE RECOLECTÓ ALGUNA PERTENENCIA DE LA PERSONA DETENIDA", Toast.LENGTH_SHORT).show();
+                            septimodosLinear.requestFocus();
                         }
-
-                    } else if (rbSiInformeDerechoDetencionesDelictivo.isChecked()){
+                    }
+                    else if (rbSiInformeDerechoDetencionesDelictivo.isChecked()){
                         //IF VALIDACION FIRMA REALIZADA
-
-                        if(rbSiObjetoInspeccionDetenidoDelictivo.isChecked()){
+                        if(firmaURLServer == "http://189.254.7.167/WebServiceIPH/Firma/SINFIRMA.jpg"){
+                            Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA FIRMA DEL DETENIDO ACEPTANDO LA LECTURA DE SUS DERECHOS " + imgFirmadelDetenidoDelictivoMiniatura + "  -  " + lblFirmadelDetenidoDelictivo + "  -  " + lblFirmaOcultaDetenidoBase64Detenciones, Toast.LENGTH_SHORT).show();
+                            lyFirma.requestFocus();
+                            lyFirmaDetenido.requestFocus();
+                        }
+                        else {
                             //HABILITAR ANEXO D
                             if(rbSiPertenenciasDetenidoDelictivo.isChecked()){
                                 //LLENAR PERTENENCIAS
@@ -1181,90 +1270,27 @@ public class Detenciones_Delictivo extends Fragment {
                                 Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA SI SE RECOLECTÓ ALGUNA PERTENENCIA DE LA PERSONA DETENIDA", Toast.LENGTH_SHORT).show();
                                 septimodosLinear.requestFocus();
                             }
-
-                        } else if(rbNoObjetoInspeccionDetenidoDelictivo.isChecked()){
-
-
-                        } else {
-                            Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA SI ENCONTRÓ ALGÚN OBJETO RELACIONADO CON LOS HECHOS", Toast.LENGTH_SHORT).show();
-                            septimounoLinear.requestFocus();
                         }
-
                         //CIERRE IF VALIDACION FIRMA REALIZADA
-                    } else {
+                    }
+                    else {
                         Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA SI LE INFORMÓ SUS DERECHOS AL DETENIDO", Toast.LENGTH_SHORT).show();
                         septimoLinear.requestFocus();
                     }
 
-                } else{
-                    if(txtNumeroTelefonoA3Delictivo.getText().toString().length() == 10){
-                        //VALIDACION INFORME DERECHOS
-                        if(rbNoInformeDerechoDetencionesDelictivo.isChecked()){
-                            if(rbSiObjetoInspeccionDetenidoDelictivo.isChecked()){
-                                //HABILITAR ANEXO D
-                                if(rbSiPertenenciasDetenidoDelictivo.isChecked()){
-                                    //LLENAR PERTENENCIAS
-                                    QuintaValidacion();
-                                } else if (rbNoPertenenciasDetenidoDelictivo.isChecked()){
-                                    QuintaValidacion();
-                                } else {
-                                    Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA SI SE RECOLECTÓ ALGUNA PERTENENCIA DE LA PERSONA DETENIDA", Toast.LENGTH_SHORT).show();
-                                    septimodosLinear.requestFocus();
-                                }
-
-                            } else if(rbNoObjetoInspeccionDetenidoDelictivo.isChecked()){
-
-                            } else {
-                                Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA SI ENCONTRÓ ALGÚN OBJETO RELACIONADO CON LOS HECHOS", Toast.LENGTH_SHORT).show();
-                                septimounoLinear.requestFocus();
-                            }
-
-                        } else if (rbSiInformeDerechoDetencionesDelictivo.isChecked()){
-                            //IF VALIDACION FIRMA REALIZADA
-
-
-                            if(rbSiObjetoInspeccionDetenidoDelictivo.isChecked()){
-                                //HABILITAR ANEXO D
-                                if(rbSiPertenenciasDetenidoDelictivo.isChecked()){
-                                    //LLENAR PERTENENCIAS
-                                    QuintaValidacion();
-                                } else if (rbNoPertenenciasDetenidoDelictivo.isChecked()){
-                                    QuintaValidacion();
-                                } else {
-                                    Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA SI SE RECOLECTÓ ALGUNA PERTENENCIA DE LA PERSONA DETENIDA", Toast.LENGTH_SHORT).show();
-                                    septimodosLinear.requestFocus();
-                                }
-
-                            } else if(rbNoObjetoInspeccionDetenidoDelictivo.isChecked()){
-
-                            } else {
-                                Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA SI ENCONTRÓ ALGÚN OBJETO RELACIONADO CON LOS HECHOS", Toast.LENGTH_SHORT).show();
-                                septimounoLinear.requestFocus();
-                            }
-
-                            //CIERRE IF VALIDACION FIRMA REALIZADA
-                        } else {
-                            Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA SI LE INFORMÓ SUS DERECHOS AL DETENIDO", Toast.LENGTH_SHORT).show();
-                            septimoLinear.requestFocus();
-                        }
-
-                    } else{
-                        Toast.makeText(getActivity().getApplicationContext(), "INGRESA CORRECTAMENTE EL NÚMERO TELEFÓNICO", Toast.LENGTH_SHORT).show();
-                        lyTelFamDet.requestFocus();
-                        txtNumeroTelefonoA3Delictivo.requestFocus();
-                    }
                 }
-            } else {
-                Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL NOMBRE DEL FAMILIAR DEL DETENIDO", Toast.LENGTH_SHORT).show();
-                lyNomFamDet.requestFocus();
-                txtNombresA3Delictivo.requestFocus();
+                else {
+                    Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL NOMBRE DEL FAMILIAR DEL DETENIDO", Toast.LENGTH_SHORT).show();
+                    lyNomFamDet.requestFocus();
+                    txtNombresA3Delictivo.requestFocus();
+                }
             }
-        } else {
-            Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL PRIMER APELLIDO DEL FAMILIAR DEL DETENIDO", Toast.LENGTH_SHORT).show();
-            lyPrimerApFamDet.requestFocus();
-            txtPrimerApellidoA3Delictivo.requestFocus();
+            else {
+                Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL PRIMER APELLIDO DEL FAMILIAR DEL DETENIDO", Toast.LENGTH_SHORT).show();
+                lyPrimerApFamDet.requestFocus();
+                txtPrimerApellidoA3Delictivo.requestFocus();
+            }
         }
-
 
     }
 
@@ -1320,7 +1346,7 @@ public class Detenciones_Delictivo extends Fragment {
     }
 
     public void SextaValidacion(){
-        if(rbLugarTrasladoDetencionFiscaliaAgencia.isChecked()){
+        if(rbLugarTrasladoDetencionFiscaliaAgencia.isChecked() || rbLugarTrasladoDetencionHospital.isChecked() || rbLugarTrasladoDetencionOtraDependencia.isChecked()){
             if(txtObservacionesDetencion.getText().toString().length() >= 3){
                 Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
                 insertDetencionesDelictivo();
@@ -1329,30 +1355,6 @@ public class Detenciones_Delictivo extends Fragment {
                 treintaicincoLinear.requestFocus();
             }
 
-        } else if(rbLugarTrasladoDetencionHospital.isChecked()){
-            if(txtObservacionesDetencion.getText().toString().length() >= 3){
-                Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
-                insertDetencionesDelictivo();
-            } else{
-                Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA DESCRIPCIÓN DE LA RUTA DE TRASLADO DEL DETENIDO", Toast.LENGTH_SHORT).show();
-                treintaicincoLinear.requestFocus();
-            }
-
-        } else if(rbLugarTrasladoDetencionOtraDependencia.isChecked()){
-            if(txtCualLugarTraslado.getText().toString().length() >= 3){
-                if(txtObservacionesDetencion.getText().toString().length() >= 3){
-                    Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
-                    insertDetencionesDelictivo();
-                } else{
-                    Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA DESCRIPCIÓN DE LA RUTA DE TRASLADO DEL DETENIDO", Toast.LENGTH_SHORT).show();
-                    treintaicincoLinear.requestFocus();
-                }
-
-            } else {
-                Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA DEPENDENCIA A LA QUE FUE TRASLADADO EL DETENIDO", Toast.LENGTH_SHORT).show();
-                treintaicuatroLinear.requestFocus();
-                txtCualLugarTraslado.requestFocus();
-            }
         } else {
             Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA A QUE DEPENDENCIA FUE TRASLADADO EL DETENIDO", Toast.LENGTH_SHORT).show();
             treintaicuatroLinear.requestFocus();
@@ -2529,24 +2531,6 @@ public class Detenciones_Delictivo extends Fragment {
                 }
             }
         });
-    }
-
-    public Boolean validacionesLogicaApp(){
-        // Si el radio se encuentra en false. No ha leído los derechos.
-        if (rbSiInformeDerechoDetencionesDelictivo.isChecked() == false)
-        {
-            funciones.mensajeAlertDialog("Recuerda informarle sus derechos a la persona detenida. Si ya lo hiciste marca la opción 'SI' para continuar.","ENTENDIDO","Alerta",getContext());
-            return false;
-        }
-
-        //Marcó que ingresa pertenencias en si y el grid se encuentra vacío
-        if (rbSiPertenenciasDetenidoDelictivo.isChecked() == true && bndlvPertenenciasDetenido <= 0 )
-        {
-            funciones.mensajeAlertDialog("Agrega las pertenencias encontradas o marca la opción 'No se recolecataron pertenencias'","ENTENDIDO","Alerta",getContext());
-            return false;
-        }
-
-        return true;
     }
 
 }

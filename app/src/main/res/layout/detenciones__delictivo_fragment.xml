@@ -60,13 +60,15 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
                 android:weightSum="1"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="20dp"
+                android:focusableInTouchMode="true">
                 <LinearLayout
                     android:id="@+id/lyFechaHoradelaDetencion"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="0.5"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:focusableInTouchMode="true">
                     <TextView
                         android:id="@+id/lblFechaDetencion"
                         android:layout_width="wrap_content"
@@ -89,7 +91,8 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:weightSum="1"
-                    android:layout_weight="0.5">
+                    android:layout_weight="0.5"
+                    android:focusableInTouchMode="true">
                     <TextView
                         android:id="@+id/lblHoraDetencion"
                         android:layout_width="wrap_content"
@@ -204,7 +207,7 @@
                         android:singleLine="true"
                         android:maxLines="1"
                         android:lines="1"
-                        android:imeOptions="actionNext"/>
+                        android:imeOptions="actionDone"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -482,7 +485,7 @@
                     <Spinner
                         android:id="@+id/spTipoDocumentoDelictivo"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="0dp"
@@ -506,7 +509,8 @@
                         android:singleLine="true"
                         android:maxLines="1"
                         android:lines="1"
-                        android:imeOptions="actionNext"/>
+                        android:imeOptions="actionNext"
+                        android:enabled="false"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -770,7 +774,8 @@
                 android:id="@+id/catorceavoLinear"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:focusableInTouchMode="true">
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -836,7 +841,8 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:weightSum="1"
-                    android:layout_weight="0.1">
+                    android:layout_weight="0.1"
+                    android:focusableInTouchMode="true">
                     <RadioGroup
                         android:id="@+id/rgLesionesDelictivo"
                         android:layout_width="match_parent"
@@ -883,7 +889,8 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/ic_borde_radio"
-                android:layout_height="90dp">
+                android:layout_height="90dp"
+                android:focusableInTouchMode="true">
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -903,6 +910,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
@@ -973,7 +981,8 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
-                android:background="@drawable/ic_borde_radio">
+                android:background="@drawable/ic_borde_radio"
+                android:focusableInTouchMode="true">
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -1048,7 +1057,7 @@
                         android:singleLine="true"
                         android:maxLines="1"
                         android:lines="1"
-                        android:imeOptions="actionDone"
+                        android:imeOptions="actionNext"
                         android:gravity="center"
                         android:visibility="invisible"
                         android:enabled="false"/>
@@ -1140,7 +1149,7 @@
                         android:singleLine="true"
                         android:maxLines="1"
                         android:lines="1"
-                        android:imeOptions="actionDone"
+                        android:imeOptions="actionNext"
                         android:gravity="center"
                         android:visibility="invisible"
                         android:enabled="false"/>
@@ -1303,7 +1312,7 @@
                         android:id="@+id/lblNoProporcionadoDelictivo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="No Proporcionado" />
+                        android:text="NO PROPORCIONÓ DATOS" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="0dp"
@@ -1437,7 +1446,8 @@ adolescentes."/>
                     android:orientation="horizontal"
                     android:gravity="center"
                     android:weightSum="1"
-                    android:layout_weight="0.12">
+                    android:layout_weight="0.12"
+                    android:focusableInTouchMode="true">
 
                     <LinearLayout
                         android:id="@+id/lyFirmaDetenido"
@@ -1445,7 +1455,8 @@ adolescentes."/>
                         android:layout_height="match_parent"
                         android:orientation="vertical"
                         android:weightSum="1"
-                        android:layout_weight="0.5">
+                        android:layout_weight="0.5"
+                        android:focusableInTouchMode="true">
                         <TextView
                             android:id="@+id/lblFirmaDetenidoDelictivo"
                             android:layout_width="wrap_content"
@@ -1577,76 +1588,8 @@ adolescentes."/>
                 </LinearLayout>
             </LinearLayout>
 
-                <!--======== OBJETO RELACIONADO CON LOS HECHOS ============ -->
 
-            <LinearLayout
-                android:id="@+id/septimounoLinear"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="horizontal"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:weightSum="1"
-                    android:layout_weight="0.10">
-
-                    <TextView
-                        android:id="@+id/lblObjetoInspeccionDetenidoDelictivo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Al momento de realizar la inspección a la persona detenida, ¿le encontró algún objeto relacionado con los hechos?" />
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:weightSum="1"
-                    android:layout_weight="0.10">
-
-                    <RadioGroup
-                        android:id="@+id/rgObjetoInspeccionDetenidoDelictivo"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
-
-                        <RadioButton
-                            android:id="@+id/rbSiObjetoInspeccionDetenidoDelictivo"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:padding="10dp"
-                            android:text="Sí (Llene el Anexo D)"
-                            android:button="@null"
-                            android:drawableStart="@drawable/rbbox" />
-
-
-                        <RadioButton
-                            android:id="@+id/rbNoObjetoInspeccionDetenidoDelictivo"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="20dp"
-                            android:padding="10dp"
-                            android:text="@string/no"
-                            android:button="@null"
-                            android:drawableStart="@drawable/rbbox"/>
-
-                    </RadioGroup>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-
-                <!--======== PERTENENCIAS DETENIDO ============ -->
+            <!--======== PERTENENCIAS DETENIDO ============ -->
             <LinearLayout
                 android:id="@+id/septimodosLinear"
                 android:layout_width="match_parent"
@@ -1709,6 +1652,78 @@ adolescentes."/>
             </LinearLayout>
 
 
+            <!--======== OBJETO RELACIONADO CON LOS HECHOS ============ -->
+            <LinearLayout
+                android:id="@+id/septimounoLinear"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="0dp"
+                android:layout_weight="0"
+                android:orientation="horizontal"
+                android:padding="0dp"
+                android:visibility="invisible">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0"
+                    android:orientation="vertical"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:id="@+id/lblObjetoInspeccionDetenidoDelictivo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Al momento de realizar la inspección a la persona detenida, ¿le encontró algún objeto relacionado con los hechos?" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0"
+                    android:orientation="horizontal"
+                    android:visibility="invisible"
+                    android:weightSum="1">
+
+                    <RadioGroup
+                        android:id="@+id/rgObjetoInspeccionDetenidoDelictivo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/rbSiObjetoInspeccionDetenidoDelictivo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"
+                            android:padding="0dp"
+                            android:text="Sí (Llene el Anexo D)" />
+
+
+                        <RadioButton
+                            android:id="@+id/rbNoObjetoInspeccionDetenidoDelictivo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="20dp"
+                            android:button="@null"
+                            android:checked="true"
+                            android:drawableStart="@drawable/rbbox"
+                            android:padding="0dp"
+                            android:text="@string/no" />
+
+                    </RadioGroup>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
         <!--======== OBJETO RELACIONADO CON LOS HECHOS ============ -->
         <LinearLayout
             android:id="@+id/LinearPrincipalPertenencias"
@@ -1717,7 +1732,8 @@ adolescentes."/>
             android:layout_weight="1"
             android:orientation="vertical"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp">
+            android:layout_marginBottom="20dp"
+            android:visibility="visible">
 
             <LinearLayout
                 android:id="@+id/LinearPertenencias"
@@ -1816,7 +1832,8 @@ adolescentes."/>
                     android:id="@+id/btnAgregarPertenencia"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/boton_agregar" />
+                    android:background="@drawable/boton_agregar"
+                    />
             </LinearLayout>
 
             <LinearLayout
@@ -1853,8 +1870,7 @@ adolescentes."/>
                             android:layout_gravity="center"
                             android:gravity="center"
                             android:layout_margin="3dp"
-                            android:background="@color/background_section"
-                            />
+                            android:background="@color/background_section"/>
 
                         <TextView
                             android:id="@+id/lblDescripcion"
@@ -1866,8 +1882,7 @@ adolescentes."/>
                             android:layout_gravity="center"
                             android:gravity="center"
                             android:layout_margin="3dp"
-                            android:background="@color/background_section"
-                            />
+                            android:background="@color/background_section"/>
 
                         <TextView
                             android:id="@+id/lblDestino"
@@ -1879,8 +1894,7 @@ adolescentes."/>
                             android:layout_gravity="center"
                             android:gravity="center"
                             android:layout_margin="3dp"
-                            android:background="@color/background_section"
-                            />
+                            android:background="@color/background_section"/>
                         <TextView
                             android:id="@+id/lblEliminar"
                             android:layout_width="150dp"
@@ -2329,8 +2343,7 @@ adolescentes."/>
                     android:maxLines="1"
                     android:lines="1"
                     android:imeOptions="actionNext"
-                    android:visibility="visible"
-                    android:enabled="false"/>
+                    android:visibility="visible"/>
 
             </LinearLayout>
 

@@ -127,7 +127,7 @@ public class PrimerRespondiente extends Fragment {
                 Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
                 updatePrimerRespondiente();
             }
-        } else if (chNoAplicaUnidadDeArriboDelictivo.isChecked()){
+        } else if (chNoArriboElementosLugarIntervencion.isChecked()){
             Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
             updatePrimerRespondiente();
         } else {

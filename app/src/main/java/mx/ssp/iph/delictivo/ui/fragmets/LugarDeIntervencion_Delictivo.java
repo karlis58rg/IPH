@@ -346,6 +346,17 @@ public class LugarDeIntervencion_Delictivo extends Fragment {
 
     }
 
+    /*public boolean ValidaDireccion(){
+        boolean direccioncompleta;
+
+        if(txtColoniaUbicacionGeograficaDelictivo.getText().length() >= 3 && txtCalleUbicacionGeograficaDelictivo.getText().length() >= 3 && txtReferenciasdelLugarUbicacionGeograficaDelictivo.getText().length() >= 3){
+            direccioncompleta = true;
+        } else {
+            direccioncompleta = false;
+        }
+        return direccioncompleta;
+    }*/
+
 
     //***************** INSERTA A LA BD MEDIANTE EL WS **************************//
     private void updateLugarIntervencionHD() {

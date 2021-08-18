@@ -78,7 +78,8 @@ public class DescripcionVehiculoDelictivo extends Fragment {
     int PosicionIPHSeleccionado= -1;
     ViewGroup quintoLinear, lyTipoVehiDelic, sextoLineardos, lyProceVehiDelic,
             lyUsoVehiDelic, lyDestiVehiDelic, LinearSituacion, lySituaVehiDelic,
-            octavoLinear, novenoLinear, dieciseisLinear;
+            octavoLinear, novenoLinear, dieciseisLinear, segundoLinear,
+            lyFechaHoradelaRetencion, lyHoraRetencion;
 
 
     //Actualizar
@@ -165,6 +166,9 @@ public class DescripcionVehiculoDelictivo extends Fragment {
         novenoLinear = root.findViewById(R.id.novenoLinear);
 
         dieciseisLinear = root.findViewById(R.id.dieciseisLinear);
+        segundoLinear = root.findViewById(R.id.segundoLinear);
+        lyFechaHoradelaRetencion = root.findViewById(R.id.lyFechaHoradelaRetencion);
+        lyHoraRetencion = root.findViewById(R.id.lyHoraRetencion);
 
 
 
@@ -451,26 +455,34 @@ public class DescripcionVehiculoDelictivo extends Fragment {
     }
 
     //VALIDACIONES INSERTAR
-    public void PrimeraValidacion(){
-        if(rbTerrestreDelictivo.isChecked() || rbAcuaticoDelictivo.isChecked() || rbAereoDelictivo.isChecked()){
-            if(rbNacionalDelictivo.isChecked() || rbExtranjeroDelictivo.isChecked()){
-                if(rbParticularDelictivo.isChecked() || rbTransportePublicoDelictivo.isChecked() || rbCargaDelictivo.isChecked()){
-                    SegundaValidacion();
+    public void PrimeraValidacion() {
+        if (txtFechaRetencionDelictivo.getText().toString().length() >= 3 || txthoraRetencionDelictivo.getText().toString().length() >= 3){
+            if (rbTerrestreDelictivo.isChecked() || rbAcuaticoDelictivo.isChecked() || rbAereoDelictivo.isChecked()) {
+                if (rbNacionalDelictivo.isChecked() || rbExtranjeroDelictivo.isChecked()) {
+                    if (rbParticularDelictivo.isChecked() || rbTransportePublicoDelictivo.isChecked() || rbCargaDelictivo.isChecked()) {
+                        SegundaValidacion();
+                    } else {
+                        Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA EL USO DEL VEHÍCULO", Toast.LENGTH_SHORT).show();
+                        sextoLineardos.requestFocus();
+                        lyUsoVehiDelic.requestFocus();
+                    }
                 } else {
-                    Toast.makeText(getActivity().getApplicationContext(),"ESPECIFICA EL USO DEL VEHÍCULO",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA LA PROCEDENCIA DEL VEHÍCULO", Toast.LENGTH_SHORT).show();
                     sextoLineardos.requestFocus();
-                    lyUsoVehiDelic.requestFocus();
+                    lyProceVehiDelic.requestFocus();
                 }
             } else {
-                Toast.makeText(getActivity().getApplicationContext(),"ESPECIFICA LA PROCEDENCIA DEL VEHÍCULO",Toast.LENGTH_SHORT).show();
-                sextoLineardos.requestFocus();
-                lyProceVehiDelic.requestFocus();
+                Toast.makeText(getActivity().getApplicationContext(), "EPECIFICA EL TIPO DE VEHÍCULO", Toast.LENGTH_SHORT).show();
+                quintoLinear.requestFocus();
+                lyTipoVehiDelic.requestFocus();
             }
         } else {
-            Toast.makeText(getActivity().getApplicationContext(),"EPECIFICA EL TIPO DE VEHÍCULO",Toast.LENGTH_SHORT).show();
-            quintoLinear.requestFocus();
-            lyTipoVehiDelic.requestFocus();
+            Toast.makeText(getActivity().getApplicationContext(), "NO SE PUEDE ALMACENAR INFORMACIÓN DEL VEHÍCULO SIN FECHA Y HORA DE REGISTRO", Toast.LENGTH_SHORT).show();
+            segundoLinear.requestFocus();
+            lyFechaHoradelaRetencion.requestFocus();
+            lyHoraRetencion.requestFocus();
         }
+
     }
     public void SegundaValidacion(){
         if(txtDestinoVehiculoDelictivo.getText().toString().length() >= 3){
