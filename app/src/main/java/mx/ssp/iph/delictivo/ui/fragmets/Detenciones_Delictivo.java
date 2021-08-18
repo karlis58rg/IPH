@@ -1212,8 +1212,8 @@ public class Detenciones_Delictivo extends Fragment {
             }
             else if (rbSiInformeDerechoDetencionesDelictivo.isChecked()){
                 //IF VALIDACION FIRMA REALIZADA
-                if(firmaURLServer == "http://189.254.7.167/WebServiceIPH/Firma/SINFIRMA.jpg"){
-                    Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA FIRMA DEL DETENIDO ACEPTANDO LA LECTURA DE SUS DERECHOS " + imgFirmadelDetenidoDelictivoMiniatura + "  -  " + lblFirmadelDetenidoDelictivo + "  -  " + lblFirmaOcultaDetenidoBase64Detenciones, Toast.LENGTH_SHORT).show();
+                if(lblFirmadelDetenidoDelictivo.getText().toString().isEmpty()){
+                    Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA FIRMA DEL DETENIDO ACEPTANDO LA LECTURA DE SUS DERECHOS", Toast.LENGTH_SHORT).show();
                     lyFirma.requestFocus();
                     lyFirmaDetenido.requestFocus();
                 }
@@ -1254,8 +1254,8 @@ public class Detenciones_Delictivo extends Fragment {
                     }
                     else if (rbSiInformeDerechoDetencionesDelictivo.isChecked()){
                         //IF VALIDACION FIRMA REALIZADA
-                        if(firmaURLServer == "http://189.254.7.167/WebServiceIPH/Firma/SINFIRMA.jpg"){
-                            Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA FIRMA DEL DETENIDO ACEPTANDO LA LECTURA DE SUS DERECHOS " + imgFirmadelDetenidoDelictivoMiniatura + "  -  " + lblFirmadelDetenidoDelictivo + "  -  " + lblFirmaOcultaDetenidoBase64Detenciones, Toast.LENGTH_SHORT).show();
+                        if(lblFirmadelDetenidoDelictivo.getText().toString().isEmpty()){
+                            Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA FIRMA DEL DETENIDO ACEPTANDO LA LECTURA DE SUS DERECHOS", Toast.LENGTH_SHORT).show();
                             lyFirma.requestFocus();
                             lyFirmaDetenido.requestFocus();
                         }
@@ -1309,12 +1309,12 @@ public class Detenciones_Delictivo extends Fragment {
                 } else {
                     Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA CALLE O TRAMO CARRETERO DEL LUGAR DE LA INTERVENCIÓN", Toast.LENGTH_SHORT).show();
                     txtCalleDetencion.requestFocus();
-                    lyCalleTramoDet.requestFocus();
+                    treintaLinear.requestFocus();
                 }
             } else {
                 Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA COLONIA O LOCALIDAD DEL LUGAR DE LA INTERVENCIÓN", Toast.LENGTH_SHORT).show();
                 txtColoniaDetencion.requestFocus();
-                lyColoniaDetencionDelictivo.requestFocus();
+                veintinueveLinear.requestFocus();
             }
 
         } else if(rbNoLugarDetencionDelictivo.isChecked()){
@@ -1331,12 +1331,12 @@ public class Detenciones_Delictivo extends Fragment {
                 } else {
                     Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA CALLE O TRAMO CARRETERO DEL LUGAR DE LA INTERVENCIÓN", Toast.LENGTH_SHORT).show();
                     txtCalleDetencion.requestFocus();
-                    lyCalleTramoDet.requestFocus();
+                    treintaLinear.requestFocus();
                 }
             } else {
                 Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA COLONIA O LOCALIDAD DEL LUGAR DE LA INTERVENCIÓN", Toast.LENGTH_SHORT).show();
                 txtColoniaDetencion.requestFocus();
-                lyColoniaDetencionDelictivo.requestFocus();
+                veintinueveLinear.requestFocus();
             }
         } else {
             Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA SI EL LUGAR DE LA DETENCIÓN ES EL MISMO QUE EL DE LA INTERVENCIÓN", Toast.LENGTH_SHORT).show();
@@ -1347,17 +1347,22 @@ public class Detenciones_Delictivo extends Fragment {
 
     public void SextaValidacion(){
         if(rbLugarTrasladoDetencionFiscaliaAgencia.isChecked() || rbLugarTrasladoDetencionHospital.isChecked() || rbLugarTrasladoDetencionOtraDependencia.isChecked()){
-            if(txtObservacionesDetencion.getText().toString().length() >= 3){
-                Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
-                insertDetencionesDelictivo();
-            } else{
-                Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA DESCRIPCIÓN DE LA RUTA DE TRASLADO DEL DETENIDO", Toast.LENGTH_SHORT).show();
-                treintaicincoLinear.requestFocus();
-            }
+            if(txtCualLugarTraslado.getText().toString().length() >= 3){
 
+                if(txtObservacionesDetencion.getText().toString().length() >= 3){
+                    Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
+                    insertDetencionesDelictivo();
+                } else{
+                    Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA DESCRIPCIÓN DE LA RUTA DE TRASLADO DEL DETENIDO", Toast.LENGTH_SHORT).show();
+                    treintaicincoLinear.requestFocus();
+                }
+            } else {
+                Toast.makeText(getActivity().getApplicationContext(), "INGRESA A CUAL DEPENDENCIA FUE TRASLADADO EL DETENIDO", Toast.LENGTH_SHORT).show();
+                treintaicuatroLinear.requestFocus();
+                txtCualLugarTraslado.requestFocus();
+            }
         } else {
             Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA A QUE DEPENDENCIA FUE TRASLADADO EL DETENIDO", Toast.LENGTH_SHORT).show();
-            treintaicuatroLinear.requestFocus();
             treintaicuatrounoLinear.requestFocus();
         }
     }
