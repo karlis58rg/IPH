@@ -59,13 +59,15 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
                 android:weightSum="1"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="20dp"
+                android:focusableInTouchMode="true">
                 <LinearLayout
                     android:id="@+id/lyFechaHoradelaRetencion"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="0.5"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:focusableInTouchMode="true">
                     <TextView
                         android:id="@+id/lblFechaRetencion"
                         android:layout_width="wrap_content"
@@ -86,7 +88,8 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:weightSum="1"
-                    android:layout_weight="0.5">
+                    android:layout_weight="0.5"
+                    android:focusableInTouchMode="true">
                     <TextView
                         android:id="@+id/lblHoraRetencion"
                         android:layout_width="wrap_content"

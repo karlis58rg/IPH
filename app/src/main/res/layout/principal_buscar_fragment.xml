@@ -115,7 +115,7 @@
                             android:singleLine="true"
                             android:maxLines="1"
                             android:lines="1"
-                            android:imeOptions="actionNext"/>
+                            android:imeOptions="actionDone"/>
                     </LinearLayout>
 
                     <!-- =============== BUSCAR POR FECHAS  =====================-->

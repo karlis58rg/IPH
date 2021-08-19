@@ -375,8 +375,6 @@ public class Detenciones_Delictivo extends Fragment {
         lblDescripcion.setEnabled(false);
         lblDestino.setEnabled(false);
 
-        rbNoLugarDetencionDelictivo.setChecked(true);
-
         target = new Target() {
             @Override
             public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
