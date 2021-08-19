@@ -25,6 +25,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -175,6 +176,13 @@ public class HechosDelictivos extends Fragment {
         txtNoReferenciaDelictivo.setEnabled(false);
         txtFolioInternoDelictivo.setEnabled(false);
 
+        spDetencionesAnexoADelictivo.setEnabled(false);
+        spUsoFuerzaAnexoBDelictivo.setEnabled(false);
+        spAnexosCInspeccionVehiculoDelictivo.setEnabled(false);
+        spAnexosDInventarioArmasDelictivo.setEnabled(false);
+        spEntrevistasAnexoEDelictivo.setEnabled(false);
+        spAnexosFEntregaRecepcionDelictivo.setEnabled(false);
+
         funciones.CambiarTituloSeccionesDelictivo("SECCIÓN 1. PUESTA A DISPOSICIÓN",getContext(),getActivity());
 
         //***************** Trae los Datos del Folio de la primera Sección  **************************//
@@ -313,6 +321,122 @@ public class HechosDelictivos extends Fragment {
                 });
 
 
+        chDetencionesAnexoADelictivo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean chselect) {
+                if(chselect == true){
+                    spDetencionesAnexoADelictivo.setEnabled(true);
+                } else if(chselect == false) {
+                    spDetencionesAnexoADelictivo.setEnabled(false);
+                    spDetencionesAnexoADelictivo.setSelection(0);
+                }
+            }
+        });
+
+        chUsoFuerzaAnexoBDelictivo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean chselect) {
+                if(chselect == true){
+                    spUsoFuerzaAnexoBDelictivo.setEnabled(true);
+                } else if(chselect == false) {
+                    spUsoFuerzaAnexoBDelictivo.setEnabled(false);
+                    spUsoFuerzaAnexoBDelictivo.setSelection(0);
+                }
+            }
+        });
+
+        chAnexosCInspeccionVehiculoDelictivo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean chselect) {
+                if(chselect == true){
+                    spAnexosCInspeccionVehiculoDelictivo.setEnabled(true);
+                } else if(chselect == false) {
+                    spAnexosCInspeccionVehiculoDelictivo.setEnabled(false);
+                    spAnexosCInspeccionVehiculoDelictivo.setSelection(0);
+                }
+            }
+        });
+
+        chAnexosDInventarioArmasDelictivo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean chselect) {
+                if(chselect == true){
+                    spAnexosDInventarioArmasDelictivo.setEnabled(true);
+                } else if(chselect == false) {
+                    spAnexosDInventarioArmasDelictivo.setEnabled(false);
+                    spAnexosDInventarioArmasDelictivo.setSelection(0);
+                }
+            }
+        });
+
+        chEntrevistasAnexoEDelictivo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean chselect) {
+                if(chselect == true){
+                    spEntrevistasAnexoEDelictivo.setEnabled(true);
+                } else if(chselect == false) {
+                    spEntrevistasAnexoEDelictivo.setEnabled(false);
+                    spEntrevistasAnexoEDelictivo.setSelection(0);
+                }
+            }
+        });
+
+        chAnexosFEntregaRecepcionDelictivo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean chselect) {
+                if(chselect == true){
+                    spAnexosFEntregaRecepcionDelictivo.setEnabled(true);
+                } else if(chselect == false) {
+                    spAnexosFEntregaRecepcionDelictivo.setEnabled(false);
+                    spAnexosFEntregaRecepcionDelictivo.setSelection(0);
+                }
+            }
+        });
+
+        chSinAnexosDelictivo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean chselect) {
+
+                if(chselect == true){
+                    chDetencionesAnexoADelictivo.setChecked(false);
+                    chUsoFuerzaAnexoBDelictivo.setChecked(false);
+                    chAnexosCInspeccionVehiculoDelictivo.setChecked(false);
+                    chAnexosDInventarioArmasDelictivo.setChecked(false);
+                    chEntrevistasAnexoEDelictivo.setChecked(false);
+                    chAnexosFEntregaRecepcionDelictivo.setChecked(false);
+
+                    chDetencionesAnexoADelictivo.setEnabled(false);
+                    chUsoFuerzaAnexoBDelictivo.setEnabled(false);
+                    chAnexosCInspeccionVehiculoDelictivo.setEnabled(false);
+                    chAnexosDInventarioArmasDelictivo.setEnabled(false);
+                    chEntrevistasAnexoEDelictivo.setEnabled(false);
+                    chAnexosFEntregaRecepcionDelictivo.setEnabled(false);
+
+                    spDetencionesAnexoADelictivo.setSelection(0);
+                    spUsoFuerzaAnexoBDelictivo.setSelection(0);
+                    spAnexosCInspeccionVehiculoDelictivo.setSelection(0);
+                    spAnexosDInventarioArmasDelictivo.setSelection(0);
+                    spEntrevistasAnexoEDelictivo.setSelection(0);
+                    spAnexosFEntregaRecepcionDelictivo.setSelection(0);
+
+                    spDetencionesAnexoADelictivo.setEnabled(false);
+                    spUsoFuerzaAnexoBDelictivo.setEnabled(false);
+                    spAnexosCInspeccionVehiculoDelictivo.setEnabled(false);
+                    spAnexosDInventarioArmasDelictivo.setEnabled(false);
+                    spEntrevistasAnexoEDelictivo.setEnabled(false);
+                    spAnexosFEntregaRecepcionDelictivo.setEnabled(false);
+
+                } else if(chselect == false) {
+                    chDetencionesAnexoADelictivo.setEnabled(true);
+                    chUsoFuerzaAnexoBDelictivo.setEnabled(true);
+                    chAnexosCInspeccionVehiculoDelictivo.setEnabled(true);
+                    chAnexosDInventarioArmasDelictivo.setEnabled(true);
+                    chEntrevistasAnexoEDelictivo.setEnabled(true);
+                    chAnexosFEntregaRecepcionDelictivo.setEnabled(true);
+                }
+            }
+        });
+
 
         btnGuardarHechoDelictivo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -386,7 +510,7 @@ public class HechosDelictivos extends Fragment {
     }
 
     public void SegundaValidacion() {
-        if (chDetencionesAnexoADelictivo.isChecked()){
+        if (chUsoFuerzaAnexoBDelictivo.isChecked()){
             if(aux2 != 1){
                 TerceraValidacion();
             } else {
@@ -401,7 +525,7 @@ public class HechosDelictivos extends Fragment {
     }
 
     public void TerceraValidacion() {
-        if (chDetencionesAnexoADelictivo.isChecked()){
+        if (chAnexosCInspeccionVehiculoDelictivo.isChecked()){
             if(aux3 != 1){
                 CuartaValidacion();
             } else {
@@ -416,7 +540,7 @@ public class HechosDelictivos extends Fragment {
     }
 
     public void CuartaValidacion() {
-        if (chDetencionesAnexoADelictivo.isChecked()){
+        if (chAnexosDInventarioArmasDelictivo.isChecked()){
             if(aux4 != 1){
                 QuintaValidacion();
             } else {
@@ -431,7 +555,7 @@ public class HechosDelictivos extends Fragment {
     }
 
     public void QuintaValidacion() {
-        if (chDetencionesAnexoADelictivo.isChecked()){
+        if (chEntrevistasAnexoEDelictivo.isChecked()){
             if(aux5 != 1){
                 SextaValidacion();
             } else {
@@ -446,7 +570,7 @@ public class HechosDelictivos extends Fragment {
     }
 
     public void SextaValidacion() {
-        if (chDetencionesAnexoADelictivo.isChecked()){
+        if (chAnexosFEntregaRecepcionDelictivo.isChecked()){
             if(aux6 != 1){
                 if(txtFiscaliaAutoridadDelictivo.getText().toString().length() >= 3){
                     Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();

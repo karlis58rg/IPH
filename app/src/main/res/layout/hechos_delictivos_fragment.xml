@@ -230,7 +230,8 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:weightSum="1"
-                        android:layout_weight="0.10">
+                        android:layout_weight="0.10"
+                        android:focusableInTouchMode="true">
                         <CheckBox
                             android:id="@+id/chDetencionesAnexoADelictivo"
                             android:layout_width="wrap_content"
@@ -266,7 +267,8 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:weightSum="1"
-                        android:layout_weight="0.10">
+                        android:layout_weight="0.10"
+                        android:focusableInTouchMode="true">
                         <CheckBox
                             android:id="@+id/chAnexosDInventarioArmasDelictivo"
                             android:layout_width="wrap_content"
@@ -310,7 +312,8 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:weightSum="1"
-                        android:layout_weight="0.10">
+                        android:layout_weight="0.10"
+                        android:focusableInTouchMode="true">
                         <CheckBox
                             android:id="@+id/chUsoFuerzaAnexoBDelictivo"
                             android:layout_width="wrap_content"
@@ -344,7 +347,8 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:weightSum="1"
-                        android:layout_weight="0.10">
+                        android:layout_weight="0.10"
+                        android:focusableInTouchMode="true">
                         <CheckBox
                             android:id="@+id/chEntrevistasAnexoEDelictivo"
                             android:layout_width="wrap_content"
@@ -388,7 +392,8 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:weightSum="1"
-                        android:layout_weight="0.10">
+                        android:layout_weight="0.10"
+                        android:focusableInTouchMode="true">
                         <CheckBox
                             android:id="@+id/chAnexosCInspeccionVehiculoDelictivo"
                             android:layout_width="wrap_content"
@@ -423,7 +428,8 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:weightSum="1"
-                        android:layout_weight="0.10">
+                        android:layout_weight="0.10"
+                        android:focusableInTouchMode="true">
                         <CheckBox
                             android:id="@+id/chAnexosFEntregaRecepcionDelictivo"
                             android:layout_width="wrap_content"

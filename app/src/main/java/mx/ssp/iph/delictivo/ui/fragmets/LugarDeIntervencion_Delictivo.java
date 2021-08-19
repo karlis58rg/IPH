@@ -93,7 +93,8 @@ public class LugarDeIntervencion_Delictivo extends Fragment {
     private Target target;
 
 
-    ViewGroup segundoLinear, principalLinear, lyEspecifiqueDelictivoLI, quinceavoLinear, quinceavoLinearDos, quinceavoLinearTres, quinceavoLinearCuatro, quinceavoLinearCinco, lyTipoRiesgoLI;
+
+    ViewGroup segundoLinear, principalLinear, lyEspecifiqueDelictivoLI, quinceavoLinear, quinceavoLinearDos, quinceavoLinearTres, quinceavoLinearCuatro, quinceavoLinearCinco, lyTipoRiesgoLI, sextoLinearDos;
 
     public static LugarDeIntervencion_Delictivo newInstance() {
         return new LugarDeIntervencion_Delictivo();
@@ -102,6 +103,7 @@ public class LugarDeIntervencion_Delictivo extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.lugar_de_intervencion_delictivo_fragment, container, false);
         /*******************************************************************************/
         cargarDatos();
@@ -157,8 +159,8 @@ public class LugarDeIntervencion_Delictivo extends Fragment {
         quinceavoLinearCuatro = view.findViewById(R.id.quinceavoLinearCuatro);
         quinceavoLinearCinco = view.findViewById(R.id.quinceavoLinearCinco);
         lyTipoRiesgoLI = view.findViewById(R.id.lyTipoRiesgoLI);
-
         segundoLinear = view.findViewById(R.id.segundoLinear);
+        sextoLinearDos = view.findViewById(R.id.sextoLinearDos);
 
         funciones = new Funciones();
         funciones.CambiarTituloSeccionesDelictivo("SECCIÓN 4. LUGAR DE LA INTERVENCIÓN",getContext(),getActivity());
@@ -238,10 +240,6 @@ public class LugarDeIntervencion_Delictivo extends Fragment {
                     segundoLinear.requestFocus();
                     principalLinear.requestFocus();
                 }
-
-
-
-
             }
         });
 
@@ -256,6 +254,7 @@ public class LugarDeIntervencion_Delictivo extends Fragment {
 
             }
         });
+
         rgObjetosRelacionadosLugarIntervencion.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -267,6 +266,7 @@ public class LugarDeIntervencion_Delictivo extends Fragment {
 
             }
         });
+
         rgPreservoLugarIntervencion.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -278,6 +278,7 @@ public class LugarDeIntervencion_Delictivo extends Fragment {
 
             }
         });
+
         rgPriorizacionLugarIntervencion.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -289,6 +290,7 @@ public class LugarDeIntervencion_Delictivo extends Fragment {
 
             }
         });
+
         rgRiesgoPresentadoLugarIntervencion.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -306,14 +308,13 @@ public class LugarDeIntervencion_Delictivo extends Fragment {
         return view;
     }
 
-
     public void SegundaValidacion(){
-        if (rbNoInspeccionLugarIntervencion.isChecked() || rbSiInspeccionLugarIntervencion.isChecked()){
-            if (rbNoObjetosRelacionadosLugarIntervencion.isChecked() || rbSiObjetosRelacionadosLugarIntervencion.isChecked()){
-                    if (rbNoPreservoLugarIntervencion.isChecked() || rbSiPreservoLugarIntervencion.isChecked()){
-                        if (rbNoPriorizacionLugarIntervencion.isChecked() || rbSiPriorizacionLugarIntervencion.isChecked()){
-                            if (rbRiesgoSocialesLugarIntervencion.isChecked() || rbRiesgoNaturalesLugarIntervencion.isChecked()){
-                                if(txtEspecificarRiesgoLugarIntervencion.getText().length() >= 3){
+            if (rbNoInspeccionLugarIntervencion.isChecked() || rbSiInspeccionLugarIntervencion.isChecked()) {
+                if (rbNoObjetosRelacionadosLugarIntervencion.isChecked()) {
+                    if (rbNoPreservoLugarIntervencion.isChecked() || rbSiPreservoLugarIntervencion.isChecked()) {
+                        if (rbNoPriorizacionLugarIntervencion.isChecked() || rbSiPriorizacionLugarIntervencion.isChecked()) {
+                            if (rbRiesgoSocialesLugarIntervencion.isChecked() || rbRiesgoNaturalesLugarIntervencion.isChecked()) {
+                                if (txtEspecificarRiesgoLugarIntervencion.getText().length() >= 3) {
                                     Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
                                     updateLugarIntervencionHD();
                                 } else {
@@ -335,28 +336,42 @@ public class LugarDeIntervencion_Delictivo extends Fragment {
                         Toast.makeText(getContext(), "ESPECIFICA SI PRESERVÓ EL LUGAR DE LA INTERVENCIÓN", Toast.LENGTH_LONG).show();
                         quinceavoLinearTres.requestFocus();
                     }
+                } else if (rbSiObjetosRelacionadosLugarIntervencion.isChecked()) {
+                    if (rbNoPreservoLugarIntervencion.isChecked() || rbSiPreservoLugarIntervencion.isChecked()) {
+                        if (rbNoPriorizacionLugarIntervencion.isChecked() || rbSiPriorizacionLugarIntervencion.isChecked()) {
+                            if (rbRiesgoSocialesLugarIntervencion.isChecked() || rbRiesgoNaturalesLugarIntervencion.isChecked()) {
+                                if (txtEspecificarRiesgoLugarIntervencion.getText().length() >= 3) {
+                                    Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
+                                    updateLugarIntervencionHD();
+                                } else {
+                                    Toast.makeText(getContext(), "INGRESA LA ESPECIFICACIÓN DE TIPO DE RIESGO", Toast.LENGTH_LONG).show();
+                                    lyEspecifiqueDelictivoLI.requestFocus();
+                                    quinceavoLinearCinco.requestFocus();
+                                    txtEspecificarRiesgoLugarIntervencion.requestFocus();
+                                }
+                            } else {
+                                Toast.makeText(getContext(), "ESPECIFICA SI HUBO UN TIPO DE RIESGO", Toast.LENGTH_LONG).show();
+                                quinceavoLinearCinco.requestFocus();
+                                //lyEspecifiqueDelictivoLI.requestFocus();
+                            }
+                        } else {
+                            Toast.makeText(getContext(), "ESPECIFICA SI LLEVÓ A CABO LA PRIORIZACIÓN EN EL LUGAR DE LA INTERVENCIÓN", Toast.LENGTH_LONG).show();
+                            quinceavoLinearCuatro.requestFocus();
+                        }
+                    } else {
+                        Toast.makeText(getContext(), "ESPECIFICA SI PRESERVÓ EL LUGAR DE LA INTERVENCIÓN", Toast.LENGTH_LONG).show();
+                        quinceavoLinearTres.requestFocus();
+                    }
+                } else {
+                    Toast.makeText(getContext(), "ESPECIFICA SI ENCONTRARON OBJETOS RELACIONADOS CON LOS HECHOS", Toast.LENGTH_LONG).show();
+                    quinceavoLinearDos.requestFocus();
+                }
             } else {
-                Toast.makeText(getContext(), "ESPECIFICA SI ENCONTRARON OBJETOS RELACIONADOS CON LOS HECHOS", Toast.LENGTH_LONG).show();
-                quinceavoLinearDos.requestFocus();
+                Toast.makeText(getContext(), "ESPECIFICA SI REALIZÓ INSPECCIÓN DEL LUGAR", Toast.LENGTH_LONG).show();
+                quinceavoLinear.requestFocus();
             }
-        } else {
-            Toast.makeText(getContext(), "ESPECIFICA SI REALIZÓ INSPECCIÓN DEL LUGAR", Toast.LENGTH_LONG).show();
-            quinceavoLinear.requestFocus();
-        }
 
     }
-
-    /*public boolean ValidaDireccion(){
-        boolean direccioncompleta;
-
-        if(txtColoniaUbicacionGeograficaDelictivo.getText().length() >= 3 && txtCalleUbicacionGeograficaDelictivo.getText().length() >= 3 && txtReferenciasdelLugarUbicacionGeograficaDelictivo.getText().length() >= 3){
-            direccioncompleta = true;
-        } else {
-            direccioncompleta = false;
-        }
-        return direccioncompleta;
-    }*/
-
 
     //***************** INSERTA A LA BD MEDIANTE EL WS **************************//
     private void updateLugarIntervencionHD() {

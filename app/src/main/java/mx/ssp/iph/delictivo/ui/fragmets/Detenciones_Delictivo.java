@@ -91,7 +91,7 @@ public class Detenciones_Delictivo extends Fragment {
     int bndlvPertenenciasDetenido= 0;
 
     int IdDetenidoSeleccionado = -1;
-    String[] ArrayListaIPHAdministrativo,ArrayPertenenciasReal;
+    String[] ArrayListaIPHAdministrativo, ArrayPertenenciasReal;
     ListView lvDetenidos;
     int PosicionIPHSeleccionado= -1;
     LinearLayout veinticinco,veinticincoUpdate;
@@ -148,7 +148,7 @@ public class Detenciones_Delictivo extends Fragment {
 
     int numberRandom,randomUrlImagen;
 
-    //LugarDeIntervencion_Delictivo lugIntDel = new LugarDeIntervencion_Delictivo();
+
 
 
     public static Detenciones_Delictivo newInstance() {
@@ -158,6 +158,9 @@ public class Detenciones_Delictivo extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+
+        LugarDeIntervencion_Delictivo lugIntDel = new LugarDeIntervencion_Delictivo();
+
         View view = inflater.inflate(R.layout.detenciones__delictivo_fragment, container, false);
         /***********************************************************************************/
         cargarDatos();
@@ -321,7 +324,6 @@ public class Detenciones_Delictivo extends Fragment {
         rbLugarTrasladoDetencionOtraDependencia = view.findViewById(R.id.rbLugarTrasladoDetencionOtraDependencia);
 
         //Pendiente Pertencencias Anexo  y pertenecncias personals
-
         segundoLinear = view.findViewById(R.id.segundoLinear);
         cuartoLinear = view.findViewById(R.id.cuartoLinear);
         quintoUnoLinear = view.findViewById(R.id.quintoUnoLinear);
@@ -373,7 +375,7 @@ public class Detenciones_Delictivo extends Fragment {
         lblDescripcion.setEnabled(false);
         lblDestino.setEnabled(false);
 
-
+        rbNoLugarDetencionDelictivo.setChecked(true);
 
         target = new Target() {
             @Override
@@ -459,60 +461,7 @@ public class Detenciones_Delictivo extends Fragment {
         });
 
 
-        rgLesionesDelictivo.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == R.id.rbSiLesionesDelictivo) {
-                    varLesiones = "SI";
-                } else if (checkedId == R.id.rbNoLesionesDelictivo) {
-                    varLesiones = "NO";
-                }
-
-            }
-        });
-
-        rgPadecimientoDelictivo.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == R.id.rbSiPadecimientoDelictivo) {
-                    varPadecimientos = "SI";
-                    descPadecimiento = txtCualPadecimientoDelictivo.getText().toString();
-                } else if (checkedId == R.id.rbPadecimientoDelictivo) {
-                    varPadecimientos = "NO";
-                    descPadecimiento = "NA";
-                }
-
-            }
-        });
-
-        rgGrupoVulnerableDelictivo.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == R.id.rbSiGrupoVulnerableDelictivo) {
-                    varGrupoVulnerable = "SI";
-                    descGrupoVulnerable = txtCualGrupoVulnerableDelictivo.getText().toString();
-                } else if (checkedId == R.id.rbNoGrupoVulnerableDelictivo) {
-                    varGrupoVulnerable = "NO";
-                    descGrupoVulnerable = "NA";
-                }
-
-            }
-        });
-
-        rgGrupoDelictivo.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == R.id.rbSiGrupoDelictivo) {
-                    varGrupoDelictivo = "SI";
-                    descGrupoDelictivo = txtCualGrupoDelictivo.getText().toString();
-                } else if (checkedId == R.id.rbNoGrupoDelictivo) {
-                    varGrupoDelictivo = "NO";
-                    descGrupoDelictivo = "NA";
-                }
-
-            }
-        });
-
+        //RADIOGRUPO INFORME DE DERECHOS
         rgInformeDerechoDetencionesDelictivo.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -525,15 +474,17 @@ public class Detenciones_Delictivo extends Fragment {
             }
         });
 
+
+        //RADIOGRUPO DETENCIÓN
         rgLugarDetencionDelictivo.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (checkedId == R.id.rbNoLugarDetencionDelictivo) {
                     varLugarDetencionDelictivo = "NO";
-                } else if (checkedId == R.id.rbSiLugarDetencionDelictivo) {
-                    varLugarDetencionDelictivo = "SI";
                 }
-
+                else if (checkedId == R.id.rbSiLugarDetencionDelictivo) {
+                        varLugarDetencionDelictivo = "SI";
+                }
             }
         });
 
@@ -573,6 +524,7 @@ public class Detenciones_Delictivo extends Fragment {
         });
 
 
+        //RADIOGRUPO PADECIMIENTO
         rgPadecimientoDelictivo.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -592,7 +544,6 @@ public class Detenciones_Delictivo extends Fragment {
 
             }
         });
-
 
 
         //RADIOGRUPO GRUPO VULNERABLE
@@ -685,7 +636,6 @@ public class Detenciones_Delictivo extends Fragment {
         });
 
 
-
         //******* HABILITAR DESHABILITAR CAMPO DE TEXTO TELEFONO FAMILIAR *******//
         chNoProporcionadoDelictivo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -749,7 +699,6 @@ public class Detenciones_Delictivo extends Fragment {
         btnAgregarPertenencia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (txtPertenenciaDetenido.getText().toString().equals("") || txtDescripcionPertenenciaDetenido.getText().toString().equals("") || txtDestinoPertenenciaDetenido.getText().toString().equals(""))
                 {
                     Toast.makeText(getActivity().getApplicationContext(), "COMPLETA TODOS LOS CAMPOS", Toast.LENGTH_SHORT).show();
@@ -1357,7 +1306,7 @@ public class Detenciones_Delictivo extends Fragment {
                     treintaicincoLinear.requestFocus();
                 }
             } else {
-                Toast.makeText(getActivity().getApplicationContext(), "INGRESA A CUAL DEPENDENCIA FUE TRASLADADO EL DETENIDO", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity().getApplicationContext(), "INGRESA A CUÁL DEPENDENCIA FUE TRASLADADO EL DETENIDO", Toast.LENGTH_SHORT).show();
                 treintaicuatroLinear.requestFocus();
                 txtCualLugarTraslado.requestFocus();
             }

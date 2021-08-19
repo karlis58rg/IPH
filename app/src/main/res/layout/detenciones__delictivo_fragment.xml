@@ -382,7 +382,8 @@
                     <EditText
                         android:id="@+id/txtEdadDetenidoDelictivo"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -1949,12 +1950,11 @@ adolescentes."/>
             <LinearLayout
                 android:id="@+id/septimotresLinear"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_weight="1"
                 android:orientation="horizontal"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:focusableInTouchMode="true">
+                android:focusableInTouchMode="true"
+                android:visibility="invisible">
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -2001,7 +2001,8 @@ adolescentes."/>
                             android:padding="10dp"
                             android:text="No (Indique la dirección)"
                             android:button="@null"
-                            android:drawableStart="@drawable/rbbox"/>
+                            android:drawableStart="@drawable/rbbox"
+                            android:checked="true"/>
 
                     </RadioGroup>
 
