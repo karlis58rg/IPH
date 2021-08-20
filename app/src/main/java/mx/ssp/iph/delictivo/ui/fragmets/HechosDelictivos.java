@@ -573,8 +573,7 @@ public class HechosDelictivos extends Fragment {
         if (chAnexosFEntregaRecepcionDelictivo.isChecked()){
             if(aux6 != 1){
                 if(txtFiscaliaAutoridadDelictivo.getText().toString().length() >= 3){
-                    Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
-                    updateHechoDelictivo();
+                    SeptimaValidacion();
                 } else {
                     Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA LA FISCALÍA O AUTORIDAD A LA QUE PERTENECE", Toast.LENGTH_SHORT).show();
                     txtFiscaliaAutoridadDelictivo.requestFocus();
@@ -588,13 +587,21 @@ public class HechosDelictivos extends Fragment {
 
         } else {
             if(txtFiscaliaAutoridadDelictivo.getText().toString().length() >= 3){
-                Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
-                updateHechoDelictivo();
+                SeptimaValidacion();
             } else {
                 Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA LA FISCALÍA O AUTORIDAD A LA QUE PERTENECE", Toast.LENGTH_SHORT).show();
                 txtFiscaliaAutoridadDelictivo.requestFocus();
                 lyFiscaliaAutoridadDelictivo.requestFocus();
             }
+        }
+    }
+
+    public void SeptimaValidacion(){
+        if(lblFirmaAutoridadRealizadaDelictivo.getText().toString().isEmpty()){
+            Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA FIRMA DE LA AUTORIDAD PARA CONTINUAR", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
+            updateHechoDelictivo();
         }
     }
 
