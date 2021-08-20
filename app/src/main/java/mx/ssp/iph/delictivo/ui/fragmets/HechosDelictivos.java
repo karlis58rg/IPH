@@ -974,7 +974,7 @@ public class HechosDelictivos extends Fragment {
                                         txtNoExpedienteAdmministrativo.setText((jsonjObject.getString("NumExpediente")).equals("null")?"":jsonjObject.getString("NumExpediente"));
 
                                         String[] Fecha = (jsonjObject.getString("Fecha").replace("-","/")).split("T");
-                                        txtFechaEntregaReferenciaDelictivo.setText((jsonjObject.getString("Fecha")).equals("null")?"":Fecha[0]);
+                                        txtFechaEntregaReferenciaDelictivo.setText((jsonjObject.getString("Fecha")).equals("null")?"1900/01/01":Fecha[0]);
                                         txtHoraEntregaReferenciaDelictivo.setText((jsonjObject.getString("Hora")).equals("null")?"":jsonjObject.getString("Hora"));
 
 

@@ -539,7 +539,6 @@ public class Detenciones_Delictivo extends Fragment {
                     txtCualPadecimientoDelictivo.setEnabled(false);
                     txtCualPadecimientoDelictivo.setText("");
                 }
-
             }
         });
 
@@ -753,7 +752,7 @@ public class Detenciones_Delictivo extends Fragment {
                     veinticincoUpdate.setVisibility(View.VISIBLE);
 
                     //Deserealizar y colocar los valores en los campos.
-                    txtFechaDetenidoDelictivo.setText(((jsonjObject.getString("Fecha")).equals("null")?"":jsonjObject.getString("Fecha")).replace("-","/").substring(0,10));
+                    txtFechaDetenidoDelictivo.setText(((jsonjObject.getString("Fecha")).equals("null")?"1900/01/01":jsonjObject.getString("Fecha")).replace("-","/").substring(0,10));
                     txthoraDetencionDelictivo.setText(((jsonjObject.getString("Hora")).equals("null")?"":jsonjObject.getString("Hora")));
 
                     txtPrimerApellidoDetenidoDelictivo.setText(((jsonjObject.getString("APDentenido")).equals("null")?"":jsonjObject.getString("APDentenido")));
@@ -772,7 +771,7 @@ public class Detenciones_Delictivo extends Fragment {
                     spGeneroDetenidoDelictivo.setSelection(funciones.getIndexSpiner(spGeneroDetenidoDelictivo, jsonjObject.getString("IdSexo")));
                     spNacionalidadDetenidoDelictivo.setSelection(funciones.getIndexSpiner(spNacionalidadDetenidoDelictivo, jsonjObject.getString("IdNacionalidad")));
 
-                    txtFechaNacimientoDetenidoDelictivo.setText(((jsonjObject.getString("FechaNacimiento")).equals("null")?"":jsonjObject.getString("FechaNacimiento")).replace("-","/").substring(0,10));
+                    txtFechaNacimientoDetenidoDelictivo.setText(((jsonjObject.getString("FechaNacimiento")).equals("null")?"1900/01/01":jsonjObject.getString("FechaNacimiento")).replace("-","/").substring(0,10));
                     txtEdadDetenidoDelictivo.setText(((jsonjObject.getString("Edad")).equals("null")?"":jsonjObject.getString("Edad")));
 
                     if ((jsonjObject.getString("IdentificacionOtro")).equals("SI"))
