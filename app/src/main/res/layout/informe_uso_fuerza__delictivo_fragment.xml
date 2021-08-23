@@ -13,9 +13,7 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-
-
-            <LinearLayout
+             <LinearLayout
                 android:id="@+id/lySeccionB1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

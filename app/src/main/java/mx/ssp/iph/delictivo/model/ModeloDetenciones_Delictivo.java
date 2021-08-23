@@ -2,6 +2,7 @@ package mx.ssp.iph.delictivo.model;
 
 public class ModeloDetenciones_Delictivo {
 
+
     private String IdHechoDelictivo;
     private String NumDetencionRND;
     private String Fecha;

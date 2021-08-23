@@ -654,6 +654,7 @@ public class Detenciones_Delictivo extends Fragment {
                     txtSegundoApellidoA3Delictivo.setEnabled(true);
                     txtNombresA3Delictivo.setEnabled(true);
                 }
+
             }
         });
 

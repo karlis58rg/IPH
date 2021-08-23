@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".delictivo.ui.fragmets.NarrativaHechos_Delictivo">
+    tools:context=".delictivo.ui.fragmets.InventarioArmasObjetos">
 
     <ScrollView
         android:id="@+id/scrollTransporte"
@@ -190,6 +190,104 @@
                 </LinearLayout>
 
 
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/LinearTipoArmaDelictivo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:focusableInTouchMode="true">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblCalibreArmaDelictivo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="Calibre"/>
+                    <EditText
+                        android:id="@+id/txtCalibreArmaDelictivo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_nombre"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionNext"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblColorArmaDelictivo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="Color"/>
+                    <Spinner
+                        android:id="@+id/spColorArmaDelictivo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblMatriculaArmaDelictivo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="Matrícula"/>
+                    <EditText
+                        android:id="@+id/txtMatriculaArmaDelictivo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLength="10"
+                        android:inputType="textCapCharacters"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionNext"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblNoSerieArmaDelictivo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text="No. de serie."/>
+                    <EditText
+                        android:id="@+id/txtNoSerieArmaDelictivo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionNext"/>
+                </LinearLayout>
             </LinearLayout>
 
             <!--Observaciones Arma -->
@@ -1053,7 +1151,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/font"
-                            android:text="¿Dónde se encontró el arma?"/>
+                            android:text="Otro"/>
                         <EditText
                             android:id="@+id/txtOtroObjeto"
                             android:layout_width="match_parent"
