@@ -373,7 +373,7 @@ public class DescripcionVehiculo extends Fragment {
                     //Deserealizar y colocar los valores en los campos.
 
 
-                    txtFechaRetencion.setText(((jsonjObject.getString("Fecha")).equals("null")?"":jsonjObject.getString("Fecha")).replace("-","/").substring(0,10));
+                    txtFechaRetencion.setText(((jsonjObject.getString("Fecha")).equals("null")?"1900/01/01":jsonjObject.getString("Fecha")).replace("-","/").substring(0,10));
                     txthoraRetencion.setText(((jsonjObject.getString("Hora")).equals("null")?"":jsonjObject.getString("Hora")));
 
                     //Tipo de vehículo

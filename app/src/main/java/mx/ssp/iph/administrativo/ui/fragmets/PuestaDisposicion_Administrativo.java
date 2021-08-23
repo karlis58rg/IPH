@@ -597,7 +597,7 @@ public class PuestaDisposicion_Administrativo extends Fragment {
                                         JSONObject jsonjObject = new JSONObject(ArregloJson);
                                         txtNoReferenciaAdministrativo.setText((jsonjObject.getString("NumReferencia")).equals("null")?"":jsonjObject.getString("NumReferencia"));
                                         String[] Fecha = (jsonjObject.getString("Fecha").replace("-","/")).split("T");
-                                        txtFechaPuestaDisposicionAdministrativo.setText((jsonjObject.getString("Fecha")).equals("null")?"":Fecha[0]);
+                                        txtFechaPuestaDisposicionAdministrativo.setText((jsonjObject.getString("Fecha")).equals("null")?"1900/01/01":Fecha[0]);
                                         txthoraPuestaDisposicionAdministrativo.setText((jsonjObject.getString("Hora")).equals("null")?"":jsonjObject.getString("Hora"));
                                         txtNoExpedienteAdmministrativo.setText((jsonjObject.getString("NumExpediente")).equals("null")?"":jsonjObject.getString("NumExpediente"));
 

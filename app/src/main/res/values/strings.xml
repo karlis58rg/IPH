@@ -11,7 +11,7 @@
     <string name="hora_de_entrega_del_iph">Hora IPH</string>
     <string name="guardar_datos">Guardar Datos</string>
     <string name="fecha_de_la_puesta_a_disposicion">Fecha de la puesta a disposición</string>
-    <string name="hora_de_la_puesta_a_posposicion">Hora de la puesta a posposición</string>
+    <string name="hora_de_la_puesta_a_posposicion">Hora de la puesta a disposición</string>
     <string name="numero_de_expediente_en_caso_de_existir">Número de Expediente (En caso de existir)</string>
     <string name="apartado_1_1_fecha_y_hora_de_la_puesta_a_disposicion">Apartado 1.1 Fecha y hora de la puesta a disposición.</string>
     <string name="marque_con_una_x_el_o_los_anexos_entregados">Marque con una X el o los Anexos Entregados</string>

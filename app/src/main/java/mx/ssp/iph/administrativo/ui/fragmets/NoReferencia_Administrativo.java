@@ -313,7 +313,7 @@ public class NoReferencia_Administrativo extends Fragment {
                                         txtEstadoReferenciaAdministrativo.setText("GUERRERO");
 
                                         String[] Fecha = (jsonjObject.getString("Fecha").replace("-","/")).split("T");
-                                        txtFechaEntregaReferenciaAdministrativo.setText((jsonjObject.getString("Fecha")).equals("null")?"":Fecha[0]);
+                                        txtFechaEntregaReferenciaAdministrativo.setText((jsonjObject.getString("Fecha")).equals("null")?"1900/01/01":Fecha[0]);
                                         txtHoraEntregaReferenciaAdministrativo.setText((jsonjObject.getString("Hora")).equals("null")?"":jsonjObject.getString("Hora"));
 
                                         //Si existen Datos de referencia  los guarda como preferencia.

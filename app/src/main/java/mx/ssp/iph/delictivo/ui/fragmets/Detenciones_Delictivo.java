@@ -141,7 +141,7 @@ public class Detenciones_Delictivo extends Fragment {
             quintoTresLinear, catorceavoLinear, quinceavoLinear,
             dieciseisLinear, diecisietelinear, diecisietelinear2, lyLecturaDerechos,
             septimounoLinear, septimodosLinear, septimotresLinear, treintaicuatroLinear, treintaicincoLinear,
-            lyLesiones, treintaidosLinear, treintaLinear, lyColoniaDetencionDelictivo, veintinueveLinear,
+            lyLesiones, lyColoniaDetencionDelictivo, lyColoniaInterDelic,
             septimoLinear, lyGrupoDelictivoDelictivo, lyPrimerApFamDet, lyNomFamDet, lyTelFamDet,
             lyCalleTramoDet, lyReferenciaLugarDet, treintaicuatrounoLinear, lyFechaHoradelaDetencion, lyHoraDetencion,
             LinearPrincipalPertenencias, lyFirma, lyFirmaDetenido;
@@ -340,10 +340,8 @@ public class Detenciones_Delictivo extends Fragment {
         treintaicuatroLinear = view.findViewById(R.id.treintaicuatroLinear);
         treintaicincoLinear = view.findViewById(R.id.treintaicincoLinear);
         lyLesiones = view.findViewById(R.id.lyLesiones);
-        treintaidosLinear = view.findViewById(R.id.treintaidosLinear);
-        treintaLinear = view.findViewById(R.id.treintaLinear);
         lyColoniaDetencionDelictivo = view.findViewById(R.id.lyColoniaDetencionDelictivo);
-        veintinueveLinear = view.findViewById(R.id.veintinueveLinear);
+        lyColoniaInterDelic = view.findViewById(R.id.lyColoniaInterDelic);
         septimoLinear = view.findViewById(R.id.septimoLinear);
         lyGrupoDelictivoDelictivo = view.findViewById(R.id.lyGrupoDelictivoDelictivo);
         lyPrimerApFamDet = view.findViewById(R.id.lyPrimerApFamDet);
@@ -539,7 +537,6 @@ public class Detenciones_Delictivo extends Fragment {
                     txtCualPadecimientoDelictivo.setEnabled(false);
                     txtCualPadecimientoDelictivo.setText("");
                 }
-
             }
         });
 
@@ -754,7 +751,7 @@ public class Detenciones_Delictivo extends Fragment {
                     veinticincoUpdate.setVisibility(View.VISIBLE);
 
                     //Deserealizar y colocar los valores en los campos.
-                    txtFechaDetenidoDelictivo.setText(((jsonjObject.getString("Fecha")).equals("null")?"":jsonjObject.getString("Fecha")).replace("-","/").substring(0,10));
+                    txtFechaDetenidoDelictivo.setText(((jsonjObject.getString("Fecha")).equals("null")?"1900/01/01":jsonjObject.getString("Fecha")).replace("-","/").substring(0,10));
                     txthoraDetencionDelictivo.setText(((jsonjObject.getString("Hora")).equals("null")?"":jsonjObject.getString("Hora")));
 
                     txtPrimerApellidoDetenidoDelictivo.setText(((jsonjObject.getString("APDentenido")).equals("null")?"":jsonjObject.getString("APDentenido")));
@@ -773,7 +770,7 @@ public class Detenciones_Delictivo extends Fragment {
                     spGeneroDetenidoDelictivo.setSelection(funciones.getIndexSpiner(spGeneroDetenidoDelictivo, jsonjObject.getString("IdSexo")));
                     spNacionalidadDetenidoDelictivo.setSelection(funciones.getIndexSpiner(spNacionalidadDetenidoDelictivo, jsonjObject.getString("IdNacionalidad")));
 
-                    txtFechaNacimientoDetenidoDelictivo.setText(((jsonjObject.getString("FechaNacimiento")).equals("null")?"":jsonjObject.getString("FechaNacimiento")).replace("-","/").substring(0,10));
+                    txtFechaNacimientoDetenidoDelictivo.setText(((jsonjObject.getString("FechaNacimiento")).equals("null")?"1900/01/01":jsonjObject.getString("FechaNacimiento")).replace("-","/").substring(0,10));
                     txtEdadDetenidoDelictivo.setText(((jsonjObject.getString("Edad")).equals("null")?"":jsonjObject.getString("Edad")));
 
                     if ((jsonjObject.getString("IdentificacionOtro")).equals("SI"))
@@ -1251,18 +1248,19 @@ public class Detenciones_Delictivo extends Fragment {
                         SextaValidacion();
                     } else {
                         Toast.makeText(getActivity().getApplicationContext(), "INGRESA AL MENOS UNA REFERENCIA DEL LUGAR DE LA DETENCIÓN", Toast.LENGTH_SHORT).show();
-                        txtReferenciasdelLugarDetencion.requestFocus();
                         lyReferenciaLugarDet.requestFocus();
+                        txtReferenciasdelLugarDetencion.requestFocus();
                     }
                 } else {
                     Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA CALLE O TRAMO CARRETERO DEL LUGAR DE LA INTERVENCIÓN", Toast.LENGTH_SHORT).show();
+                    lyCalleTramoDet.requestFocus();
                     txtCalleDetencion.requestFocus();
-                    treintaLinear.requestFocus();
                 }
             } else {
                 Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA COLONIA O LOCALIDAD DEL LUGAR DE LA INTERVENCIÓN", Toast.LENGTH_SHORT).show();
+                lyColoniaInterDelic.requestFocus();
                 txtColoniaDetencion.requestFocus();
-                veintinueveLinear.requestFocus();
+
             }
 
         } else if(rbNoLugarDetencionDelictivo.isChecked()){
@@ -1273,18 +1271,18 @@ public class Detenciones_Delictivo extends Fragment {
                         SextaValidacion();
                     } else {
                         Toast.makeText(getActivity().getApplicationContext(), "INGRESA AL MENOS UNA REFERENCIA DEL LUGAR DE LA DETENCIÓN", Toast.LENGTH_SHORT).show();
-                        txtReferenciasdelLugarDetencion.requestFocus();
                         lyReferenciaLugarDet.requestFocus();
+                        txtReferenciasdelLugarDetencion.requestFocus();
                     }
                 } else {
                     Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA CALLE O TRAMO CARRETERO DEL LUGAR DE LA INTERVENCIÓN", Toast.LENGTH_SHORT).show();
+                    lyCalleTramoDet.requestFocus();
                     txtCalleDetencion.requestFocus();
-                    treintaLinear.requestFocus();
                 }
             } else {
                 Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA COLONIA O LOCALIDAD DEL LUGAR DE LA INTERVENCIÓN", Toast.LENGTH_SHORT).show();
+                lyColoniaInterDelic.requestFocus();
                 txtColoniaDetencion.requestFocus();
-                veintinueveLinear.requestFocus();
             }
         } else {
             Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA SI EL LUGAR DE LA DETENCIÓN ES EL MISMO QUE EL DE LA INTERVENCIÓN", Toast.LENGTH_SHORT).show();

@@ -507,7 +507,7 @@ public class Detenciones extends Fragment  {
                     //funciones.mensajeAlertDialog(Fecha,"Aceptar","Alerta",getContext());
                     //Deserealizar y colocar los valores en los campos.
 
-                    txtFechaDetenido.setText(((jsonjObject.getString("Fecha")).equals("null")?"":jsonjObject.getString("Fecha")).replace("-","/").substring(0,10));
+                    txtFechaDetenido.setText(((jsonjObject.getString("Fecha")).equals("null")?"1900/01/01":jsonjObject.getString("Fecha")).replace("-","/").substring(0,10));
                     txthoraDetencion.setText(((jsonjObject.getString("Hora")).equals("null")?"":jsonjObject.getString("Hora")));
                     txtPrimerApellidoDetenido.setText((jsonjObject.getString("APDetenido")).equals("null")?"":jsonjObject.getString("APDetenido"));
                     txtSegundoApellidoDetenido.setText((jsonjObject.getString("AMDetenido")).equals("null")?"":jsonjObject.getString("AMDetenido"));
@@ -522,7 +522,7 @@ public class Detenciones extends Fragment  {
                     txtNacionalidadDetenido.setSelection(funciones.getIndexSpiner(txtNacionalidadDetenido, (jsonjObject.getString("Nacionalidad"))));
                     if (jsonjObject.getString("Nacionalidad").equals("Otra")){txtNacionalidadEspecifiqueDetenido.setText(jsonjObject.getString("Nacionalidad"));}
 
-                    txtFechaNacimientoDetenido.setText(((jsonjObject.getString("FechaNacimiento")).equals("null")?"":jsonjObject.getString("FechaNacimiento")).replace("-","/").substring(0,10));
+                    txtFechaNacimientoDetenido.setText(((jsonjObject.getString("FechaNacimiento")).equals("null")?"1900/01/01":jsonjObject.getString("FechaNacimiento")).replace("-","/").substring(0,10));
 
                     //Revisar Firma
 
