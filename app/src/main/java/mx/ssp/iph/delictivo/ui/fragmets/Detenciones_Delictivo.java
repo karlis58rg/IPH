@@ -1510,6 +1510,7 @@ public class Detenciones_Delictivo extends Fragment {
                                 //Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
                                 //insertLugarDetencionesDelictivo();
                                 insertImagen();
+
                             }else{
                                 Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, VERIFIQUE SU INFORMACIÓN", Toast.LENGTH_SHORT).show();
                             }
@@ -1523,6 +1524,7 @@ public class Detenciones_Delictivo extends Fragment {
 
     //***************** INSERTA A LA BD MEDIANTE EL WS **************************//
     private void insertLugarDetencionesDelictivo() {
+        Log.i("LUGAR DETENCION","INICIA LUGAR");
         DataHelper dataHelper = new DataHelper(getContext());
 
         descMunicipioLugarDetenidoHD = (String) spMunicipioDireccionDetencion.getSelectedItem();
@@ -1546,7 +1548,6 @@ public class Detenciones_Delictivo extends Fragment {
                 .add("NoInterior", modeloLugarDetenciones.getNoInterior())
                 .add("Cp", modeloLugarDetenciones.getCp())
                 .add("Referencia", modeloLugarDetenciones.getReferencia())
-
                 .build();
         Request request = new Request.Builder()
                 .url("http://189.254.7.167/WebServiceIPH/api/HDLugarDetencion/")
@@ -2012,8 +2013,12 @@ public class Detenciones_Delictivo extends Fragment {
                         public void run() {
                             System.out.println("EL DATO DE LA IMAGEN SE ENVIO CORRECTAMENTE");
                             //Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
-
-                            insertLugarDetencionesDelictivo();
+                            Log.i("IMAGEN CORRECTA","EL DATO SE ENVIO");
+                            //insertLugarDetencionesDelictivo();
+                            System.out.println("EL DATO SE ENVIO CORRECTAMENTE");
+                            Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+                            addFragment(new Detenciones_Delictivo());
+                            limpiarCampos();
                         }
                     });
                 }
