@@ -134,7 +134,8 @@ public class Detenciones_Delictivo extends Fragment {
             descTipoDocumentoHD,descMunicipioPersonaDetenidaHD,descMunicipioLugarDetenidoHD,
             varLesiones,varPadecimientos,varGrupoVulnerable,varGrupoDelictivo,varProporcionoFamiliar,
             varInformoDerechos,rutaFirma,varLugarTraslado,descPadecimiento,descGrupoVulnerable,descGrupoDelictivo,
-            varIdentificacionDocumento,varLugarDetencionDelictivo,varPertenenciasDetenidoDelictivo="NO";
+            varIdentificacionDocumento,varLugarDetencionDelictivo,varPertenenciasDetenidoDelictivo="NO",
+            varExisteLugarIntervencion="NO";
 
 
     ViewGroup segundoLinear, cuartoLinear, quintoUnoLinear,
@@ -402,6 +403,7 @@ public class Detenciones_Delictivo extends Fragment {
         {
             //Toast.makeText(getContext(), "cargarNoReferenciaAdministrativa()", Toast.LENGTH_LONG).show();
             cargarDetenidos();
+            ExisteLugarIntervencion();
         }
 
         //***************** FECHA  **************************//
@@ -1239,29 +1241,84 @@ public class Detenciones_Delictivo extends Fragment {
 
     }
 
-    public void QuintaValidacion(){
-        if(rbSiLugarDetencionDelictivo.isChecked()){
-            //VALIDACION DIRECCION DETENCIÓN
-            if(txtColoniaDetencion.getText().toString().length() >= 3){
-                if(txtCalleDetencion.getText().toString().length() >= 3){
-                    if(txtReferenciasdelLugarDetencion.getText().toString().length() >= 3){
-                        SextaValidacion();
-                    } else {
-                        Toast.makeText(getActivity().getApplicationContext(), "INGRESA AL MENOS UNA REFERENCIA DEL LUGAR DE LA DETENCIÓN", Toast.LENGTH_SHORT).show();
-                        lyReferenciaLugarDet.requestFocus();
-                        txtReferenciasdelLugarDetencion.requestFocus();
-                    }
-                } else {
-                    Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA CALLE O TRAMO CARRETERO DEL LUGAR DE LA INTERVENCIÓN", Toast.LENGTH_SHORT).show();
-                    lyCalleTramoDet.requestFocus();
-                    txtCalleDetencion.requestFocus();
-                }
-            } else {
-                Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA COLONIA O LOCALIDAD DEL LUGAR DE LA INTERVENCIÓN", Toast.LENGTH_SHORT).show();
-                lyColoniaInterDelic.requestFocus();
-                txtColoniaDetencion.requestFocus();
+    private void ExisteLugarIntervencion() {
 
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("http://189.254.7.167/WebServiceIPH/api/HDLugarIntervencion?folioInternoIntervencion="+cargarIdHechoDelictivo)
+                .delete()
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Looper.prepare(); // to be able to make toast
+                Toast.makeText(getContext(), "ERROR AL CONSULTAR SI EXISTE LUGAR DE LA INTERVENCIÓN, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Looper.loop();
             }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    final String myResponse = response.body().string();
+
+                    try {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                String resp = myResponse;
+
+                                //***************** RESPUESTA DEL WEBSERVICE **************************//
+                                if(resp.equals("true"))
+                                {
+                                    varExisteLugarIntervencion = "SI";
+                                }
+                                else{
+                                    varExisteLugarIntervencion = "NO";
+                                }
+                                //*************************
+                            }
+                        });
+                    }
+                    catch (Exception e){
+                        Toast.makeText(getContext(), "CATCH: ERROR AL CONSULTAR SI EXISTE LUGAR DE LA INTERVENCIÓN, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+    }
+
+    public void QuintaValidacion(){
+
+        if(rbSiLugarDetencionDelictivo.isChecked() && varExisteLugarIntervencion.equals("NO") )
+        {
+            Toast.makeText(getActivity().getApplicationContext(), "SELECCIONE NO Y ESPECIFIQUE EL LUGAR DE LA DETENCION. Ó LLENE PRIMERO LA SECCIÓN 4: LUGAR DE LA INTERVENCIÓN", Toast.LENGTH_SHORT).show();
+            septimotresLinear.requestFocus();
+        } else if(rbSiLugarDetencionDelictivo.isChecked() && varExisteLugarIntervencion.equals("SI") ){
+            SextaValidacion();
+            /*
+                        //VALIDACION DIRECCION DETENCIÓN
+                        if(txtColoniaDetencion.getText().toString().length() >= 3){
+                            if(txtCalleDetencion.getText().toString().length() >= 3){
+                                if(txtReferenciasdelLugarDetencion.getText().toString().length() >= 3){
+                                    SextaValidacion();
+                                } else {
+                                    Toast.makeText(getActivity().getApplicationContext(), "INGRESA AL MENOS UNA REFERENCIA DEL LUGAR DE LA DETENCIÓN", Toast.LENGTH_SHORT).show();
+                                    lyReferenciaLugarDet.requestFocus();
+                                    txtReferenciasdelLugarDetencion.requestFocus();
+                                }
+                            } else {
+                                Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA CALLE O TRAMO CARRETERO DEL LUGAR DE LA INTERVENCIÓN", Toast.LENGTH_SHORT).show();
+                                lyCalleTramoDet.requestFocus();
+                                txtCalleDetencion.requestFocus();
+                            }
+                        } else {
+                            Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA COLONIA O LOCALIDAD DEL LUGAR DE LA INTERVENCIÓN", Toast.LENGTH_SHORT).show();
+                            lyColoniaInterDelic.requestFocus();
+                            txtColoniaDetencion.requestFocus();
+
+                        }
+             */
 
         } else if(rbNoLugarDetencionDelictivo.isChecked()){
             //VALIDACION DIRECCION DETENCIÓN
@@ -2014,11 +2071,19 @@ public class Detenciones_Delictivo extends Fragment {
                             System.out.println("EL DATO DE LA IMAGEN SE ENVIO CORRECTAMENTE");
                             //Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
                             Log.i("IMAGEN CORRECTA","EL DATO SE ENVIO");
-                            //insertLugarDetencionesDelictivo();
-                            System.out.println("EL DATO SE ENVIO CORRECTAMENTE");
-                            Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
-                            addFragment(new Detenciones_Delictivo());
-                            limpiarCampos();
+
+                            if (varLugarDetencionDelictivo.equals("SI")) //Si lugar de detención es si
+                            {
+                                System.out.println("EL DATO SE ENVIO CORRECTAMENTE");
+                                Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+                                addFragment(new Detenciones_Delictivo());
+                                limpiarCampos();
+                            }
+                            else
+                            {
+                                insertLugarDetencionesDelictivo();
+                            }
+
                         }
                     });
                 }
@@ -2488,5 +2553,6 @@ public class Detenciones_Delictivo extends Fragment {
             }
         });
     }
+
 
 }
