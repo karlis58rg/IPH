@@ -240,10 +240,10 @@ public class Iph_Delictivo_Up extends AppCompatActivity{
                     }
                     case 3:
                     {
-                        Toast.makeText(Iph_Delictivo_Up.this, "Esta función estará disponible próximamente.", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(Iph_Delictivo_Up.this, "Esta función estará disponible próximamente.", Toast.LENGTH_LONG).show();
 
-                        //addFragment(anexod);
-                        //slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                        addFragment(anexod);
+                        slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
                         break;
                     }
                     case 4:
