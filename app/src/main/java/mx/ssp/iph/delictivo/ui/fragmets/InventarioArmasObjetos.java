@@ -34,7 +34,9 @@ import mx.ssp.iph.SqLite.DataHelper;
 import mx.ssp.iph.administrativo.model.ModeloDescripcionVehiculos_Administrativo;
 import mx.ssp.iph.administrativo.ui.fragmets.DescripcionVehiculo;
 import mx.ssp.iph.delictivo.model.ModeloArmasFuego_Delictivo;
+import mx.ssp.iph.delictivo.model.ModeloObjetos_Delictivo;
 import mx.ssp.iph.delictivo.viewModel.InventarioArmasObjetosViewModel;
+import mx.ssp.iph.utilidades.ui.ContenedorFirmaDelictivo;
 import mx.ssp.iph.utilidades.ui.Funciones;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -50,19 +52,25 @@ public class InventarioArmasObjetos extends Fragment {
 
     private InventarioArmasObjetosViewModel mViewModel;
     private Funciones funciones;
-    ImageView btnAgregarArma,imgMicrofonoObservacionesArma,imgFirmaEntrevistado,imgFirmaTestigo1Arma,imgFirmaTestigo2Arma;
+    ImageView btnAgregarArma,imgMicrofonoObservacionesArma,imgFirmaEntrevistado,imgFirmaTestigo1Arma,imgFirmaTestigo2Arma,
+            imgMicrofonoObservacionesObjetos,imgFirmaPropietarioObjetos,imgFirmaTestigo1Objeto,imgFirmaTestigo2Objeto,btnAgregarObjeto;
     EditText txtLugarEncontroArma,txtCalibreArmaDelictivo, txtMatriculaArmaDelictivo,txtNoSerieArmaDelictivo,txtDestinoArma,txtObservacionesArma,
             txtPrimerApellidoPropietarioArma,txtSegundoApellidoPropietarioArma,txtNombresPropietarioArma,
             txtPrimerApellidoTestigo1Arma,txtSegundoApellidoTestigo1Arma,txtNombresTestigo1Arma,
-            txtPrimerApellidoTestigo2Arma,txtSegundoApellidoTestigo2Arma,txtNombresTestigo2Arma;
+            txtPrimerApellidoTestigo2Arma,txtSegundoApellidoTestigo2Arma,txtNombresTestigo2Arma,
+            txtOtroObjeto,txtLugarEncontroObjetos,txtObservacionesObjetos,txtDestinoObjetos,
+            txtPrimerApellidoPropietarioObjetos,txtSegundoApellidoPropietarioObjetos,txtNombresPropietarioObjetos,
+            txtPrimerApellidoTestigo1Objeto,txtSegundoApellidoTestigo1Objeto,txtNombresTestigo1Objeto,
+            txtPrimerApellidoTestigo2Objeto,txtSegundoApellidoTestigo2Objeto,txtNombresTestigo2Objeto;
     private static final  int REQ_CODE_SPEECH_INPUT=100;
-    RadioGroup rgAportacionInspeccionArmaFuego,rgTipoArma;
+    RadioGroup rgAportacionInspeccionArmaFuego,rgTipoArma,
+            rgTipoObjeto,rgAportacionInspeccionObjetos;
     Spinner spColorArmaDelictivo;
-    String descripcionColor,cargarIdPoliciaPrimerRespondiente,cargarIdHechoDelictivo,varAportacion,varInspeccion,varTipoArma,varRutaImagen,varRutaImagenT1,varRutaImagenT2;
+    String descripcionColor,cargarIdPoliciaPrimerRespondiente,cargarIdHechoDelictivo,varAportacion,varInspeccion,varTipoArma,varRutaImagen,varRutaImagenT1,varRutaImagenT2,
+            varTipoObjeto,varAportacionObjeto,varInspeccionObjeto,varRutaFirmaObjeto,varRutaImagenT1Objeto,varRutaImagenT2Objeto;
     SharedPreferences share;
     int numberRandom,randomUrlImagen;
-
-    public static InventarioArmasObjetos newInstance() {
+     public static InventarioArmasObjetos newInstance() {
         return new InventarioArmasObjetos();
     }
 
@@ -102,9 +110,28 @@ public class InventarioArmasObjetos extends Fragment {
         btnAgregarArma = view.findViewById(R.id.btnAgregarArma);
         ListCombos();
         //**************************************************************************************************//
-
         //************************************** ACCIONES DE LA VISTA **************************************//
         //************************************** OBJETOS *******************************************//
+        txtOtroObjeto = view.findViewById(R.id.txtOtroObjeto);
+        txtLugarEncontroObjetos = view.findViewById(R.id.txtLugarEncontroObjetos);
+        txtObservacionesObjetos = view.findViewById(R.id.txtObservacionesObjetos);
+        txtDestinoObjetos = view.findViewById(R.id.txtDestinoObjetos);
+        txtPrimerApellidoPropietarioObjetos = view.findViewById(R.id.txtPrimerApellidoPropietarioObjetos);
+        txtSegundoApellidoPropietarioObjetos = view.findViewById(R.id.txtSegundoApellidoPropietarioObjetos);
+        txtNombresPropietarioObjetos = view.findViewById(R.id.txtNombresPropietarioObjetos);
+        txtPrimerApellidoTestigo1Objeto = view.findViewById(R.id.txtPrimerApellidoTestigo1Objeto);
+        txtSegundoApellidoTestigo1Objeto = view.findViewById(R.id.txtSegundoApellidoTestigo1Objeto);
+        txtNombresTestigo1Objeto = view.findViewById(R.id.txtNombresTestigo1Objeto);
+        txtPrimerApellidoTestigo2Objeto = view.findViewById(R.id.txtPrimerApellidoTestigo2Objeto);
+        txtSegundoApellidoTestigo2Objeto = view.findViewById(R.id.txtSegundoApellidoTestigo2Objeto);
+        txtNombresTestigo2Objeto = view.findViewById(R.id.txtNombresTestigo2Objeto);
+        rgTipoObjeto = view.findViewById(R.id.rgTipoObjeto);
+        rgAportacionInspeccionObjetos = view.findViewById(R.id.rgAportacionInspeccionObjetos);
+        imgMicrofonoObservacionesObjetos = view.findViewById(R.id.imgMicrofonoObservacionesObjetos);
+        imgFirmaPropietarioObjetos = view.findViewById(R.id.imgFirmaPropietarioObjetos);
+        imgFirmaTestigo1Objeto = view.findViewById(R.id.imgFirmaTestigo1Objeto);
+        imgFirmaTestigo2Objeto = view.findViewById(R.id.imgFirmaTestigo2Objeto);
+        btnAgregarObjeto = view.findViewById(R.id.btnAgregarObjeto);
 
         //**************************************************************************************************//
         //Imagen que funciona para activar la grabación de voz
@@ -151,6 +178,98 @@ public class InventarioArmasObjetos extends Fragment {
                 insertArmasFuego();
             }
         });
+        rgAportacionInspeccionObjetos.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
+                if (checkedId == R.id.rbAportacionObjetos) {
+                    varAportacionObjeto = "SI";
+                } else{
+                    varAportacionObjeto = "NO";
+                }
+                if (checkedId == R.id.rbInspeccionLugarObjetos) {
+                    varInspeccionObjeto = "INSPECCION LUGAR";
+                }else if(checkedId == R.id.rbInspeccionPersonaObjetos){
+                    varInspeccionObjeto = "INSPECCION PERSONA";
+                }else if(checkedId == R.id.rbInspeccionVehiculoObjetos){
+                    varInspeccionObjeto = "INSPECCION VEHICULO";
+                }
+            }
+        });
+
+        rgTipoObjeto.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
+                if (checkedId == R.id.rbNarcotico) {
+                    varTipoObjeto = "NARCOTICO";
+                }else if(checkedId == R.id.rbHidrocarburo){
+                    varTipoObjeto = "HIDROCARBURO";
+                }else if(checkedId == R.id.rbNumerario){
+                    varTipoObjeto = "NUMERARIO";
+                }else{
+                    varTipoObjeto = "NA";
+                }
+            }
+        });
+
+        btnAgregarObjeto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
+                insertObjetos();
+            }
+        });
+
+        //***************** FIRMAS **************************//
+        imgFirmaEntrevistado.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ContenedorFirmaDelictivo dialog = new ContenedorFirmaDelictivo(R.id.lblFirmadelEntrevistado,R.id.lblFirmadelEntrevistadoOculto,R.id.imgFirmadelEntrevistadoMiniatura);
+                dialog.show( getActivity().getSupportFragmentManager(),"Dia");
+            }
+        });
+        //***************** FIRMA **************************//
+        imgFirmaTestigo1Arma.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ContenedorFirmaDelictivo dialog = new ContenedorFirmaDelictivo(R.id.lblStatusFirmaTestigo1Arma,R.id.lblFirmaTestigo1ArmaOculto,R.id.imgFirmaTestigo1ArmaMiniatura);
+                dialog.show( getActivity().getSupportFragmentManager(),"Dia");
+            }
+        });
+        //***************** FIRMA **************************//
+        imgFirmaTestigo2Arma.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ContenedorFirmaDelictivo dialog = new ContenedorFirmaDelictivo(R.id.lblStatusFirmaTestigo2Arma,R.id.lblFirmaTestigo2ArmaOculto,R.id.imgFirmaTestigo2ArmaMiniatura);
+                dialog.show( getActivity().getSupportFragmentManager(),"Dia");
+            }
+        });
+        //***************** FIRMA **************************//
+        imgFirmaPropietarioObjetos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ContenedorFirmaDelictivo dialog = new ContenedorFirmaDelictivo(R.id.lblFirmaPropietarioObjetos,R.id.lblFirmadelPropietarioObjetosOculto,R.id.imgFirmadelPropietarioObjetosMiniatura);
+                dialog.show( getActivity().getSupportFragmentManager(),"Dia");
+            }
+        });
+        //***************** FIRMA **************************//
+        imgFirmaTestigo1Objeto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ContenedorFirmaDelictivo dialog = new ContenedorFirmaDelictivo(R.id.lblStatusFirmaTestigo1Objeto,R.id.lblFirmaTestigo1ObjetoOculto,R.id.imgFirmaTestigo1ObjetoMiniatura);
+                dialog.show( getActivity().getSupportFragmentManager(),"Dia");
+            }
+        });
+        //***************** FIRMA **************************//
+        imgFirmaTestigo2Objeto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ContenedorFirmaDelictivo dialog = new ContenedorFirmaDelictivo(R.id.lblStatusFirmaTestigo2Objeto,R.id.lblFirmaTestigo2ObjetoOculto,R.id.imgFirmaTestigo2ObjetoMiniatura);
+                dialog.show( getActivity().getSupportFragmentManager(),"Dia");
+            }
+        });
+
+
+
 
         /***************************************************************************************/
         return view;
@@ -168,14 +287,12 @@ public class InventarioArmasObjetos extends Fragment {
             Toast.makeText(getContext(),e.toString(),Toast.LENGTH_SHORT).show();
         }
     }
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(InventarioArmasObjetosViewModel.class);
         // TODO: Use the ViewModel
     }
-
     //Almacena la Respuesta de la lectura de voz y la coloca en el Cuadro de Texto Correspondiente
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -195,28 +312,24 @@ public class InventarioArmasObjetos extends Fragment {
         }
         imgMicrofonoObservacionesArma.setImageResource(R.drawable.ic_micro);
     }
-
-    /*****************************************************************************************************/
-    /************************************* ARMAS *********************************************************/
-    //***************** INSERTA A LA BD MEDIANTE EL WS **************************//
     private void insertArmasFuego() {
         descripcionColor = (String) spColorArmaDelictivo.getSelectedItem();
 
         if(txtNombresPropietarioArma.getText().toString().equals("NA")){
             varRutaImagen = "NA";
         }else{
-            varRutaImagen = "http://189.254.7.167/WebServiceIPH/FirmaRDDelictivo/"+"propietario_"+cargarIdHechoDelictivo+randomUrlImagen+".jpg";
+            varRutaImagen = "http://189.254.7.167/WebServiceIPH/FirmaArmas/"+"propietario_"+cargarIdHechoDelictivo+randomUrlImagen+".jpg";
         }
         if(txtNombresTestigo1Arma.getText().toString().equals("NA")){
             varRutaImagenT1 = "NA";
         }else{
-            varRutaImagenT1 = "http://189.254.7.167/WebServiceIPH/FirmaRDDelictivo/"+"testigo1_"+cargarIdHechoDelictivo+randomUrlImagen+".jpg";
+            varRutaImagenT1 = "http://189.254.7.167/WebServiceIPH/FirmaArmas/"+"testigo1_"+cargarIdHechoDelictivo+randomUrlImagen+".jpg";
         }
         if(txtNombresTestigo2Arma.getText().toString().equals("NA")){
             varRutaImagenT2 = "NA";
 
         }else{
-            varRutaImagenT2 = "http://189.254.7.167/WebServiceIPH/FirmaRDDelictivo/"+"testigo2_"+cargarIdHechoDelictivo+randomUrlImagen+".jpg";
+            varRutaImagenT2 = "http://189.254.7.167/WebServiceIPH/FirmaArmas/"+"testigo2_"+cargarIdHechoDelictivo+randomUrlImagen+".jpg";
         }
 
         ModeloArmasFuego_Delictivo modeloArmasFuego = new ModeloArmasFuego_Delictivo
@@ -292,13 +405,92 @@ public class InventarioArmasObjetos extends Fragment {
         });
     }
 
+    private void insertObjetos() {
+        if(txtNombresPropietarioObjetos.getText().toString().equals("NA")){
+            varRutaFirmaObjeto = "NA";
+        }else{
+            varRutaFirmaObjeto = "http://189.254.7.167/WebServiceIPH/FirmaObjetos/"+"propietario_objeto_"+cargarIdHechoDelictivo+randomUrlImagen+".jpg";
+        }
+        if(txtNombresTestigo1Objeto.getText().toString().equals("NA")){
+            varRutaImagenT1Objeto = "NA";
+        }else{
+            varRutaImagenT1Objeto = "http://189.254.7.167/WebServiceIPH/FirmaObjetos/"+"testigo1_objeto_"+cargarIdHechoDelictivo+randomUrlImagen+".jpg";
+        }
+        if(txtNombresTestigo2Objeto.getText().toString().equals("NA")){
+            varRutaImagenT2Objeto = "NA";
 
-    /*****************************************************************************************************/
-    /************************************ OBJETOS *******************************************************/
+        }else{
+            varRutaImagenT2Objeto = "http://189.254.7.167/WebServiceIPH/FirmaObjetos/"+"testigo2_objeto_"+cargarIdHechoDelictivo+randomUrlImagen+".jpg";
+        }
 
+        ModeloObjetos_Delictivo modeloObjetos = new ModeloObjetos_Delictivo
+                (cargarIdHechoDelictivo, varTipoObjeto, txtOtroObjeto.getText().toString(), varAportacionObjeto, varInspeccionObjeto, txtLugarEncontroObjetos.getText().toString(),
+                        txtObservacionesObjetos.getText().toString(), txtDestinoObjetos.getText().toString(),
+                        txtPrimerApellidoPropietarioObjetos.getText().toString(), txtSegundoApellidoPropietarioObjetos.getText().toString(), txtNombresPropietarioObjetos.getText().toString(),
+                        varRutaFirmaObjeto, txtPrimerApellidoTestigo1Objeto.getText().toString(), txtSegundoApellidoTestigo1Objeto.getText().toString(), txtNombresTestigo1Objeto.getText().toString(),
+                        varRutaImagenT1Objeto, txtPrimerApellidoTestigo2Objeto.getText().toString(), txtSegundoApellidoTestigo2Objeto.getText().toString(), txtNombresTestigo2Objeto.getText().toString(),
+                        varRutaImagenT2Objeto, cargarIdPoliciaPrimerRespondiente);
 
+        OkHttpClient client = new OkHttpClient();
+        RequestBody body = new FormBody.Builder()
+                .add("IdHechoDelictivo",modeloObjetos.getIdHechoDelictivo())
+                .add("Objeto",modeloObjetos.getObjeto())
+                .add("ObjetoOtro",modeloObjetos.getObjetoOtro())
+                .add("Aportacion",modeloObjetos.getAportacion())
+                .add("Inspeccion",modeloObjetos.getInspeccion())
+                .add("LugarEncontro",modeloObjetos.getLugarEncontro())
+                .add("DescObjeto",modeloObjetos.getDescObjeto())
+                .add("Destino",modeloObjetos.getDestino())
+                .add("APEncontro",modeloObjetos.getAPEncontro())
+                .add("AMEncontro",modeloObjetos.getAMEncontro())
+                .add("NombreEncontro",modeloObjetos.getNombreEncontro())
+                .add("RutaFirmaEncontro",modeloObjetos.getRutaFirmaEncontro())
+                .add("APTestigoUno",modeloObjetos.getAPTestigoUno())
+                .add("AMTestigoUno",modeloObjetos.getAMTestigoUno())
+                .add("NombreTestigoUno",modeloObjetos.getNombreTestigoUno())
+                .add("RutaFirmaTestigoUno",modeloObjetos.getRutaFirmaTestigoUno())
+                .add("APTestigoDos",modeloObjetos.getAPTestigoDos())
+                .add("AMTestigoDos",modeloObjetos.getAMTestigoDos())
+                .add("NombreTestigoDos",modeloObjetos.getNombreTestigoDos())
+                .add("RutaFirmaTestigoDos",modeloObjetos.getRutaFirmaTestigoDos())
+                .add("IdPoliciaPrimerRespondiente",modeloObjetos.getIdPoliciaPrimerRespondiente())
+                .build();
+        Request request = new Request.Builder()
+                .url("http://189.254.7.167/WebServiceIPH/api/HDObjetos/")
+                .post(body)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Looper.prepare(); // to be able to make toast
+                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if(response.code() == 500){
+                    Toast.makeText(getContext(), "EXISTIÓ UN ERROR EN SU CONEXIÓN A INTERNET, INTÉNTELO NUEVAMENTE", Toast.LENGTH_SHORT).show();
+                }else if (response.isSuccessful()) {
+                    final String myResponse = response.body().string();
+                    InventarioArmasObjetos.this.getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            String resp = myResponse;
+                            if(resp.equals("true")){
+                                System.out.println("EL DATO SE ENVIO CORRECTAMENTE");
+                                Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, VERIFIQUE SU INFORMACIÓN", Toast.LENGTH_SHORT).show();
+                            }
+                            Log.i("HERE", resp);
+                        }
+                    });
+                }
+            }
+        });
+    }
 
-    //*****************************************************************************************************//
     public void random(){
         Random random = new Random();
         numberRandom = random.nextInt(9000)*99;

@@ -743,11 +743,12 @@
                                 android:orientation="vertical"
                                 android:weightSum="1"
                                 android:layout_weight="0.60">
+
                                 <TextView
                                     android:id="@+id/lblStatusFirmaTestigo1Arma"
-                                    android:enabled="true"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"/>
+                                    android:layout_height="wrap_content"
+                                    android:enabled="true" />
                             </LinearLayout>
 
                             <LinearLayout
