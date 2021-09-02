@@ -52,7 +52,7 @@ public class InventarioArmasObjetos extends Fragment {
 
     private InventarioArmasObjetosViewModel mViewModel;
     private Funciones funciones;
-    ImageView btnAgregarArma,imgMicrofonoObservacionesArma,imgFirmaEntrevistado,imgFirmaTestigo1Arma,imgFirmaTestigo2Arma,
+    ImageView btnAgregarArma,imgMicrofonoObservacionesArma,imgFirmaEntrevistadoAO,imgFirmaTestigo1Arma,imgFirmaTestigo2Arma,
             imgMicrofonoObservacionesObjetos,imgFirmaPropietarioObjetos,imgFirmaTestigo1Objeto,imgFirmaTestigo2Objeto,btnAgregarObjeto;
     EditText txtLugarEncontroArma,txtCalibreArmaDelictivo, txtMatriculaArmaDelictivo,txtNoSerieArmaDelictivo,txtDestinoArma,txtObservacionesArma,
             txtPrimerApellidoPropietarioArma,txtSegundoApellidoPropietarioArma,txtNombresPropietarioArma,
@@ -67,9 +67,12 @@ public class InventarioArmasObjetos extends Fragment {
             rgTipoObjeto,rgAportacionInspeccionObjetos;
     Spinner spColorArmaDelictivo;
     String descripcionColor,cargarIdPoliciaPrimerRespondiente,cargarIdHechoDelictivo,varAportacion,varInspeccion,varTipoArma,varRutaImagen,varRutaImagenT1,varRutaImagenT2,
-            varTipoObjeto,varAportacionObjeto,varInspeccionObjeto,varRutaFirmaObjeto,varRutaImagenT1Objeto,varRutaImagenT2Objeto;
+            varTipoObjeto,varAportacionObjeto,varInspeccionObjeto,varRutaFirmaObjeto,varRutaImagenT1Objeto,varRutaImagenT2Objeto,cadenaImagenFirmaArmas,cadenaPersona;
     SharedPreferences share;
     int numberRandom,randomUrlImagen;
+    TextView lblFirmadelEntrevistadoOcultoAO,lblFirmaTestigo1ArmaOculto,lblFirmaTestigo2ArmaOculto,
+            lblFirmadelPropietarioObjetosOculto,lblFirmaTestigo1ObjetoOculto,lblFirmaTestigo2ObjetoOculto;
+
      public static InventarioArmasObjetos newInstance() {
         return new InventarioArmasObjetos();
     }
@@ -86,9 +89,12 @@ public class InventarioArmasObjetos extends Fragment {
         cargarDatos();
         random();
         imgMicrofonoObservacionesArma = view.findViewById(R.id.imgMicrofonoObservacionesArma);
-        imgFirmaEntrevistado = view.findViewById(R.id.imgFirmaEntrevistado);
+        imgFirmaEntrevistadoAO = view.findViewById(R.id.imgFirmaEntrevistadoAO);
         imgFirmaTestigo1Arma = view.findViewById(R.id.imgFirmaTestigo1Arma);
         imgFirmaTestigo2Arma = view.findViewById(R.id.imgFirmaTestigo2Arma);
+        lblFirmadelEntrevistadoOcultoAO = view.findViewById(R.id.lblFirmadelEntrevistadoOcultoAO);
+        lblFirmaTestigo1ArmaOculto = view.findViewById(R.id.lblFirmaTestigo1ArmaOculto);
+        lblFirmaTestigo2ArmaOculto = view.findViewById(R.id.lblFirmaTestigo2ArmaOculto);
         txtLugarEncontroArma = view.findViewById(R.id.txtLugarEncontroArma);
         txtCalibreArmaDelictivo = view.findViewById(R.id.txtCalibreArmaDelictivo);
         txtMatriculaArmaDelictivo = view.findViewById(R.id.txtMatriculaArmaDelictivo);
@@ -131,6 +137,9 @@ public class InventarioArmasObjetos extends Fragment {
         imgFirmaPropietarioObjetos = view.findViewById(R.id.imgFirmaPropietarioObjetos);
         imgFirmaTestigo1Objeto = view.findViewById(R.id.imgFirmaTestigo1Objeto);
         imgFirmaTestigo2Objeto = view.findViewById(R.id.imgFirmaTestigo2Objeto);
+        lblFirmadelPropietarioObjetosOculto = view.findViewById(R.id.lblFirmadelPropietarioObjetosOculto);
+        lblFirmaTestigo1ObjetoOculto = view.findViewById(R.id.lblFirmaTestigo1ObjetoOculto);
+        lblFirmaTestigo2ObjetoOculto = view.findViewById(R.id.lblFirmaTestigo2ObjetoOculto);
         btnAgregarObjeto = view.findViewById(R.id.btnAgregarObjeto);
 
         //**************************************************************************************************//
@@ -175,6 +184,27 @@ public class InventarioArmasObjetos extends Fragment {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
+
+                if(lblFirmadelEntrevistadoOcultoAO.getText().toString().isEmpty()){
+                }else{
+                    cadenaPersona = "propietario_";
+                    cadenaImagenFirmaArmas = lblFirmadelEntrevistadoOcultoAO.getText().toString();
+                    insertImagenFirmaArmas();
+                }
+
+                if(lblFirmaTestigo1ArmaOculto.getText().toString().isEmpty()){
+                }else{
+                    cadenaPersona = "testigo1_";
+                    cadenaImagenFirmaArmas = lblFirmaTestigo1ArmaOculto.getText().toString();
+                    insertImagenFirmaArmas();
+                }
+
+                if(lblFirmaTestigo2ArmaOculto.getText().toString().isEmpty()){
+                }else{
+                    cadenaPersona = "testigo2_";
+                    cadenaImagenFirmaArmas = lblFirmaTestigo2ArmaOculto.getText().toString();
+                    insertImagenFirmaArmas();
+                }
                 insertArmasFuego();
             }
         });
@@ -220,10 +250,10 @@ public class InventarioArmasObjetos extends Fragment {
         });
 
         //***************** FIRMAS **************************//
-        imgFirmaEntrevistado.setOnClickListener(new View.OnClickListener() {
+        imgFirmaEntrevistadoAO.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ContenedorFirmaDelictivo dialog = new ContenedorFirmaDelictivo(R.id.lblFirmadelEntrevistado,R.id.lblFirmadelEntrevistadoOculto,R.id.imgFirmadelEntrevistadoMiniatura);
+                ContenedorFirmaDelictivo dialog = new ContenedorFirmaDelictivo(R.id.lblFirmadelEntrevistadoAO,R.id.lblFirmadelEntrevistadoOcultoAO,R.id.imgFirmadelEntrevistadoMiniaturaAO);
                 dialog.show( getActivity().getSupportFragmentManager(),"Dia");
             }
         });
@@ -480,6 +510,49 @@ public class InventarioArmasObjetos extends Fragment {
                             if(resp.equals("true")){
                                 System.out.println("EL DATO SE ENVIO CORRECTAMENTE");
                                 Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, VERIFIQUE SU INFORMACIÓN", Toast.LENGTH_SHORT).show();
+                            }
+                            Log.i("HERE", resp);
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    public void insertImagenFirmaArmas() {
+
+        OkHttpClient client = new OkHttpClient();
+        RequestBody body = new FormBody.Builder()
+                .add("Description", cadenaPersona+cargarIdHechoDelictivo+randomUrlImagen+".jpg")
+                .add("ImageData", cadenaImagenFirmaArmas)
+                .build();
+        Request request = new Request.Builder()
+                .url("http://189.254.7.167/WebServiceIPH/api/MultimediaArmas")
+                .post(body)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Looper.prepare(); // to be able to make toast
+                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, FAVOR DE VERIFICAR SU CONEXCIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if(response.code() == 500){
+                    Toast.makeText(getContext(), "EXISTIÓ UN ERROR EN SU CONEXIÓN A INTERNET, INTÉNTELO NUEVAMENTE", Toast.LENGTH_SHORT).show();
+                }else if (response.isSuccessful()) {
+                    final String myResponse = response.body().string();
+                    InventarioArmasObjetos.this.getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            String resp = myResponse;
+                            if(resp.equals("true")){
+                                System.out.println("EL DATO SE ENVIO CORRECTAMENTE");
+                                Toast.makeText(getContext(), "SU ARCHIVO MULTIMEDIA SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
                             }else{
                                 Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, VERIFIQUE SU INFORMACIÓN", Toast.LENGTH_SHORT).show();
                             }
