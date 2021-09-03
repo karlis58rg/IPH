@@ -1,6 +1,7 @@
 package mx.ssp.iph.delictivo.ui.fragmets;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,9 +11,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -20,14 +23,19 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Random;
+import java.util.regex.Pattern;
 
 import mx.ssp.iph.R;
 import mx.ssp.iph.SqLite.DataHelper;
@@ -72,6 +80,15 @@ public class InventarioArmasObjetos extends Fragment {
     int numberRandom,randomUrlImagen;
     TextView lblFirmadelEntrevistadoOcultoAO,lblFirmaTestigo1ArmaOculto,lblFirmaTestigo2ArmaOculto,
             lblFirmadelPropietarioObjetosOculto,lblFirmaTestigo1ObjetoOculto,lblFirmaTestigo2ObjetoOculto;
+
+    ListView lvObjeto;
+    ArrayList<String> ListaIdObjetos,ListaDatosObjetos;
+    String[] ArrayListaIPHDelictivo;
+
+    ListView lvArmas;
+    ArrayList<String> ListaIdArmas,ListaDatosArmas;
+    String[] ArrayListaIPHDelictivoArmas;
+
 
      public static InventarioArmasObjetos newInstance() {
         return new InventarioArmasObjetos();
@@ -142,7 +159,77 @@ public class InventarioArmasObjetos extends Fragment {
         lblFirmaTestigo2ObjetoOculto = view.findViewById(R.id.lblFirmaTestigo2ObjetoOculto);
         btnAgregarObjeto = view.findViewById(R.id.btnAgregarObjeto);
 
+        lvObjeto = view.findViewById(R.id.lvObjeto);
+        lvArmas  = view.findViewById(R.id.lvArmas);
+
+        //Consulta si hay conexión a internet y realiza la peticion al ws de consulta de los datos.
+        if (funciones.ping(getContext()))
+        {
+            //Toast.makeText(getContext(), "cargarNoReferenciaAdministrativa()", Toast.LENGTH_LONG).show();
+            cargarArmas();
+            cargarObjetos();
+        }
+
         //**************************************************************************************************//
+        //Clic a la lista
+        lvObjeto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                AlertDialog.Builder builder =
+                        new AlertDialog.Builder(getContext()).
+                                setMessage("¿DESEA ELIMINAR EL OBJETO "+ ListaIdObjetos.get(position) + "?" ).
+                                setPositiveButton( "ACEPTAR", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        //CONSUME WEB SERVICE PARA ELIMINAR DB
+                                        EliminarObjetos(ListaIdObjetos.get(position));
+                                        dialog.dismiss();
+                                    }
+                                })
+                                .setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        // User cancelled the dialog
+                                        dialog.dismiss();
+                                    }
+                                });
+
+                builder.create().show();
+
+
+            }
+        });
+
+        //Clic a la lista
+        lvArmas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                AlertDialog.Builder builder =
+                        new AlertDialog.Builder(getContext()).
+                                setMessage("¿DESEA ELIMINAR EL ARMA "+ ListaIdArmas.get(position) + "?" ).
+                                setPositiveButton( "ACEPTAR", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        //CONSUME WEB SERVICE PARA ELIMINAR DB
+                                        EliminarArmas(ListaIdArmas.get(position));
+                                        dialog.dismiss();
+                                    }
+                                })
+                                .setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        // User cancelled the dialog
+                                        dialog.dismiss();
+                                    }
+                                });
+
+                builder.create().show();
+
+
+            }
+        });
+
+
+
+
         //Imagen que funciona para activar la grabación de voz
         imgMicrofonoObservacionesArma.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -585,5 +672,338 @@ public class InventarioArmasObjetos extends Fragment {
         cargarIdPoliciaPrimerRespondiente = share.getString("Usuario", "SIN INFORMACION");
         cargarIdHechoDelictivo = share.getString("IDHECHODELICTIVO", "SIN INFORMACION");
     }
+
+    //***************** CONSULTA A LA BD MEDIANTE EL WS **************************//
+    private void cargarObjetos() {
+        Log.i("OBJETOS", "INICIA CARGAR OBJETOS");
+
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("http://189.254.7.167/WebServiceIPH/api/HDObjetos?folioInternoObjetos="+cargarIdHechoDelictivo)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Looper.prepare(); // to be able to make toast
+                Toast.makeText(getContext(), "ERROR AL CONSULTAR OBJETOS, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Looper.loop();
+                Log.i("OBJETOS", "onFailure");
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    final String myResponse = response.body().string();
+
+                    try {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                String resp = myResponse;
+                                ListaIdObjetos = new ArrayList<String>();
+                                ListaDatosObjetos = new ArrayList<String>();
+                                Log.i("OBJETOS", "RESP:"+resp);
+
+                                //***************** RESPUESTA DEL WEBSERVICE **************************//
+
+                                //CONVERTIR ARREGLO DE JSON A OBJET JSON
+                                String ArregloJson = resp.replace("[", "");
+                                ArregloJson = ArregloJson.replace("]", "");
+
+                                if(ArregloJson.equals(""))
+                                {
+                                    //Sin Información. Todos los campos vacíos.
+                                    Log.i("OBJETOS", "SIN INFORMACIÓN");
+
+                                }
+                                else{
+                                    Log.i("OBJETOS", "CON INFORMACIÓN:");
+
+                                    //SEPARAR CADA detenido EN UN ARREGLO
+                                    String[] ArrayIPHDelictivo = ArregloJson.split(Pattern.quote("},"));
+                                    ArrayListaIPHDelictivo = ArrayIPHDelictivo;
+
+                                    Log.i("OBJETOS", "ArrayListaDelictivo:"+ArrayIPHDelictivo[0]);
+
+                                    //RECORRE EL ARREGLO PARA AGREGAR EL FOLIO CORRESPONDIENTE DE CADA OBJETJSN
+                                    int contadordeDetenido=0;
+                                    while(contadordeDetenido < ArrayListaIPHDelictivo.length){
+                                        try {
+                                            JSONObject jsonjObject = new JSONObject(ArrayListaIPHDelictivo[contadordeDetenido] + "}");
+
+                                            ListaIdObjetos.add(jsonjObject.getString("IdObjeto"));
+                                            ListaDatosObjetos.add(
+                                                    " OBJETO: "+
+                                                            ((jsonjObject.getString("Objeto")).equals("null")?" - ":jsonjObject.getString("Objeto")) +
+                                                            " DESCRIPCIÓN: "+
+                                                            " "+((jsonjObject.getString("DescObjeto")).equals("null")?" - ":jsonjObject.getString("DescObjeto")) +
+                                                            " DESTINO:  "+
+                                                            " "+ ((jsonjObject.getString("Destino")).equals("null")?" - ":jsonjObject.getString("Destino"))
+                                            );
+
+                                        } catch (JSONException e) {
+                                            Log.i("OBJETOS", "catch:" + e.toString());
+
+                                            e.printStackTrace();
+                                            Toast.makeText(getContext(), "ERROR AL DESEREALIZAR EL JSON", Toast.LENGTH_SHORT).show();
+                                        }
+                                        contadordeDetenido++;
+                                    }
+                                }
+
+                                //AGREGA LOS DATOS AL LISTVIEW MEDIANTE EL ADAPTADOR
+                                InventarioArmasObjetos.MyAdapter adapter = new InventarioArmasObjetos.MyAdapter(getContext(), ListaDatosObjetos,ListaDatosObjetos,"OBJETO");
+                                lvObjeto.setAdapter(adapter);
+                                funciones.ajustaAlturaListView(lvObjeto,290);
+
+
+                                //*************************
+                            }
+                        });
+                    }
+                    catch (Exception e){
+                        Toast.makeText(getContext(), "ERROR AL CONSULTAR ANEXO C, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            }
+        });
+    }
+
+    //***************** CONSULTA A LA BD MEDIANTE EL WS **************************//
+    private void cargarArmas() {
+        Log.i("ARMAS", "INICIA CARGAR OBJETOS");
+
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("http://189.254.7.167/WebServiceIPH/api/HDArmasFuego?folioInternoArmas="+cargarIdHechoDelictivo)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Looper.prepare(); // to be able to make toast
+                Toast.makeText(getContext(), "ERROR AL CONSULTAR OBJETOS, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Looper.loop();
+                Log.i("ARMAS", "onFailure");
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    final String myResponse = response.body().string();
+
+                    try {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                String resp = myResponse;
+                                ListaIdArmas = new ArrayList<String>();
+                                ListaDatosArmas = new ArrayList<String>();
+                                Log.i("ARMAS", "RESP:"+resp);
+
+                                //***************** RESPUESTA DEL WEBSERVICE **************************//
+
+                                //CONVERTIR ARREGLO DE JSON A OBJET JSON
+                                String ArregloJson = resp.replace("[", "");
+                                ArregloJson = ArregloJson.replace("]", "");
+
+                                if(ArregloJson.equals(""))
+                                {
+                                    //Sin Información. Todos los campos vacíos.
+                                    Log.i("ARMAS", "SIN INFORMACIÓN");
+
+                                }
+                                else{
+                                    Log.i("ARMAS", "CON INFORMACIÓN:");
+
+                                    //SEPARAR CADA detenido EN UN ARREGLO
+                                    String[] ArrayIPHDelictivo = ArregloJson.split(Pattern.quote("},"));
+                                    ArrayListaIPHDelictivoArmas = ArrayIPHDelictivo;
+
+                                    Log.i("ARMAS", "ArrayListaDelictivo:"+ArrayIPHDelictivo[0]);
+
+                                    //RECORRE EL ARREGLO PARA AGREGAR EL FOLIO CORRESPONDIENTE DE CADA OBJETJSN
+                                    int contadordeDetenido=0;
+                                    while(contadordeDetenido < ArrayListaIPHDelictivoArmas.length){
+                                        try {
+                                            JSONObject jsonjObject = new JSONObject(ArrayListaIPHDelictivoArmas[contadordeDetenido] + "}");
+
+                                            ListaIdArmas.add(jsonjObject.getString("IdArma"));
+                                            ListaDatosArmas.add(
+                                                    " TIPO ARMA: "+
+                                                            ((jsonjObject.getString("TipoArma")).equals("null")?" - ":jsonjObject.getString("TipoArma")) +
+                                                            " MATRICULA: "+
+                                                            " "+((jsonjObject.getString("Matricula")).equals("null")?" - ":jsonjObject.getString("Matricula")) +
+                                                            " DESTINO:  "+
+                                                            " "+ ((jsonjObject.getString("Destino")).equals("null")?" - ":jsonjObject.getString("Destino"))
+                                            );
+
+                                        } catch (JSONException e) {
+                                            Log.i("ARMAS", "catch:" + e.toString());
+
+                                            e.printStackTrace();
+                                            Toast.makeText(getContext(), "ERROR AL DESEREALIZAR EL JSON ARMAS", Toast.LENGTH_SHORT).show();
+                                        }
+                                        contadordeDetenido++;
+                                    }
+                                }
+
+                                //AGREGA LOS DATOS AL LISTVIEW MEDIANTE EL ADAPTADOR
+                                InventarioArmasObjetos.MyAdapter adapter2 = new InventarioArmasObjetos.MyAdapter(getContext(), ListaDatosArmas,ListaDatosArmas,"ARMA");
+                                lvArmas.setAdapter(adapter2);
+                                funciones.ajustaAlturaListView(lvArmas,290);
+
+
+                                //*************************
+                            }
+                        });
+                    }
+                    catch (Exception e){
+                        Toast.makeText(getContext(), "ERROR AL CONSULTAR ANEXO C, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            }
+        });
+    }
+
+    //***************** ADAPTADOR PARA LLENAR LISTA DE IPH ADMINISTRATIVO **************************//
+    class MyAdapter extends ArrayAdapter<String> {
+        Context context;
+        ArrayList<String> ListaIdVehiculo,ListaDatosVehiculo;
+        String titulo;
+        MyAdapter (Context c, ArrayList<String> ListaIdVehiculo, ArrayList<String> ListaDatosVehiculo, String titulo) {
+            super(c, R.layout.row_armas_objetos, ListaIdVehiculo);
+            this.context = c;
+            this.ListaIdVehiculo = ListaIdVehiculo;
+            this.ListaDatosVehiculo = ListaDatosVehiculo;
+            this.titulo = titulo;
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+            Log.i("OBJETOS", "ADAPTER");
+
+            LayoutInflater layoutInflater = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View row = layoutInflater.inflate(R.layout.row_armas_objetos, parent, false);
+
+            TextView lblNumeroVehiculo = row.findViewById(R.id.lblNumeroVehiculo);
+            TextView lblDatosVehiculo = row.findViewById(R.id.lblDatosVehiculo);
+
+            // Asigna los valores
+            lblNumeroVehiculo.setText(titulo+":");
+            lblDatosVehiculo.setText(ListaDatosVehiculo.get(position));
+
+            return row;
+        }
+    }
+
+    //***************** eliminar armas**************************//
+    private void EliminarArmas(String IdArma) {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("http://189.254.7.167/WebServiceIPH/api/HDArmasFuego?folioInternoArma="+cargarIdHechoDelictivo+"&idArma="+IdArma)
+                .delete()
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Looper.prepare(); // to be able to make toast
+                Toast.makeText(getContext(), "ERROR AL ELIMINAR ARMA, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    final String myResponse = response.body().string();
+
+                    try {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                String resp = myResponse;
+
+                                //***************** RESPUESTA DEL WEBSERVICE **************************//
+                                //CONVERTIR ARREGLO DE JSON A OBJET JSON
+                                if(resp.equals("true"))
+                                {
+                                    //***************** MENSAJE MÁS ACTUALIZAR LISTA (Recargando el Fragmento xoxo) **************************//
+                                    Toast.makeText(getContext(), "SE ELIMINÓ CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+                                    cargarArmas();
+                                }
+                                else{
+                                    Toast.makeText(getContext(), "PROBLEMA AL ELIMINAR", Toast.LENGTH_SHORT).show();
+                                }
+                                //*************************
+                            }
+                        });
+                    }
+                    catch (Exception e){
+                        Toast.makeText(getContext(), "ERROR AL ELIMINAR ARMAS, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            }
+        });
+    }
+
+    //***************** Eliminar objetps**************************//
+    private void EliminarObjetos(String IdObjeto) {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("http://189.254.7.167/WebServiceIPH/api/HDObjetos?folioInternoObjeto="+cargarIdHechoDelictivo+"&idObjeto="+IdObjeto)
+                .delete()
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Looper.prepare(); // to be able to make toast
+                Toast.makeText(getContext(), "ERROR AL ELIMINAR OBJETO, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    final String myResponse = response.body().string();
+
+                    try {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                String resp = myResponse;
+
+                                //***************** RESPUESTA DEL WEBSERVICE **************************//
+                                //CONVERTIR ARREGLO DE JSON A OBJET JSON
+                                if(resp.equals("true"))
+                                {
+                                    //***************** MENSAJE MÁS ACTUALIZAR LISTA (Recargando el Fragmento xoxo) **************************//
+                                    Toast.makeText(getContext(), "SE ELIMINÓ CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+                                    cargarObjetos();
+                                }
+                                else{
+                                    Toast.makeText(getContext(), "PROBLEMA AL ELIMINAR", Toast.LENGTH_SHORT).show();
+                                }
+                                //*************************
+                            }
+                        });
+                    }
+                    catch (Exception e){
+                        Toast.makeText(getContext(), "ERROR AL ELIMINAR OBJETOS, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            }
+        });
+    }
+
 
 }

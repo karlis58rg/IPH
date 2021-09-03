@@ -12,12 +12,17 @@ import mx.ssp.iph.principal.ui.activitys.Principal;
 public class Splash extends AppCompatActivity {
     String cargarInfoUsuario;
     SharedPreferences share;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
+        guardarUsuario("IPH004");
         cargarDatos();
+
+
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -40,4 +45,12 @@ public class Splash extends AppCompatActivity {
         cargarInfoUsuario = share.getString("Usuario","");
         System.out.println(cargarInfoUsuario);
     }
+
+    private void guardarUsuario(String Usuario) {
+        share = getSharedPreferences("main", MODE_PRIVATE);
+        editor = share.edit();
+        editor.putString("Usuario", Usuario );
+        editor.commit();
+    }
+
 }

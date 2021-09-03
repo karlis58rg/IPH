@@ -37,7 +37,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -571,6 +570,7 @@ public class Detenciones extends Fragment  {
     }
 
     public void getFirmaFromURL(){
+
         Picasso.get()
                 .load(firmaURLServer)
                 .into(imgFirmadelDetenidoMiniatura);
