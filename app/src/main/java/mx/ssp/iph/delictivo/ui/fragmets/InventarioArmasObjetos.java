@@ -194,8 +194,6 @@ public class InventarioArmasObjetos extends Fragment {
                                 });
 
                 builder.create().show();
-
-
             }
         });
 
@@ -222,22 +220,27 @@ public class InventarioArmasObjetos extends Fragment {
                                 });
 
                 builder.create().show();
-
-
             }
         });
-
-
-
 
         //Imagen que funciona para activar la grabación de voz
         imgMicrofonoObservacionesArma.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 imgMicrofonoObservacionesArma.setImageResource(R.drawable.ic_micro_press);
+                imgMicrofonoObservacionesArma.setTag(R.drawable.ic_micro_press);
                 iniciarEntradadeVoz();
             }
         });
+        imgMicrofonoObservacionesObjetos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                imgMicrofonoObservacionesObjetos.setImageResource(R.drawable.ic_micro_press);
+                imgMicrofonoObservacionesObjetos.setTag(R.drawable.ic_micro_press);
+                iniciarEntradadeVoz();
+            }
+        });
+
         rgAportacionInspeccionArmaFuego.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
@@ -292,7 +295,8 @@ public class InventarioArmasObjetos extends Fragment {
                     cadenaImagenFirmaArmas = lblFirmaTestigo2ArmaOculto.getText().toString();
                     insertImagenFirmaArmas();
                 }
-                insertArmasFuego();
+                    insertArmasFuego();
+
             }
         });
         rgAportacionInspeccionObjetos.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -416,18 +420,28 @@ public class InventarioArmasObjetos extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
 
         switch (requestCode){
-            case REQ_CODE_SPEECH_INPUT:{
-                if (resultCode== RESULT_OK && null != data)
-                {
+            case REQ_CODE_SPEECH_INPUT: {
+                if (resultCode == RESULT_OK && null != data) {
                     ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    String textoActual = txtObservacionesArma.getText().toString();
-                    txtObservacionesArma.setText(textoActual+" " + result.get(0));
+                    Integer resource2 = (Integer) imgMicrofonoObservacionesArma.getTag();
+
+                    if (resource2 == R.drawable.ic_micro_press ) {
+                        String textoActual = txtObservacionesArma.getText().toString();
+                        txtObservacionesArma.setText(textoActual + " " + result.get(0));
+                    } else {
+                        String textoActual = txtObservacionesObjetos.getText().toString();
+                        txtObservacionesObjetos.setText(textoActual + " " + result.get(0));
+                    }
+
                 }
                 break;
             }
-
         }
         imgMicrofonoObservacionesArma.setImageResource(R.drawable.ic_micro);
+        imgMicrofonoObservacionesArma.setTag(R.drawable.ic_micro);
+
+        imgMicrofonoObservacionesObjetos.setImageResource(R.drawable.ic_micro);
+        imgMicrofonoObservacionesObjetos.setTag(R.drawable.ic_micro);
     }
     private void insertArmasFuego() {
         descripcionColor = (String) spColorArmaDelictivo.getSelectedItem();
@@ -509,6 +523,7 @@ public class InventarioArmasObjetos extends Fragment {
                         public void run() {
                             String resp = myResponse;
                             if(resp.equals("true")){
+                                cargarArmas();
                                 System.out.println("EL DATO SE ENVIO CORRECTAMENTE");
                                 Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
                             }else{
@@ -595,6 +610,7 @@ public class InventarioArmasObjetos extends Fragment {
                         public void run() {
                             String resp = myResponse;
                             if(resp.equals("true")){
+                                cargarObjetos();
                                 System.out.println("EL DATO SE ENVIO CORRECTAMENTE");
                                 Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
                             }else{
