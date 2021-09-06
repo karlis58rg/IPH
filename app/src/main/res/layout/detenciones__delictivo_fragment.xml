@@ -2309,6 +2309,9 @@ adolescentes."/>
                             android:id="@+id/rbLugarTrasladoDetencionFiscaliaAgencia"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_gravity="center"
+                            android:padding="10dp"
                             android:text="Fiscalía/Agencia"
                             android:button="@null"
                             android:drawableStart="@drawable/rbbox"/>
@@ -2316,6 +2319,9 @@ adolescentes."/>
                             android:id="@+id/rbLugarTrasladoDetencionHospital"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_gravity="center"
+                            android:padding="10dp"
                             android:text="Hospital"
                             android:button="@null"
                             android:drawableStart="@drawable/rbbox"/>
@@ -2323,6 +2329,9 @@ adolescentes."/>
                             android:id="@+id/rbLugarTrasladoDetencionOtraDependencia"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_gravity="center"
+                            android:padding="10dp"
                             android:text="Otra Dependencia"
                             android:button="@null"
                             android:drawableStart="@drawable/rbbox"/>

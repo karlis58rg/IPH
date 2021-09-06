@@ -37,6 +37,84 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/diecisietelinear1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/ic_borde_radio">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.15"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/border">
+                    <TextView
+                        android:id="@+id/lblpregunta1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:gravity="center_vertical"
+                        android:text="¿Desea reservar sus datos?"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/quintoTresLinear"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.1"
+                    android:layout_marginBottom="24dp"
+                    android:focusableInTouchMode="true">
+                    <RadioGroup
+                        android:id="@+id/rgReservarDatos"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+                        <RadioButton
+                            android:id="@+id/rbNoReservarDatos"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:padding="10dp"
+                            android:layout_marginLeft="20dp"
+                            android:text="@string/no"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox" />
+
+                        <RadioButton
+                            android:id="@+id/rbSiReservarDatos"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:padding="10dp"
+                            android:text="@string/si"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox" />
+                    </RadioGroup>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10"
+                    android:layout_gravity="center"
+                    android:gravity="center">
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
                 android:id="@+id/lyFechaHoraEntrevista"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -256,8 +334,7 @@
                         android:id="@+id/rgCalidadEntrevistado"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="horizontal"
-                        android:gravity="center">
+                        android:orientation="horizontal">
                         <RadioButton
                             android:id="@+id/rbCalidadVictima"
                             android:layout_width="wrap_content"
@@ -364,7 +441,7 @@
                         android:textColor="@color/font"
                         android:text="@string/lblNacionalidad"/>
                     <Spinner
-                        android:id="@+id/txtNacionalidadEntrevistado"
+                        android:id="@+id/spNacionalidadEntrevistado"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         />
@@ -413,30 +490,6 @@
                         android:id="@+id/spTipoDocumentoEntrevistado"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:weightSum="1"
-                    android:layout_weight="0.10">
-                    <TextView
-                        android:id="@+id/lblEspecifiqueTipoDocumentoEntrevistado"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/font"
-                        android:text="Especifique"/>
-                    <EditText
-                        android:id="@+id/txtEspecifiqueTipoDocumentoEntrevistado"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:maxLength="50"
-                        android:inputType="textCapCharacters"
-                        android:digits="@string/validacion_nombre"
-                        android:singleLine="true"
-                        android:maxLines="1"
-                        android:lines="1"
-                        android:imeOptions="actionNext"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="0dp"
@@ -578,7 +631,7 @@
                         android:textColor="@color/font"
                         android:text="@string/lblMunicipio"/>
                     <Spinner
-                        android:id="@+id/txtMunicipioEntrevistado"
+                        android:id="@+id/spMunicipioEntrevistado"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
                 </LinearLayout>
@@ -1021,7 +1074,9 @@
                             android:layout_gravity="center"
                             android:padding="10dp"
                             android:layout_marginLeft="20dp"
-                            android:text="@string/no" />
+                            android:text="@string/no"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox" />
 
                         <RadioButton
                             android:id="@+id/rbSiTrasladoPersonaEntrevistada"
@@ -1029,7 +1084,9 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:padding="10dp"
-                            android:text="@string/si" />
+                            android:text="@string/si"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"  />
                     </RadioGroup>
                 </LinearLayout>
 
@@ -1060,35 +1117,53 @@
                     android:layout_height="wrap_content"
                     android:text="Lugar de traslado: " />
 
-
-
                 <LinearLayout
                     android:id="@+id/treintaicuatrounoLinear"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="horizontal"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center">
+                    android:layout_marginTop="10dp">
 
-                    <CheckBox
-                        android:id="@+id/chLugarTrasladoEntrevistadoFiscaliaAgencia"
-                        android:layout_width="wrap_content"
+                    <RadioGroup
+                        android:id="@+id/rgLugarTrasladoEntrevista"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Fiscalía/Agencia"/>
-                    <CheckBox
-                        android:id="@+id/chLugarTrasladoEntrevistadoHospital"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Hospital"/>
-                    <CheckBox
-                        android:id="@+id/chLugarTrasladoEntrevistadoOtraDependencia"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Otra Dependencia"/>
+                        android:orientation="horizontal">
+                        <RadioButton
+                            android:id="@+id/rgLugarTrasladoEntrevistadoFiscaliaAgencia"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_gravity="center"
+                            android:padding="10dp"
+                            android:text="Fiscalía/Agencia"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"/>
+                        <RadioButton
+                            android:id="@+id/rgLugarTrasladoEntrevistadoHospital"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_gravity="center"
+                            android:padding="10dp"
+                            android:text="Hospital"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"/>
+                        <RadioButton
+                            android:id="@+id/rgLugarTrasladoEntrevistadoOtraDependencia"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_gravity="center"
+                            android:padding="10dp"
+                            android:text="Otra Dependencia"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox"/>
+                    </RadioGroup>
+
 
                 </LinearLayout>
-
 
                 <TextView
                     android:id="@+id/lblCualLugarTraslado"
@@ -1096,7 +1171,7 @@
                     android:layout_height="wrap_content"
                     android:text="¿Cuál?" />
                 <EditText
-                    android:id="@+id/txtCualLugarTraslado"
+                    android:id="@+id/txtCualLugarTrasladoEntrevista"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textCapCharacters"
@@ -1174,7 +1249,158 @@
                     \n9. Que se resguarde su identidad y datos personales, en los términos que establece la ley."/>
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/septimoLinear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                    <TextView
+                        android:id="@+id/lblInformeDerechoDetencionesDelictivo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="¿Le informó sus derechos a la victima u ofendido?" />
+                </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/lyLecturaDerechos"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10"
+                    android:focusableInTouchMode="true">
+                    <RadioGroup
+                        android:id="@+id/rgInformeDerechoVictimaDelictivo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+                        <RadioButton
+                            android:id="@+id/rbNoInformeDerechoVictimaDelictivo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:padding="10dp"
+                            android:layout_marginLeft="20dp"
+                            android:text="@string/no"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox" />
+
+                        <RadioButton
+                            android:id="@+id/rbSiInformeDerechoVictimaDelictivo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:padding="10dp"
+                            android:text="@string/si"
+                            android:button="@null"
+                            android:drawableStart="@drawable/rbbox" />
+                    </RadioGroup>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lyFirmaDerechosVictima"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:weightSum="1"
+                    android:layout_weight="0.12"
+                    android:focusableInTouchMode="true">
+
+                    <LinearLayout
+                        android:id="@+id/lyFirmaVictima"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:weightSum="1"
+                        android:layout_weight="0.5"
+                        android:focusableInTouchMode="true">
+                        <TextView
+                            android:id="@+id/lblFirmaVictimaDelictivo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Firma del Detenido" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:weightSum="1"
+                            android:layout_weight="0.5">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:weightSum="1"
+                                android:layout_weight="0.60">
+                                <TextView
+                                    android:id="@+id/lblFirmaVictimaEntrevistaDelictivo"
+                                    android:enabled="true"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="60dp"
+                                android:layout_weight="0.20"
+                                android:orientation="horizontal"
+                                android:weightSum="1"
+                                android:padding="@dimen/border">
+
+                                <ImageView
+                                    android:id="@+id/imgFirmaEntrevistaDelictivoMiniatura"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:maxWidth="40dp"
+                                    android:maxHeight="40dp"
+                                    android:scaleType="fitXY" />
+                            </LinearLayout>
+
+                            <!--Revisar vista general -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:weightSum="1"
+                                android:layout_weight="0.10"
+                                android:visibility="gone">
+                                <TextView
+                                    android:id="@+id/lblFirmaEntrevistaOculto"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/font"
+                                    android:text=""/>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal"
+                                android:weightSum="1"
+                                android:layout_weight="0.20">
+                                <ImageView
+                                    android:id="@+id/imgFirmaDerechosVictimaDelictivo"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/ic_firma" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
 
             <!--======== BOTÓN y ListView============ -->
             <LinearLayout
@@ -1206,7 +1432,7 @@
                         android:id="@+id/btnGuardarEntrevista"
                         android:layout_width="230dp"
                         android:layout_height="45dp"
-                        android:background="@drawable/icn_add"  />
+                        android:background="@drawable/icn_add" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="0dp"

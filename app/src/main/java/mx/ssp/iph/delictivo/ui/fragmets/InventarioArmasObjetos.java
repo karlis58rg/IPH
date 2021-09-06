@@ -296,7 +296,6 @@ public class InventarioArmasObjetos extends Fragment {
                     insertImagenFirmaArmas();
                 }
                     insertArmasFuego();
-
             }
         });
         rgAportacionInspeccionObjetos.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
