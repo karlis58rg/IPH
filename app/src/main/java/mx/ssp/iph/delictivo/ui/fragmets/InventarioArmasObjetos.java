@@ -4,9 +4,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Looper;
 import android.speech.RecognizerIntent;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -28,9 +33,13 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -60,6 +69,14 @@ public class InventarioArmasObjetos extends Fragment {
 
     private InventarioArmasObjetosViewModel mViewModel;
     private Funciones funciones;
+
+    private String firmaURLServer = "http://189.254.7.167/WebServiceIPH/Firma/SINFIRMA.jpg";
+    private Target target;
+    private TextView lblFirmadelEntrevistadoAO;
+    private ImageView imgFirmadelEntrevistadoMiniaturaAO,imgFirmaTestigo1ArmaMiniatura,imgFirmaTestigo2ArmaMiniatura;
+    private ImageView imgFirmadelPropietarioObjetosMiniatura,imgFirmaTestigo1ObjetoMiniatura,imgFirmaTestigo2ObjetoMiniatura;
+
+
     ImageView btnAgregarArma,imgMicrofonoObservacionesArma,imgFirmaEntrevistadoAO,imgFirmaTestigo1Arma,imgFirmaTestigo2Arma,
             imgMicrofonoObservacionesObjetos,imgFirmaPropietarioObjetos,imgFirmaTestigo1Objeto,imgFirmaTestigo2Objeto,btnAgregarObjeto;
     EditText txtLugarEncontroArma,txtCalibreArmaDelictivo, txtMatriculaArmaDelictivo,txtNoSerieArmaDelictivo,txtDestinoArma,txtObservacionesArma,
@@ -72,9 +89,14 @@ public class InventarioArmasObjetos extends Fragment {
             txtPrimerApellidoTestigo2Objeto,txtSegundoApellidoTestigo2Objeto,txtNombresTestigo2Objeto;
     private static final  int REQ_CODE_SPEECH_INPUT=100;
     RadioGroup rgAportacionInspeccionArmaFuego,rgTipoArma,
-            rgTipoObjeto,rgAportacionInspeccionObjetos;
+            rgTipoObjeto,rgAportacionInspeccionObjetos, rgFirmaArmaAsegurada, rgFirmaObjetoAsegurada;
+
+    RadioButton rbArmaCorta, rbArmaLarga, rbSiFirmaArmaAsegurada, rbNoFirmaArmaAsegurada,
+            rbNarcotico, rbHidrocarburo, rbNumerario, rbOtro, rbAportacion, rbInspeccionLugar, rbInspeccionPersona, rbInspeccionVehiculo,
+            rbAportacionObjetos, rbInspeccionLugarObjetos, rbInspeccionPersonaObjetos, rbInspeccionVehiculoObjetos, rbSiFirmaObjetoAsegurada, rbNoFirmaObjetoAsegurada;
+
     Spinner spColorArmaDelictivo;
-    String descripcionColor,cargarIdPoliciaPrimerRespondiente,cargarIdHechoDelictivo,varAportacion,varInspeccion,varTipoArma,varRutaImagen,varRutaImagenT1,varRutaImagenT2,
+    String descripcionColor,cargarIdPoliciaPrimerRespondiente,cargarIdHechoDelictivo,varAportacion = "NO",varInspeccion = "NO",varTipoArma,varRutaImagen,varRutaImagenT1,varRutaImagenT2,
             varTipoObjeto,varAportacionObjeto,varInspeccionObjeto,varRutaFirmaObjeto,varRutaImagenT1Objeto,varRutaImagenT2Objeto,cadenaImagenFirmaArmas,cadenaPersona;
     SharedPreferences share;
     int numberRandom,randomUrlImagen;
@@ -129,6 +151,8 @@ public class InventarioArmasObjetos extends Fragment {
         txtNombresTestigo2Arma = view.findViewById(R.id.txtNombresTestigo2Arma);
         rgAportacionInspeccionArmaFuego = view.findViewById(R.id.rgAportacionInspeccionArmaFuego);
         rgTipoArma = view.findViewById(R.id.rgTipoArma);
+        rgFirmaArmaAsegurada = view.findViewById(R.id.rgFirmaArmaAsegurada);
+        rgFirmaObjetoAsegurada = view.findViewById(R.id.rgFirmaObjetoAsegurada);
         spColorArmaDelictivo = view.findViewById(R.id.spColorArmaDelictivo);
         btnAgregarArma = view.findViewById(R.id.btnAgregarArma);
         ListCombos();
@@ -155,16 +179,99 @@ public class InventarioArmasObjetos extends Fragment {
         imgFirmaTestigo1Objeto = view.findViewById(R.id.imgFirmaTestigo1Objeto);
         imgFirmaTestigo2Objeto = view.findViewById(R.id.imgFirmaTestigo2Objeto);
         lblFirmadelPropietarioObjetosOculto = view.findViewById(R.id.lblFirmadelPropietarioObjetosOculto);
+
+        lblFirmadelEntrevistadoAO = view.findViewById(R.id.lblFirmadelEntrevistadoAO);
         lblFirmaTestigo1ObjetoOculto = view.findViewById(R.id.lblFirmaTestigo1ObjetoOculto);
         lblFirmaTestigo2ObjetoOculto = view.findViewById(R.id.lblFirmaTestigo2ObjetoOculto);
         btnAgregarObjeto = view.findViewById(R.id.btnAgregarObjeto);
 
+        imgFirmadelEntrevistadoMiniaturaAO = view.findViewById(R.id.imgFirmadelEntrevistadoMiniaturaAO);
+        imgFirmaTestigo1ArmaMiniatura = view.findViewById(R.id.imgFirmaTestigo1ArmaMiniatura);
+        imgFirmaTestigo2ArmaMiniatura = view.findViewById(R.id.imgFirmaTestigo2ArmaMiniatura);
+
+        imgFirmadelPropietarioObjetosMiniatura = view.findViewById(R.id.imgFirmadelPropietarioObjetosMiniatura);
+        imgFirmaTestigo1ObjetoMiniatura = view.findViewById(R.id.imgFirmaTestigo1ObjetoMiniatura);
+        imgFirmaTestigo2ObjetoMiniatura = view.findViewById(R.id.imgFirmaTestigo2ObjetoMiniatura);
+
+        rbInspeccionVehiculo = view.findViewById(R.id.rbInspeccionVehiculo);
+        rbArmaCorta = view.findViewById(R.id.rbArmaCorta);
+        rbArmaLarga = view.findViewById(R.id.rbArmaLarga);
+        rbSiFirmaArmaAsegurada = view.findViewById(R.id.rbSiFirmaArmaAsegurada);
+        rbNoFirmaArmaAsegurada = view.findViewById(R.id.rbNoFirmaArmaAsegurada);
+        rbNarcotico = view.findViewById(R.id.rbNarcotico);
+        rbHidrocarburo = view.findViewById(R.id.rbHidrocarburo);
+        rbNumerario = view.findViewById(R.id.rbNumerario);
+        rbOtro = view.findViewById(R.id.rbOtro);
+        rbAportacionObjetos = view.findViewById(R.id.rbAportacionObjetos);
+        rbInspeccionLugarObjetos = view.findViewById(R.id.rbInspeccionLugarObjetos);
+        rbInspeccionPersonaObjetos = view.findViewById(R.id.rbInspeccionPersonaObjetos);
+        rbInspeccionVehiculoObjetos = view.findViewById(R.id.rbInspeccionVehiculoObjetos);
+        rbSiFirmaObjetoAsegurada = view.findViewById(R.id.rbSiFirmaObjetoAsegurada);
+        rbNoFirmaObjetoAsegurada = view.findViewById(R.id.rbNoFirmaObjetoAsegurada);
+        rbAportacion = view.findViewById(R.id.rbAportacion);
+        rbInspeccionLugar = view.findViewById(R.id.rbInspeccionLugar);
+        rbInspeccionPersona = view.findViewById(R.id.rbInspeccionPersona);
+        rbInspeccionVehiculo = view.findViewById(R.id.rbInspeccionVehiculo);
+
         lvObjeto = view.findViewById(R.id.lvObjeto);
         lvArmas  = view.findViewById(R.id.lvArmas);
 
+        imgFirmaEntrevistadoAO.setEnabled(false);
+        imgFirmaTestigo1Arma.setEnabled(false);
+        imgFirmaTestigo2Arma.setEnabled(false);
+        txtPrimerApellidoTestigo1Arma.setEnabled(false);
+        txtSegundoApellidoTestigo1Arma.setEnabled(false);
+        txtNombresTestigo1Arma.setEnabled(false);
+        txtPrimerApellidoTestigo2Arma.setEnabled(false);
+        txtSegundoApellidoTestigo2Arma.setEnabled(false);
+        txtNombresTestigo2Arma.setEnabled(false);
+
+
+        target = new Target() {
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.PNG, 70, baos);
+                byte[] imgBytes = baos.toByteArray();
+
+                String imgString = android.util.Base64.encodeToString(imgBytes, android.util.Base64.NO_WRAP);
+                //Limpia todas las imagenes y campos ocultos
+                lblFirmadelEntrevistadoOcultoAO.setText("");
+                lblFirmaTestigo1ArmaOculto.setText("");
+                lblFirmaTestigo2ArmaOculto.setText("");
+
+                //Objetos Firmas
+                lblFirmadelPropietarioObjetosOculto.setText("");
+                lblFirmaTestigo1ObjetoOculto.setText("");
+                lblFirmaTestigo2ObjetoOculto.setText("");
+
+
+
+
+                byte[] decodedString = Base64.decode(imgString, Base64.DEFAULT);
+                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                imgFirmadelEntrevistadoMiniaturaAO.setImageBitmap(decodedByte);
+                imgFirmaTestigo1ArmaMiniatura.setImageBitmap(decodedByte);
+                imgFirmaTestigo2ArmaMiniatura.setImageBitmap(decodedByte);
+
+                //Objetos
+                imgFirmadelPropietarioObjetosMiniatura.setImageBitmap(decodedByte);
+                imgFirmaTestigo1ObjetoMiniatura.setImageBitmap(decodedByte);
+                imgFirmaTestigo2ObjetoMiniatura.setImageBitmap(decodedByte);
+            }
+            @Override
+            public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+            }
+        };
+
+
         //Consulta si hay conexión a internet y realiza la peticion al ws de consulta de los datos.
-        if (funciones.ping(getContext()))
-        {
+        if (funciones.ping(getContext())){
             //Toast.makeText(getContext(), "cargarNoReferenciaAdministrativa()", Toast.LENGTH_LONG).show();
             cargarArmas();
             cargarObjetos();
@@ -232,6 +339,7 @@ public class InventarioArmasObjetos extends Fragment {
                 iniciarEntradadeVoz();
             }
         });
+
         imgMicrofonoObservacionesObjetos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -246,15 +354,21 @@ public class InventarioArmasObjetos extends Fragment {
             public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
                 if (checkedId == R.id.rbAportacion) {
                     varAportacion = "SI";
+                    varInspeccion = "NO";
                 } else{
                     varAportacion = "NO";
                 }
                 if (checkedId == R.id.rbInspeccionLugar) {
                     varInspeccion = "INSPECCION LUGAR";
+                    varAportacion = "NO";
+
                 }else if(checkedId == R.id.rbInspeccionPersona){
                     varInspeccion = "INSPECCION PERSONA";
+                    varAportacion = "NO";
                 }else if(checkedId == R.id.rbInspeccionVehiculo){
                     varInspeccion = "INSPECCION VEHICULO";
+                    varAportacion = "NO";
+
                 }
             }
         });
@@ -270,12 +384,51 @@ public class InventarioArmasObjetos extends Fragment {
             }
         });
 
+        rgFirmaArmaAsegurada.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
+                if(checkedId == R.id.rbSiFirmaArmaAsegurada){
+                    imgFirmaEntrevistadoAO.setEnabled(true);
+                    txtPrimerApellidoTestigo1Arma.setEnabled(false);
+                    txtSegundoApellidoTestigo1Arma.setEnabled(false);
+                    txtNombresTestigo1Arma.setEnabled(false);
+                    txtPrimerApellidoTestigo1Arma.setText("");
+                    txtSegundoApellidoTestigo1Arma.setText("");
+                    txtNombresTestigo1Arma.setText("");
+                    imgFirmaTestigo1Arma.setEnabled(false);
+                    txtPrimerApellidoTestigo2Arma.setEnabled(false);
+                    txtSegundoApellidoTestigo2Arma.setEnabled(false);
+                    txtNombresTestigo2Arma.setEnabled(false);
+                    txtPrimerApellidoTestigo2Arma.setText("");
+                    txtSegundoApellidoTestigo2Arma.setText("");
+                    txtNombresTestigo2Arma.setText("");
+                    imgFirmaTestigo2Arma.setEnabled(false);
+
+                } else if(checkedId == R.id.rbNoFirmaArmaAsegurada){
+                    imgFirmaEntrevistadoAO.setEnabled(false);
+                    imgFirmaTestigo1Arma.setEnabled(true);
+                    imgFirmaTestigo2Arma.setEnabled(true);
+                    txtPrimerApellidoTestigo1Arma.setEnabled(true);
+                    txtSegundoApellidoTestigo1Arma.setEnabled(true);
+                    txtNombresTestigo1Arma.setEnabled(true);
+                    txtPrimerApellidoTestigo2Arma.setEnabled(true);
+                    txtSegundoApellidoTestigo2Arma.setEnabled(true);
+                    txtNombresTestigo2Arma.setEnabled(true);
+
+
+
+                }
+            }
+        });
+
         btnAgregarArma.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
 
-                if(lblFirmadelEntrevistadoOcultoAO.getText().toString().isEmpty()){
+                PrimeraValidacionArma();
+
+/*                if(lblFirmadelEntrevistadoOcultoAO.getText().toString().isEmpty()){
                 }else{
                     cadenaPersona = "propietario_";
                     cadenaImagenFirmaArmas = lblFirmadelEntrevistadoOcultoAO.getText().toString();
@@ -294,10 +447,12 @@ public class InventarioArmasObjetos extends Fragment {
                     cadenaPersona = "testigo2_";
                     cadenaImagenFirmaArmas = lblFirmaTestigo2ArmaOculto.getText().toString();
                     insertImagenFirmaArmas();
-                }
-                    insertArmasFuego();
+                }*/
+                   // insertArmasFuego();
+
             }
         });
+
         rgAportacionInspeccionObjetos.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
@@ -321,11 +476,19 @@ public class InventarioArmasObjetos extends Fragment {
             public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
                 if (checkedId == R.id.rbNarcotico) {
                     varTipoObjeto = "NARCOTICO";
+                    txtOtroObjeto.setEnabled(false);
+                    txtOtroObjeto.setText("");
                 }else if(checkedId == R.id.rbHidrocarburo){
                     varTipoObjeto = "HIDROCARBURO";
+                    txtOtroObjeto.setEnabled(false);
+                    txtOtroObjeto.setText("");
                 }else if(checkedId == R.id.rbNumerario){
                     varTipoObjeto = "NUMERARIO";
-                }else{
+                    txtOtroObjeto.setEnabled(false);
+                    txtOtroObjeto.setText("");
+                } else if(checkedId == R.id.rbOtro){
+                    txtOtroObjeto.setEnabled(true);
+                } else{
                     varTipoObjeto = "NA";
                 }
             }
@@ -335,7 +498,8 @@ public class InventarioArmasObjetos extends Fragment {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
-                insertObjetos();
+
+                //insertObjetos();
             }
         });
 
@@ -389,10 +553,121 @@ public class InventarioArmasObjetos extends Fragment {
         });
 
 
-
-
         /***************************************************************************************/
         return view;
+    }
+
+    public void PrimeraValidacionArma(){
+        Log.i("Firma", "PrimeraValidacionArma:");
+         if(rbAportacion.isChecked() || rbInspeccionLugar.isChecked() || rbInspeccionPersona.isChecked() || rbInspeccionVehiculo.isChecked()){
+             if(txtLugarEncontroArma.getText().toString().length() >= 3){
+                 if(rbArmaCorta.isChecked() || rbArmaLarga.isChecked()){
+                     //Demas validaciones de arma
+                     if(txtDestinoArma.getText().toString().length() >= 3){
+
+                         SgundaValidacionArma();
+
+                     }
+
+                     else {
+                         Toast.makeText(getActivity().getApplicationContext(), "INGRESA INGRESA EL DESTINO DEL ARMA", Toast.LENGTH_SHORT).show();
+                     }
+
+                 }
+
+                 else {
+                     Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA EL TIPO DE ARMA", Toast.LENGTH_SHORT).show();
+                 }
+
+             }
+
+             else {
+                 Toast.makeText(getActivity().getApplicationContext(), "INGRESA DONDE SE ENCONTRÓ EL ARMA", Toast.LENGTH_SHORT).show();
+             }
+
+         }
+
+         else {
+             Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA DE QUÉ FORMA SE ENCONTRÓ EL ARMA", Toast.LENGTH_SHORT).show();
+         }
+    }
+    public void SgundaValidacionArma(){
+         Log.i("Firma", "SgundaValidacionArma:");
+        if(rbSiFirmaArmaAsegurada.isChecked()){
+             if(txtPrimerApellidoPropietarioArma.getText().toString().length() >= 3){
+                 if(txtNombresPropietarioArma.getText().toString().length() >= 3){
+                     if(lblFirmadelEntrevistadoOcultoAO.getText().toString().isEmpty()){
+                         Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA FIRMA A QUIEN SE LE ECONTRÓ EL ARMA", Toast.LENGTH_SHORT).show();
+                     }
+
+                     else {
+                         //INSERTA
+                         insertarFirmasArmas();
+                         Toast.makeText(getActivity().getApplicationContext(), "INSERTANDO ARMA AL REGISTRO", Toast.LENGTH_SHORT).show();
+                     }
+
+                 }
+                 else {
+                     Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL NOMBRE A QUIEN SE LE ECONTRÓ EL ARMA", Toast.LENGTH_SHORT).show();
+                 }
+
+             }
+             else {
+                 Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL PRIMER APELLIDO A QUIEN SE LE ECONTRÓ EL ARMA", Toast.LENGTH_SHORT).show();
+             }
+
+         }
+
+         else if(rbNoFirmaArmaAsegurada.isChecked()){
+             if(txtPrimerApellidoTestigo1Arma.getText().toString().length() >= 3){
+                 if(txtNombresTestigo1Arma.getText().toString().length() >= 3){
+                     if(lblFirmaTestigo1ArmaOculto.getText().toString().isEmpty()){
+                         Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA FIRMA DEL PRIMER TESTIGO", Toast.LENGTH_SHORT).show();
+                     }
+
+                     else {
+                         if(txtPrimerApellidoTestigo2Arma.getText().toString().length() >= 3){
+                             if(txtNombresTestigo2Arma.getText().toString().length() >= 3){
+                                 if(lblFirmaTestigo2ArmaOculto.getText().toString().isEmpty()){
+                                     Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA FIRMA DEL SEGUNDO TESTIGO", Toast.LENGTH_SHORT).show();
+                                 }
+
+                                 else{
+                                     //INSERTA
+                                     insertarFirmasArmas();
+                                     Toast.makeText(getActivity().getApplicationContext(), "INSERTANDO ARMA AL REGISTRO", Toast.LENGTH_SHORT).show();
+                                 }
+
+                             }
+                             else {
+                                 Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL NOMBRE DEL SEGUNDO TESTIGO", Toast.LENGTH_SHORT).show();
+                             }
+
+                         }
+                         else {
+                             Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL PRIMER APELLIDO DEL SEGUNDO TESTIGO", Toast.LENGTH_SHORT).show();
+                         }
+
+                     }
+
+                 }
+
+                 else {
+                     Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL NOMBRE DEL PRIMER TESTIGO", Toast.LENGTH_SHORT).show();
+                 }
+
+             }
+
+             else {
+                 Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL PRIMER APELLIDO DEL PRIMER TESTIGO", Toast.LENGTH_SHORT).show();
+             }
+
+
+         }
+
+         else{
+             Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA SI QUISO FIRMAR O HAY DOS TESTIGOS", Toast.LENGTH_SHORT).show();
+         }
     }
 
     private void iniciarEntradadeVoz() {
@@ -443,21 +718,22 @@ public class InventarioArmasObjetos extends Fragment {
         imgMicrofonoObservacionesObjetos.setTag(R.drawable.ic_micro);
     }
     private void insertArmasFuego() {
+        Log.i("Firma", "insertArmasFuego:");
+
         descripcionColor = (String) spColorArmaDelictivo.getSelectedItem();
 
-        if(txtNombresPropietarioArma.getText().toString().equals("NA")){
+        if(rbNoFirmaArmaAsegurada.isChecked()){
             varRutaImagen = "NA";
         }else{
             varRutaImagen = "http://189.254.7.167/WebServiceIPH/FirmaArmas/"+"propietario_"+cargarIdHechoDelictivo+randomUrlImagen+".jpg";
         }
-        if(txtNombresTestigo1Arma.getText().toString().equals("NA")){
+        if(txtNombresTestigo1Arma.getText().toString().equals("")){
             varRutaImagenT1 = "NA";
         }else{
             varRutaImagenT1 = "http://189.254.7.167/WebServiceIPH/FirmaArmas/"+"testigo1_"+cargarIdHechoDelictivo+randomUrlImagen+".jpg";
         }
-        if(txtNombresTestigo2Arma.getText().toString().equals("NA")){
+        if(txtNombresTestigo2Arma.getText().toString().equals("")){
             varRutaImagenT2 = "NA";
-
         }else{
             varRutaImagenT2 = "http://189.254.7.167/WebServiceIPH/FirmaArmas/"+"testigo2_"+cargarIdHechoDelictivo+randomUrlImagen+".jpg";
         }
@@ -523,6 +799,7 @@ public class InventarioArmasObjetos extends Fragment {
                             String resp = myResponse;
                             if(resp.equals("true")){
                                 cargarArmas();
+                                limpiarCamposArma();
                                 System.out.println("EL DATO SE ENVIO CORRECTAMENTE");
                                 Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
                             }else{
@@ -624,6 +901,7 @@ public class InventarioArmasObjetos extends Fragment {
     }
 
     public void insertImagenFirmaArmas() {
+        Log.i("Firma", "insertImagenFirmaArmas:");
 
         OkHttpClient client = new OkHttpClient();
         RequestBody body = new FormBody.Builder()
@@ -870,7 +1148,7 @@ public class InventarioArmasObjetos extends Fragment {
                                 //AGREGA LOS DATOS AL LISTVIEW MEDIANTE EL ADAPTADOR
                                 InventarioArmasObjetos.MyAdapter adapter2 = new InventarioArmasObjetos.MyAdapter(getContext(), ListaDatosArmas,ListaDatosArmas,"ARMA");
                                 lvArmas.setAdapter(adapter2);
-                                funciones.ajustaAlturaListView(lvArmas,290);
+                                funciones.ajustaAlturaListView(lvArmas,180);
 
 
                                 //*************************
@@ -1018,6 +1296,72 @@ public class InventarioArmasObjetos extends Fragment {
                 }
             }
         });
+    }
+
+    public void getFirmaFromURL(){
+        Picasso.get()
+                .load(firmaURLServer)
+                .into(target);
+    }
+
+
+    private void insertarFirmasArmas(){
+        Log.i("Firma", "insertarFirmasArmas:");
+
+        if(lblFirmadelEntrevistadoOcultoAO.getText().toString().isEmpty()){
+                }else{
+                    cadenaPersona = "propietario_";
+                    cadenaImagenFirmaArmas = lblFirmadelEntrevistadoOcultoAO.getText().toString();
+                    insertImagenFirmaArmas();
+                }
+
+                if(lblFirmaTestigo1ArmaOculto.getText().toString().isEmpty()){
+                }else{
+                    cadenaPersona = "testigo1_";
+                    cadenaImagenFirmaArmas = lblFirmaTestigo1ArmaOculto.getText().toString();
+                    insertImagenFirmaArmas();
+                }
+
+                if(lblFirmaTestigo2ArmaOculto.getText().toString().isEmpty()){
+                }else{
+                    cadenaPersona = "testigo2_";
+                    cadenaImagenFirmaArmas = lblFirmaTestigo2ArmaOculto.getText().toString();
+                    insertImagenFirmaArmas();
+                }
+         insertArmasFuego();
+    }
+
+    private void limpiarCamposArma(){
+
+        rgAportacionInspeccionArmaFuego.clearCheck();
+        txtLugarEncontroArma.setText("");
+        rgTipoArma.clearCheck();
+
+        txtCalibreArmaDelictivo.setText("");
+        spColorArmaDelictivo.setSelection(0);
+        txtMatriculaArmaDelictivo.setText("");
+        txtNoSerieArmaDelictivo.setText("");
+        txtObservacionesArma.setText("");
+
+        txtDestinoArma.setText("");
+        txtPrimerApellidoPropietarioArma.setText("");
+        txtSegundoApellidoPropietarioArma.setText("");
+        txtNombresPropietarioArma.setText("");
+        rgFirmaArmaAsegurada.clearCheck();
+
+        //Limpiar Firma
+        lblFirmadelEntrevistadoOcultoAO.setText("");
+        lblFirmadelEntrevistadoAO.setText("");
+        firmaURLServer = ("http://189.254.7.167/WebServiceIPH/Firma/SINFIRMA.jpg");
+        getFirmaFromURL();
+
+        txtPrimerApellidoTestigo1Arma.setText("");
+        txtSegundoApellidoTestigo1Arma.setText("");
+        txtNombresTestigo1Arma.setText("");
+
+        txtPrimerApellidoTestigo2Arma.setText("");
+        txtSegundoApellidoTestigo2Arma.setText("");
+        txtNombresTestigo2Arma.setText("");
     }
 
 

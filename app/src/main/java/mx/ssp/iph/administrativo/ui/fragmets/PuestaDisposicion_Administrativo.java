@@ -263,20 +263,6 @@ public class PuestaDisposicion_Administrativo extends Fragment {
             @Override
             public void onClick(View view) {
 
-                if(banderaFirma == 0){
-                    Toast.makeText(getContext(), "LO SENTIMOS, SU FIRMA ES NECESARIA PARA PODER CONTINUAR", Toast.LENGTH_LONG).show();
-                }
-
-                if(lblFirmaOcultaAutoridadBase64.getText().toString().isEmpty()){
-                        Toast.makeText(getContext(), "LO SENTIMOS, SU FIRMA ES NECESARIA PARA PODER CONTINUAR", Toast.LENGTH_LONG).show();
-                }else{
-                    Toast.makeText(getContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS ", Toast.LENGTH_LONG).show();
-                        updatePuestaDisposicion();
-                }
-
-
-
-
                 if(chDetencionesAnexoAAdministrativo.isChecked()){
                     if(aux1 != 1){
 
@@ -284,9 +270,7 @@ public class PuestaDisposicion_Administrativo extends Fragment {
                             if(aux2 != 1){
 
                                 // GUARDA DATO
-                                Toast.makeText(getContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_LONG).show();
-                                updatePuestaDisposicion();
-
+                                ValidacionFirma();
                             } else {
 
                                 Toast.makeText(getContext(), "SELECCIONA CUANTOS ANEXOS “B” SE ENTREGAN", Toast.LENGTH_LONG).show();
@@ -296,11 +280,7 @@ public class PuestaDisposicion_Administrativo extends Fragment {
                             }
 
                         } else{
-
-                            // GUARDA DATO
-                            Toast.makeText(getContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_LONG).show();
-                            updatePuestaDisposicion();
-
+                            ValidacionFirma();
                             }
 
                     } else {
@@ -311,26 +291,14 @@ public class PuestaDisposicion_Administrativo extends Fragment {
 
                 } else if (chDetencionesAnexoBAdministrativo.isChecked()){
                     if(aux2 != 1){
-
-                        // GUARDA DATO
-                        Toast.makeText(getContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_LONG).show();
-                        updatePuestaDisposicion();
-
+                        ValidacionFirma();
                     } else {
-
                         Toast.makeText(getContext(), "SELECCIONA CUANTOS ANEXOS “B” SE ENTREGAN", Toast.LENGTH_LONG).show();
                         linearAnexos.requestFocus();
                         lyDetencionesAnexoBAdministrativo.requestFocus();
-
                     }
-
-
                 } else if(chSinAnexosAdministrativo.isChecked()){
-
-                    // GUARDA DATO
-                    Toast.makeText(getContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_LONG).show();
-                    updatePuestaDisposicion();
-
+                    ValidacionFirma();
                 } else {
                     Toast.makeText(getContext(), "PARA GUARDAR ESPECIFICA SI HAY ANEXOS Y EN SU CASO CUANTOS", Toast.LENGTH_LONG).show();
                     linearAnexos.requestFocus();
@@ -349,6 +317,18 @@ public class PuestaDisposicion_Administrativo extends Fragment {
 
         //****************************************************************************//
         return root;
+    }
+
+
+    //Validacion firma
+    public void ValidacionFirma(){
+        if(lblFirmaAutoridadRealizadaAdministrativo.getText().toString().isEmpty()){
+            Toast.makeText(getContext(), "LO SENTIMOS, SU FIRMA ES NECESARIA PARA PODER CONTINUAR", Toast.LENGTH_LONG).show();
+        }
+        else {
+            Toast.makeText(getContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_LONG).show();
+            updatePuestaDisposicion();
+        }
     }
 
     public void getFirmaFromURL(){
