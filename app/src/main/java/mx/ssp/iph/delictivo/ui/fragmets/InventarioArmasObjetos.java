@@ -231,6 +231,8 @@ public class InventarioArmasObjetos extends Fragment {
         imgFirmaTestigo1Objeto.setEnabled(false);
         imgFirmaTestigo2Objeto.setEnabled(false);
 
+        imgMicrofonoObservacionesArma.setTag(R.drawable.ic_micro);
+        imgMicrofonoObservacionesObjetos.setTag(R.drawable.ic_micro);
 
         target = new Target() {
             @Override
@@ -250,9 +252,6 @@ public class InventarioArmasObjetos extends Fragment {
                 lblFirmadelPropietarioObjetosOculto.setText("");
                 lblFirmaTestigo1ObjetoOculto.setText("");
                 lblFirmaTestigo2ObjetoOculto.setText("");
-
-
-
 
                 byte[] decodedString = Base64.decode(imgString, Base64.DEFAULT);
                 Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
