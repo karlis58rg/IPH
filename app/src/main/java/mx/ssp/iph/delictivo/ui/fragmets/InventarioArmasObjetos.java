@@ -19,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -102,6 +103,10 @@ public class InventarioArmasObjetos extends Fragment {
     int numberRandom,randomUrlImagen;
     TextView lblFirmadelEntrevistadoOcultoAO,lblFirmaTestigo1ArmaOculto,lblFirmaTestigo2ArmaOculto,
             lblFirmadelPropietarioObjetosOculto,lblFirmaTestigo1ObjetoOculto,lblFirmaTestigo2ObjetoOculto;
+
+    LinearLayout lyArmaFuego, lyTipoArmaFuego, lyCalibreArma, lyMatriculaArma, lyNoSerie, LinearObservacionesArma, LinearDestinoArma, lyApellidoPropietarioArma,
+            lyApellido2PropietarioArma, lyNombrePropietarioArma, lyFrmPropietarioRG, lyFirmaPropietarioArma, lyPrimerApT1, lyNombresT1, lyFirmaTestigo1Arma, lyPrimerApT2,
+            lyNombresT2, LinearFirmaTestigo2Arma;
 
     ListView lvObjeto;
     ArrayList<String> ListaIdObjetos,ListaDatosObjetos;
@@ -213,6 +218,25 @@ public class InventarioArmasObjetos extends Fragment {
         rbInspeccionLugar = view.findViewById(R.id.rbInspeccionLugar);
         rbInspeccionPersona = view.findViewById(R.id.rbInspeccionPersona);
         rbInspeccionVehiculo = view.findViewById(R.id.rbInspeccionVehiculo);
+
+        lyArmaFuego = view.findViewById(R.id.lyArmaFuego);
+        lyTipoArmaFuego = view.findViewById(R.id.lyTipoArmaFuego);
+        lyCalibreArma = view.findViewById(R.id.lyCalibreArma);
+        lyMatriculaArma = view.findViewById(R.id.lyMatriculaArma);
+        lyNoSerie = view.findViewById(R.id.lyNoSerie);
+        LinearObservacionesArma = view.findViewById(R.id.LinearObservacionesArma);
+        LinearDestinoArma = view.findViewById(R.id.LinearDestinoArma);
+        lyApellidoPropietarioArma = view.findViewById(R.id.lyApellidoPropietarioArma);
+        lyApellido2PropietarioArma = view.findViewById(R.id.lyApellido2PropietarioArma);
+        lyNombrePropietarioArma = view.findViewById(R.id.lyNombrePropietarioArma);
+        lyFrmPropietarioRG = view.findViewById(R.id.lyFrmPropietarioRG);
+        lyFirmaPropietarioArma = view.findViewById(R.id.lyFirmaPropietarioArma);
+        lyPrimerApT1 = view.findViewById(R.id.lyPrimerApT1);
+        lyNombresT1 = view.findViewById(R.id.lyNombresT1);
+        lyFirmaTestigo1Arma = view.findViewById(R.id.lyFirmaTestigo1Arma);
+        lyPrimerApT2 = view.findViewById(R.id.lyPrimerApT2);
+        lyNombresT2 = view.findViewById(R.id.lyNombresT2);
+        LinearFirmaTestigo2Arma = view.findViewById(R.id.LinearFirmaTestigo2Arma);
 
         lvObjeto = view.findViewById(R.id.lvObjeto);
         lvArmas  = view.findViewById(R.id.lvArmas);
@@ -551,7 +575,6 @@ public class InventarioArmasObjetos extends Fragment {
         btnAgregarObjeto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
                 PrimeraValidacionObjeto();
                 //insertObjetos();
             }
@@ -628,36 +651,45 @@ public class InventarioArmasObjetos extends Fragment {
 
                              else {
                                  Toast.makeText(getActivity().getApplicationContext(), "INGRESA INGRESA EL DESTINO DEL ARMA", Toast.LENGTH_SHORT).show();
+                                 LinearDestinoArma.requestFocus();
+                                 txtDestinoArma.requestFocus();
                              }
 
                          }
 
                          else {
                              Toast.makeText(getActivity().getApplicationContext(), "INGRESA LAS OBSERVACIONES DEL ARMA", Toast.LENGTH_SHORT).show();
+                             LinearObservacionesArma.requestFocus();
                          }
 
                      }
 
                      else {
                          Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL CALIBRE DEL ARMA", Toast.LENGTH_SHORT).show();
+                         lyCalibreArma.requestFocus();
+                         txtCalibreArmaDelictivo.requestFocus();
                      }
 
                  }
 
                  else {
                      Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA EL TIPO DE ARMA", Toast.LENGTH_SHORT).show();
+                     lyTipoArmaFuego.requestFocus();
                  }
 
              }
 
              else {
                  Toast.makeText(getActivity().getApplicationContext(), "INGRESA DONDE SE ENCONTRÓ EL ARMA", Toast.LENGTH_SHORT).show();
+                 lyArmaFuego.requestFocus();
+                 txtLugarEncontroArma.requestFocus();
              }
 
          }
 
          else {
              Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA DE QUÉ FORMA SE ENCONTRÓ EL ARMA", Toast.LENGTH_SHORT).show();
+             lyArmaFuego.requestFocus();
          }
     }
     public void SgundaValidacionArma(){
@@ -669,22 +701,27 @@ public class InventarioArmasObjetos extends Fragment {
                  if(txtNombresPropietarioArma.getText().toString().length() >= 3){
                      if(lblFirmadelEntrevistadoOcultoAO.getText().toString().isEmpty()){
                          Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA FIRMA A QUIEN SE LE ECONTRÓ EL ARMA", Toast.LENGTH_SHORT).show();
+                         lyFirmaPropietarioArma.requestFocus();
                      }
 
                      else {
-                         //INSERTA
+                         Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
                          insertarFirmasArmas();
-                         Toast.makeText(getActivity().getApplicationContext(), "INSERTANDO ARMA AL REGISTRO", Toast.LENGTH_SHORT).show();
+
                      }
 
                  }
                  else {
                      Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL NOMBRE A QUIEN SE LE ECONTRÓ EL ARMA", Toast.LENGTH_SHORT).show();
+                     lyNombrePropietarioArma.requestFocus();
+                     txtNombresPropietarioArma.requestFocus();
                  }
 
              }
              else {
                  Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL PRIMER APELLIDO A QUIEN SE LE ECONTRÓ EL ARMA", Toast.LENGTH_SHORT).show();
+                 lyApellidoPropietarioArma.requestFocus();
+                 txtPrimerApellidoPropietarioArma.requestFocus();
              }
 
          }
@@ -694,6 +731,7 @@ public class InventarioArmasObjetos extends Fragment {
                  if(txtNombresTestigo1Arma.getText().toString().length() >= 3){
                      if(lblFirmaTestigo1ArmaOculto.getText().toString().isEmpty()){
                          Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA FIRMA DEL PRIMER TESTIGO", Toast.LENGTH_SHORT).show();
+                         lyFirmaTestigo1Arma.requestFocus();
                      }
 
                      else {
@@ -701,22 +739,28 @@ public class InventarioArmasObjetos extends Fragment {
                              if(txtNombresTestigo2Arma.getText().toString().length() >= 3){
                                  if(lblFirmaTestigo2ArmaOculto.getText().toString().isEmpty()){
                                      Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA FIRMA DEL SEGUNDO TESTIGO", Toast.LENGTH_SHORT).show();
+                                     LinearFirmaTestigo2Arma.requestFocus();
+
                                  }
 
                                  else{
-                                     //INSERTA
+                                     Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
                                      insertarFirmasArmas();
-                                     Toast.makeText(getActivity().getApplicationContext(), "INSERTANDO ARMA AL REGISTRO", Toast.LENGTH_SHORT).show();
+
                                  }
 
                              }
                              else {
                                  Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL NOMBRE DEL SEGUNDO TESTIGO", Toast.LENGTH_SHORT).show();
+                                 lyNombresT2.requestFocus();
+                                 txtNombresTestigo2Arma.requestFocus();
                              }
 
                          }
                          else {
                              Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL PRIMER APELLIDO DEL SEGUNDO TESTIGO", Toast.LENGTH_SHORT).show();
+                             lyPrimerApT2.requestFocus();
+                             txtPrimerApellidoTestigo2Arma.requestFocus();
                          }
 
                      }
@@ -725,12 +769,16 @@ public class InventarioArmasObjetos extends Fragment {
 
                  else {
                      Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL NOMBRE DEL PRIMER TESTIGO", Toast.LENGTH_SHORT).show();
+                     lyNombresT1.requestFocus();
+                     txtNombresTestigo1Arma.requestFocus();
                  }
 
              }
 
              else {
                  Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL PRIMER APELLIDO DEL PRIMER TESTIGO", Toast.LENGTH_SHORT).show();
+                 lyPrimerApT1.requestFocus();
+                 txtPrimerApellidoTestigo1Arma.requestFocus();
              }
 
 
@@ -738,6 +786,7 @@ public class InventarioArmasObjetos extends Fragment {
 
          else{
              Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA SI QUISO FIRMAR O HAY DOS TESTIGOS", Toast.LENGTH_SHORT).show();
+            lyFrmPropietarioRG.requestFocus();
          }
     }
 
