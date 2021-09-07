@@ -42,6 +42,7 @@ import mx.ssp.iph.R;
 import mx.ssp.iph.SqLite.DataHelper;
 import mx.ssp.iph.delictivo.model.ModeloEntrevistas;
 import mx.ssp.iph.delictivo.viewModel.EntrevistasDelictivoViewModel;
+import mx.ssp.iph.utilidades.ui.ContenedorFirmaDelictivo;
 import mx.ssp.iph.utilidades.ui.Funciones;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -72,7 +73,7 @@ public class EntrevistasDelictivo extends Fragment {
     SharedPreferences share;
     String cargarIdPoliciaPrimerRespondiente,cargarIdHechoDelictivo,varReservarDatos,varCalidadEntrevistado,
             descNacionalidadEntrevista,descGeneroEntrevista,descTipoDocumentoEntrevista,descMunicipioEntrevista,varRutaFirmaEntrevistado,
-            varRutaFirmaDerechosEntrevistado,varTrasladoCanalizacion,varLugarTraslado,cadenaPersona;
+            varRutaFirmaDerechosEntrevistado,varTrasladoCanalizacion,varLugarTraslado,cadenaPersona,cadenaImagenFirmaEntrevistas;
     int numberRandom,randomUrlImagen;
 
     private ListView lvEntrevistas;
@@ -220,7 +221,7 @@ public class EntrevistasDelictivo extends Fragment {
         rgReservarDatos.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == R.id.rbSiInformeDerechoDetencionesDelictivo) {
+                if (checkedId == R.id.rbSiReservarDatos) {
                     varReservarDatos = "SI";
                 } else if (checkedId == R.id.rbNoReservarDatos) {
                     varReservarDatos = "NO";
@@ -276,29 +277,47 @@ public class EntrevistasDelictivo extends Fragment {
                 } else if (checkedId == R.id.rbNoInformeDerechoVictimaDelictivo) {
                     varRutaFirmaDerechosEntrevistado = "NO";
                 }
+            }
+        });
 
+        imgFirmaEntrevistado.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ContenedorFirmaDelictivo dialog = new ContenedorFirmaDelictivo(R.id.lblFirmadelEntrevistado,R.id.lblFirmadelEntrevistadoOculto,R.id.imgFirmadelEntrevistadoMiniatura);
+                dialog.show( getActivity().getSupportFragmentManager(),"Dia");
+            }
+        });
+
+        imgFirmaDerechosVictimaDelictivo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ContenedorFirmaDelictivo dialog = new ContenedorFirmaDelictivo(R.id.lblFirmaVictimaEntrevistaDelictivo,R.id.lblFirmaEntrevistaOculto,R.id.imgFirmaEntrevistaDelictivoMiniatura);
+                dialog.show( getActivity().getSupportFragmentManager(),"Dia");
             }
         });
 
         btnGuardarEntrevista.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
+                if(varRutaFirmaDerechosEntrevistado.equals("NO")){
+                }else{
+                    cadenaImagenFirmaEntrevistas = lblFirmaEntrevistaOculto.getText().toString();
+                    insertImagenFirmaEntrevistas();
+                }
 
-                //*****************INSERTAR LAS IMAGENES*****************************//
                 if(lblFirmadelEntrevistadoOculto.getText().toString().isEmpty()){
                     cadenaPersona = "firma_entrevistado_";
                     varRutaFirmaEntrevistado = "NP";
                 }else{
                     cadenaPersona = "firma_entrevistado_";
                     varRutaFirmaEntrevistado = "http://189.254.7.167/WebServiceIPH/FirmaEntrevista/"+cadenaPersona+cargarIdHechoDelictivo+randomUrlImagen+".jpg";
+                    cadenaImagenFirmaEntrevistas = lblFirmadelEntrevistadoOculto.getText().toString();
+                    insertImagenFirmaEntrevistas();
                 }
-
                 insertEntrevistas();
             }
         });
-
 
 
         /****************************************************************************************/
@@ -470,6 +489,48 @@ public void PrimeraValidacion(){
                                 //insertLugarDetencionesDelictivo();
                                 //insertImagen();
 
+                            }else{
+                                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, VERIFIQUE SU INFORMACIÓN", Toast.LENGTH_SHORT).show();
+                            }
+                            Log.i("HERE", resp);
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    public void insertImagenFirmaEntrevistas() {
+        OkHttpClient client = new OkHttpClient();
+        RequestBody body = new FormBody.Builder()
+                .add("Description", cadenaPersona+cargarIdHechoDelictivo+randomUrlImagen+".jpg")
+                .add("ImageData", cadenaImagenFirmaEntrevistas)
+                .build();
+        Request request = new Request.Builder()
+                .url("http://189.254.7.167/WebServiceIPH/api/MultimediaEntrevistas")
+                .post(body)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Looper.prepare(); // to be able to make toast
+                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, FAVOR DE VERIFICAR SU CONEXCIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if(response.code() == 500){
+                    Toast.makeText(getContext(), "EXISTIÓ UN ERROR EN SU CONEXIÓN A INTERNET, INTÉNTELO NUEVAMENTE", Toast.LENGTH_SHORT).show();
+                }else if (response.isSuccessful()) {
+                    final String myResponse = response.body().string();
+                    EntrevistasDelictivo.this.getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            String resp = myResponse;
+                            if(resp.equals("true")){
+                                System.out.println("EL DATO SE ENVIO CORRECTAMENTE");
+                                Toast.makeText(getContext(), "SU ARCHIVO MULTIMEDIA SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
                             }else{
                                 Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, VERIFIQUE SU INFORMACIÓN", Toast.LENGTH_SHORT).show();
                             }
