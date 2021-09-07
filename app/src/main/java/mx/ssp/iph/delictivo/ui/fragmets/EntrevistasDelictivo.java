@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -52,7 +53,10 @@ public class EntrevistasDelictivo extends Fragment {
     ImageView imgMicrofonoEntrevista,imgFirmaEntrevistado,imgFirmaDerechosVictimaDelictivo,btnGuardarEntrevista;
     private static final  int REQ_CODE_SPEECH_INPUT=100;
     Spinner spNacionalidadEntrevistado,spGeneroEntrevistado,spTipoDocumentoEntrevistado,spMunicipioEntrevistado;
-    RadioGroup rgReservarDatos,rgCalidadEntrevistado,rgTrasladoPersonaEntrevistada,rgLugarTrasladoEntrevista,rgInformeDerechoVictimaDelictivo;
+    RadioGroup rgReservarDatos, rgCalidadEntrevistado, rgTrasladoPersonaEntrevistada, rgLugarTrasladoEntrevista, rgInformeDerechoVictimaDelictivo;
+    RadioButton rbNoReservarDatos, rbSiReservarDatos, rbCalidadVictima, rbCalidadDenunciante, rbCalidadTestigo, rbNoTrasladoPersonaEntrevistada,
+            rbSiTrasladoPersonaEntrevistada, rbLugarTrasladoEntrevistadoFiscaliaAgencia, rbLugarTrasladoEntrevistadoHospital,
+            rbLugarTrasladoEntrevistadoOtraDependencia, rbNoInformeDerechoVictimaDelictivo, rbSiInformeDerechoVictimaDelictivo;
     EditText txtPrimerApellidoEntrevistado,txtSegundoApellidoEntrevistado,txtNombresEntrevistado,txtEdadEntrevistado,txtNumeroIdentificacionEntrevistado,
             txtTelefonoEntrevistado,txtCorreoEntrevistado,txtEntidadEntrevistado,txtColoniaEntrevistado,txtCalleEntrevistado,txtNumeroExteriorEntrevistado,
             txtNumeroInteriorEntrevistado,txtCodigoPostalEntrevistado,txtReferenciasdelLugarEntrevistado,txtCualLugarTrasladoEntrevista;
@@ -86,11 +90,26 @@ public class EntrevistasDelictivo extends Fragment {
         spGeneroEntrevistado = view.findViewById(R.id.spGeneroEntrevistado);
         spTipoDocumentoEntrevistado = view.findViewById(R.id.spTipoDocumentoEntrevistado);
         spMunicipioEntrevistado = view.findViewById(R.id.spMunicipioEntrevistado);
+
         rgReservarDatos = view.findViewById(R.id.rgReservarDatos);
         rgCalidadEntrevistado = view.findViewById(R.id.rgCalidadEntrevistado);
         rgTrasladoPersonaEntrevistada = view.findViewById(R.id.rgTrasladoPersonaEntrevistada);
         rgLugarTrasladoEntrevista = view.findViewById(R.id.rgLugarTrasladoEntrevista);
         rgInformeDerechoVictimaDelictivo = view.findViewById(R.id.rgInformeDerechoVictimaDelictivo);
+
+        rbNoReservarDatos = view.findViewById(R.id.rbNoReservarDatos);
+        rbSiReservarDatos = view.findViewById(R.id.rbSiReservarDatos);
+        rbCalidadVictima = view.findViewById(R.id.rbCalidadVictima);
+        rbCalidadDenunciante = view.findViewById(R.id.rbCalidadDenunciante);
+        rbCalidadTestigo = view.findViewById(R.id.rbCalidadTestigo);
+        rbNoTrasladoPersonaEntrevistada = view.findViewById(R.id.rbNoTrasladoPersonaEntrevistada);
+        rbSiTrasladoPersonaEntrevistada = view.findViewById(R.id.rbSiTrasladoPersonaEntrevistada);
+        rbLugarTrasladoEntrevistadoFiscaliaAgencia = view.findViewById(R.id.rbLugarTrasladoEntrevistadoFiscaliaAgencia);
+        rbLugarTrasladoEntrevistadoHospital = view.findViewById(R.id.rbLugarTrasladoEntrevistadoHospital);
+        rbLugarTrasladoEntrevistadoOtraDependencia = view.findViewById(R.id.rbLugarTrasladoEntrevistadoOtraDependencia);
+        rbNoInformeDerechoVictimaDelictivo = view.findViewById(R.id.rbNoInformeDerechoVictimaDelictivo);
+        rbSiInformeDerechoVictimaDelictivo = view.findViewById(R.id.rbSiInformeDerechoVictimaDelictivo);
+
         txtPrimerApellidoEntrevistado = view.findViewById(R.id.txtPrimerApellidoEntrevistado);
         txtSegundoApellidoEntrevistado = view.findViewById(R.id.txtSegundoApellidoEntrevistado);
         txtNombresEntrevistado = view.findViewById(R.id.txtNombresEntrevistado);
@@ -190,11 +209,11 @@ public class EntrevistasDelictivo extends Fragment {
         rgLugarTrasladoEntrevista.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == R.id.rgLugarTrasladoEntrevistadoFiscaliaAgencia) {
+                if (checkedId == R.id.rbLugarTrasladoEntrevistadoFiscaliaAgencia) {
                     varLugarTraslado = "FISCALIA/AGENCIA";
-                } else if (checkedId == R.id.rgLugarTrasladoEntrevistadoHospital) {
+                } else if (checkedId == R.id.rbLugarTrasladoEntrevistadoHospital) {
                     varLugarTraslado = "HOSPITAL";
-                }else if (checkedId == R.id.rgLugarTrasladoEntrevistadoOtraDependencia){
+                }else if (checkedId == R.id.rbLugarTrasladoEntrevistadoOtraDependencia){
                     varLugarTraslado = "OTRA DEPENDENCIA";
                 }
             }
@@ -236,6 +255,37 @@ public class EntrevistasDelictivo extends Fragment {
 
         /****************************************************************************************/
         return view;
+    }
+
+
+public void PrimeraValidacion(){
+        if(rbNoReservarDatos.isChecked() || rbSiReservarDatos.isChecked()){
+            if (txtFechaEntrevista.getText().toString().length() >= 3 && txtHoraEntrevista.getText().toString().length() >= 3){
+                //Demás validaciones
+
+            }
+
+            else{
+                Toast.makeText(getActivity().getApplicationContext(), "ESPECIFIQUE FECHA Y HORA", Toast.LENGTH_SHORT).show();
+            }
+
+        }
+
+        else{
+            Toast.makeText(getActivity().getApplicationContext(), "ESPECIFIQUE SI DESEA RESERVAR DATOS", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    public void SegundaValidacion(){
+        if(rbCalidadVictima.isChecked() || rbCalidadDenunciante.isChecked() || rbCalidadTestigo.isChecked()){
+
+
+        }
+
+        else{
+            Toast.makeText(getActivity().getApplicationContext(), "ESPECIFIQUE EN QUE CALIDAD ESTÁ EL ENTREVISTADO", Toast.LENGTH_SHORT).show();
+        }
     }
 
 

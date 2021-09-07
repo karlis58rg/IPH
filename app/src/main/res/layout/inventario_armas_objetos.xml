@@ -202,11 +202,13 @@
                 android:layout_marginTop="20dp"
                 android:focusableInTouchMode="true">
                 <LinearLayout
+                    android:id="@+id/lyCalibreArma"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:weightSum="1"
-                    android:layout_weight="0.10">
+                    android:layout_weight="0.10"
+                    android:focusableInTouchMode="true">
                     <TextView
                         android:id="@+id/lblCalibreArmaDelictivo"
                         android:layout_width="wrap_content"
@@ -243,11 +245,13 @@
                         android:layout_height="wrap_content"/>
                 </LinearLayout>
                 <LinearLayout
+                    android:id="@+id/lyMatriculaArma"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:weightSum="1"
-                    android:layout_weight="0.10">
+                    android:layout_weight="0.10"
+                    android:focusableInTouchMode="true">
                     <TextView
                         android:id="@+id/lblMatriculaArmaDelictivo"
                         android:layout_width="wrap_content"
@@ -267,11 +271,13 @@
                         android:imeOptions="actionNext"/>
                 </LinearLayout>
                 <LinearLayout
+                    android:id="@+id/lyNoSerie"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:weightSum="1"
-                    android:layout_weight="0.10">
+                    android:layout_weight="0.10"
+                    android:focusableInTouchMode="true">
                     <TextView
                         android:id="@+id/lblNoSerieArmaDelictivo"
                         android:layout_width="wrap_content"
@@ -355,6 +361,7 @@
                 android:focusableInTouchMode="true">
 
                 <LinearLayout
+                    android:id="@+id/lyDestinoArma"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
@@ -376,7 +383,7 @@
                         android:singleLine="true"
                         android:maxLines="1"
                         android:lines="1"
-                        android:imeOptions="actionNext"/>
+                        android:imeOptions="actionDone"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -405,11 +412,13 @@
                 android:focusableInTouchMode="true">
 
                 <LinearLayout
+                    android:id="@+id/lyApellidoPropietarioArma"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:weightSum="1"
-                    android:layout_weight="0.10">
+                    android:layout_weight="0.10"
+                    android:focusableInTouchMode="true">
                     <TextView
                         android:id="@+id/lblPrimerApellidoPropietarioArma"
                         android:layout_width="wrap_content"
@@ -453,11 +462,13 @@
                         android:imeOptions="actionNext"/>
                 </LinearLayout>
                 <LinearLayout
+                    android:id="@+id/lyNombrePropietarioArma"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:weightSum="1"
-                    android:layout_weight="0.10">
+                    android:layout_weight="0.10"
+                    android:focusableInTouchMode="true">
                     <TextView
                         android:id="@+id/lblNombrePropietarioArma"
                         android:layout_width="wrap_content"
@@ -506,11 +517,13 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/lyFrmPropietario"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:weightSum="1"
-                    android:layout_weight="0.1">
+                    android:layout_weight="0.1"
+                    android:focusableInTouchMode="true">
                     <RadioGroup
                         android:id="@+id/rgFirmaArmaAsegurada"
                         android:layout_width="match_parent"
@@ -1202,11 +1215,11 @@
                             android:layout_height="wrap_content"
                             android:maxLength="50"
                             android:inputType="textCapCharacters"
-                            android:digits="@string/validacion_nombre"
+                            android:digits="@string/validacion_notas"
                             android:singleLine="true"
                             android:maxLines="1"
                             android:lines="1"
-                            android:imeOptions="actionNext"
+                            android:imeOptions="actionDone"
                             android:enabled="false"/>
 
                     </RadioGroup>
@@ -1300,11 +1313,11 @@
                             android:layout_height="wrap_content"
                             android:maxLength="50"
                             android:inputType="textCapCharacters"
-                            android:digits="@string/validacion_nombre"
+                            android:digits="@string/validacion_notas"
                             android:singleLine="true"
                             android:maxLines="1"
                             android:lines="1"
-                            android:imeOptions="actionNext"/>
+                            android:imeOptions="actionDone"/>
 
                     </RadioGroup>
                 </LinearLayout>
@@ -1393,7 +1406,7 @@
                         android:layout_height="wrap_content"
                         android:maxLength="50"
                         android:inputType="textCapCharacters"
-                        android:digits="@string/validacion_nombre"
+                        android:digits="@string/validacion_notas"
                         android:singleLine="true"
                         android:maxLines="1"
                         android:lines="1"
@@ -1495,7 +1508,7 @@
                         android:singleLine="true"
                         android:maxLines="1"
                         android:lines="1"
-                        android:imeOptions="actionNext"/>
+                        android:imeOptions="actionDone"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -1510,11 +1523,13 @@
 
 
                 <LinearLayout
+                    android:id="@+id/lyFrm1Propietario"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:weightSum="1"
-                    android:layout_weight="0.10">
+                    android:layout_weight="0.10"
+                    android:focusableInTouchMode="true">
 
                     <TextView
                         android:id="@+id/lblFirmaObjeto"
@@ -1752,7 +1767,7 @@
                         android:singleLine="true"
                         android:maxLines="1"
                         android:lines="1"
-                        android:imeOptions="actionNext"/>
+                        android:imeOptions="actionDone"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -1952,7 +1967,7 @@
                         android:singleLine="true"
                         android:maxLines="1"
                         android:lines="1"
-                        android:imeOptions="actionNext"/>
+                        android:imeOptions="actionDone"/>
                 </LinearLayout>
             </LinearLayout>
 

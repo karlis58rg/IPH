@@ -19,6 +19,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -50,6 +52,7 @@ public class ConocimientoHecho extends Fragment {
     EditText txt911FolioConocimientoHechoDelictivo,txtFechaConocimientoHechoDelictivo,
             txtHoraConocimientoHechoDelictivo,txtFechaArriboLugarHD,txtHoraArriboLugarHD;
     String descConocimientoHD,cargarIdPoliciaPrimerRespondiente,cargarIdHechoDelictivo;
+
     SharedPreferences share;
     private Funciones funciones;
 
@@ -70,14 +73,16 @@ public class ConocimientoHecho extends Fragment {
         txtHoraConocimientoHechoDelictivo = view.findViewById(R.id.txtHoraConocimientoHechoDelictivo);
         txtFechaArriboLugarHD = view.findViewById(R.id.txtFechaArriboLugarHD);
         txtHoraArriboLugarHD = view.findViewById(R.id.txtHoraArriboLugarHD);
+
         btnGuardarConocimientoHechoDelictivo = view.findViewById(R.id.btnGuardarConocimientoHechoDelictivo);
+
+
         funciones = new Funciones();
         funciones.CambiarTituloSeccionesDelictivo("SECCIÓN 3. CONOCIMIENTO DEL HECHO",getContext(),getActivity());
         ListConocimientoHecho();
 
         //Consulta si hay conexión a internet y realiza la peticion al ws de consulta de los datos.
-        if (funciones.ping(getContext()))
-        {
+        if (funciones.ping(getContext())){
             cargarConocimientodelHecho();
         }
 
@@ -126,6 +131,7 @@ public class ConocimientoHecho extends Fragment {
         /****************************************************************************************/
         return view;
     }
+
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {

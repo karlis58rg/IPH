@@ -149,6 +149,7 @@ public class InventarioArmasObjetos extends Fragment {
         txtPrimerApellidoTestigo2Arma = view.findViewById(R.id.txtPrimerApellidoTestigo2Arma);
         txtSegundoApellidoTestigo2Arma = view.findViewById(R.id.txtSegundoApellidoTestigo2Arma);
         txtNombresTestigo2Arma = view.findViewById(R.id.txtNombresTestigo2Arma);
+
         rgAportacionInspeccionArmaFuego = view.findViewById(R.id.rgAportacionInspeccionArmaFuego);
         rgTipoArma = view.findViewById(R.id.rgTipoArma);
         rgFirmaArmaAsegurada = view.findViewById(R.id.rgFirmaArmaAsegurada);
@@ -225,6 +226,10 @@ public class InventarioArmasObjetos extends Fragment {
         txtPrimerApellidoTestigo2Arma.setEnabled(false);
         txtSegundoApellidoTestigo2Arma.setEnabled(false);
         txtNombresTestigo2Arma.setEnabled(false);
+
+        imgFirmaPropietarioObjetos.setEnabled(false);
+        imgFirmaTestigo1Objeto.setEnabled(false);
+        imgFirmaTestigo2Objeto.setEnabled(false);
 
 
         target = new Target() {
@@ -421,6 +426,56 @@ public class InventarioArmasObjetos extends Fragment {
             }
         });
 
+        rgFirmaObjetoAsegurada.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
+                if(rbSiFirmaObjetoAsegurada.isChecked()){
+                    imgFirmaPropietarioObjetos.setEnabled(true);
+
+                    txtPrimerApellidoTestigo1Objeto.setEnabled(false);
+                    txtSegundoApellidoTestigo1Objeto.setEnabled(false);
+                    txtNombresTestigo1Objeto.setEnabled(false);
+
+                    txtPrimerApellidoTestigo1Objeto.setText("");
+                    txtSegundoApellidoTestigo1Objeto.setText("");
+                    txtNombresTestigo1Objeto.setText("");
+
+                    imgFirmaTestigo1ObjetoMiniatura.setEnabled(false);
+
+                    txtPrimerApellidoTestigo2Objeto.setEnabled(false);
+                    txtSegundoApellidoTestigo2Objeto.setEnabled(false);
+                    txtNombresTestigo2Objeto.setEnabled(false);
+
+                    txtPrimerApellidoTestigo2Objeto.setText("");
+                    txtSegundoApellidoTestigo2Objeto.setText("");
+                    txtNombresTestigo2Objeto.setText("");
+
+                    imgFirmaTestigo2Objeto.setEnabled(false);
+
+                } else if(rbNoFirmaObjetoAsegurada.isChecked()){
+                    imgFirmaPropietarioObjetos.setEnabled(false);
+
+                    imgFirmaTestigo1Objeto.setEnabled(true);
+                    imgFirmaTestigo2Objeto.setEnabled(true);
+
+                    txtPrimerApellidoTestigo1Objeto.setEnabled(true);
+                    txtSegundoApellidoTestigo1Objeto.setEnabled(true);
+                    txtNombresTestigo1Objeto.setEnabled(true);
+
+                    txtPrimerApellidoTestigo2Objeto.setEnabled(true);
+                    txtSegundoApellidoTestigo2Objeto.setEnabled(true);
+                    txtNombresTestigo2Objeto.setEnabled(true);
+
+
+
+                }
+            }
+        });
+
+        imgFirmaPropietarioObjetos.setEnabled(false);
+        imgFirmaTestigo1Objeto.setEnabled(false);
+        imgFirmaTestigo2Objeto.setEnabled(false);
+
         btnAgregarArma.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -498,7 +553,7 @@ public class InventarioArmasObjetos extends Fragment {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
-
+                PrimeraValidacionObjeto();
                 //insertObjetos();
             }
         });
@@ -558,19 +613,34 @@ public class InventarioArmasObjetos extends Fragment {
     }
 
     public void PrimeraValidacionArma(){
+
         Log.i("Firma", "PrimeraValidacionArma:");
+
          if(rbAportacion.isChecked() || rbInspeccionLugar.isChecked() || rbInspeccionPersona.isChecked() || rbInspeccionVehiculo.isChecked()){
              if(txtLugarEncontroArma.getText().toString().length() >= 3){
                  if(rbArmaCorta.isChecked() || rbArmaLarga.isChecked()){
-                     //Demas validaciones de arma
-                     if(txtDestinoArma.getText().toString().length() >= 3){
+                     if(txtCalibreArmaDelictivo.getText().toString().length() >= 2){
+                         if(txtObservacionesArma.getText().toString().length() >= 3){
+                             if(txtDestinoArma.getText().toString().length() >= 3){
 
-                         SgundaValidacionArma();
+                                 SgundaValidacionArma();
+
+                             }
+
+                             else {
+                                 Toast.makeText(getActivity().getApplicationContext(), "INGRESA INGRESA EL DESTINO DEL ARMA", Toast.LENGTH_SHORT).show();
+                             }
+
+                         }
+
+                         else {
+                             Toast.makeText(getActivity().getApplicationContext(), "INGRESA LAS OBSERVACIONES DEL ARMA", Toast.LENGTH_SHORT).show();
+                         }
 
                      }
 
                      else {
-                         Toast.makeText(getActivity().getApplicationContext(), "INGRESA INGRESA EL DESTINO DEL ARMA", Toast.LENGTH_SHORT).show();
+                         Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL CALIBRE DEL ARMA", Toast.LENGTH_SHORT).show();
                      }
 
                  }
@@ -592,7 +662,9 @@ public class InventarioArmasObjetos extends Fragment {
          }
     }
     public void SgundaValidacionArma(){
+
          Log.i("Firma", "SgundaValidacionArma:");
+
         if(rbSiFirmaArmaAsegurada.isChecked()){
              if(txtPrimerApellidoPropietarioArma.getText().toString().length() >= 3){
                  if(txtNombresPropietarioArma.getText().toString().length() >= 3){
@@ -670,6 +742,141 @@ public class InventarioArmasObjetos extends Fragment {
          }
     }
 
+    public void PrimeraValidacionObjeto(){
+         if(rbNarcotico.isChecked() || rbHidrocarburo.isChecked() || rbNumerario.isChecked()){
+             SegundaValidacionObjeto();
+
+         } else if (rbOtro.isChecked()){
+             if(txtOtroObjeto.getText().toString().length() >= 3){
+                 SegundaValidacionObjeto();
+
+             }
+
+             else {
+                 Toast.makeText(getActivity().getApplicationContext(), "INGRESA QUÉ OBJETO ENCONTRÓ", Toast.LENGTH_SHORT).show();
+             }
+         }
+
+         else {
+             Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA QUÉ OBJETO ENCONTRÓ", Toast.LENGTH_SHORT).show();
+         }
+    }
+    public void SegundaValidacionObjeto(){
+         if(rbAportacionObjetos.isChecked() || rbInspeccionLugarObjetos.isChecked() || rbInspeccionPersonaObjetos.isChecked() || rbInspeccionVehiculoObjetos.isChecked()){
+             if(txtLugarEncontroObjetos.getText().toString().length() >= 3){
+                 if(txtObservacionesObjetos.getText().toString().length() >= 3){
+                     if(txtDestinoObjetos.getText().toString().length() >= 3){
+                         TerceraValidacionObjeto();
+                     }
+
+                     else {
+                         Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL DESTINO DEL OBJETO", Toast.LENGTH_SHORT).show();
+                     }
+
+                 }
+
+                 else {
+                     Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA DESCRIPCIÓN DEL OBJETO", Toast.LENGTH_SHORT).show();
+                 }
+
+             }
+
+             else {
+                 Toast.makeText(getActivity().getApplicationContext(), "INGRESA DONDE SE ENCONTRÓ EL OBJETO", Toast.LENGTH_SHORT).show();
+             }
+
+         }
+
+         else {
+             Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA CÓMO SE ENCONTRÓ EL OBJETO", Toast.LENGTH_SHORT).show();
+         }
+
+    }
+    public void TerceraValidacionObjeto(){
+         if(txtPrimerApellidoPropietarioObjetos.getText().toString().length() >= 3){
+             if(txtNombresPropietarioObjetos.getText().toString().length() >= 3){
+                 //cUARTA
+                 CuartaValidacionObjeto();
+
+             }
+
+             else {
+                 Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL NOMBRE A QUIEN SE LE ECONTRÓ EL OBJETO", Toast.LENGTH_SHORT).show();
+             }
+
+         }
+
+         else {
+             Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL PRIMER APELLIDO A QUIEN SE LE ECONTRÓ EL OBJETO", Toast.LENGTH_SHORT).show();
+         }
+    }
+    public void CuartaValidacionObjeto(){
+         if(rbSiFirmaObjetoAsegurada.isChecked()){
+             if(lblFirmadelPropietarioObjetosOculto.getText().toString().isEmpty()){
+                 Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA FIRMA DE QUIÉN SE LE ENCONTRÓ EL OBJETO", Toast.LENGTH_SHORT).show();
+             }
+
+             else{
+                 //INSERTAR OBJETO
+                 insertObjetos();
+
+             }
+
+
+         }
+
+         else if(rbNoFirmaObjetoAsegurada.isChecked()){
+             if(txtPrimerApellidoTestigo1Objeto.getText().toString().length() >= 3){
+                 if(txtNombresTestigo1Objeto.getText().toString().length() >= 3){
+                     if(lblFirmaTestigo1ObjetoOculto.getText().toString().isEmpty()){
+                         Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA FIRMA DEL PRIMER TESTIGO", Toast.LENGTH_SHORT).show();
+                     }
+
+                     else {
+                         if(txtPrimerApellidoTestigo2Objeto.getText().toString().length() >= 3){
+                             if(txtNombresTestigo2Objeto.getText().toString().length() >= 3){
+                                 if(lblFirmaTestigo2ObjetoOculto.getText().toString().isEmpty()){
+                                     Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA FIRMA DEL SEGUNDO TESTIGO", Toast.LENGTH_SHORT).show();
+                                 }
+                                 else {
+                                     //insertar objeto
+                                     insertObjetos();
+                                 }
+
+                             }
+
+                             else{
+                                 Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL NOMBRE DEL SEGUNDO TESTIGO", Toast.LENGTH_SHORT).show();
+                             }
+                         }
+
+                         else {
+                             Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL PRIMER APELLIDO DEL SEGUNDO TESTIGO", Toast.LENGTH_SHORT).show();
+                         }
+                     }
+
+                 }
+
+                 else{
+                     Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL NOMBRE DEL PRIMER TESTIGO", Toast.LENGTH_SHORT).show();
+                 }
+
+             }
+
+             else{
+                 Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL PRIMER APELLIDO DEL PRIMER TESTIGO", Toast.LENGTH_SHORT).show();
+             }
+
+
+         }
+
+         else{
+             Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA SI FIRMA EL DUEÑO DEL OBJETO ENCONTRADO O DOS TESTIGOS", Toast.LENGTH_SHORT).show();
+         }
+
+    }
+
+
     private void iniciarEntradadeVoz() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
@@ -702,6 +909,7 @@ public class InventarioArmasObjetos extends Fragment {
                     if (resource2 == R.drawable.ic_micro_press ) {
                         String textoActual = txtObservacionesArma.getText().toString();
                         txtObservacionesArma.setText(textoActual + " " + result.get(0));
+
                     } else {
                         String textoActual = txtObservacionesObjetos.getText().toString();
                         txtObservacionesObjetos.setText(textoActual + " " + result.get(0));

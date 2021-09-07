@@ -509,7 +509,7 @@
                         android:layout_height="wrap_content"
                         android:maxLength="50"
                         android:inputType="textCapCharacters"
-                        android:digits="@string/validacion_nombre"
+                        android:digits="@string/validacion_notas"
                         android:singleLine="true"
                         android:maxLines="1"
                         android:lines="1"
@@ -544,7 +544,7 @@
                         android:layout_height="wrap_content"
                         android:maxLength="50"
                         android:inputType="textCapCharacters"
-                        android:digits="@string/validacion_nombre"
+                        android:digits="@string/validacion_numero"
                         android:singleLine="true"
                         android:maxLines="1"
                         android:lines="1"
@@ -567,8 +567,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:maxLength="50"
-                        android:inputType="textCapCharacters"
-                        android:digits="@string/validacion_nombre"
+                        android:inputType="textEmailAddress"
+                        android:digits="@string/validacion_correo"
                         android:singleLine="true"
                         android:maxLines="1"
                         android:lines="1"
@@ -1131,7 +1131,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
                         <RadioButton
-                            android:id="@+id/rgLugarTrasladoEntrevistadoFiscaliaAgencia"
+                            android:id="@+id/rbLugarTrasladoEntrevistadoFiscaliaAgencia"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
@@ -1141,7 +1141,7 @@
                             android:button="@null"
                             android:drawableStart="@drawable/rbbox"/>
                         <RadioButton
-                            android:id="@+id/rgLugarTrasladoEntrevistadoHospital"
+                            android:id="@+id/rbLugarTrasladoEntrevistadoHospital"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
@@ -1151,7 +1151,7 @@
                             android:button="@null"
                             android:drawableStart="@drawable/rbbox"/>
                         <RadioButton
-                            android:id="@+id/rgLugarTrasladoEntrevistadoOtraDependencia"
+                            android:id="@+id/rbLugarTrasladoEntrevistadoOtraDependencia"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
