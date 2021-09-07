@@ -1,6 +1,7 @@
 package mx.ssp.iph.delictivo.ui.fragmets;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,10 +11,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -22,13 +25,18 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Random;
+import java.util.regex.Pattern;
 
 import mx.ssp.iph.R;
 import mx.ssp.iph.SqLite.DataHelper;
@@ -66,6 +74,10 @@ public class EntrevistasDelictivo extends Fragment {
             descNacionalidadEntrevista,descGeneroEntrevista,descTipoDocumentoEntrevista,descMunicipioEntrevista,varRutaFirmaEntrevistado,
             varRutaFirmaDerechosEntrevistado,varTrasladoCanalizacion,varLugarTraslado,cadenaPersona;
     int numberRandom,randomUrlImagen;
+
+    private ListView lvEntrevistas;
+    private ArrayList<String> ListaIdEntrevistas,ListaDatosEntrevistas;
+    private String[] ArrayListaIPHDelictivoEntrevistas;
 
     public static EntrevistasDelictivo newInstance() {
         return new EntrevistasDelictivo();
@@ -133,7 +145,43 @@ public class EntrevistasDelictivo extends Fragment {
         txtFechaEntrevista = view.findViewById(R.id.txtFechaEntrevista);
         txtHoraEntrevista = view.findViewById(R.id.txtHoraEntrevista);
         txtFechaNacimientoEntrevistado = view.findViewById(R.id.txtFechaNacimientoEntrevistado);
+
+        lvEntrevistas= view.findViewById(R.id.lvEntrevistas);
         ListCombos();
+
+
+        //Consulta si hay conexión a internet y realiza la peticion al ws de consulta de los datos.
+        if (funciones.ping(getContext())){
+            //Toast.makeText(getContext(), "cargarNoReferenciaAdministrativa()", Toast.LENGTH_LONG).show();
+            cargarEntrevistas();
+        }
+
+
+        //Clic a la lista
+        lvEntrevistas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                AlertDialog.Builder builder =
+                        new AlertDialog.Builder(getContext()).
+                                setMessage("¿DESEA ELIMINAR LA ENTREVISTA "+ ListaIdEntrevistas.get(position) + "?" ).
+                                setPositiveButton( "ACEPTAR", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        //CONSUME WEB SERVICE PARA ELIMINAR DB
+                                        EliminarEntrevista(ListaIdEntrevistas.get(position));
+                                        dialog.dismiss();
+                                    }
+                                })
+                                .setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        // User cancelled the dialog
+                                        dialog.dismiss();
+                                    }
+                                });
+
+                builder.create().show();
+            }
+        });
 
 
         //Imagen que funciona para activar la grabación de voz
@@ -480,6 +528,190 @@ public void PrimeraValidacion(){
         Random random = new Random();
         numberRandom = random.nextInt(9000)*99;
         randomUrlImagen = numberRandom;
+    }
+
+    //***************** CONSULTA A LA BD MEDIANTE EL WS **************************//
+    private void cargarEntrevistas() {
+        Log.i("ARMAS", "INICIA CARGAR OBJETOS");
+
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("http://189.254.7.167/WebServiceIPH/api/HDEntrevistas?folioInternoEntrevista="+cargarIdHechoDelictivo)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Looper.prepare(); // to be able to make toast
+                Toast.makeText(getContext(), "ERROR AL CONSULTAR ENTREVISTAS, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Looper.loop();
+                Log.i("ARMAS", "onFailure");
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    final String myResponse = response.body().string();
+
+                    try {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                String resp = myResponse;
+                                ListaIdEntrevistas = new ArrayList<String>();
+                                ListaDatosEntrevistas = new ArrayList<String>();
+                                Log.i("ARMAS", "RESP:"+resp);
+
+                                //***************** RESPUESTA DEL WEBSERVICE **************************//
+
+                                //CONVERTIR ARREGLO DE JSON A OBJET JSON
+                                String ArregloJson = resp.replace("[", "");
+                                ArregloJson = ArregloJson.replace("]", "");
+
+                                if(ArregloJson.equals(""))
+                                {
+                                    //Sin Información. Todos los campos vacíos.
+                                    Log.i("ARMAS", "SIN INFORMACIÓN");
+
+                                }
+                                else{
+                                    Log.i("ARMAS", "CON INFORMACIÓN:");
+
+                                    //SEPARAR CADA detenido EN UN ARREGLO
+                                    String[] ArrayIPHDelictivo = ArregloJson.split(Pattern.quote("},"));
+                                    ArrayListaIPHDelictivoEntrevistas = ArrayIPHDelictivo;
+
+                                    Log.i("ARMAS", "ArrayListaDelictivo:"+ArrayIPHDelictivo[0]);
+
+                                    //RECORRE EL ARREGLO PARA AGREGAR EL FOLIO CORRESPONDIENTE DE CADA OBJETJSN
+                                    int contadordeDetenido=0;
+                                    while(contadordeDetenido < ArrayListaIPHDelictivoEntrevistas.length){
+                                        try {
+                                            JSONObject jsonjObject = new JSONObject(ArrayListaIPHDelictivoEntrevistas[contadordeDetenido] + "}");
+
+                                            ListaIdEntrevistas.add(jsonjObject.getString("IdPersonaEntrvistada"));
+                                            ListaDatosEntrevistas.add(
+                                                    " NOMBRE: "+
+                                                            ((jsonjObject.getString("NombreEntrevistado")).equals("null")?" - ":jsonjObject.getString("NombreEntrevistado") + jsonjObject.getString("APEntrevistado")) +
+                                                            " CALIDAD: "+
+                                                            " "+((jsonjObject.getString("Calidad")).equals("null")?" - ":jsonjObject.getString("Calidad")) +
+                                                            " TELÉFONO:  "+
+                                                            " "+ ((jsonjObject.getString("Telefono")).equals("null")?" - ":jsonjObject.getString("Telefono"))
+                                            );
+
+                                        } catch (JSONException e) {
+                                            Log.i("ARMAS", "catch:" + e.toString());
+
+                                            e.printStackTrace();
+                                            Toast.makeText(getContext(), "ERROR AL DESEREALIZAR EL JSON ENTREVISTAS", Toast.LENGTH_SHORT).show();
+                                        }
+                                        contadordeDetenido++;
+                                    }
+                                }
+
+                                //AGREGA LOS DATOS AL LISTVIEW MEDIANTE EL ADAPTADOR
+                                EntrevistasDelictivo.MyAdapter adapter2 = new EntrevistasDelictivo.MyAdapter(getContext(), ListaDatosEntrevistas,ListaDatosEntrevistas,"ENTREVISTA");
+                                lvEntrevistas.setAdapter(adapter2);
+                                funciones.ajustaAlturaListView(lvEntrevistas,180);
+
+
+                                //*************************
+                            }
+                        });
+                    }
+                    catch (Exception e){
+                        Toast.makeText(getContext(), "ERROR AL CONSULTAR ENTREVISTAS, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            }
+        });
+    }
+
+
+    //***************** ADAPTADOR PARA LLENAR LISTA DE IPH ADMINISTRATIVO **************************//
+    class MyAdapter extends ArrayAdapter<String> {
+        Context context;
+        ArrayList<String> ListaIdVehiculo,ListaDatosVehiculo;
+        String titulo;
+        MyAdapter (Context c, ArrayList<String> ListaIdVehiculo, ArrayList<String> ListaDatosVehiculo, String titulo) {
+            super(c, R.layout.row_armas_objetos, ListaIdVehiculo);
+            this.context = c;
+            this.ListaIdVehiculo = ListaIdVehiculo;
+            this.ListaDatosVehiculo = ListaDatosVehiculo;
+            this.titulo = titulo;
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+            Log.i("ENTREVISTAS", "ADAPTER");
+
+            LayoutInflater layoutInflater = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View row = layoutInflater.inflate(R.layout.row_armas_objetos, parent, false);
+
+            TextView lblNumeroVehiculo = row.findViewById(R.id.lblNumeroVehiculo);
+            TextView lblDatosVehiculo = row.findViewById(R.id.lblDatosVehiculo);
+
+            // Asigna los valores
+            lblNumeroVehiculo.setText(titulo+":");
+            lblDatosVehiculo.setText(ListaDatosVehiculo.get(position));
+
+            return row;
+        }
+    }
+
+
+    //***************** eliminar entrevista**************************//
+    private void EliminarEntrevista(String IdEntrevista) {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("http://189.254.7.167/WebServiceIPH/api/HDEntrevistas?folioInternoEntrevista="+cargarIdHechoDelictivo+"&idEntrevista="+IdEntrevista)
+                .delete()
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Looper.prepare(); // to be able to make toast
+                Toast.makeText(getContext(), "ERROR AL ELIMINAR ENTREVISTA, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    final String myResponse = response.body().string();
+
+                    try {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                String resp = myResponse;
+
+                                //***************** RESPUESTA DEL WEBSERVICE **************************//
+                                //CONVERTIR ARREGLO DE JSON A OBJET JSON
+                                if(resp.equals("true"))
+                                {
+                                    //***************** MENSAJE MÁS ACTUALIZAR LISTA (Recargando el Fragmento xoxo) **************************//
+                                    Toast.makeText(getContext(), "SE ELIMINÓ CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+                                    cargarEntrevistas();
+                                }
+                                else{
+                                    Toast.makeText(getContext(), "PROBLEMA AL ELIMINAR", Toast.LENGTH_SHORT).show();
+                                }
+                                //*************************
+                            }
+                        });
+                    }
+                    catch (Exception e){
+                        Toast.makeText(getContext(), "ERROR AL ELIMINAR ENTREVISTA, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            }
+        });
     }
 
 }
