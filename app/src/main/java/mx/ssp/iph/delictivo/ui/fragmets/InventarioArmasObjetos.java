@@ -10,6 +10,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Looper;
 import android.speech.RecognizerIntent;
+import android.text.InputFilter;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -106,7 +107,7 @@ public class InventarioArmasObjetos extends Fragment {
 
     LinearLayout lyArmaFuego, lyTipoArmaFuego, lyCalibreArma, lyMatriculaArma, lyNoSerie, LinearObservacionesArma, LinearDestinoArma, lyApellidoPropietarioArma,
             lyApellido2PropietarioArma, lyNombrePropietarioArma, lyFrmPropietarioRG, lyFirmaPropietarioArma, lyPrimerApT1, lyNombresT1, lyFirmaTestigo1Arma, lyPrimerApT2,
-            lyNombresT2, LinearFirmaTestigo2Arma;
+            lyNombresT2, LinearFirmaTestigo2Arma, lyObjeto, lyObjetos, LinearObservacionesObjetos, LinearDestinoObjetos, lyFrm1PropietarioObj, lyFirmaPropietarioObjetos, lyFirmaTestigo1Objeto, FirmaTestigo2Objeto;
 
     ListView lvObjeto;
     ArrayList<String> ListaIdObjetos,ListaDatosObjetos;
@@ -140,20 +141,35 @@ public class InventarioArmasObjetos extends Fragment {
         lblFirmaTestigo1ArmaOculto = view.findViewById(R.id.lblFirmaTestigo1ArmaOculto);
         lblFirmaTestigo2ArmaOculto = view.findViewById(R.id.lblFirmaTestigo2ArmaOculto);
         txtLugarEncontroArma = view.findViewById(R.id.txtLugarEncontroArma);
+        txtLugarEncontroArma.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(250)});
         txtCalibreArmaDelictivo = view.findViewById(R.id.txtCalibreArmaDelictivo);
+        txtCalibreArmaDelictivo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         txtMatriculaArmaDelictivo = view.findViewById(R.id.txtMatriculaArmaDelictivo);
+        txtMatriculaArmaDelictivo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         txtNoSerieArmaDelictivo = view.findViewById(R.id.txtNoSerieArmaDelictivo);
+        txtNoSerieArmaDelictivo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         txtObservacionesArma = view.findViewById(R.id.txtObservacionesArma);
+        txtObservacionesArma.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(8000)});
         txtDestinoArma = view.findViewById(R.id.txtDestinoArma);
+        txtDestinoArma.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(500)});
         txtPrimerApellidoPropietarioArma = view.findViewById(R.id.txtPrimerApellidoPropietarioArma);
+        txtPrimerApellidoPropietarioArma.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         txtSegundoApellidoPropietarioArma = view.findViewById(R.id.txtSegundoApellidoPropietarioArma);
+        txtSegundoApellidoPropietarioArma.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         txtNombresPropietarioArma = view.findViewById(R.id.txtNombresPropietarioArma);
+        txtNombresPropietarioArma.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         txtPrimerApellidoTestigo1Arma = view.findViewById(R.id.txtPrimerApellidoTestigo1Arma);
+        txtPrimerApellidoTestigo1Arma.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         txtSegundoApellidoTestigo1Arma = view.findViewById(R.id.txtSegundoApellidoTestigo1Arma);
+        txtSegundoApellidoTestigo1Arma.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         txtNombresTestigo1Arma = view.findViewById(R.id.txtNombresTestigo1Arma);
+        txtNombresTestigo1Arma.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         txtPrimerApellidoTestigo2Arma = view.findViewById(R.id.txtPrimerApellidoTestigo2Arma);
+        txtPrimerApellidoTestigo2Arma.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         txtSegundoApellidoTestigo2Arma = view.findViewById(R.id.txtSegundoApellidoTestigo2Arma);
+        txtSegundoApellidoTestigo2Arma.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         txtNombresTestigo2Arma = view.findViewById(R.id.txtNombresTestigo2Arma);
+        txtNombresTestigo2Arma.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
 
         rgAportacionInspeccionArmaFuego = view.findViewById(R.id.rgAportacionInspeccionArmaFuego);
         rgTipoArma = view.findViewById(R.id.rgTipoArma);
@@ -166,18 +182,32 @@ public class InventarioArmasObjetos extends Fragment {
         //************************************** ACCIONES DE LA VISTA **************************************//
         //************************************** OBJETOS *******************************************//
         txtOtroObjeto = view.findViewById(R.id.txtOtroObjeto);
+        txtOtroObjeto.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(350)});
         txtLugarEncontroObjetos = view.findViewById(R.id.txtLugarEncontroObjetos);
+        txtLugarEncontroObjetos.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(250)});
         txtObservacionesObjetos = view.findViewById(R.id.txtObservacionesObjetos);
+        txtObservacionesObjetos.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(8000)});
         txtDestinoObjetos = view.findViewById(R.id.txtDestinoObjetos);
+        txtDestinoObjetos.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(500)});
         txtPrimerApellidoPropietarioObjetos = view.findViewById(R.id.txtPrimerApellidoPropietarioObjetos);
+        txtPrimerApellidoPropietarioObjetos.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         txtSegundoApellidoPropietarioObjetos = view.findViewById(R.id.txtSegundoApellidoPropietarioObjetos);
+        txtSegundoApellidoPropietarioObjetos.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         txtNombresPropietarioObjetos = view.findViewById(R.id.txtNombresPropietarioObjetos);
+        txtNombresPropietarioObjetos.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         txtPrimerApellidoTestigo1Objeto = view.findViewById(R.id.txtPrimerApellidoTestigo1Objeto);
+        txtPrimerApellidoTestigo1Objeto.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         txtSegundoApellidoTestigo1Objeto = view.findViewById(R.id.txtSegundoApellidoTestigo1Objeto);
+        txtSegundoApellidoTestigo1Objeto.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         txtNombresTestigo1Objeto = view.findViewById(R.id.txtNombresTestigo1Objeto);
+        txtNombresTestigo1Objeto.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         txtPrimerApellidoTestigo2Objeto = view.findViewById(R.id.txtPrimerApellidoTestigo2Objeto);
+        txtPrimerApellidoTestigo2Objeto.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         txtSegundoApellidoTestigo2Objeto = view.findViewById(R.id.txtSegundoApellidoTestigo2Objeto);
+        txtSegundoApellidoTestigo2Objeto.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         txtNombresTestigo2Objeto = view.findViewById(R.id.txtNombresTestigo2Objeto);
+        txtNombresTestigo2Objeto.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
+
         rgTipoObjeto = view.findViewById(R.id.rgTipoObjeto);
         rgAportacionInspeccionObjetos = view.findViewById(R.id.rgAportacionInspeccionObjetos);
         imgMicrofonoObservacionesObjetos = view.findViewById(R.id.imgMicrofonoObservacionesObjetos);
@@ -199,7 +229,7 @@ public class InventarioArmasObjetos extends Fragment {
         imgFirmaTestigo1ObjetoMiniatura = view.findViewById(R.id.imgFirmaTestigo1ObjetoMiniatura);
         imgFirmaTestigo2ObjetoMiniatura = view.findViewById(R.id.imgFirmaTestigo2ObjetoMiniatura);
 
-        rbInspeccionVehiculo = view.findViewById(R.id.rbInspeccionVehiculo);
+
         rbArmaCorta = view.findViewById(R.id.rbArmaCorta);
         rbArmaLarga = view.findViewById(R.id.rbArmaLarga);
         rbSiFirmaArmaAsegurada = view.findViewById(R.id.rbSiFirmaArmaAsegurada);
@@ -237,6 +267,15 @@ public class InventarioArmasObjetos extends Fragment {
         lyPrimerApT2 = view.findViewById(R.id.lyPrimerApT2);
         lyNombresT2 = view.findViewById(R.id.lyNombresT2);
         LinearFirmaTestigo2Arma = view.findViewById(R.id.LinearFirmaTestigo2Arma);
+        lyObjeto = view.findViewById(R.id.lyObjeto);
+        lyObjetos = view.findViewById(R.id.lyObjetos);
+        LinearObservacionesObjetos = view.findViewById(R.id.LinearObservacionesObjetos);
+        LinearDestinoObjetos = view.findViewById(R.id.LinearDestinoObjetos);
+        lyFrm1PropietarioObj = view.findViewById(R.id.lyFrm1PropietarioObj);
+        lyFirmaPropietarioObjetos = view.findViewById(R.id.lyFirmaPropietarioObjetos);
+        lyFirmaTestigo1Objeto = view.findViewById(R.id.lyFirmaTestigo1Objeto);
+        FirmaTestigo2Objeto = view.findViewById(R.id.FirmaTestigo2Objeto);
+
 
         lvObjeto = view.findViewById(R.id.lvObjeto);
         lvArmas  = view.findViewById(R.id.lvArmas);
@@ -681,6 +720,7 @@ public class InventarioArmasObjetos extends Fragment {
 
              else {
                  Toast.makeText(getActivity().getApplicationContext(), "INGRESA DONDE SE ENCONTRÓ EL ARMA", Toast.LENGTH_SHORT).show();
+                 txtLugarEncontroArma.requestFocus();
                  lyArmaFuego.requestFocus();
                  txtLugarEncontroArma.requestFocus();
              }
@@ -802,11 +842,15 @@ public class InventarioArmasObjetos extends Fragment {
 
              else {
                  Toast.makeText(getActivity().getApplicationContext(), "INGRESA QUÉ OBJETO ENCONTRÓ", Toast.LENGTH_SHORT).show();
+                 txtOtroObjeto.requestFocus();
+                 lyObjeto.requestFocus();
+                 txtOtroObjeto.requestFocus();
              }
          }
 
          else {
              Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA QUÉ OBJETO ENCONTRÓ", Toast.LENGTH_SHORT).show();
+             lyObjeto.requestFocus();
          }
     }
     public void SegundaValidacionObjeto(){
@@ -819,24 +863,31 @@ public class InventarioArmasObjetos extends Fragment {
 
                      else {
                          Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL DESTINO DEL OBJETO", Toast.LENGTH_SHORT).show();
+                         LinearDestinoObjetos.requestFocus();
+                         txtDestinoObjetos.requestFocus();
                      }
 
                  }
 
                  else {
                      Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA DESCRIPCIÓN DEL OBJETO", Toast.LENGTH_SHORT).show();
+                     LinearObservacionesObjetos.requestFocus();
                  }
 
              }
 
              else {
                  Toast.makeText(getActivity().getApplicationContext(), "INGRESA DONDE SE ENCONTRÓ EL OBJETO", Toast.LENGTH_SHORT).show();
+                 txtLugarEncontroObjetos.requestFocus();
+                 lyObjetos.requestFocus();
+                 txtLugarEncontroObjetos.requestFocus();
              }
 
          }
 
          else {
              Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA CÓMO SE ENCONTRÓ EL OBJETO", Toast.LENGTH_SHORT).show();
+             lyObjetos.requestFocus();
          }
 
     }
@@ -850,24 +901,26 @@ public class InventarioArmasObjetos extends Fragment {
 
              else {
                  Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL NOMBRE A QUIEN SE LE ECONTRÓ EL OBJETO", Toast.LENGTH_SHORT).show();
+                 txtNombresPropietarioObjetos.requestFocus();
              }
 
          }
 
          else {
              Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL PRIMER APELLIDO A QUIEN SE LE ECONTRÓ EL OBJETO", Toast.LENGTH_SHORT).show();
+             txtPrimerApellidoPropietarioObjetos.requestFocus();
          }
     }
     public void CuartaValidacionObjeto(){
          if(rbSiFirmaObjetoAsegurada.isChecked()){
              if(lblFirmadelPropietarioObjetosOculto.getText().toString().isEmpty()){
                  Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA FIRMA DE QUIÉN SE LE ENCONTRÓ EL OBJETO", Toast.LENGTH_SHORT).show();
+                 lyFirmaPropietarioObjetos.requestFocus();
              }
 
              else{
-                 //INSERTAR OBJETO
+                 Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
                  insertObjetos();
-
              }
 
 
@@ -878,6 +931,7 @@ public class InventarioArmasObjetos extends Fragment {
                  if(txtNombresTestigo1Objeto.getText().toString().length() >= 3){
                      if(lblFirmaTestigo1ObjetoOculto.getText().toString().isEmpty()){
                          Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA FIRMA DEL PRIMER TESTIGO", Toast.LENGTH_SHORT).show();
+                         lyFirmaTestigo1Objeto.requestFocus();
                      }
 
                      else {
@@ -885,9 +939,10 @@ public class InventarioArmasObjetos extends Fragment {
                              if(txtNombresTestigo2Objeto.getText().toString().length() >= 3){
                                  if(lblFirmaTestigo2ObjetoOculto.getText().toString().isEmpty()){
                                      Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA FIRMA DEL SEGUNDO TESTIGO", Toast.LENGTH_SHORT).show();
+                                     FirmaTestigo2Objeto.requestFocus();
                                  }
                                  else {
-                                     //insertar objeto
+                                     Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
                                      insertObjetos();
                                  }
 
@@ -895,11 +950,13 @@ public class InventarioArmasObjetos extends Fragment {
 
                              else{
                                  Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL NOMBRE DEL SEGUNDO TESTIGO", Toast.LENGTH_SHORT).show();
+                                 txtNombresTestigo2Objeto.requestFocus();
                              }
                          }
 
                          else {
                              Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL PRIMER APELLIDO DEL SEGUNDO TESTIGO", Toast.LENGTH_SHORT).show();
+                             txtPrimerApellidoTestigo2Objeto.requestFocus();
                          }
                      }
 
@@ -907,12 +964,15 @@ public class InventarioArmasObjetos extends Fragment {
 
                  else{
                      Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL NOMBRE DEL PRIMER TESTIGO", Toast.LENGTH_SHORT).show();
+                     txtNombresTestigo1Objeto.requestFocus();
+
                  }
 
              }
 
              else{
                  Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL PRIMER APELLIDO DEL PRIMER TESTIGO", Toast.LENGTH_SHORT).show();
+                 txtPrimerApellidoTestigo1Objeto.requestFocus();
              }
 
 
@@ -920,6 +980,7 @@ public class InventarioArmasObjetos extends Fragment {
 
          else{
              Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA SI FIRMA EL DUEÑO DEL OBJETO ENCONTRADO O DOS TESTIGOS", Toast.LENGTH_SHORT).show();
+             lyFrm1PropietarioObj.requestFocus();
          }
 
     }

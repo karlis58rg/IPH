@@ -294,7 +294,7 @@
                         android:singleLine="true"
                         android:maxLines="1"
                         android:lines="1"
-                        android:imeOptions="actionNext"/>
+                        android:imeOptions="actionDone"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -413,7 +413,13 @@
                     <EditText
                         android:id="@+id/txtEdadEntrevistado"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_numeroletras"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionDone"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -523,8 +529,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="horizontal"
-                android:layout_marginTop="20dp"
-                android:focusableInTouchMode="true">
+                android:layout_marginTop="20dp">
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -542,8 +547,8 @@
                         android:id="@+id/txtTelefonoEntrevistado"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:maxLength="50"
-                        android:inputType="textCapCharacters"
+                        android:maxLength="10"
+                        android:inputType="phone"
                         android:digits="@string/validacion_numero"
                         android:singleLine="true"
                         android:maxLines="1"
@@ -572,7 +577,7 @@
                         android:singleLine="true"
                         android:maxLines="1"
                         android:lines="1"
-                        android:imeOptions="actionNext"/>
+                        android:imeOptions="actionDone"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -615,7 +620,14 @@
                         android:id="@+id/txtEntidadEntrevistado"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="GUERRERO"/>
+                        android:text="GUERRERO"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_notas"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionDone"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -654,7 +666,7 @@
                         android:layout_height="wrap_content"
                         android:maxLength="50"
                         android:inputType="textCapCharacters"
-                        android:digits="@string/validacion_nombre"
+                        android:digits="@string/validacion_notas"
                         android:singleLine="true"
                         android:maxLines="1"
                         android:lines="1"
@@ -809,7 +821,7 @@
                         android:singleLine="true"
                         android:maxLines="1"
                         android:lines="1"
-                        android:imeOptions="actionNext"/>
+                        android:imeOptions="actionDone"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -1179,7 +1191,8 @@
                     android:singleLine="true"
                     android:maxLines="1"
                     android:lines="1"
-                    android:imeOptions="actionNext"/>
+                    android:imeOptions="actionDone"
+                    android:enabled="false"/>
 
             </LinearLayout>
 
@@ -1327,7 +1340,7 @@
                             android:id="@+id/lblFirmaVictimaDelictivo"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Firma del Detenido" />
+                            android:text="Firma de la victima u ofendido" />
 
                         <LinearLayout
                             android:layout_width="match_parent"

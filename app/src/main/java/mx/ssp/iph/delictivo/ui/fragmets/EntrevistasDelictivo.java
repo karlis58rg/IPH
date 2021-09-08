@@ -150,6 +150,10 @@ public class EntrevistasDelictivo extends Fragment {
         lvEntrevistas= view.findViewById(R.id.lvEntrevistas);
         ListCombos();
 
+        rgLugarTrasladoEntrevista.setEnabled(false);
+        rbLugarTrasladoEntrevistadoFiscaliaAgencia.setEnabled(false);
+        rbLugarTrasladoEntrevistadoHospital.setEnabled(false);
+        rbLugarTrasladoEntrevistadoOtraDependencia.setEnabled(false);
 
         //Consulta si hay conexión a internet y realiza la peticion al ws de consulta de los datos.
         if (funciones.ping(getContext())){
@@ -248,8 +252,26 @@ public class EntrevistasDelictivo extends Fragment {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (checkedId == R.id.rbSiTrasladoPersonaEntrevistada) {
                     varTrasladoCanalizacion = "SI";
+                    rgLugarTrasladoEntrevista.setEnabled(true);
+
+                    rbLugarTrasladoEntrevistadoFiscaliaAgencia.setEnabled(true);
+                    rbLugarTrasladoEntrevistadoHospital.setEnabled(true);
+                    rbLugarTrasladoEntrevistadoOtraDependencia.setEnabled(true);
+
                 } else if (checkedId == R.id.rbNoTrasladoPersonaEntrevistada) {
                     varTrasladoCanalizacion = "NO";
+                    rgLugarTrasladoEntrevista.setEnabled(false);
+
+                    rbLugarTrasladoEntrevistadoFiscaliaAgencia.setChecked(false);
+                    rbLugarTrasladoEntrevistadoHospital.setChecked(false);
+                    rbLugarTrasladoEntrevistadoOtraDependencia.setChecked(false);
+
+                    rbLugarTrasladoEntrevistadoFiscaliaAgencia.setEnabled(false);
+                    rbLugarTrasladoEntrevistadoHospital.setEnabled(false);
+                    rbLugarTrasladoEntrevistadoOtraDependencia.setEnabled(false);
+
+                    txtCualLugarTrasladoEntrevista.setEnabled(false);
+                    txtCualLugarTrasladoEntrevista.setText("");
                 }
 
             }
@@ -260,10 +282,15 @@ public class EntrevistasDelictivo extends Fragment {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (checkedId == R.id.rbLugarTrasladoEntrevistadoFiscaliaAgencia) {
                     varLugarTraslado = "FISCALIA/AGENCIA";
+                    txtCualLugarTrasladoEntrevista.setText("");
+                    txtCualLugarTrasladoEntrevista.setEnabled(false);
                 } else if (checkedId == R.id.rbLugarTrasladoEntrevistadoHospital) {
                     varLugarTraslado = "HOSPITAL";
+                    txtCualLugarTrasladoEntrevista.setText("");
+                    txtCualLugarTrasladoEntrevista.setEnabled(false);
                 }else if (checkedId == R.id.rbLugarTrasladoEntrevistadoOtraDependencia){
                     varLugarTraslado = "OTRA DEPENDENCIA";
+                    txtCualLugarTrasladoEntrevista.setEnabled(true);
                 }
             }
         });
@@ -299,8 +326,9 @@ public class EntrevistasDelictivo extends Fragment {
         btnGuardarEntrevista.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
-                if(varRutaFirmaDerechosEntrevistado.equals("NO")){
+
+
+/*                if(varRutaFirmaDerechosEntrevistado.equals("NO")){
                 }else{
                     cadenaImagenFirmaEntrevistas = lblFirmaEntrevistaOculto.getText().toString();
                     insertImagenFirmaEntrevistas();
@@ -314,8 +342,10 @@ public class EntrevistasDelictivo extends Fragment {
                     varRutaFirmaEntrevistado = "http://189.254.7.167/WebServiceIPH/FirmaEntrevista/"+cadenaPersona+cargarIdHechoDelictivo+randomUrlImagen+".jpg";
                     cadenaImagenFirmaEntrevistas = lblFirmadelEntrevistadoOculto.getText().toString();
                     insertImagenFirmaEntrevistas();
-                }
-                insertEntrevistas();
+                }*/
+
+                //insertEntrevistas();
+                PrimeraValidacion();
             }
         });
 
@@ -325,33 +355,119 @@ public class EntrevistasDelictivo extends Fragment {
     }
 
 
-public void PrimeraValidacion(){
-        if(rbNoReservarDatos.isChecked() || rbSiReservarDatos.isChecked()){
-            if (txtFechaEntrevista.getText().toString().length() >= 3 && txtHoraEntrevista.getText().toString().length() >= 3){
-                //Demás validaciones
+    public void PrimeraValidacion(){
+            if(rbNoReservarDatos.isChecked() || rbSiReservarDatos.isChecked()){
+                if (txtFechaEntrevista.getText().toString().length() >= 3 && txtHoraEntrevista.getText().toString().length() >= 3){
+                    if(txtPrimerApellidoEntrevistado.getText().toString().length() >= 3){
+                        if(txtNombresEntrevistado.getText().toString().length() >= 3){
+                            SegundaValidacion();
+
+                        }
+
+                        else{
+                            Toast.makeText(getActivity().getApplicationContext(), "INGRESA NOMBRE DEL ENTREVISTADO", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+
+                    else{
+                        Toast.makeText(getActivity().getApplicationContext(), "INGRESA PRIMER APELLIDO DEL ENTREVISTADO", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+
+                else{
+                    Toast.makeText(getActivity().getApplicationContext(), "ESPECIFIQUE FECHA Y HORA DE LA ENTREVISTA", Toast.LENGTH_SHORT).show();
+                }
 
             }
 
             else{
-                Toast.makeText(getActivity().getApplicationContext(), "ESPECIFIQUE FECHA Y HORA", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity().getApplicationContext(), "ESPECIFIQUE SI DESEA RESERVAR DATOS", Toast.LENGTH_SHORT).show();
             }
-
         }
-
-        else{
-            Toast.makeText(getActivity().getApplicationContext(), "ESPECIFIQUE SI DESEA RESERVAR DATOS", Toast.LENGTH_SHORT).show();
-        }
-    }
-
 
     public void SegundaValidacion(){
         if(rbCalidadVictima.isChecked() || rbCalidadDenunciante.isChecked() || rbCalidadTestigo.isChecked()){
+            if(txtFechaNacimientoEntrevistado.getText().toString().length() >= 3){
+                if(txtEntrevista.getText().toString().length() >= 3){
+                    if(lblFirmadelEntrevistadoOculto.getText().toString().isEmpty()){
+                        Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA FIRMA DEL ENTREVISTADO", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        TerceraValidacion();
+                    }
+
+                }
+
+                else{
+                    Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA ENTREVISTA REALIZADA", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+            else{
+                Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA FECHA DE NACIMIENTO DEL ENTREVISTADO", Toast.LENGTH_SHORT).show();
+            }
 
 
         }
 
         else{
             Toast.makeText(getActivity().getApplicationContext(), "ESPECIFIQUE EN QUE CALIDAD ESTÁ EL ENTREVISTADO", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void TerceraValidacion(){
+        if(rbSiTrasladoPersonaEntrevistada.isChecked()){
+            if(rbLugarTrasladoEntrevistadoFiscaliaAgencia.isChecked() || rbLugarTrasladoEntrevistadoHospital.isChecked()){
+                CuartaValidacion();
+            }
+
+            else if(rbLugarTrasladoEntrevistadoOtraDependencia.isChecked()){
+                if(txtCualLugarTrasladoEntrevista.getText().toString().length() >= 3){
+                    CuartaValidacion();
+                }
+
+                else{
+                    Toast.makeText(getActivity().getApplicationContext(), "INGRESA A QUÉ OTRO LUGAR SE TRASLADÓ A LA PERSONA ENTREVISTADA", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+            else{
+                Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA A QUÉ LUGAR SE TRASLADÓ A LA PERSONA ENTREVISTADA", Toast.LENGTH_SHORT).show();
+            }
+
+        }
+
+        else if(rbNoTrasladoPersonaEntrevistada.isChecked()){
+            CuartaValidacion();
+        }
+
+        else{
+            Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA SI SE TRASLADÓ O CANALIZÓ A LA PERSONA ENTREVISTADA", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void CuartaValidacion(){
+        if(rbNoInformeDerechoVictimaDelictivo.isChecked() || rbSiInformeDerechoVictimaDelictivo.isChecked()){
+            if(lblFirmaEntrevistaOculto.getText().toString().isEmpty()){
+                Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA FIRMA DE LA VICTIMA U OFENDIDO", Toast.LENGTH_SHORT).show();
+
+            }
+
+            else{
+                //INSERTAR ENTREVISTA
+                Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
+                //insertEntrevistas();
+            }
+
+
+        }
+
+        else{
+            Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA A QUÉ LUGAR SE TRASLADÓ A LA PERSONA ENTREVISTADA", Toast.LENGTH_SHORT).show();
         }
     }
 

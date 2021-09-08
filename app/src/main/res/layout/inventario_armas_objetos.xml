@@ -122,7 +122,7 @@
                                 android:layout_height="wrap_content"
                                 android:maxLength="50"
                                 android:inputType="textCapCharacters"
-                                android:digits="@string/validacion_nombre"
+                                android:digits="@string/validacion_notas"
                                 android:singleLine="true"
                                 android:maxLines="1"
                                 android:lines="1"
@@ -276,8 +276,7 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:weightSum="1"
-                    android:layout_weight="0.10"
-                    android:focusableInTouchMode="true">
+                    android:layout_weight="0.10">
                     <TextView
                         android:id="@+id/lblNoSerieArmaDelictivo"
                         android:layout_width="wrap_content"
@@ -416,8 +415,7 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:weightSum="1"
-                    android:layout_weight="0.10"
-                    android:focusableInTouchMode="true">
+                    android:layout_weight="0.10">
                     <TextView
                         android:id="@+id/lblPrimerApellidoPropietarioArma"
                         android:layout_width="wrap_content"
@@ -442,8 +440,7 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:weightSum="1"
-                    android:layout_weight="0.10"
-                    android:focusableInTouchMode="true">
+                    android:layout_weight="0.10">
                     <TextView
                         android:id="@+id/lblSegundoApellidoPropietarioArma"
                         android:layout_width="wrap_content"
@@ -468,8 +465,7 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:weightSum="1"
-                    android:layout_weight="0.10"
-                    android:focusableInTouchMode="true">
+                    android:layout_weight="0.10">
                     <TextView
                         android:id="@+id/lblNombrePropietarioArma"
                         android:layout_width="wrap_content"
@@ -682,8 +678,7 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:weightSum="1"
-                    android:layout_weight="0.10"
-                    android:focusableInTouchMode="true">
+                    android:layout_weight="0.10">
                     <TextView
                         android:id="@+id/lblPrimerApellidoTestigo1"
                         android:layout_width="wrap_content"
@@ -708,8 +703,7 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:weightSum="1"
-                    android:layout_weight="0.10"
-                    android:focusableInTouchMode="true">
+                    android:layout_weight="0.10">
                     <TextView
                         android:id="@+id/lblSegundoApellidoTestigo1Arma"
                         android:layout_width="wrap_content"
@@ -734,8 +728,7 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:weightSum="1"
-                    android:layout_weight="0.10"
-                    android:focusableInTouchMode="true">
+                    android:layout_weight="0.10">
                     <TextView
                         android:id="@+id/lblNombreTestigo1Arma"
                         android:layout_width="wrap_content"
@@ -909,8 +902,7 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:weightSum="1"
-                    android:layout_weight="0.10"
-                    android:focusableInTouchMode="true">
+                    android:layout_weight="0.10">
                     <TextView
                         android:id="@+id/lblSegundoApellidoTestigo2Arma"
                         android:layout_width="wrap_content"
@@ -935,8 +927,7 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:weightSum="1"
-                    android:layout_weight="0.10"
-                    android:focusableInTouchMode="true">
+                    android:layout_weight="0.10">
                     <TextView
                         android:id="@+id/lblNombreTestigo2Arma"
                         android:layout_width="wrap_content"
@@ -1449,8 +1440,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="horizontal"
-                android:layout_marginTop="20dp"
-                android:focusableInTouchMode="true">
+                android:layout_marginTop="20dp">
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -1556,11 +1546,13 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/lyFrm1PropietarioObj"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:weightSum="1"
-                    android:layout_weight="0.1">
+                    android:layout_weight="0.1"
+                    android:focusableInTouchMode="true">
                     <RadioGroup
                         android:id="@+id/rgFirmaObjetoAsegurada"
                         android:layout_width="match_parent"
@@ -1597,7 +1589,8 @@
                     android:orientation="horizontal"
                     android:gravity="center"
                     android:weightSum="1"
-                    android:layout_weight="0.12">
+                    android:layout_weight="0.12"
+                    android:focusableInTouchMode="true">
 
                     <LinearLayout
                         android:id="@+id/FirmaPropietarioObjetos"
@@ -1810,7 +1803,8 @@
                     android:orientation="horizontal"
                     android:gravity="center"
                     android:weightSum="1"
-                    android:layout_weight="0.12">
+                    android:layout_weight="0.12"
+                    android:focusableInTouchMode="true">
 
                     <LinearLayout
                         android:id="@+id/FirmaTestigo1Objeto"
@@ -1994,7 +1988,8 @@
                 android:layout_weight="1"
                 android:orientation="horizontal"
                 android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp">
+                android:layout_marginBottom="20dp"
+                android:focusableInTouchMode="true">
 
 
                 <LinearLayout
@@ -2020,7 +2015,8 @@
                         android:layout_height="match_parent"
                         android:orientation="vertical"
                         android:weightSum="1"
-                        android:layout_weight="0.5">
+                        android:layout_weight="0.5"
+                        android:focusableInTouchMode="true">
                         <TextView
                             android:id="@+id/lblFirmaTestigo2Objeto"
                             android:layout_width="wrap_content"

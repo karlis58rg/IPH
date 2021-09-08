@@ -383,7 +383,8 @@
                         android:id="@+id/txtEdadDetenidoDelictivo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="numberDecimal"/>
+                        android:inputType="textCapCharacters"
+                        android:digits="@string/validacion_numeroletras"/>
                 </LinearLayout>
             </LinearLayout>
 

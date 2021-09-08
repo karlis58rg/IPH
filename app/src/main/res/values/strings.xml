@@ -350,10 +350,11 @@ preguntas: ¿Quién? (personas), ¿Qué? (hechos), ¿Cómo? (circunstancias), ¿
     <string name="uso">Uso</string>
 
     <!-- VALIDACIONES CARACTERES -->
-    <string name="validacion_notas">ABCDEFGHIJKLMNÑOPQRSTUVWXYZ,.-(")\' ÁÉÍÓÚÜ 0123456789 \n</string>
+    <string name="validacion_notas">ABCDEFGHIJKLMNÑOPQRSTUVWXYZ,.-(")\' ÁÉÍÓÚÜ 0123456789° \n \\ \/</string>
     <string name="validacion_nombre">ABCDEFGHIJKLMNÑOPQRSTUVWXYZ ÁÉÍÓÚÜ</string>
     <string name="validacion_folios">ABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789</string>
     <string name="validacion_numero">0123456789</string>
+    <string name="validacion_numeroletras">ABCDEFGHIJKLMNÑOPQRSTUVWXYZ ÁÉÍÓÚÜ 0123456789</string>
     <string name="validacion_correo">abcdefghijklmnopqrstuvwxyz0123456789-+_.@</string>
     <string name="destino">Destino</string>
     <string name="validacion_latitud">0123456789.</string>
