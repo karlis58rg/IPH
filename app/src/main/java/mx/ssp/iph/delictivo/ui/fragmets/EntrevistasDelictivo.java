@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Looper;
 import android.speech.RecognizerIntent;
+import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -74,6 +76,8 @@ public class EntrevistasDelictivo extends Fragment {
     String cargarIdPoliciaPrimerRespondiente,cargarIdHechoDelictivo,varReservarDatos,varCalidadEntrevistado,
             descNacionalidadEntrevista,descGeneroEntrevista,descTipoDocumentoEntrevista,descMunicipioEntrevista,varRutaFirmaEntrevistado,
             varRutaFirmaDerechosEntrevistado,varTrasladoCanalizacion,varLugarTraslado,cadenaPersona,cadenaImagenFirmaEntrevistas;
+    LinearLayout quintoTresLinear, cuartoLinear, LinearEntrevistado, LinearCalidadEntrevistado, lyTelEntrevistado,
+            lyCorreoEntrevistado, LinearEntrevista, lyFirma, lyRGTrasladoTes, Linear13, lyLecturaDerechos, lyFirmaDerechosVictima, Linear4, Linear8;
     int numberRandom,randomUrlImagen;
 
     private ListView lvEntrevistas;
@@ -146,6 +150,21 @@ public class EntrevistasDelictivo extends Fragment {
         txtFechaEntrevista = view.findViewById(R.id.txtFechaEntrevista);
         txtHoraEntrevista = view.findViewById(R.id.txtHoraEntrevista);
         txtFechaNacimientoEntrevistado = view.findViewById(R.id.txtFechaNacimientoEntrevistado);
+
+        quintoTresLinear = view.findViewById(R.id.quintoTresLinear);
+        cuartoLinear = view.findViewById(R.id.cuartoLinear);
+        LinearEntrevistado = view.findViewById(R.id.LinearEntrevistado);
+        LinearCalidadEntrevistado = view.findViewById(R.id.LinearCalidadEntrevistado);
+        lyTelEntrevistado = view.findViewById(R.id.lyTelEntrevistado);
+        lyCorreoEntrevistado = view.findViewById(R.id.lyCorreoEntrevistado);
+        LinearEntrevista = view.findViewById(R.id.LinearEntrevista);
+        lyFirma = view.findViewById(R.id.lyFirma);
+        lyRGTrasladoTes = view.findViewById(R.id.lyRGTrasladoTes);
+        Linear13 = view.findViewById(R.id.Linear13);
+        lyLecturaDerechos = view.findViewById(R.id.lyLecturaDerechos);
+        lyFirmaDerechosVictima = view.findViewById(R.id.lyFirmaDerechosVictima);
+        Linear4 = view.findViewById(R.id.Linear4);
+        Linear8 = view.findViewById(R.id.Linear8);
 
         lvEntrevistas= view.findViewById(R.id.lvEntrevistas);
         ListCombos();
@@ -366,48 +385,101 @@ public class EntrevistasDelictivo extends Fragment {
 
                         else{
                             Toast.makeText(getActivity().getApplicationContext(), "INGRESA NOMBRE DEL ENTREVISTADO", Toast.LENGTH_SHORT).show();
+                            txtNombresEntrevistado.requestFocus();
+                            LinearEntrevistado.requestFocus();
+                            txtNombresEntrevistado.requestFocus();
                         }
 
                     }
 
                     else{
                         Toast.makeText(getActivity().getApplicationContext(), "INGRESA PRIMER APELLIDO DEL ENTREVISTADO", Toast.LENGTH_SHORT).show();
+                        txtPrimerApellidoEntrevistado.requestFocus();
+                        LinearEntrevistado.requestFocus();
+                        txtPrimerApellidoEntrevistado.requestFocus();
                     }
 
                 }
 
                 else{
                     Toast.makeText(getActivity().getApplicationContext(), "ESPECIFIQUE FECHA Y HORA DE LA ENTREVISTA", Toast.LENGTH_SHORT).show();
+                    cuartoLinear.requestFocus();
                 }
 
             }
 
             else{
                 Toast.makeText(getActivity().getApplicationContext(), "ESPECIFIQUE SI DESEA RESERVAR DATOS", Toast.LENGTH_SHORT).show();
+                quintoTresLinear.requestFocus();
             }
         }
 
     public void SegundaValidacion(){
         if(rbCalidadVictima.isChecked() || rbCalidadDenunciante.isChecked() || rbCalidadTestigo.isChecked()){
             if(txtFechaNacimientoEntrevistado.getText().toString().length() >= 3){
-                if(txtEntrevista.getText().toString().length() >= 3){
-                    if(lblFirmadelEntrevistadoOculto.getText().toString().isEmpty()){
-                        Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA FIRMA DEL ENTREVISTADO", Toast.LENGTH_SHORT).show();
+                if(txtEdadEntrevistado.getText().toString().length() >= 3){
+                    if(txtTelefonoEntrevistado.getText().toString().length() == 10 || txtCorreoEntrevistado.getText().toString().length() >= 8){
+                        if(txtColoniaEntrevistado.getText().toString().length() >= 3){
+                            if(txtCalleEntrevistado.getText().toString().length() >= 3){
+                                if(txtReferenciasdelLugarEntrevistado.getText().toString().length() >= 3){
+                                    if(txtEntrevista.getText().toString().length() >= 3){
+                                        if(lblFirmadelEntrevistadoOculto.getText().toString().isEmpty()){
+                                            Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA FIRMA DEL ENTREVISTADO", Toast.LENGTH_SHORT).show();
+                                            lyFirma.requestFocus();
+                                        }
+                                        else{
+                                            TerceraValidacion();
+                                        }
+
+                                    }
+
+                                    else{
+                                        Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA ENTREVISTA REALIZADA", Toast.LENGTH_SHORT).show();
+                                        LinearEntrevista.requestFocus();
+                                    }
+
+                                }
+
+                                else{
+                                    Toast.makeText(getActivity().getApplicationContext(), "INGRESA UNA REFERENCIA DEL DOMICILIO DEL ENTREVISTADO", Toast.LENGTH_SHORT).show();
+                                    txtReferenciasdelLugarEntrevistado.requestFocus();
+                                }
+
+                            }
+
+                            else{
+                                Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA CALLE DEL DOMICILIO DEL ENTREVISTADO", Toast.LENGTH_SHORT).show();
+                                txtCalleEntrevistado.requestFocus();
+                            }
+
+                        }
+
+                        else{
+                            Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA COLONIA DEL DOMICILIO DEL ENTREVISTADO", Toast.LENGTH_SHORT).show();
+                            txtColoniaEntrevistado.requestFocus();
+                        }
+
                     }
+
                     else{
-                        TerceraValidacion();
+                        Toast.makeText(getActivity().getApplicationContext(), "INGRESA AL MENOS UN CONTACTO DEL ENTREVISTADO", Toast.LENGTH_SHORT).show();
+                        Linear8.requestFocus();
                     }
+
 
                 }
 
                 else{
-                    Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA ENTREVISTA REALIZADA", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA EDAD DEL ENTREVISTADO", Toast.LENGTH_SHORT).show();
+                    txtEdadEntrevistado.requestFocus();
                 }
+
 
             }
 
             else{
                 Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA FECHA DE NACIMIENTO DEL ENTREVISTADO", Toast.LENGTH_SHORT).show();
+                Linear4.requestFocus();
             }
 
 
@@ -415,6 +487,7 @@ public class EntrevistasDelictivo extends Fragment {
 
         else{
             Toast.makeText(getActivity().getApplicationContext(), "ESPECIFIQUE EN QUE CALIDAD ESTÁ EL ENTREVISTADO", Toast.LENGTH_SHORT).show();
+            LinearCalidadEntrevistado.requestFocus();
         }
     }
 
@@ -431,12 +504,16 @@ public class EntrevistasDelictivo extends Fragment {
 
                 else{
                     Toast.makeText(getActivity().getApplicationContext(), "INGRESA A QUÉ OTRO LUGAR SE TRASLADÓ A LA PERSONA ENTREVISTADA", Toast.LENGTH_SHORT).show();
+                    txtCualLugarTrasladoEntrevista.requestFocus();
+                    Linear13.requestFocus();
+                    txtCualLugarTrasladoEntrevista.requestFocus();
                 }
 
             }
 
             else{
                 Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA A QUÉ LUGAR SE TRASLADÓ A LA PERSONA ENTREVISTADA", Toast.LENGTH_SHORT).show();
+                Linear13.requestFocus();
             }
 
         }
@@ -447,6 +524,7 @@ public class EntrevistasDelictivo extends Fragment {
 
         else{
             Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA SI SE TRASLADÓ O CANALIZÓ A LA PERSONA ENTREVISTADA", Toast.LENGTH_SHORT).show();
+            lyRGTrasladoTes.requestFocus();
         }
     }
 
@@ -454,6 +532,7 @@ public class EntrevistasDelictivo extends Fragment {
         if(rbNoInformeDerechoVictimaDelictivo.isChecked() || rbSiInformeDerechoVictimaDelictivo.isChecked()){
             if(lblFirmaEntrevistaOculto.getText().toString().isEmpty()){
                 Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA FIRMA DE LA VICTIMA U OFENDIDO", Toast.LENGTH_SHORT).show();
+                lyFirmaDerechosVictima.requestFocus();
 
             }
 
@@ -467,7 +546,8 @@ public class EntrevistasDelictivo extends Fragment {
         }
 
         else{
-            Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA A QUÉ LUGAR SE TRASLADÓ A LA PERSONA ENTREVISTADA", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA SI SE LE INFORMÓ SUS DERECHOS A LA PERSONA ENTREVISTADA", Toast.LENGTH_SHORT).show();
+            lyLecturaDerechos.requestFocus();
         }
     }
 
