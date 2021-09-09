@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Looper;
 import android.speech.RecognizerIntent;
+import android.text.InputFilter;
 import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -128,25 +129,41 @@ public class EntrevistasDelictivo extends Fragment {
         rbSiInformeDerechoVictimaDelictivo = view.findViewById(R.id.rbSiInformeDerechoVictimaDelictivo);
 
         txtPrimerApellidoEntrevistado = view.findViewById(R.id.txtPrimerApellidoEntrevistado);
+        txtPrimerApellidoEntrevistado.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         txtSegundoApellidoEntrevistado = view.findViewById(R.id.txtSegundoApellidoEntrevistado);
+        txtSegundoApellidoEntrevistado.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         txtNombresEntrevistado = view.findViewById(R.id.txtNombresEntrevistado);
+        txtNombresEntrevistado.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         txtEdadEntrevistado = view.findViewById(R.id.txtEdadEntrevistado);
+        txtEdadEntrevistado.setFilters(new InputFilter[]{new InputFilter.LengthFilter(3)});
         txtNumeroIdentificacionEntrevistado = view.findViewById(R.id.txtNumeroIdentificacionEntrevistado);
+        txtNumeroIdentificacionEntrevistado.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         txtTelefonoEntrevistado = view.findViewById(R.id.txtTelefonoEntrevistado);
+        txtTelefonoEntrevistado.setFilters(new InputFilter[]{new InputFilter.LengthFilter(10)});
         txtCorreoEntrevistado = view.findViewById(R.id.txtCorreoEntrevistado);
+        txtCorreoEntrevistado.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(150)});
         txtEntidadEntrevistado = view.findViewById(R.id.txtEntidadEntrevistado);
+        txtEntidadEntrevistado.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         txtColoniaEntrevistado = view.findViewById(R.id.txtColoniaEntrevistado);
+        txtColoniaEntrevistado.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(250)});
         txtCalleEntrevistado = view.findViewById(R.id.txtCalleEntrevistado);
+        txtCalleEntrevistado.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(250)});
         txtNumeroExteriorEntrevistado = view.findViewById(R.id.txtNumeroExteriorEntrevistado);
+        txtNumeroExteriorEntrevistado.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         txtNumeroInteriorEntrevistado = view.findViewById(R.id.txtNumeroInteriorEntrevistado);
+        txtNumeroInteriorEntrevistado.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         txtCodigoPostalEntrevistado = view.findViewById(R.id.txtCodigoPostalEntrevistado);
+        txtCodigoPostalEntrevistado.setFilters(new InputFilter[]{new InputFilter.LengthFilter(5)});
         txtReferenciasdelLugarEntrevistado = view.findViewById(R.id.txtReferenciasdelLugarEntrevistado);
+        txtReferenciasdelLugarEntrevistado.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(8000)});
         txtCualLugarTrasladoEntrevista = view.findViewById(R.id.txtCualLugarTrasladoEntrevista);
+        txtCualLugarTrasladoEntrevista.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(500)});
         lblFirmadelEntrevistadoOculto = view.findViewById(R.id.lblFirmadelEntrevistadoOculto);
         lblFirmaEntrevistaOculto = view.findViewById(R.id.lblFirmaEntrevistaOculto);
         btnGuardarEntrevista = view.findViewById(R.id.btnGuardarEntrevista);
         //EditText
         txtEntrevista = view.findViewById(R.id.txtEntrevista);
+        txtEntrevista.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(8000)});
         txtFechaEntrevista = view.findViewById(R.id.txtFechaEntrevista);
         txtHoraEntrevista = view.findViewById(R.id.txtHoraEntrevista);
         txtFechaNacimientoEntrevistado = view.findViewById(R.id.txtFechaNacimientoEntrevistado);
@@ -384,7 +401,7 @@ public class EntrevistasDelictivo extends Fragment {
                         }
 
                         else{
-                            Toast.makeText(getActivity().getApplicationContext(), "INGRESA NOMBRE DEL ENTREVISTADO", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL NOMBRE DEL ENTREVISTADO", Toast.LENGTH_SHORT).show();
                             txtNombresEntrevistado.requestFocus();
                             LinearEntrevistado.requestFocus();
                             txtNombresEntrevistado.requestFocus();
@@ -393,7 +410,7 @@ public class EntrevistasDelictivo extends Fragment {
                     }
 
                     else{
-                        Toast.makeText(getActivity().getApplicationContext(), "INGRESA PRIMER APELLIDO DEL ENTREVISTADO", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL PRIMER APELLIDO DEL ENTREVISTADO", Toast.LENGTH_SHORT).show();
                         txtPrimerApellidoEntrevistado.requestFocus();
                         LinearEntrevistado.requestFocus();
                         txtPrimerApellidoEntrevistado.requestFocus();
@@ -402,14 +419,14 @@ public class EntrevistasDelictivo extends Fragment {
                 }
 
                 else{
-                    Toast.makeText(getActivity().getApplicationContext(), "ESPECIFIQUE FECHA Y HORA DE LA ENTREVISTA", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity().getApplicationContext(), "ESPECIFIQUE LA FECHA Y HORA DE LA ENTREVISTA", Toast.LENGTH_SHORT).show();
                     cuartoLinear.requestFocus();
                 }
 
             }
 
             else{
-                Toast.makeText(getActivity().getApplicationContext(), "ESPECIFIQUE SI DESEA RESERVAR DATOS", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity().getApplicationContext(), "ESPECIFIQUE SI DESEA RESERVAR DATOS EL ENTREVISTADO", Toast.LENGTH_SHORT).show();
                 quintoTresLinear.requestFocus();
             }
         }
