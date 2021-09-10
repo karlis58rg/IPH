@@ -4,11 +4,15 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Looper;
 import android.speech.RecognizerIntent;
 import android.text.InputFilter;
 import android.text.Layout;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,9 +36,13 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -54,6 +62,9 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -84,6 +95,11 @@ public class EntrevistasDelictivo extends Fragment {
     private ListView lvEntrevistas;
     private ArrayList<String> ListaIdEntrevistas,ListaDatosEntrevistas;
     private String[] ArrayListaIPHDelictivoEntrevistas;
+
+    String firmaURLServer = "http://189.254.7.167/WebServiceIPH/Firma/SINFIRMA.jpg";
+    private Target target;
+    private ImageView imgFirmadelEntrevistadoMiniatura,imgFirmaEntrevistaDelictivoMiniatura;
+    private TextView lblFirmadelEntrevistado,lblFirmaVictimaEntrevistaDelictivo;
 
     public static EntrevistasDelictivo newInstance() {
         return new EntrevistasDelictivo();
@@ -135,13 +151,13 @@ public class EntrevistasDelictivo extends Fragment {
         txtNombresEntrevistado = view.findViewById(R.id.txtNombresEntrevistado);
         txtNombresEntrevistado.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         txtEdadEntrevistado = view.findViewById(R.id.txtEdadEntrevistado);
-        txtEdadEntrevistado.setFilters(new InputFilter[]{new InputFilter.LengthFilter(3)});
+        txtEdadEntrevistado.setFilters(new InputFilter[]{new InputFilter.LengthFilter(2)});
         txtNumeroIdentificacionEntrevistado = view.findViewById(R.id.txtNumeroIdentificacionEntrevistado);
         txtNumeroIdentificacionEntrevistado.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         txtTelefonoEntrevistado = view.findViewById(R.id.txtTelefonoEntrevistado);
         txtTelefonoEntrevistado.setFilters(new InputFilter[]{new InputFilter.LengthFilter(10)});
         txtCorreoEntrevistado = view.findViewById(R.id.txtCorreoEntrevistado);
-        txtCorreoEntrevistado.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(150)});
+        txtCorreoEntrevistado.setFilters(new InputFilter[]{new InputFilter.LengthFilter(150)});
         txtEntidadEntrevistado = view.findViewById(R.id.txtEntidadEntrevistado);
         txtEntidadEntrevistado.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         txtColoniaEntrevistado = view.findViewById(R.id.txtColoniaEntrevistado);
@@ -183,6 +199,11 @@ public class EntrevistasDelictivo extends Fragment {
         Linear4 = view.findViewById(R.id.Linear4);
         Linear8 = view.findViewById(R.id.Linear8);
 
+        imgFirmadelEntrevistadoMiniatura = view.findViewById(R.id.imgFirmadelEntrevistadoMiniatura);
+        imgFirmaEntrevistaDelictivoMiniatura = view.findViewById(R.id.imgFirmaEntrevistaDelictivoMiniatura);
+        lblFirmadelEntrevistado = view.findViewById(R.id.lblFirmadelEntrevistado);
+        lblFirmaVictimaEntrevistaDelictivo = view.findViewById(R.id.lblFirmaVictimaEntrevistaDelictivo);
+
         lvEntrevistas= view.findViewById(R.id.lvEntrevistas);
         ListCombos();
 
@@ -190,12 +211,15 @@ public class EntrevistasDelictivo extends Fragment {
         rbLugarTrasladoEntrevistadoFiscaliaAgencia.setEnabled(false);
         rbLugarTrasladoEntrevistadoHospital.setEnabled(false);
         rbLugarTrasladoEntrevistadoOtraDependencia.setEnabled(false);
+        imgFirmaDerechosVictimaDelictivo.setEnabled(false);
 
         //Consulta si hay conexión a internet y realiza la peticion al ws de consulta de los datos.
         if (funciones.ping(getContext())){
             //Toast.makeText(getContext(), "cargarNoReferenciaAdministrativa()", Toast.LENGTH_LONG).show();
             cargarEntrevistas();
         }
+
+
 
 
         //Clic a la lista
@@ -224,6 +248,30 @@ public class EntrevistasDelictivo extends Fragment {
             }
         });
 
+        target = new Target() {
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.PNG, 70, baos);
+                byte[] imgBytes = baos.toByteArray();
+
+                String imgString = android.util.Base64.encodeToString(imgBytes, android.util.Base64.NO_WRAP);
+
+                byte[] decodedString = Base64.decode(imgString, Base64.DEFAULT);
+                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                imgFirmadelEntrevistadoMiniatura.setImageBitmap(decodedByte);
+                imgFirmaEntrevistaDelictivoMiniatura.setImageBitmap(decodedByte);
+            }
+
+            @Override
+            public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+            }
+        };
 
         //Imagen que funciona para activar la grabación de voz
         imgMicrofonoEntrevista.setOnClickListener(new View.OnClickListener() {
@@ -308,6 +356,8 @@ public class EntrevistasDelictivo extends Fragment {
 
                     txtCualLugarTrasladoEntrevista.setEnabled(false);
                     txtCualLugarTrasladoEntrevista.setText("");
+
+                    varLugarTraslado = "NO";
                 }
 
             }
@@ -327,6 +377,8 @@ public class EntrevistasDelictivo extends Fragment {
                 }else if (checkedId == R.id.rbLugarTrasladoEntrevistadoOtraDependencia){
                     varLugarTraslado = "OTRA DEPENDENCIA";
                     txtCualLugarTrasladoEntrevista.setEnabled(true);
+                }else{
+                    varLugarTraslado = "NA";
                 }
             }
         });
@@ -337,8 +389,10 @@ public class EntrevistasDelictivo extends Fragment {
                 if (checkedId == R.id.rbSiInformeDerechoVictimaDelictivo) {
                     cadenaPersona = "firma_derechos_";
                     varRutaFirmaDerechosEntrevistado = "http://189.254.7.167/WebServiceIPH/FirmaEntrevista/"+cadenaPersona+cargarIdHechoDelictivo+randomUrlImagen+".jpg";
+                    imgFirmaDerechosVictimaDelictivo.setEnabled(true);
                 } else if (checkedId == R.id.rbNoInformeDerechoVictimaDelictivo) {
                     varRutaFirmaDerechosEntrevistado = "NO";
+                    imgFirmaDerechosVictimaDelictivo.setEnabled(false);
                 }
             }
         });
@@ -434,7 +488,7 @@ public class EntrevistasDelictivo extends Fragment {
     public void SegundaValidacion(){
         if(rbCalidadVictima.isChecked() || rbCalidadDenunciante.isChecked() || rbCalidadTestigo.isChecked()){
             if(txtFechaNacimientoEntrevistado.getText().toString().length() >= 3){
-                if(txtEdadEntrevistado.getText().toString().length() >= 3){
+                if(txtEdadEntrevistado.getText().toString().length() > 0 && txtEdadEntrevistado.getText().toString().length() < 3){
                     if(txtTelefonoEntrevistado.getText().toString().length() == 10 || txtCorreoEntrevistado.getText().toString().length() >= 8){
                         if(txtColoniaEntrevistado.getText().toString().length() >= 3){
                             if(txtCalleEntrevistado.getText().toString().length() >= 3){
@@ -546,7 +600,13 @@ public class EntrevistasDelictivo extends Fragment {
     }
 
     public void CuartaValidacion(){
-        if(rbNoInformeDerechoVictimaDelictivo.isChecked() || rbSiInformeDerechoVictimaDelictivo.isChecked()){
+        if(rbNoInformeDerechoVictimaDelictivo.isChecked()){
+            //INSERTAR ENTREVISTA
+            Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
+            insertEntrevista2021();
+        }
+
+        else if(rbSiInformeDerechoVictimaDelictivo.isChecked()){
             if(lblFirmaEntrevistaOculto.getText().toString().isEmpty()){
                 Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA FIRMA DE LA VICTIMA U OFENDIDO", Toast.LENGTH_SHORT).show();
                 lyFirmaDerechosVictima.requestFocus();
@@ -556,9 +616,8 @@ public class EntrevistasDelictivo extends Fragment {
             else{
                 //INSERTAR ENTREVISTA
                 Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
-                //insertEntrevistas();
+                insertEntrevista2021();
             }
-
 
         }
 
@@ -700,6 +759,7 @@ public class EntrevistasDelictivo extends Fragment {
                                 System.out.println("EL DATO SE ENVIO CORRECTAMENTE");
                                 Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
                                 cargarEntrevistas();
+                                limpiarCampos();
 
                             }else{
                                 Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, VERIFIQUE SU INFORMACIÓN", Toast.LENGTH_SHORT).show();
@@ -710,6 +770,26 @@ public class EntrevistasDelictivo extends Fragment {
                 }
             }
         });
+    }
+
+
+    private void insertEntrevista2021(){
+        if(varRutaFirmaDerechosEntrevistado.equals("NO")){
+        }else{
+            cadenaImagenFirmaEntrevistas = lblFirmaEntrevistaOculto.getText().toString();
+            insertImagenFirmaEntrevistas();
+        }
+
+        if(lblFirmadelEntrevistadoOculto.getText().toString().isEmpty()){
+            cadenaPersona = "firma_entrevistado_";
+            varRutaFirmaEntrevistado = "NP";
+        }else{
+            cadenaPersona = "firma_entrevistado_";
+            varRutaFirmaEntrevistado = "http://189.254.7.167/WebServiceIPH/FirmaEntrevista/"+cadenaPersona+cargarIdHechoDelictivo+randomUrlImagen+".jpg";
+            cadenaImagenFirmaEntrevistas = lblFirmadelEntrevistadoOculto.getText().toString();
+            insertImagenFirmaEntrevistas();
+        }
+        insertEntrevistas();
     }
 
     public void insertImagenFirmaEntrevistas() {
@@ -732,9 +812,7 @@ public class EntrevistasDelictivo extends Fragment {
             }
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                if(response.code() == 500){
-                    Toast.makeText(getContext(), "EXISTIÓ UN ERROR EN SU CONEXIÓN A INTERNET, INTÉNTELO NUEVAMENTE", Toast.LENGTH_SHORT).show();
-                }else if (response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     final String myResponse = response.body().string();
                     EntrevistasDelictivo.this.getActivity().runOnUiThread(new Runnable() {
                         @Override
@@ -985,6 +1063,61 @@ public class EntrevistasDelictivo extends Fragment {
                 }
             }
         });
+    }
+
+    public void getFirmaFromURL(){
+        Picasso.get()
+                .load(firmaURLServer)
+                .into(target);
+    }
+
+    public void limpiarCampos(){
+        rgReservarDatos.clearCheck();
+        txtFechaEntrevista.setText("");
+        txtHoraEntrevista.setText("");
+
+        txtPrimerApellidoEntrevistado.setText("");
+        txtSegundoApellidoEntrevistado.setText("");
+        txtNombresEntrevistado.setText("");
+
+        rgCalidadEntrevistado.clearCheck();
+        txtFechaNacimientoEntrevistado.setText("");
+        txtEdadEntrevistado.setText("");
+
+        spNacionalidadEntrevistado.setSelection(0);
+
+        spGeneroEntrevistado.setSelection(0);
+        spTipoDocumentoEntrevistado.setSelection(0);
+        txtNumeroIdentificacionEntrevistado.setText("");
+
+        txtTelefonoEntrevistado.setText("");
+        txtCorreoEntrevistado.setText("");
+
+        txtEntidadEntrevistado.setText("GUERRERO");
+        spMunicipioEntrevistado.setSelection(0);
+        txtColoniaEntrevistado.setText("");
+        txtCalleEntrevistado.setText("");
+        txtNumeroExteriorEntrevistado.setText("");
+        txtNumeroInteriorEntrevistado.setText("");
+        txtCodigoPostalEntrevistado.setText("");
+        txtReferenciasdelLugarEntrevistado.setText("");
+
+        txtEntrevista.setText("");
+        txtCualLugarTrasladoEntrevista.setText("");
+        //Limpiar Firmas
+        lblFirmaEntrevistaOculto.setText("");
+        lblFirmadelEntrevistadoOculto.setText("");
+        //Limpiar leyendas de status
+        lblFirmadelEntrevistado.setText("");
+        lblFirmaVictimaEntrevistaDelictivo.setText("");
+        //limpar Imagen
+        firmaURLServer = ("http://189.254.7.167/WebServiceIPH/Firma/SINFIRMA.jpg");
+        getFirmaFromURL();
+
+        //
+        rgTrasladoPersonaEntrevistada.clearCheck();
+        rgLugarTrasladoEntrevista.clearCheck();
+        rgInformeDerechoVictimaDelictivo.clearCheck();
     }
 
 }

@@ -109,6 +109,7 @@ public class LugarDeIntervencion_Delictivo extends Fragment {
         cargarDatos();
         random();
         txtEntidadUbicacionGeograficaDelictivo = view.findViewById(R.id.txtEntidadUbicacionGeograficaDelictivo);
+        txtEntidadUbicacionGeograficaDelictivo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
         txtColoniaUbicacionGeograficaDelictivo = view.findViewById(R.id.txtColoniaUbicacionGeograficaDelictivo);
         txtColoniaUbicacionGeograficaDelictivo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(250)});
         txtCalleUbicacionGeograficaDelictivo = view.findViewById(R.id.txtCalleUbicacionGeograficaDelictivo);

@@ -416,8 +416,8 @@
                         android:id="@+id/txtEdadEntrevistado"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textCapCharacters"
-                        android:digits="@string/validacion_numeroletras"
+                        android:inputType="numberDecimal"
+                        android:digits="@string/validacion_numero"
                         android:singleLine="true"
                         android:maxLines="1"
                         android:lines="1"
@@ -521,7 +521,7 @@
                         android:singleLine="true"
                         android:maxLines="1"
                         android:lines="1"
-                        android:imeOptions="actionNext"/>
+                        android:imeOptions="actionDone"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -566,8 +566,7 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:weightSum="1"
-                    android:layout_weight="0.10"
-                    android:focusableInTouchMode="true">
+                    android:layout_weight="0.10">
                     <TextView
                         android:id="@+id/lblCorreoEntrevistado"
                         android:layout_width="wrap_content"
@@ -1415,7 +1414,7 @@
                                     android:id="@+id/imgFirmaDerechosVictimaDelictivo"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:src="@drawable/ic_firma" />
+                                    android:src="@drawable/ic_firma"/>
                             </LinearLayout>
                         </LinearLayout>
 
