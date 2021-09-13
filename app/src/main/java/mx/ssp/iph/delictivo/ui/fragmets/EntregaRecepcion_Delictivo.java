@@ -1,8 +1,12 @@
 package mx.ssp.iph.delictivo.ui.fragmets;
 
 import android.content.Context;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences;
+import android.media.Image;
 import android.os.Bundle;
 
 import android.os.Looper;
@@ -14,16 +18,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -46,6 +55,11 @@ import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
+import okhttp3.Response;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.Response;
 
 import static android.app.Activity.RESULT_OK;
@@ -70,6 +84,13 @@ public class EntregaRecepcion_Delictivo extends Fragment {
     String cargarIdPoliciaPrimerRespondiente,cargarIdHechoDelictivo,
             varServiciosEspecializados,varIngreso,descAutoridad,descCargo,rutaFirmaRecibe,cadena;
     int numberRandom,randomUrlImagen;
+
+    private ImageView btnAgregarPersona;
+    private ListView lvPersonas;
+
+    ArrayList<String> ListaJsonPertenencias;
+    ArrayList<String> ListPertenencia,ListDescripcionPertenencia,ListDestino,ListaTablaPertenencias,ListaIdPertenencias;
+    SharedPreferences share;
 
 
     public static EntregaRecepcion_Delictivo newInstance() {
@@ -117,6 +138,19 @@ public class EntregaRecepcion_Delictivo extends Fragment {
         spCargoIntervencion = view.findViewById(R.id.spCargoIntervencion);
         spInstitucionIntervencion = view.findViewById(R.id.spInstitucionIntervencion);
         ListCombos();
+
+        //Personas
+        btnAgregarPersona = view.findViewById(R.id.btnAgregarPersona);
+        lvPersonas = view.findViewById(R.id.lvPersonas);
+
+
+        //Consulta si hay conexión a internet y realiza la peticion al ws de consulta de los datos.
+        if (funciones.ping(getContext()))
+        {
+            //Toast.makeText(getContext(), "cargarNoReferenciaAdministrativa()", Toast.LENGTH_LONG).show();
+            //cargarEntregaRecepcion();
+        }
+
 
         //Imagen que funciona para activar la grabación de voz
         imgMicrofonoAccionesRealizadas.setOnClickListener(new View.OnClickListener() {
@@ -198,6 +232,13 @@ public class EntregaRecepcion_Delictivo extends Fragment {
             }
         });
 
+     lvPersonas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+        });
+
         /***************************************************************************************/
         return view;
     }
@@ -255,8 +296,6 @@ public class EntregaRecepcion_Delictivo extends Fragment {
 
         imgMicrofonoObservacionesLugarIntervencion.setImageResource(R.drawable.ic_micro);
         imgMicrofonoObservacionesLugarIntervencion.setTag(R.drawable.ic_micro);
-
-
     }
 
     private void insertRecepcionLugarIntervencion() {

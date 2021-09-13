@@ -148,7 +148,8 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
                 android:layout_marginTop="10dp"
-                android:weightSum="1">
+                android:weightSum="1"
+                android:focusableInTouchMode="true">
                 <LinearLayout
                     android:id="@+id/lyFechaEntrevista"
                     android:layout_width="match_parent"
@@ -375,7 +376,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="horizontal"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="20dp"
+                android:focusableInTouchMode="true">
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -414,8 +416,8 @@
                         android:id="@+id/txtEdadEntrevistado"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textCapCharacters"
-                        android:digits="@string/validacion_numeroletras"
+                        android:inputType="numberDecimal"
+                        android:digits="@string/validacion_numero"
                         android:singleLine="true"
                         android:maxLines="1"
                         android:lines="1"
@@ -519,7 +521,7 @@
                         android:singleLine="true"
                         android:maxLines="1"
                         android:lines="1"
-                        android:imeOptions="actionNext"/>
+                        android:imeOptions="actionDone"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -529,14 +531,17 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="horizontal"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="20dp"
+                android:focusableInTouchMode="true">
 
                 <LinearLayout
+                    android:id="@+id/lyTelEntrevistado"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:weightSum="1"
-                    android:layout_weight="0.10">
+                    android:layout_weight="0.10"
+                    android:focusableInTouchMode="true">
                     <TextView
                         android:id="@+id/lblTelefonoEntrevistado"
                         android:layout_width="wrap_content"
@@ -556,6 +561,7 @@
                         android:imeOptions="actionNext"/>
                 </LinearLayout>
                 <LinearLayout
+                    android:id="@+id/lyCorreoEntrevistado"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
@@ -926,7 +932,8 @@
                     android:orientation="horizontal"
                     android:gravity="center"
                     android:weightSum="1"
-                    android:layout_weight="0.12">
+                    android:layout_weight="0.12"
+                    android:focusableInTouchMode="true">
 
                     <LinearLayout
                         android:id="@+id/lyFirmaEntrevistado"
@@ -1067,12 +1074,14 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/lyRGTrasladoTes"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:weightSum="1"
                     android:layout_weight="0.1"
-                    android:layout_marginBottom="24dp">
+                    android:layout_marginBottom="24dp"
+                    android:focusableInTouchMode="true">
                     <RadioGroup
                         android:id="@+id/rgTrasladoPersonaEntrevistada"
                         android:layout_width="match_parent"
@@ -1120,7 +1129,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="20dp"
+                android:focusableInTouchMode="true">
 
                 <TextView
                     android:id="@+id/lblLugarTrasladoEntrevistado2"
@@ -1404,7 +1414,7 @@
                                     android:id="@+id/imgFirmaDerechosVictimaDelictivo"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:src="@drawable/ic_firma" />
+                                    android:src="@drawable/ic_firma"/>
                             </LinearLayout>
                         </LinearLayout>
 

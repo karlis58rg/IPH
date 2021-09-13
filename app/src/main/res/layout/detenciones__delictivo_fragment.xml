@@ -247,7 +247,7 @@
                             android:singleLine="true"
                             android:maxLines="1"
                             android:lines="1"
-                            android:imeOptions="actionNext"/>
+                            android:imeOptions="actionDone"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -383,8 +383,12 @@
                         android:id="@+id/txtEdadDetenidoDelictivo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textCapCharacters"
-                        android:digits="@string/validacion_numeroletras"/>
+                        android:inputType="numberDecimal"
+                        android:digits="@string/validacion_numeroletras"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionDone"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -508,7 +512,7 @@
                         android:layout_height="wrap_content"
                         android:maxLength="50"
                         android:inputType="textCapCharacters"
-                        android:digits="@string/validacion_numexpediente"
+                        android:digits="@string/validacion_notas"
                         android:singleLine="true"
                         android:maxLines="1"
                         android:lines="1"
@@ -557,7 +561,12 @@
                         android:id="@+id/txtEntidadDetenidoDelictivo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="GUERRERO"/>
+                        android:text="GUERRERO"
+                        android:inputType="textCapCharacters"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionDone"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -970,7 +979,7 @@
                         android:singleLine="true"
                         android:maxLines="1"
                         android:lines="1"
-                        android:imeOptions="actionNext"
+                        android:imeOptions="actionDone"
                         android:visibility="invisible"
                         android:enabled="false"/>
                 </LinearLayout>
@@ -1060,7 +1069,7 @@
                         android:singleLine="true"
                         android:maxLines="1"
                         android:lines="1"
-                        android:imeOptions="actionNext"
+                        android:imeOptions="actionDone"
                         android:gravity="center"
                         android:visibility="invisible"
                         android:enabled="false"/>
@@ -1152,7 +1161,7 @@
                         android:singleLine="true"
                         android:maxLines="1"
                         android:lines="1"
-                        android:imeOptions="actionNext"
+                        android:imeOptions="actionDone"
                         android:gravity="center"
                         android:visibility="invisible"
                         android:enabled="false"/>

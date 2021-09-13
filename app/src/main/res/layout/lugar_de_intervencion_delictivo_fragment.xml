@@ -58,7 +58,8 @@
                         android:id="@+id/txtEntidadUbicacionGeograficaDelictivo"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="GUERRERO"/>
+                        android:text="GUERRERO"
+                        android:inputType="textCapCharacters"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/lyMunicipioUbicacionGeograficaDelictivo"
@@ -725,6 +726,7 @@
                         android:id="@+id/txtEspecificarRiesgoLugarIntervencion"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:inputType="textCapCharacters"
                         android:orientation="horizontal"
                         android:layout_gravity="center"
                         android:singleLine="true"

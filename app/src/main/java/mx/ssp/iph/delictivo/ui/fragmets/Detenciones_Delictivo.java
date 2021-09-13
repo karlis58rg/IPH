@@ -193,7 +193,7 @@ public class Detenciones_Delictivo extends Fragment {
         txtApodoDetenidoDelictivo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)});
 
         txtEdadDetenidoDelictivo = view.findViewById(R.id.txtEdadDetenidoDelictivo);
-        txtEdadDetenidoDelictivo.setFilters(new InputFilter[]{new InputFilter.LengthFilter(3)});
+        txtEdadDetenidoDelictivo.setFilters(new InputFilter[]{new InputFilter.LengthFilter(2)});
 
         txtNumeroIdentificacionDelictivo = view.findViewById(R.id.txtNumeroIdentificacionDelictivo);
         txtNumeroIdentificacionDelictivo.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(25)});
@@ -463,9 +463,9 @@ public class Detenciones_Delictivo extends Fragment {
         rgInformeDerechoDetencionesDelictivo.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == R.id.rbSiInformeDerechoDetencionesDelictivo) {
+                if (rbSiInformeDerechoDetencionesDelictivo.isChecked()) {
                     varInformoDerechos = "SI";
-                } else if (checkedId == R.id.rbNoInformeDerechoDetencionesDelictivo) {
+                } else if (rbNoInformeDerechoDetencionesDelictivo.isChecked()) {
                     varInformoDerechos = "NO";
                 }
 

@@ -427,6 +427,108 @@
 
         </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/LinearBtnPersona"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_gravity="center"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/btnAgregarPersona"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/boton_agregar"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LinearHeadersTable"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:elevation="50dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight=".1"
+                    android:orientation="horizontal"
+                    >
+
+                    <!-- Nombre Completo -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        >
+
+                        <TextView
+                            android:id="@+id/lblPersonas"
+                            android:layout_width="200dp"
+                            android:layout_height="match_parent"
+                            android:text="Nombre"
+                            android:textColor="#FFF"
+                            android:textSize="15sp"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:layout_margin="3dp"
+                            android:background="@color/background_section"/>
+
+                        <TextView
+                            android:id="@+id/lblAdscripción"
+                            android:layout_width="200dp"
+                            android:layout_height="match_parent"
+                            android:text="Adscripción"
+                            android:textColor="#FFF"
+                            android:textSize="15sp"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:layout_margin="3dp"
+                            android:background="@color/background_section"/>
+
+                        <TextView
+                            android:id="@+id/lblInstitución"
+                            android:layout_width="200dp"
+                            android:layout_height="match_parent"
+                            android:text="Institución"
+                            android:textColor="#FFF"
+                            android:textSize="15sp"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:layout_margin="3dp"
+                            android:background="@color/background_section"/>
+                        <TextView
+                            android:id="@+id/lblEliminar"
+                            android:layout_width="150dp"
+                            android:layout_height="match_parent"
+                            android:text=""
+                            android:textColor="#FFF"
+                            android:textSize="15sp"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:layout_margin="3dp"
+                            />
+                    </LinearLayout>
+
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <ListView
+                android:id="@+id/lvPersonas"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"/>
+
+
+
             <!-- APARTADO F3 -->
             <LinearLayout
                 android:id="@+id/Linear10"
