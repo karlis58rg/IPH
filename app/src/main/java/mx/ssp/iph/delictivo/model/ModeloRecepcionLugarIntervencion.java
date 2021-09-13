@@ -1,13 +1,12 @@
 package mx.ssp.iph.delictivo.model;
 
 public class ModeloRecepcionLugarIntervencion {
-    public ModeloRecepcionLugarIntervencion(String idHechoDelictivo, String idRecepcion, String descLugarIntervencion,
+    public ModeloRecepcionLugarIntervencion(String idHechoDelictivo,String descLugarIntervencion,
                                             String apoyoServiciosEspecializados, String servicioEspecializado,
                                             String idPoliciaPrimerRespondiente, String APRecibeIntervencion, String AMRecibeIntervencion,
                                             String nombreReciveIntervencion, String idCargoRecibe, String idAdscripcionRecibe,
                                             String rutaFirmaRecibe, String observaciones, String fecha, String hora) {
         IdHechoDelictivo = idHechoDelictivo;
-        IdRecepcion = idRecepcion;
         DescLugarIntervencion = descLugarIntervencion;
         ApoyoServiciosEspecializados = apoyoServiciosEspecializados;
         ServicioEspecializado = servicioEspecializado;
@@ -29,14 +28,6 @@ public class ModeloRecepcionLugarIntervencion {
 
     public void setIdHechoDelictivo(String idHechoDelictivo) {
         IdHechoDelictivo = idHechoDelictivo;
-    }
-
-    public String getIdRecepcion() {
-        return IdRecepcion;
-    }
-
-    public void setIdRecepcion(String idRecepcion) {
-        IdRecepcion = idRecepcion;
     }
 
     public String getDescLugarIntervencion() {
@@ -144,7 +135,6 @@ public class ModeloRecepcionLugarIntervencion {
     }
 
     private String IdHechoDelictivo;
-    private String IdRecepcion;
     private String DescLugarIntervencion;
     private String ApoyoServiciosEspecializados;
     private String ServicioEspecializado;

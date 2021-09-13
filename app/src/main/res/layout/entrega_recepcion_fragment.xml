@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".delictivo.ui.fragmets.NarrativaHechos_Delictivo">
+    tools:context=".delictivo.ui.fragmets.EntregaRecepcion_Delictivo">
 
     <ScrollView
         android:id="@+id/scrollTransporte"
@@ -109,12 +109,12 @@
                     android:weightSum="1"
                     android:layout_weight="0.1">
                     <RadioGroup
-                        android:id="@+id/rgPadecimiento"
+                        android:id="@+id/rgServiciosEspecializados"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="horizontal">
                         <RadioButton
-                            android:id="@+id/rbPadecimiento"
+                            android:id="@+id/rbNoServiciosEspecializados"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
@@ -125,7 +125,7 @@
                             android:drawableStart="@drawable/rbbox"/>
 
                         <RadioButton
-                            android:id="@+id/rbSiPadecimiento"
+                            android:id="@+id/rbSiServiciosEspecializados"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -224,12 +224,12 @@
                     android:weightSum="1"
                     android:layout_weight="0.1">
                     <RadioGroup
-                        android:id="@+id/rgMotivo"
+                        android:id="@+id/rgIngreso"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="horizontal">
                         <RadioButton
-                            android:id="@+id/rgNoMotivo"
+                            android:id="@+id/rgNoIngreso"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
@@ -240,7 +240,7 @@
                             android:drawableStart="@drawable/rbbox"/>
 
                         <RadioButton
-                            android:id="@+id/rgSiMotivo"
+                            android:id="@+id/rgSiIngreso"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -401,7 +401,7 @@
                     android:text="@string/cargo" />
 
                 <Spinner
-                    android:id="@+id/txtCargoIntervencion"
+                    android:id="@+id/spCargoIntervencion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
@@ -448,216 +448,7 @@
                         android:text="Apartado F.3 Entrega-Recepción del lugar de la intervención" />
                 </LinearLayout>
             </LinearLayout>
-
-
-            <!--PERSONA ENTREGA LUGAR -->
-            <LinearLayout
-                android:id="@+id/octavoLinearPersonaRecibeEntregaLugar"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:background="@color/background_sub_section">
-                <TextView
-                    android:id="@+id/lblInstruccionPersonaRecibeEntregaLugar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle="italic"
-                    android:text="Datos de la persona que entrega el lugar de la intervención." />
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/LinearPersonaEntregaLugar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="horizontal"
-                android:layout_marginTop="20dp"
-                android:focusableInTouchMode="true">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:weightSum="1"
-                    android:layout_weight="0.10">
-                    <TextView
-                        android:id="@+id/lblPrimerApellidoPersonaEntregaLugar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/font"
-                        android:text="@string/primer_apellido"/>
-                    <EditText
-                        android:id="@+id/txtPrimerApellidoPersonalPersonaEntregaLugar"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:maxLength="50"
-                        android:inputType="textCapCharacters"
-                        android:digits="@string/validacion_nombre"
-                        android:singleLine="true"
-                        android:maxLines="1"
-                        android:lines="1"
-                        android:imeOptions="actionNext"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:weightSum="1"
-                    android:layout_weight="0.10">
-                    <TextView
-                        android:id="@+id/lblSegundoApellidoPersonaEntregaLugar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/font"
-                        android:text="@string/segundo_apellido"/>
-                    <EditText
-                        android:id="@+id/txtSegundoApellidoPersonalPersonaEntregaLugar"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:maxLength="50"
-                        android:inputType="textCapCharacters"
-                        android:digits="@string/validacion_nombre"
-                        android:singleLine="true"
-                        android:maxLines="1"
-                        android:lines="1"
-                        android:imeOptions="actionNext"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:weightSum="1"
-                    android:layout_weight="0.10">
-                    <TextView
-                        android:id="@+id/lblNombreAdministrativoPersonaEntregaLugar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/font"
-                        android:text="@string/nombres"/>
-                    <EditText
-                        android:id="@+id/txtNombresPersonalPersonaEntregaLugar"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:maxLength="50"
-                        android:inputType="textCapCharacters"
-                        android:digits="@string/validacion_nombre"
-                        android:singleLine="true"
-                        android:maxLines="1"
-                        android:lines="1"
-                        android:imeOptions="actionNext"/>
-                </LinearLayout>
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/LinearAdscripcionPersonaEntregaLugar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="horizontal"
-                android:layout_marginTop="20dp"
-                android:focusableInTouchMode="true">
-                <LinearLayout
-                    android:id="@+id/lyAdscripcionPersonaEntregaLugar"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:weightSum="1"
-                    android:layout_weight="0.5">
-                    <TextView
-                        android:id="@+id/lblAdscripcionPersonaEntregaLugar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/adscripcion" />
-                    <Spinner
-                        android:id="@+id/txtAdscripcionPersonaEntregaLugar"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/lyCargoPersonaEntregaLugar"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.5"
-                    android:orientation="vertical">
-                    <TextView
-                        android:id="@+id/lblCargoPersonaEntregaLugar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/cargo" />
-
-                    <Spinner
-                        android:id="@+id/txtCargoPersonaEntregaLugar"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-                </LinearLayout>
-
-                <!--FIRMA -->
-                <LinearLayout
-                    android:id="@+id/lyFirmaPersonaEntregaLugar"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:weightSum="1"
-                    android:layout_weight="0.5">
-                    <TextView
-                        android:id="@+id/lblFirmaPersonaEntregaLugar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Firma de quien recibe" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:weightSum="1"
-                        android:layout_weight="0.5">
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:weightSum="1"
-                            android:layout_weight="0.40">
-                            <TextView
-                                android:id="@+id/lblStatusFirmaPersonaEntregaLugar"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/background_section"/>
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="60dp"
-                            android:layout_weight="0.45"
-                            android:orientation="horizontal"
-                            android:weightSum="1">
-                            <ImageView
-                                android:id="@+id/imgFirmaPersonaEntregaLugarMiniatura"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:scaleType="fitXY"/>
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:orientation="horizontal"
-                            android:weightSum="1"
-                            android:layout_weight="0.15">
-                            <ImageView
-                                android:id="@+id/imgFirmaPersonaEntregaLugar"
-                                android:layout_width="40dp"
-                                android:layout_height="50dp"
-                                android:src="@drawable/ic_firma" />
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-            </LinearLayout>
-
-
             <!--PERSONA RECIBE LUGAR -->
-
-
             <LinearLayout
                 android:id="@+id/octavoLinearPersonaRecepciondelLugar"
                 android:layout_width="match_parent"
@@ -774,7 +565,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/adscripcion" />
                     <Spinner
-                        android:id="@+id/txtAdscripcionPersonaRecepciondelLugar"
+                        android:id="@+id/spAdscripcionPersonaRecepciondelLugar"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
                 </LinearLayout>
@@ -792,7 +583,7 @@
                         android:text="@string/cargo" />
 
                     <Spinner
-                        android:id="@+id/txtCargoPersonaRecepciondelLugar"
+                        android:id="@+id/spCargoPersonaRecepciondelLugar"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
                 </LinearLayout>
@@ -858,6 +649,31 @@
 
                     </LinearLayout>
 
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/oculto1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10"
+                    android:visibility="visible">
+                    <TextView
+                        android:id="@+id/lblFirmaOcultoRecepcionIntervencion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/font"
+                        android:text=""/>
                 </LinearLayout>
             </LinearLayout>
 

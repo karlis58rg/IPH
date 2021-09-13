@@ -73,7 +73,7 @@ public class EntrevistasDelictivo extends Fragment {
     SharedPreferences share;
     String cargarIdPoliciaPrimerRespondiente,cargarIdHechoDelictivo,varReservarDatos,varCalidadEntrevistado,
             descNacionalidadEntrevista,descGeneroEntrevista,descTipoDocumentoEntrevista,descMunicipioEntrevista,varRutaFirmaEntrevistado,
-            varRutaFirmaDerechosEntrevistado,varTrasladoCanalizacion,varLugarTraslado,cadenaPersona,cadenaImagenFirmaEntrevistas;
+            varRutaFirmaDerechosEntrevistado,varTrasladoCanalizacion,varLugarTraslado = "NO",cadenaPersona,cadenaImagenFirmaEntrevistas;
     int numberRandom,randomUrlImagen;
 
     private ListView lvEntrevistas;
@@ -355,6 +355,30 @@ public class EntrevistasDelictivo extends Fragment {
     }
 
 
+    private void insertEntrevista2021(){
+        if(varRutaFirmaDerechosEntrevistado.equals("NO")){
+        }else{
+            cadenaImagenFirmaEntrevistas = lblFirmaEntrevistaOculto.getText().toString();
+            insertImagenFirmaEntrevistas();
+        }
+
+        if(lblFirmadelEntrevistadoOculto.getText().toString().isEmpty()){
+            cadenaPersona = "firma_entrevistado_";
+            varRutaFirmaEntrevistado = "NP";
+        }else{
+            cadenaPersona = "firma_entrevistado_";
+            varRutaFirmaEntrevistado = "http://189.254.7.167/WebServiceIPH/FirmaEntrevista/"+cadenaPersona+cargarIdHechoDelictivo+randomUrlImagen+".jpg";
+            cadenaImagenFirmaEntrevistas = lblFirmadelEntrevistadoOculto.getText().toString();
+            insertImagenFirmaEntrevistas();
+        }
+        insertEntrevistas();
+    }
+
+
+
+
+
+
     public void PrimeraValidacion(){
             if(rbNoReservarDatos.isChecked() || rbSiReservarDatos.isChecked()){
                 if (txtFechaEntrevista.getText().toString().length() >= 3 && txtHoraEntrevista.getText().toString().length() >= 3){
@@ -461,6 +485,7 @@ public class EntrevistasDelictivo extends Fragment {
                 //INSERTAR ENTREVISTA
                 Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
                 //insertEntrevistas();
+                insertEntrevista2021();
             }
 
 
