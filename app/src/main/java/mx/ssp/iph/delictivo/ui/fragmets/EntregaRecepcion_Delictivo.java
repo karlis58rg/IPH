@@ -37,6 +37,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 
+import com.google.gson.internal.$Gson$Preconditions;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -154,7 +156,7 @@ public class EntregaRecepcion_Delictivo extends Fragment {
             //Toast.makeText(getContext(), "cargarNoReferenciaAdministrativa()", Toast.LENGTH_LONG).show();
             //cargarEntregaRecepcion();
             CargarRecepcionIngreso();
-
+           Log.i("peronas","ping");
         }
 
 
@@ -242,12 +244,42 @@ public class EntregaRecepcion_Delictivo extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+                AlertDialog.Builder builder =
+                        new AlertDialog.Builder(getContext()).
+                                setMessage("¿DESEA ELIMINAR "+ ListPertenencia.get(position) + "?" ).
+                                setPositiveButton( "ACEPTAR", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        EliminarPersonal(ListaIdPertenencias.get(position));
+
+                                        dialog.dismiss();
+                                    }
+                                })
+                                .setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        // User cancelled the dialog
+                                        dialog.dismiss();
+                                    }
+                                });
+
+                builder.create().show();
+
             }
         });
+
+     btnAgregarPersona.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+             if (true) {
+                 insertPertenenciasDetenido();
+             }
+         }
+     });
 
         /***************************************************************************************/
         return view;
     }
+
 
     private void iniciarEntradadeVoz() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
@@ -438,14 +470,11 @@ public class EntregaRecepcion_Delictivo extends Fragment {
         }
     }
 
-
-
     public void random(){
         Random random = new Random();
         numberRandom = random.nextInt(9000)*99;
         randomUrlImagen = numberRandom;
     }
-
 
     public void cargarDatos() {
         share = getContext().getSharedPreferences("main", Context.MODE_PRIVATE);
@@ -453,20 +482,9 @@ public class EntregaRecepcion_Delictivo extends Fragment {
         cargarIdHechoDelictivo = share.getString("IDHECHODELICTIVO", "SIN INFORMACION");
     }
 
-    private void CargarPersonalIngreso(){
 
-
-
-    }
-
-    //***************** agregar pertencias a list temporal **************************//
+    //***************** agregar personal **************************//
     private void CargarRecepcionIngreso() {
-        ListaJsonPertenencias = new ArrayList<String>();
-        ListPertenencia = new ArrayList<String>();
-        ListDescripcionPertenencia = new ArrayList<String>();
-        ListDestino = new ArrayList<String>();
-        ListaIdPertenencias = new ArrayList<String>();
-
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url("http://189.254.7.167/WebServiceIPH/api/HDTempoRecepcionIngresos?folioInternoIngreso="+cargarIdHechoDelictivo)
@@ -489,7 +507,14 @@ public class EntregaRecepcion_Delictivo extends Fragment {
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+                                Log.i("peronas","run");
+
                                 String resp = myResponse;
+                                ListaJsonPertenencias = new ArrayList<String>();
+                                ListPertenencia = new ArrayList<String>();
+                                ListDescripcionPertenencia = new ArrayList<String>();
+                                ListDestino = new ArrayList<String>();
+                                ListaIdPertenencias = new ArrayList<String>();
 
 
                                 //***************** RESPUESTA DEL WEBSERVICE **************************//
@@ -501,25 +526,27 @@ public class EntregaRecepcion_Delictivo extends Fragment {
                                 if(ArregloJson.equals(""))
                                 {
                                     //Sin Información. Todos los campos vacíos.
+                                    Log.i("peronas","vacio");
+                                    Log.i("peronas",ArregloJson);
+
 
                                 }
                                 else{
+                                    Log.i("peronas","json");
+
                                     //SEPARAR CADA detenido EN UN ARREGLO
                                     String[] ArrayPertenenciasReal = ArregloJson.split(Pattern.quote("},"));
-                                    ArrayPertenenciasReal = ArrayPertenenciasReal;
-
                                     //RECORRE EL ARREGLO PARA AGREGAR EL FOLIO CORRESPONDIENTE DE CADA OBJETJSN
                                     int contadordePertenencias=0;
                                     while(contadordePertenencias < ArrayPertenenciasReal.length){
                                         try {
                                             JSONObject jsonjObject = new JSONObject(ArrayPertenenciasReal[contadordePertenencias] + "}");
+                                            Log.i("peronas",Integer.toString(contadordePertenencias));
 
-                                            ListaIdPertenencias.add(jsonjObject.getString("IdPertenencia"));
-                                            ListPertenencia.add(jsonjObject.getString("Pertenencia"));
-                                            ListDescripcionPertenencia.add(jsonjObject.getString("DesPertenencia"));
-                                            ListDestino.add(jsonjObject.getString("Destino"));
-
-
+                                            ListaIdPertenencias.add(jsonjObject.getString("IdIngreso"));
+                                            ListPertenencia.add(jsonjObject.getString("APIngreso")+" " +jsonjObject.getString("AMIngreso") + " " + jsonjObject.getString("NombresIngreso"));
+                                            ListDescripcionPertenencia.add(jsonjObject.getString("MotivoIngreso"));
+                                            ListDestino.add(jsonjObject.getString("CargoIngreso"));
 
                                         } catch (JSONException e) {
                                             e.printStackTrace();
@@ -546,11 +573,9 @@ public class EntregaRecepcion_Delictivo extends Fragment {
         });
     }
 
-
-
-
     //***************** ADAPTADOR PARA LLENAR LISTA DE personal que ingresó **************************//
     class MyAdapterRecepcionIngreso extends ArrayAdapter<String> {
+
         Context context;
         ArrayList<String> ListaTablaPertenencias,ListaPertenencias;
 
@@ -565,7 +590,7 @@ public class EntregaRecepcion_Delictivo extends Fragment {
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
             LayoutInflater layoutInflater = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View row = layoutInflater.inflate(R.layout.row_pertenencias, parent, false);
-
+            Log.i("peronas","adapter");
             TextView lblPertenencia = row.findViewById(R.id.lblPertenencia);
             TextView lblDescripcion = row.findViewById(R.id.lblDescripcion);
             TextView lblDestino = row.findViewById(R.id.lblDestino);
@@ -580,5 +605,122 @@ public class EntregaRecepcion_Delictivo extends Fragment {
         }
     }
 
+    //********************************** INSERTAR PERSONAL QUE INGRESÓ AL SERVIDOR ***********************************//
+    public void insertPertenenciasDetenido() {
+        OkHttpClient client = new OkHttpClient();
+        RequestBody body = new FormBody.Builder()
+                .add("IdHechoDelictivo", cargarIdHechoDelictivo)
+                .add("Ingreso", "SI")
+                .add("MotivoIngreso", txtmotivoIngreso.getText().toString())
+                .add("APIngreso", txtPrimerApellidoPersonal.getText().toString())
+                .add("AMIngreso", txtSegundoApellidoPersonal.getText().toString())
+                .add("NombresIngreso", txtNombresPersonal.getText().toString())
+                .add("CargoIngreso", Integer.toString(spCargoIntervencion.getSelectedItemPosition()))
+                .add("InstitucionIngreso", Integer.toString(spInstitucionIntervencion.getSelectedItemPosition()))
+
+                .build();
+        Request request = new Request.Builder()
+                .url("http://189.254.7.167/WebServiceIPH/api/HDTempoRecepcionIngresos")
+                .post(body)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Looper.prepare(); // to be able to make toast
+                Toast.makeText(getContext(), "ERROR AL AGREGAR PERSONAL QUE INGRESÓ, FAVOR DE VERIFICAR SU CONEXCIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    final String myResponse = response.body().string();  /********** ME REGRESA LA RESPUESTA DEL WS ****************/
+                    Log.i("INSERTAR-PERSONAL", myResponse);
+
+                    EntregaRecepcion_Delictivo.this.getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                String resp = myResponse;
+
+                                if(resp.length() == 4)
+                                {
+                                    Toast.makeText(getContext(), "PERTENENCIA AGREGADA CORRECTAMENTE", Toast.LENGTH_LONG).show();
+                                    txtmotivoIngreso.setText("");
+                                    txtPrimerApellidoPersonal.setText("");
+                                    txtSegundoApellidoPersonal.setText("");
+                                    txtNombresPersonal.setText("");
+                                    spCargoIntervencion.setSelection(0);
+                                    spInstitucionIntervencion.setSelection(0);
+                                    CargarRecepcionIngreso();
+                                }
+                                else
+                                {
+                                    Toast.makeText(getContext(), "VUELVA A INTENTARLO", Toast.LENGTH_LONG).show();
+                                }
+                            }
+                            catch (Exception e)
+                            {
+
+                            }
+
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    //***************** EliminarPertenencia Temporales**************************//
+    private void EliminarPersonal(String IdPertenencia) {
+
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("http://189.254.7.167/WebServiceIPH/api/HDTempoRecepcionIngresos?tempoFolioInterno="+cargarIdHechoDelictivo+"&tempoIdIngreso="+IdPertenencia)
+                .delete()
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Looper.prepare(); // to be able to make toast
+                Toast.makeText(getContext(), "ERROR AL ELIMINAR, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    final String myResponse = response.body().string();
+
+                    try {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                String resp = myResponse;
+
+                                //***************** RESPUESTA DEL WEBSERVICE **************************//
+                                //CONVERTIR ARREGLO DE JSON A OBJET JSON
+                                if(resp.equals("true"))
+                                {
+                                    //***************** MENSAJE MÁS ACTUALIZAR LISTA (Recargando el Fragmento xoxo) **************************//
+                                    Toast.makeText(getContext(), "SE ELIMINÓ CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+                                    CargarRecepcionIngreso();
+                                }
+                                else{
+                                    Toast.makeText(getContext(), "PROBLEMA AL ELIMINAR", Toast.LENGTH_SHORT).show();
+                                }
+                                //*************************
+                            }
+                        });
+                    }
+                    catch (Exception e){
+                        Toast.makeText(getContext(), "ERROR AL ELIMINAR PERSONAL, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            }
+        });
+    }
 
 }
