@@ -37,9 +37,13 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.regex.Pattern;
 import java.util.Random;
 
 import mx.ssp.iph.R;
@@ -76,21 +80,20 @@ public class EntregaRecepcion_Delictivo extends Fragment {
             txtPrimerApellidoPersonal,txtSegundoApellidoPersonal,txtNombresPersonal;
     TextView lblFirmaOcultoRecepcionIntervencion;
     private static final  int REQ_CODE_SPEECH_INPUT=100;
+    String cargarIdHechoDelictivo,cargarIdPoliciaPrimerRespondiente;
     RadioGroup rgServiciosEspecializados,rgIngreso;
     Spinner spAdscripcionPersonaRecepciondelLugar,spCargoPersonaRecepciondelLugar,
             spCargoIntervencion,spInstitucionIntervencion;
     Button btnGuardarEntregaRecepcion;
     SharedPreferences share;
-    String cargarIdPoliciaPrimerRespondiente,cargarIdHechoDelictivo,
-            varServiciosEspecializados,varIngreso,descAutoridad,descCargo,rutaFirmaRecibe,cadena;
+    String varServiciosEspecializados,varIngreso,descAutoridad,descCargo,rutaFirmaRecibe,cadena;
     int numberRandom,randomUrlImagen;
 
     private ImageView btnAgregarPersona;
     private ListView lvPersonas;
 
     ArrayList<String> ListaJsonPertenencias;
-    ArrayList<String> ListPertenencia,ListDescripcionPertenencia,ListDestino,ListaTablaPertenencias,ListaIdPertenencias;
-    SharedPreferences share;
+    ArrayList<String> ListPertenencia,ListDescripcionPertenencia,ListDestino,ListaIdPertenencias;
 
 
     public static EntregaRecepcion_Delictivo newInstance() {
@@ -105,8 +108,8 @@ public class EntregaRecepcion_Delictivo extends Fragment {
         funciones = new Funciones();
         funciones.CambiarTituloSeccionesDelictivo("ANEXO F. ENTREGA-RECPCIÓN DEL LUGAR DE LA INTERVENCIÓN",getContext(),getActivity());
 
-        //************************************** ACCIONES DE LA VISTA **************************************//
         cargarDatos();
+        //************************************** ACCIONES DE LA VISTA **************************************//
         //Botones Imagen
         imgMicrofonoAccionesRealizadas = view.findViewById(R.id.imgMicrofonoAccionesRealizadas);
         imgMicrofonoObservacionesLugarIntervencion = view.findViewById(R.id.imgMicrofonoObservacionesLugarIntervencion);
@@ -144,11 +147,14 @@ public class EntregaRecepcion_Delictivo extends Fragment {
         lvPersonas = view.findViewById(R.id.lvPersonas);
 
 
+
         //Consulta si hay conexión a internet y realiza la peticion al ws de consulta de los datos.
         if (funciones.ping(getContext()))
         {
             //Toast.makeText(getContext(), "cargarNoReferenciaAdministrativa()", Toast.LENGTH_LONG).show();
             //cargarEntregaRecepcion();
+            CargarRecepcionIngreso();
+
         }
 
 
@@ -426,11 +432,20 @@ public class EntregaRecepcion_Delictivo extends Fragment {
             System.out.println("YA EXISTE INFORMACIÓN DE AUTORIDAD");
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_layout, R.id.txt, autoridad);
             spAdscripcionPersonaRecepciondelLugar.setAdapter(adapter);
-            spCargoIntervencion.setAdapter(adapter);
+            spInstitucionIntervencion.setAdapter(adapter);
         }else{
             Toast.makeText(getContext(), "LO SENTIMOS, NO CUENTA CON ADSCRIPCIONES.", Toast.LENGTH_LONG).show();
         }
     }
+
+
+
+    public void random(){
+        Random random = new Random();
+        numberRandom = random.nextInt(9000)*99;
+        randomUrlImagen = numberRandom;
+    }
+
 
     public void cargarDatos() {
         share = getContext().getSharedPreferences("main", Context.MODE_PRIVATE);
@@ -438,10 +453,132 @@ public class EntregaRecepcion_Delictivo extends Fragment {
         cargarIdHechoDelictivo = share.getString("IDHECHODELICTIVO", "SIN INFORMACION");
     }
 
-    public void random(){
-        Random random = new Random();
-        numberRandom = random.nextInt(9000)*99;
-        randomUrlImagen = numberRandom;
+    private void CargarPersonalIngreso(){
+
+
+
     }
+
+    //***************** agregar pertencias a list temporal **************************//
+    private void CargarRecepcionIngreso() {
+        ListaJsonPertenencias = new ArrayList<String>();
+        ListPertenencia = new ArrayList<String>();
+        ListDescripcionPertenencia = new ArrayList<String>();
+        ListDestino = new ArrayList<String>();
+        ListaIdPertenencias = new ArrayList<String>();
+
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("http://189.254.7.167/WebServiceIPH/api/HDTempoRecepcionIngresos?folioInternoIngreso="+cargarIdHechoDelictivo)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Looper.prepare(); // to be able to make toast
+                Toast.makeText(getContext(), "ERROR AL CONSULTAR PERSONAS ANEXO F, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    final String myResponse = response.body().string();
+
+                    try {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                String resp = myResponse;
+
+
+                                //***************** RESPUESTA DEL WEBSERVICE **************************//
+
+                                //CONVERTIR ARREGLO DE JSON A OBJET JSON
+                                String ArregloJson = resp.replace("[", "");
+                                ArregloJson = ArregloJson.replace("]", "");
+
+                                if(ArregloJson.equals(""))
+                                {
+                                    //Sin Información. Todos los campos vacíos.
+
+                                }
+                                else{
+                                    //SEPARAR CADA detenido EN UN ARREGLO
+                                    String[] ArrayPertenenciasReal = ArregloJson.split(Pattern.quote("},"));
+                                    ArrayPertenenciasReal = ArrayPertenenciasReal;
+
+                                    //RECORRE EL ARREGLO PARA AGREGAR EL FOLIO CORRESPONDIENTE DE CADA OBJETJSN
+                                    int contadordePertenencias=0;
+                                    while(contadordePertenencias < ArrayPertenenciasReal.length){
+                                        try {
+                                            JSONObject jsonjObject = new JSONObject(ArrayPertenenciasReal[contadordePertenencias] + "}");
+
+                                            ListaIdPertenencias.add(jsonjObject.getString("IdPertenencia"));
+                                            ListPertenencia.add(jsonjObject.getString("Pertenencia"));
+                                            ListDescripcionPertenencia.add(jsonjObject.getString("DesPertenencia"));
+                                            ListDestino.add(jsonjObject.getString("Destino"));
+
+
+
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                            Toast.makeText(getContext(), "ERROR AL DESEREALIZAR EL JSON", Toast.LENGTH_SHORT).show();
+                                        }
+                                        contadordePertenencias++;
+                                    }
+                                }
+
+                                //*************************
+                                EntregaRecepcion_Delictivo.MyAdapterRecepcionIngreso adapter = new EntregaRecepcion_Delictivo.MyAdapterRecepcionIngreso(getContext(), ListaIdPertenencias, ListPertenencia);
+                                lvPersonas.setAdapter(adapter);
+                                funciones.ajustaAlturaListView(lvPersonas,80);
+                            }
+                        });
+                    }
+
+                    catch (Exception e){
+                        Toast.makeText(getContext(), "ERROR AL SOLICITAR LISTA ANEXO F, POR FAVOR VERIFIQUE SU CONEXIÓN A INTERNET", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            }
+        });
+    }
+
+
+
+
+    //***************** ADAPTADOR PARA LLENAR LISTA DE personal que ingresó **************************//
+    class MyAdapterRecepcionIngreso extends ArrayAdapter<String> {
+        Context context;
+        ArrayList<String> ListaTablaPertenencias,ListaPertenencias;
+
+        MyAdapterRecepcionIngreso (Context c, ArrayList<String> ListaTablaPertenencias, ArrayList<String> ListaPertenencias) {
+            super(c, R.layout.row_pertenencias, ListaTablaPertenencias);
+            this.context = c;
+            this.ListaTablaPertenencias = ListaTablaPertenencias;
+            this.ListaPertenencias = ListaPertenencias;
+        }
+        @NonNull
+        @Override
+        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+            LayoutInflater layoutInflater = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View row = layoutInflater.inflate(R.layout.row_pertenencias, parent, false);
+
+            TextView lblPertenencia = row.findViewById(R.id.lblPertenencia);
+            TextView lblDescripcion = row.findViewById(R.id.lblDescripcion);
+            TextView lblDestino = row.findViewById(R.id.lblDestino);
+
+
+            // Asigna los valores
+            lblPertenencia.setText(ListPertenencia.get(position));
+            lblDescripcion.setText(ListDescripcionPertenencia.get(position));
+            lblDestino.setText(ListDestino.get(position));
+
+            return row;
+        }
+    }
+
 
 }
