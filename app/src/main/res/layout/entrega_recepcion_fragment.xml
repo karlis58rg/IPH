@@ -164,7 +164,7 @@
                         android:singleLine="true"
                         android:maxLines="1"
                         android:lines="1"
-                        android:imeOptions="actionNext"/>
+                        android:imeOptions="actionDone"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -278,7 +278,7 @@
                         android:singleLine="true"
                         android:maxLines="1"
                         android:lines="1"
-                        android:imeOptions="actionNext"/>
+                        android:imeOptions="actionDone"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -376,7 +376,7 @@
                         android:singleLine="true"
                         android:maxLines="1"
                         android:lines="1"
-                        android:imeOptions="actionNext"/>
+                        android:imeOptions="actionDone"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -643,7 +643,7 @@
                         android:singleLine="true"
                         android:maxLines="1"
                         android:lines="1"
-                        android:imeOptions="actionNext"/>
+                        android:imeOptions="actionDone"/>
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
@@ -697,7 +697,8 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:weightSum="1"
-                    android:layout_weight="0.5">
+                    android:layout_weight="0.5"
+                    android:focusableInTouchMode="true">
                     <TextView
                         android:id="@+id/lblFirmaPersonaRecepciondelLugar"
                         android:layout_width="wrap_content"

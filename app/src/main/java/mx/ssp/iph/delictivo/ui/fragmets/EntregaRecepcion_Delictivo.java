@@ -22,6 +22,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -91,6 +92,7 @@ public class EntregaRecepcion_Delictivo extends Fragment {
     Button btnGuardarEntregaRecepcion;
     SharedPreferences share;
     String varServiciosEspecializados,varIngreso,descAutoridad,descCargo,rutaFirmaRecibe,cadena;
+    LinearLayout Linear2, Linear3, Linear5, lyFirmaPersonaRecepciondelLugar, Linear11ObservacionesLugarIntervencion;
     int numberRandom,randomUrlImagen;
 
     private ImageView btnAgregarPersona;
@@ -148,6 +150,11 @@ public class EntregaRecepcion_Delictivo extends Fragment {
         txtNombresPersonal = view.findViewById(R.id.txtNombresPersonal);
         spCargoIntervencion = view.findViewById(R.id.spCargoIntervencion);
         spInstitucionIntervencion = view.findViewById(R.id.spInstitucionIntervencion);
+        Linear2 = view.findViewById(R.id.Linear2);
+        Linear3 = view.findViewById(R.id.Linear3);
+        Linear5 = view.findViewById(R.id.Linear5);
+        lyFirmaPersonaRecepciondelLugar = view.findViewById(R.id.lyFirmaPersonaRecepciondelLugar);
+        Linear11ObservacionesLugarIntervencion = view.findViewById(R.id.Linear11ObservacionesLugarIntervencion);
         ListCombos();
 
         //Personas
@@ -290,24 +297,56 @@ public class EntregaRecepcion_Delictivo extends Fragment {
     private void PrimeraValidacion(){
         if(txtAccionesRealizadas.getText().toString().length() >= 3){
             if(rbNoServiciosEspecializados.isChecked()){
-                //Segunda Validacion
-                SegundaValidacion();
 
-            }
-            else if(rgSiIngreso.isChecked()){
-                if(txtmotivoIngreso.getText().toString().length() >= 3){
+                if(rgNoIngreso.isChecked()){
                     //Segunda Validacion
                     SegundaValidacion();
+
+                }
+
+                else if(rgSiIngreso.isChecked()){
+                    if(txtmotivoIngreso.getText().toString().length() >= 3){
+                        //Segunda Validacion
+                        SegundaValidacion();
+
+                    }
                 }
 
                 else{
-                    Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL MOTIVO DE INGRESO DE LA PERSONA", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA SI INGRESÓ OTRA PERSONA AL LUGAR", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+            else if(rbSiServiciosEspecializados.isChecked()){
+                if(txtCualAutoridad.getText().toString().length() >= 3){
+
+                    if(rgNoIngreso.isChecked()){
+                        //Segunda Validacion
+                        SegundaValidacion();
+
+                    }
+
+                    else if(rgSiIngreso.isChecked()){
+                        if(txtmotivoIngreso.getText().toString().length() >= 3){
+                            //Segunda Validacion
+                            SegundaValidacion();
+
+                        }
+                    }
+
+                    else{
+                        Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA SI INGRESÓ OTRA PERSONA AL LUGAR", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                else{
+                    Toast.makeText(getActivity().getApplicationContext(), "INGRESA A QUÉ AUTORIDAD O SERVICIOS ESPECIALIZADOS SOLICITÓ APOYO", Toast.LENGTH_SHORT).show();
                 }
 
             }
 
             else{
-                Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA SI INGRESÓ OTRA PERSONA AL LUGAR", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA SI SOLICITÓ APOYO DE ALGUNA AUTORIDAD O SERVICIOS ESPECIALIZADOS", Toast.LENGTH_SHORT).show();
             }
         }
 
