@@ -135,9 +135,7 @@ public class Detenciones_Delictivo extends Fragment {
             descTipoDocumentoHD,descMunicipioPersonaDetenidaHD,descMunicipioLugarDetenidoHD,
             varLesiones,varPadecimientos,varGrupoVulnerable,varGrupoDelictivo,varProporcionoFamiliar,
             varInformoDerechos,rutaFirma,varLugarTraslado,descPadecimiento,descGrupoVulnerable,descGrupoDelictivo,
-            varIdentificacionDocumento,varLugarDetencionDelictivo,varPertenenciasDetenidoDelictivo="NO",
-            varExisteLugarIntervencion="NO";
-
+            varIdentificacionDocumento,varLugarDetencionDelictivo,varPertenenciasDetenidoDelictivo="NO";
 
     ViewGroup segundoLinear, cuartoLinear, quintoUnoLinear,
             quintoTresLinear, catorceavoLinear, quinceavoLinear,
@@ -412,7 +410,6 @@ public class Detenciones_Delictivo extends Fragment {
         {
             //Toast.makeText(getContext(), "cargarNoReferenciaAdministrativa()", Toast.LENGTH_LONG).show();
             cargarDetenidos();
-            ExisteLugarIntervencion();
         }
 
         //***************** FECHA  **************************//
@@ -490,7 +487,7 @@ public class Detenciones_Delictivo extends Fragment {
                     varLugarDetencionDelictivo = "NO";
 
                     spMunicipioDireccionDetencion.setEnabled(true);
-                    spMunicipioDireccionDetencion.setVisibility(View.VISIBLE);
+                    spMunicipioDireccionDetencion.setEnabled(true);
                     txtColoniaDetencion.setEnabled(true);
                     txtCalleDetencion.setEnabled(true);
                     txtNumeroExteriorDetencion.setEnabled(true);
@@ -511,7 +508,7 @@ public class Detenciones_Delictivo extends Fragment {
                     txtReferenciasdelLugarDetencion.setText("");
 
                     spMunicipioDireccionDetencion.setEnabled(false);
-                    spMunicipioDireccionDetencion.setVisibility(View.INVISIBLE);
+                    spMunicipioDireccionDetencion.setEnabled(false);
                     txtColoniaDetencion.setEnabled(false);
                     txtCalleDetencion.setEnabled(false);
                     txtNumeroExteriorDetencion.setEnabled(false);
@@ -1283,7 +1280,6 @@ public class Detenciones_Delictivo extends Fragment {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url("http://189.254.7.167/WebServiceIPH/api/HDLugarIntervencion?folioInternoIntervencion="+cargarIdHechoDelictivo)
-                .delete()
                 .build();
         client.newCall(request).enqueue(new Callback() {
             @Override
@@ -1298,6 +1294,7 @@ public class Detenciones_Delictivo extends Fragment {
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {
                     final String myResponse = response.body().string();
+                    Log.i("LUGARDETENCION","Respuesta WS = issuccessful");
 
                     try {
                         getActivity().runOnUiThread(new Runnable() {
@@ -1308,10 +1305,11 @@ public class Detenciones_Delictivo extends Fragment {
                                 //***************** RESPUESTA DEL WEBSERVICE **************************//
                                 if(resp.equals("true"))
                                 {
-                                    varExisteLugarIntervencion = "SI";
+                                    Log.i("LUGARDETENCION","Respuesta WS = true");
+                                    SextaValidacion();
                                 }
                                 else{
-                                    varExisteLugarIntervencion = "NO";
+                                    Toast.makeText(getActivity().getApplicationContext(), "LLENA PRIMERO LA SECCIÓN 4 Ó LLENA LOS CAMPOS DIRECCIÓN DEL LUGAR DE LA DETENCIÓN.", Toast.LENGTH_SHORT).show();
                                 }
                                 //*************************
                             }
@@ -1327,76 +1325,48 @@ public class Detenciones_Delictivo extends Fragment {
 
     public void QuintaValidacion(){
 
-        ExisteLugarIntervencion();
 
-        if(rbSiLugarDetencionDelictivo.isChecked() && varExisteLugarIntervencion.equals("NO") ){
-            Toast.makeText(getActivity().getApplicationContext(), "SELECCIONE \"NO\" Y ESPECIFIQUE EL LUGAR DE LA DETENCIÓN O LLENE PRIMERO LA SECCIÓN 4: LUGAR DE LA INTERVENCIÓN", Toast.LENGTH_SHORT).show();
-            septimotresLinear.requestFocus();
-            lyColoniaInterDelic.requestFocus();
-            septimotresLinear.requestFocus();
-        }
-
-        else if(rbSiLugarDetencionDelictivo.isChecked() && varExisteLugarIntervencion.equals("SI") ){
-            SextaValidacion();
-            /*
-                        //VALIDACION DIRECCION DETENCIÓN
-                        if(txtColoniaDetencion.getText().toString().length() >= 3){
-                            if(txtCalleDetencion.getText().toString().length() >= 3){
-                                if(txtReferenciasdelLugarDetencion.getText().toString().length() >= 3){
-                                    SextaValidacion();
-                                } else {
-                                    Toast.makeText(getActivity().getApplicationContext(), "INGRESA AL MENOS UNA REFERENCIA DEL LUGAR DE LA DETENCIÓN", Toast.LENGTH_SHORT).show();
-                                    lyReferenciaLugarDet.requestFocus();
-                                    txtReferenciasdelLugarDetencion.requestFocus();
-                                }
-                            } else {
-                                Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA CALLE O TRAMO CARRETERO DEL LUGAR DE LA INTERVENCIÓN", Toast.LENGTH_SHORT).show();
-                                lyCalleTramoDet.requestFocus();
-                                txtCalleDetencion.requestFocus();
-                            }
+        //Si seleccionó que si
+        if (rbSiLugarDetencionDelictivo.isChecked())
+        {
+            Log.i("LUGARDETENCION","rbSi is checked");
+            ExisteLugarIntervencion();
+        }//Si seleccionó que no
+        else if(rbNoLugarDetencionDelictivo.isChecked())
+        {
+            //Valida todos los datos de Entidad y municipio etc.
+                //VALIDACION DIRECCION DETENCIÓN
+                if(txtColoniaDetencion.getText().toString().length() >= 3){
+                    if(txtCalleDetencion.getText().toString().length() >= 3){
+                        if(txtReferenciasdelLugarDetencion.getText().toString().length() >= 3){
+                            SextaValidacion();
                         } else {
-                            Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA COLONIA O LOCALIDAD DEL LUGAR DE LA INTERVENCIÓN", Toast.LENGTH_SHORT).show();
-                            lyColoniaInterDelic.requestFocus();
-                            txtColoniaDetencion.requestFocus();
-
+                            Toast.makeText(getActivity().getApplicationContext(), "INGRESA AL MENOS UNA REFERENCIA DEL LUGAR DE LA DETENCIÓN", Toast.LENGTH_SHORT).show();
+                            lyReferenciaLugarDet.requestFocus();
+                            txtReferenciasdelLugarDetencion.requestFocus();
                         }
-             */
-
-        }
-
-        else if(rbNoLugarDetencionDelictivo.isChecked()){
-            //VALIDACION DIRECCION DETENCIÓN
-            if(txtColoniaDetencion.getText().toString().length() >= 3){
-                if(txtCalleDetencion.getText().toString().length() >= 3){
-                    if(txtReferenciasdelLugarDetencion.getText().toString().length() >= 3){
-                        SextaValidacion();
                     } else {
-                        Toast.makeText(getActivity().getApplicationContext(), "INGRESA AL MENOS UNA REFERENCIA DEL LUGAR DE LA DETENCIÓN", Toast.LENGTH_SHORT).show();
-                        lyReferenciaLugarDet.requestFocus();
-                        txtReferenciasdelLugarDetencion.requestFocus();
+                        Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA CALLE O TRAMO CARRETERO DEL LUGAR DE LA INTERVENCIÓN", Toast.LENGTH_SHORT).show();
+                        lyCalleTramoDet.requestFocus();
+                        txtCalleDetencion.requestFocus();
                     }
                 } else {
-                    Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA CALLE O TRAMO CARRETERO DEL LUGAR DE LA INTERVENCIÓN", Toast.LENGTH_SHORT).show();
-                    lyCalleTramoDet.requestFocus();
-                    txtCalleDetencion.requestFocus();
+                    Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA COLONIA O LOCALIDAD DEL LUGAR DE LA INTERVENCIÓN", Toast.LENGTH_SHORT).show();
+                    lyColoniaInterDelic.requestFocus();
+                    txtColoniaDetencion.requestFocus();
                 }
-            } else {
-                Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA COLONIA O LOCALIDAD DEL LUGAR DE LA INTERVENCIÓN", Toast.LENGTH_SHORT).show();
-                lyColoniaInterDelic.requestFocus();
-                txtColoniaDetencion.requestFocus();
-            }
         }
-
-        else {
-            Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA SI EL LUGAR DE LA DETENCIÓN ES EL MISMO QUE EL DE LA INTERVENCIÓN", Toast.LENGTH_SHORT).show();
-            septimotresLinear.requestFocus();
-            lyColoniaInterDelic.requestFocus();
+        else
+        {//No ha seleccionada nada todavía.
+            Toast.makeText(getActivity().getApplicationContext(), "SELECCIONE SI EL LUGAR DE LA DETENCIÓN ES EL MISMO QUE EL LUGAR DE LA INTERVENCIÓN", Toast.LENGTH_SHORT).show();
             septimotresLinear.requestFocus();
         }
 
     }
 
     public void SextaValidacion(){
+        Log.i("LUGARDETENCION","INICIA SEXTA VALIDACIÓN");
+
         if(rbLugarTrasladoDetencionFiscaliaAgencia.isChecked() || rbLugarTrasladoDetencionHospital.isChecked() || rbLugarTrasladoDetencionOtraDependencia.isChecked()){
             if(txtCualLugarTraslado.getText().toString().length() >= 3){
 
