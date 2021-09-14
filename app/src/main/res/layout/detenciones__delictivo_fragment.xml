@@ -758,7 +758,7 @@
                         android:layout_height="wrap_content"
                         android:maxLength="500"
                         android:inputType="textCapCharacters"
-                        android:digits="@string/validacion_notas"
+                        android:digits="@string/validacion_referenciasdomicilio"
                         android:singleLine="true"
                         android:maxLines="1"
                         android:lines="1"

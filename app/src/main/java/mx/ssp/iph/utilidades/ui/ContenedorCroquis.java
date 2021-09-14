@@ -87,11 +87,11 @@ public class ContenedorCroquis extends DialogFragment {
                     lienzo.destroyDrawingCache();
 
                     lblFirma = (TextView) getActivity().findViewById(idlblFirma);
-                    lblFirma.setText("FIRMA REGISTRADA");
+                    lblFirma.setText("CROQUIS REGISTRADO");
 
                     lblFirmaBase64 = (TextView) getActivity().findViewById(idlblFirmaBase64);
                     lblFirmaBase64.setText(encoded);
-                    Log.i("FIRMA", "FIRMA REALIZADA:"+ encoded);
+                    Log.i("FIRMA", "CROQUIS REGISTRADO:"+ encoded);
 
 
                     imgFirmaMiniatura = (ImageView) getActivity().findViewById(IdimgFirmaMiniatura);

@@ -375,6 +375,14 @@ public class Detenciones_Delictivo extends Fragment {
         lblDescripcion.setEnabled(false);
         lblDestino.setEnabled(false);
 
+        spMunicipioDireccionDetencion.setEnabled(false);
+        txtColoniaDetencion.setEnabled(false);
+        txtCalleDetencion.setEnabled(false);
+        txtNumeroExteriorDetencion.setEnabled(false);
+        txtNumeroInteriorDetencion.setEnabled(false);
+        txtCodigoPostalDetencion.setEnabled(false);
+        txtReferenciasdelLugarDetencion.setEnabled(false);
+
         target = new Target() {
             @Override
             public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
@@ -480,9 +488,37 @@ public class Detenciones_Delictivo extends Fragment {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (checkedId == R.id.rbNoLugarDetencionDelictivo) {
                     varLugarDetencionDelictivo = "NO";
+
+                    spMunicipioDireccionDetencion.setEnabled(true);
+                    spMunicipioDireccionDetencion.setVisibility(View.VISIBLE);
+                    txtColoniaDetencion.setEnabled(true);
+                    txtCalleDetencion.setEnabled(true);
+                    txtNumeroExteriorDetencion.setEnabled(true);
+                    txtNumeroInteriorDetencion.setEnabled(true);
+                    txtCodigoPostalDetencion.setEnabled(true);
+                    txtReferenciasdelLugarDetencion.setEnabled(true);
+
                 }
                 else if (checkedId == R.id.rbSiLugarDetencionDelictivo) {
                         varLugarDetencionDelictivo = "SI";
+
+                    spMunicipioDireccionDetencion.setSelection(0);
+                    txtColoniaDetencion.setText("");
+                    txtCalleDetencion.setText("");
+                    txtNumeroExteriorDetencion.setText("");
+                    txtNumeroInteriorDetencion.setText("");
+                    txtCodigoPostalDetencion.setText("");
+                    txtReferenciasdelLugarDetencion.setText("");
+
+                    spMunicipioDireccionDetencion.setEnabled(false);
+                    spMunicipioDireccionDetencion.setVisibility(View.INVISIBLE);
+                    txtColoniaDetencion.setEnabled(false);
+                    txtCalleDetencion.setEnabled(false);
+                    txtNumeroExteriorDetencion.setEnabled(false);
+                    txtNumeroInteriorDetencion.setEnabled(false);
+                    txtCodigoPostalDetencion.setEnabled(false);
+                    txtReferenciasdelLugarDetencion.setEnabled(false);
+
                 }
             }
         });
@@ -1291,11 +1327,16 @@ public class Detenciones_Delictivo extends Fragment {
 
     public void QuintaValidacion(){
 
-        if(rbSiLugarDetencionDelictivo.isChecked() && varExisteLugarIntervencion.equals("NO") )
-        {
-            Toast.makeText(getActivity().getApplicationContext(), "SELECCIONE NO Y ESPECIFIQUE EL LUGAR DE LA DETENCION. Ó LLENE PRIMERO LA SECCIÓN 4: LUGAR DE LA INTERVENCIÓN", Toast.LENGTH_SHORT).show();
+        ExisteLugarIntervencion();
+
+        if(rbSiLugarDetencionDelictivo.isChecked() && varExisteLugarIntervencion.equals("NO") ){
+            Toast.makeText(getActivity().getApplicationContext(), "SELECCIONE \"NO\" Y ESPECIFIQUE EL LUGAR DE LA DETENCIÓN O LLENE PRIMERO LA SECCIÓN 4: LUGAR DE LA INTERVENCIÓN", Toast.LENGTH_SHORT).show();
             septimotresLinear.requestFocus();
-        } else if(rbSiLugarDetencionDelictivo.isChecked() && varExisteLugarIntervencion.equals("SI") ){
+            lyColoniaInterDelic.requestFocus();
+            septimotresLinear.requestFocus();
+        }
+
+        else if(rbSiLugarDetencionDelictivo.isChecked() && varExisteLugarIntervencion.equals("SI") ){
             SextaValidacion();
             /*
                         //VALIDACION DIRECCION DETENCIÓN
@@ -1321,7 +1362,9 @@ public class Detenciones_Delictivo extends Fragment {
                         }
              */
 
-        } else if(rbNoLugarDetencionDelictivo.isChecked()){
+        }
+
+        else if(rbNoLugarDetencionDelictivo.isChecked()){
             //VALIDACION DIRECCION DETENCIÓN
             if(txtColoniaDetencion.getText().toString().length() >= 3){
                 if(txtCalleDetencion.getText().toString().length() >= 3){
@@ -1342,8 +1385,12 @@ public class Detenciones_Delictivo extends Fragment {
                 lyColoniaInterDelic.requestFocus();
                 txtColoniaDetencion.requestFocus();
             }
-        } else {
+        }
+
+        else {
             Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA SI EL LUGAR DE LA DETENCIÓN ES EL MISMO QUE EL DE LA INTERVENCIÓN", Toast.LENGTH_SHORT).show();
+            septimotresLinear.requestFocus();
+            lyColoniaInterDelic.requestFocus();
             septimotresLinear.requestFocus();
         }
 

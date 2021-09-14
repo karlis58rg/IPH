@@ -359,6 +359,7 @@ preguntas: ¿Quién? (personas), ¿Qué? (hechos), ¿Cómo? (circunstancias), ¿
     <string name="destino">Destino</string>
     <string name="validacion_latitud">0123456789.</string>
     <string name="validacion_longitud">0123456789.-</string>
+    <string name="validacion_referenciasdomicilio">ABCDEFGHIJKLMNÑOPQRSTUVWXYZ,.-(")\' ÁÉÍÓÚÜ 0123456789° \n \\ \/ #</string>
     <string name="validacion_numexpediente">ABCDEFGHIJKLMNÑOPQRSTUVWXYZ 0123456789-/</string>
     <string name="validacion_usuariocontrasena">ABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789</string>
 

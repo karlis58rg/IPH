@@ -22,6 +22,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -84,6 +85,7 @@ public class EntregaRecepcion_Delictivo extends Fragment {
     private static final  int REQ_CODE_SPEECH_INPUT=100;
     String cargarIdHechoDelictivo,cargarIdPoliciaPrimerRespondiente;
     RadioGroup rgServiciosEspecializados,rgIngreso;
+    RadioButton rbNoServiciosEspecializados, rbSiServiciosEspecializados, rgNoIngreso, rgSiIngreso;
     Spinner spAdscripcionPersonaRecepciondelLugar,spCargoPersonaRecepciondelLugar,
             spCargoIntervencion,spInstitucionIntervencion;
     Button btnGuardarEntregaRecepcion;
@@ -131,6 +133,10 @@ public class EntregaRecepcion_Delictivo extends Fragment {
         txtHoraEntregaRecepcionLugardelaIntervencion = view.findViewById(R.id.txtHoraEntregaRecepcionLugardelaIntervencion);
         rgServiciosEspecializados = view.findViewById(R.id.rgServiciosEspecializados);
         rgIngreso = view.findViewById(R.id.rgIngreso);
+        rbNoServiciosEspecializados = view.findViewById(R.id.rbNoServiciosEspecializados);
+        rbSiServiciosEspecializados = view.findViewById(R.id.rbSiServiciosEspecializados);
+        rgNoIngreso = view.findViewById(R.id.rgNoIngreso);
+        rgSiIngreso = view.findViewById(R.id.rgSiIngreso);
         spAdscripcionPersonaRecepciondelLugar = view.findViewById(R.id.spAdscripcionPersonaRecepciondelLugar);
         spCargoPersonaRecepciondelLugar = view.findViewById(R.id.spCargoPersonaRecepciondelLugar);
         btnGuardarEntregaRecepcion = view.findViewById(R.id.btnGuardarEntregaRecepcion);
@@ -228,6 +234,7 @@ public class EntregaRecepcion_Delictivo extends Fragment {
         btnGuardarEntregaRecepcion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
                 if(lblFirmaOcultoRecepcionIntervencion.getText().toString().isEmpty()){
                     rutaFirmaRecibe = "NA";
@@ -235,7 +242,7 @@ public class EntregaRecepcion_Delictivo extends Fragment {
                     rutaFirmaRecibe = "http://189.254.7.167/WebServiceIPH/FirmaRecepcionLugarIntervencion/"+cargarIdHechoDelictivo+randomUrlImagen+".jpg";
                     insertImagen();
                 }
-                insertRecepcionLugarIntervencion();
+                PrimeraValidacion();
 
             }
         });
@@ -271,13 +278,96 @@ public class EntregaRecepcion_Delictivo extends Fragment {
          @Override
          public void onClick(View v) {
              if (true) {
-                 insertPertenenciasDetenido();
+                 ValidacionIngresaPersona();
              }
          }
      });
 
         /***************************************************************************************/
         return view;
+    }
+
+    private void PrimeraValidacion(){
+        if(txtAccionesRealizadas.getText().toString().length() >= 3){
+            if(rbNoServiciosEspecializados.isChecked()){
+                //Segunda Validacion
+                SegundaValidacion();
+
+            }
+            else if(rgSiIngreso.isChecked()){
+                if(txtmotivoIngreso.getText().toString().length() >= 3){
+                    //Segunda Validacion
+                    SegundaValidacion();
+                }
+
+                else{
+                    Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL MOTIVO DE INGRESO DE LA PERSONA", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+            else{
+                Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA SI INGRESÓ OTRA PERSONA AL LUGAR", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        else{
+            Toast.makeText(getActivity().getApplicationContext(), "EXPLIQUE LAS ACCIONES REALIZADAS", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void SegundaValidacion(){
+        if(txtPrimerApellidoPersonaRecepciondelLugar.getText().toString().length() >= 3){
+            if(txtNombresPersonaRecepciondelLugar.getText().toString().length() >= 3){
+                if(lblFirmaOcultoRecepcionIntervencion.getText().toString().isEmpty()){
+                    Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA FIRMA DE LA PERSONA QUE RECEPCIONA EL LUGAR DE LA INTERVENCIÓN", Toast.LENGTH_SHORT).show();
+                }
+
+                else{
+                    if(txtObservacionesLugarIntervencion.getText().toString().length() >= 3){
+                        if(txtFechaEntregaRecepcionLugardelaIntervencion.getText().toString().length() >= 3 ||  txtHoraEntregaRecepcionLugardelaIntervencion.getText().toString().length() >= 3){
+                            //Inserta Datos
+                            Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
+                            insertRecepcionLugarIntervencion();
+                        }
+
+                        else{
+                            Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA FECHA Y HORA DE LA ENTREGA - RECEPCIÓN DEL LUGAR DE LA INTERVENCIÓN", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+
+                    else{
+                        Toast.makeText(getActivity().getApplicationContext(), "INGRESA SI HAY OBSERVACIONES DE LA PRESERVACIÓN DEL LUGAR", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+            }
+
+            else{
+                Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL NOMBRE DE LA PERSONA QUE RECEPCIONA EL LUGAR DE LA INTERVENCIÓN", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        else{
+            Toast.makeText(getActivity().getApplicationContext(), "INGRESA AL MENOS EL PRIMER APELLIDO DE LA PERSONA QUE RECEPCIONA EL LUGAR DE LA INTERVENCIÓN", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void ValidacionIngresaPersona(){
+        if(txtPrimerApellidoPersonal.getText().toString().length() >= 3){
+            if(txtNombresPersonal.getText().toString().length() >= 3){
+                insertPertenenciasDetenido();
+            }
+
+            else{
+                Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL NOMBRE DE LA PERSONA QUE INGRESO AL LUGAR DE LA INTERVENCIÓN", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        else{
+            Toast.makeText(getActivity().getApplicationContext(), "INGRESA AL MENOS EL PRIMER APELLIDO DE LA PERSONA QUE INGRESO AL LUGAR DE LA INTERVENCIÓN", Toast.LENGTH_SHORT).show();
+        }
     }
 
 
