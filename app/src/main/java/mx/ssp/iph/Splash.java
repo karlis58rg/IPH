@@ -18,7 +18,7 @@ public class Splash extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-
+        guardarUsuario("IPH004");
         cargarDatos();
 
         new Handler().postDelayed(new Runnable() {
@@ -42,5 +42,14 @@ public class Splash extends AppCompatActivity {
         cargarInfoUsuario = share.getString("Usuario","");
         System.out.println(cargarInfoUsuario);
     }
+
+
+    private void guardarUsuario(String Usuario) {
+        share = getSharedPreferences("main", MODE_PRIVATE);
+        editor = share.edit();
+        editor.putString("Usuario", Usuario );
+        editor.commit();
+    }
+
 
 }

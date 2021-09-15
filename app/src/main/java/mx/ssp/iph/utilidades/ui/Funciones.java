@@ -159,7 +159,6 @@ public class Funciones {
         alto = (listView.getAdapter().getCount())*factorAlto;
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ancho, alto);
         listView.setLayoutParams(params);
-
     }
 
 }

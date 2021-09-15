@@ -2,6 +2,8 @@
 
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.Activity;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,6 +11,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -27,11 +30,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -50,6 +55,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 import mx.ssp.iph.Login;
@@ -64,6 +70,7 @@ import mx.ssp.iph.delictivo.model.ModeloHechoDelictivo;
 import mx.ssp.iph.delictivo.model.ModeloRecibeDisposicion_Delictivo;
 import mx.ssp.iph.delictivo.viewModel.HechosDelictivosViewModel;
 import mx.ssp.iph.principal.ui.activitys.Principal;
+import mx.ssp.iph.utilidades.GridViewAdapter;
 import mx.ssp.iph.utilidades.ui.ContenedorFirmaDelictivo;
 import mx.ssp.iph.utilidades.ui.ContenedorFirmaPDisposicionDelictivo;
 import okhttp3.Call;
@@ -75,8 +82,11 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import mx.ssp.iph.utilidades.ui.ContenedorFirma;
 import mx.ssp.iph.utilidades.ui.Funciones;
+import retrofit2.http.GET;
 
-public class HechosDelictivos extends Fragment {
+import static android.app.Activity.RESULT_OK;
+
+                                                                                                                                                                                                                           public class HechosDelictivos extends Fragment {
 
     private HechosDelictivosViewModel mViewModel;
     Button btnGuardarHechoDelictivo;
@@ -103,6 +113,16 @@ public class HechosDelictivos extends Fragment {
             lyUsoFuerzaAnexoBDelictivo, lyEntrevistasDelictivo, lyInspeccionVehiculoDelictivo, lyEntregaRecepcionDelictivo, lyFiscaliaAutoridadDelictivo;
 
     Integer aux1, aux2, aux3, aux4, aux5, aux6;
+
+    //Para subir imagnes
+    List<Uri> listaImagenes = new ArrayList<>();
+    List<String> listaBase64Imagenes = new ArrayList<>();
+    int PICK_IMAGE = 100;
+    Uri imageUri;
+    GridView gvImagenes;
+    GridViewAdapter baseAdapter;
+    Button btnSubirImagenes;
+    //////////////
 
 
 
@@ -170,6 +190,9 @@ public class HechosDelictivos extends Fragment {
         lyEntregaRecepcionDelictivo = view.findViewById(R.id.lyEntregaRecepcionDelictivo);
         lyFiscaliaAutoridadDelictivo = view.findViewById(R.id.lyFiscaliaAutoridadDelictivo);
 
+        btnSubirImagenes  = view.findViewById(R.id.btnSubirImagenes);
+        gvImagenes = view.findViewById(R.id.gvImagenes);
+
         ListCombos();
         getNumReferencia();
         txtFolioInternoDelictivo.setText(cargarIdHechoDelictivo);
@@ -191,6 +214,25 @@ public class HechosDelictivos extends Fragment {
         {
             cargarHechoDelictivo();
         }
+
+            //Boton subir imagenes
+        btnSubirImagenes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("INTENT","PRESS");
+
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                Log.d("INTENT","ACTION");
+
+                startActivityForResult(Intent.createChooser(intent, "SELECCIONA LAS IMAGENES"), 111);
+               // startActivityForResult(intent, 111);
+                Log.d("INTENT","START");
+
+            }
+        });
 
         //***************** FECHA  **************************//
         txtFechaEntregaReferenciaDelictivo.setOnClickListener(new View.OnClickListener() {
@@ -1061,5 +1103,44 @@ public class HechosDelictivos extends Fragment {
                     .load(firmaURLServer)
                     .into(target);
                     }
+
+
+
+
+       @Override
+       public void onActivityResult(int requestCode, int resultCode, Intent data) {
+           super.onActivityResult(requestCode, resultCode, data);
+
+           try {
+               ClipData clipData = data.getClipData();
+
+               if (resultCode == Activity.RESULT_OK && requestCode == 111) {
+                   if(clipData == null) {
+                       imageUri = data.getData();
+                       listaImagenes.add(imageUri);
+                   } else {
+                       for (int i = 0; i < clipData.getItemCount(); i++) {
+                           listaImagenes.add(clipData.getItemAt(i).getUri());
+                       }
+                   }
+               }
+               baseAdapter = new GridViewAdapter(   getContext(), listaImagenes);
+               gvImagenes.setAdapter(baseAdapter);
+               int ancho = 1200;
+               int alto = (int)(Math.round(gvImagenes.getAdapter().getCount()/6))*300 + 300  ;
+               Log.i("Respuesta","Alto:" + Integer.toString(alto));
+
+               LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ancho, alto);
+               gvImagenes.setLayoutParams(params);
+           }
+           catch (Exception e)
+           {
+               Log.i("Respuesta","catch");
+               baseAdapter = new GridViewAdapter(   getContext(), listaImagenes);
+               gvImagenes.setAdapter(baseAdapter);
+
+           }
+
+       }
 
 }

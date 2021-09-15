@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -337,4 +338,5 @@ public class Iph_Delictivo_Up extends AppCompatActivity{
             editor.putString("Usuario", "" );
             editor.commit();
         }
+
 }
