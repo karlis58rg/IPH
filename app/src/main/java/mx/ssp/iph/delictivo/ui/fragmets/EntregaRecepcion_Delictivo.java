@@ -92,7 +92,9 @@ public class EntregaRecepcion_Delictivo extends Fragment {
     Button btnGuardarEntregaRecepcion;
     SharedPreferences share;
     String varServiciosEspecializados,varIngreso,descAutoridad,descCargo,rutaFirmaRecibe,cadena;
-    LinearLayout Linear2, Linear3, Linear5, lyFirmaPersonaRecepciondelLugar, Linear11ObservacionesLugarIntervencion;
+    LinearLayout Linear2, Linear3, Linear5, Linear8, lyFirmaPersonaRecepciondelLugar, Linear11ObservacionesLugarIntervencion,
+    LinearEntregaRecepcionLugardelaIntervencion, LinearPersonaRecepciondelLugar, LinearAdscripcionPersonaRecepciondelLugar;
+    TextView lblCualAutoridad, lblmotivoIngreso;
     int numberRandom,randomUrlImagen;
 
     private ImageView btnAgregarPersona;
@@ -148,14 +150,34 @@ public class EntregaRecepcion_Delictivo extends Fragment {
         txtPrimerApellidoPersonal = view.findViewById(R.id.txtPrimerApellidoPersonal);
         txtSegundoApellidoPersonal = view.findViewById(R.id.txtSegundoApellidoPersonal);
         txtNombresPersonal = view.findViewById(R.id.txtNombresPersonal);
+        lblCualAutoridad = view.findViewById(R.id.lblCualAutoridad);
+        lblmotivoIngreso = view.findViewById(R.id.lblmotivoIngreso);
         spCargoIntervencion = view.findViewById(R.id.spCargoIntervencion);
         spInstitucionIntervencion = view.findViewById(R.id.spInstitucionIntervencion);
         Linear2 = view.findViewById(R.id.Linear2);
         Linear3 = view.findViewById(R.id.Linear3);
         Linear5 = view.findViewById(R.id.Linear5);
+        Linear8 = view.findViewById(R.id.Linear8);
+        LinearPersonaRecepciondelLugar = view.findViewById(R.id.LinearPersonaRecepciondelLugar);
         lyFirmaPersonaRecepciondelLugar = view.findViewById(R.id.lyFirmaPersonaRecepciondelLugar);
         Linear11ObservacionesLugarIntervencion = view.findViewById(R.id.Linear11ObservacionesLugarIntervencion);
+        LinearEntregaRecepcionLugardelaIntervencion = view.findViewById(R.id.LinearEntregaRecepcionLugardelaIntervencion);
+        LinearAdscripcionPersonaRecepciondelLugar = view.findViewById(R.id.LinearAdscripcionPersonaRecepciondelLugar);
         ListCombos();
+
+        txtCualAutoridad.setEnabled(false);
+        txtCualAutoridad.setVisibility(View.INVISIBLE);
+        lblCualAutoridad.setVisibility(View.INVISIBLE);
+        txtmotivoIngreso.setEnabled(false);
+        txtmotivoIngreso.setVisibility(View.INVISIBLE);
+        lblmotivoIngreso.setVisibility(View.INVISIBLE);
+
+        txtPrimerApellidoPersonal.setEnabled(false);
+        txtSegundoApellidoPersonal.setEnabled(false);
+        txtNombresPersonal.setEnabled(false);
+        spCargoIntervencion.setEnabled(false);
+        spInstitucionIntervencion.setEnabled(false);
+
 
         //Personas
         btnAgregarPersona = view.findViewById(R.id.btnAgregarPersona);
@@ -199,8 +221,15 @@ public class EntregaRecepcion_Delictivo extends Fragment {
             public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
                 if (checkedId == R.id.rbNoServiciosEspecializados) {
                     varServiciosEspecializados = "NO";
+                    txtCualAutoridad.setText("");
+                    txtCualAutoridad.setEnabled(false);
+                    txtCualAutoridad.setVisibility(View.INVISIBLE);
+                    lblCualAutoridad.setVisibility(View.INVISIBLE);
                 }else if(checkedId == R.id.rbSiServiciosEspecializados){
                     varServiciosEspecializados = "SI";
+                    txtCualAutoridad.setEnabled(true);
+                    txtCualAutoridad.setVisibility(View.VISIBLE);
+                    lblCualAutoridad.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -210,8 +239,38 @@ public class EntregaRecepcion_Delictivo extends Fragment {
             public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
                 if (checkedId == R.id.rgNoIngreso) {
                     varIngreso = "NO";
+
+                    txtmotivoIngreso.setText("");
+                    txtmotivoIngreso.setEnabled(false);
+                    txtmotivoIngreso.setVisibility(View.INVISIBLE);
+                    lblmotivoIngreso.setVisibility(View.INVISIBLE);
+
+                    txtPrimerApellidoPersonal.setText("");
+                    txtSegundoApellidoPersonal.setText("");
+                    txtNombresPersonal.setText("");
+                    spCargoIntervencion.setSelection(0);
+                    spInstitucionIntervencion.setSelection(0);
+
+                    txtPrimerApellidoPersonal.setEnabled(false);
+                    txtSegundoApellidoPersonal.setEnabled(false);
+                    txtNombresPersonal.setEnabled(false);
+                    spCargoIntervencion.setEnabled(false);
+                    spInstitucionIntervencion.setEnabled(false);
+                    btnAgregarPersona.setVisibility(View.INVISIBLE);
+
                 }else if(checkedId == R.id.rgSiIngreso){
                     varIngreso = "SI";
+                    txtmotivoIngreso.setEnabled(true);
+                    txtmotivoIngreso.setVisibility(View.VISIBLE);
+                    lblmotivoIngreso.setVisibility(View.VISIBLE);
+
+                    txtPrimerApellidoPersonal.setEnabled(true);
+                    txtSegundoApellidoPersonal.setEnabled(true);
+                    txtNombresPersonal.setEnabled(true);
+                    spCargoIntervencion.setEnabled(true);
+                    spInstitucionIntervencion.setEnabled(true);
+                    btnAgregarPersona.setVisibility(View.VISIBLE);
+
                 }
             }
         });
@@ -310,10 +369,21 @@ public class EntregaRecepcion_Delictivo extends Fragment {
                         SegundaValidacion();
 
                     }
+
+                    else{
+                        Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL MOTIVO POR EL QUE INGRESÓ OTRA PERSONA AL LUGAR", Toast.LENGTH_SHORT).show();
+                        txtmotivoIngreso.requestFocus();
+                        Linear5.requestFocus();
+                        txtmotivoIngreso.requestFocus();
+                    }
+
                 }
 
                 else{
                     Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA SI INGRESÓ OTRA PERSONA AL LUGAR", Toast.LENGTH_SHORT).show();
+                    Linear5.requestFocus();
+                    Linear3.requestFocus();
+                    Linear5.requestFocus();
                 }
 
             }
@@ -332,26 +402,46 @@ public class EntregaRecepcion_Delictivo extends Fragment {
                             SegundaValidacion();
 
                         }
+
+                        else{
+                            Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL MOTIVO POR EL QUE INGRESÓ OTRA PERSONA AL LUGAR", Toast.LENGTH_SHORT).show();
+                            txtmotivoIngreso.requestFocus();
+                            Linear5.requestFocus();
+                            txtmotivoIngreso.requestFocus();
+                        }
                     }
 
                     else{
                         Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA SI INGRESÓ OTRA PERSONA AL LUGAR", Toast.LENGTH_SHORT).show();
+                        Linear5.requestFocus();
+                        Linear3.requestFocus();
+                        Linear5.requestFocus();
                     }
                 }
 
                 else{
                     Toast.makeText(getActivity().getApplicationContext(), "INGRESA A QUÉ AUTORIDAD O SERVICIOS ESPECIALIZADOS SOLICITÓ APOYO", Toast.LENGTH_SHORT).show();
+                    txtCualAutoridad.requestFocus();
+                    Linear3.requestFocus();
+                    txtCualAutoridad.requestFocus();
                 }
 
             }
 
             else{
                 Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA SI SOLICITÓ APOYO DE ALGUNA AUTORIDAD O SERVICIOS ESPECIALIZADOS", Toast.LENGTH_SHORT).show();
+                Linear3.requestFocus();
+                Linear2.requestFocus();
+                Linear3.requestFocus();
             }
         }
 
         else{
             Toast.makeText(getActivity().getApplicationContext(), "EXPLIQUE LAS ACCIONES REALIZADAS", Toast.LENGTH_SHORT).show();
+            Linear2.requestFocus();
+            Linear3.requestFocus();
+            Linear2.requestFocus();
+
         }
     }
 
@@ -360,6 +450,9 @@ public class EntregaRecepcion_Delictivo extends Fragment {
             if(txtNombresPersonaRecepciondelLugar.getText().toString().length() >= 3){
                 if(lblFirmaOcultoRecepcionIntervencion.getText().toString().isEmpty()){
                     Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA FIRMA DE LA PERSONA QUE RECEPCIONA EL LUGAR DE LA INTERVENCIÓN", Toast.LENGTH_SHORT).show();
+                    LinearAdscripcionPersonaRecepciondelLugar.requestFocus();
+                    lyFirmaPersonaRecepciondelLugar.requestFocus();
+
                 }
 
                 else{
@@ -372,12 +465,16 @@ public class EntregaRecepcion_Delictivo extends Fragment {
 
                         else{
                             Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA FECHA Y HORA DE LA ENTREGA - RECEPCIÓN DEL LUGAR DE LA INTERVENCIÓN", Toast.LENGTH_SHORT).show();
+                            LinearEntregaRecepcionLugardelaIntervencion.requestFocus();
                         }
 
                     }
 
                     else{
                         Toast.makeText(getActivity().getApplicationContext(), "INGRESA SI HAY OBSERVACIONES DE LA PRESERVACIÓN DEL LUGAR", Toast.LENGTH_SHORT).show();
+                        Linear11ObservacionesLugarIntervencion.requestFocus();
+                        lyFirmaPersonaRecepciondelLugar.requestFocus();
+                        Linear11ObservacionesLugarIntervencion.requestFocus();
                     }
                 }
 
@@ -385,11 +482,15 @@ public class EntregaRecepcion_Delictivo extends Fragment {
 
             else{
                 Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL NOMBRE DE LA PERSONA QUE RECEPCIONA EL LUGAR DE LA INTERVENCIÓN", Toast.LENGTH_SHORT).show();
+                LinearPersonaRecepciondelLugar.requestFocus();
+                txtNombresPersonaRecepciondelLugar.requestFocus();
             }
         }
 
         else{
             Toast.makeText(getActivity().getApplicationContext(), "INGRESA AL MENOS EL PRIMER APELLIDO DE LA PERSONA QUE RECEPCIONA EL LUGAR DE LA INTERVENCIÓN", Toast.LENGTH_SHORT).show();
+            LinearPersonaRecepciondelLugar.requestFocus();
+            txtPrimerApellidoPersonaRecepciondelLugar.requestFocus();
         }
     }
 
@@ -401,11 +502,15 @@ public class EntregaRecepcion_Delictivo extends Fragment {
 
             else{
                 Toast.makeText(getActivity().getApplicationContext(), "INGRESA EL NOMBRE DE LA PERSONA QUE INGRESO AL LUGAR DE LA INTERVENCIÓN", Toast.LENGTH_SHORT).show();
+                Linear8.requestFocus();
+                txtNombresPersonal.requestFocus();
             }
         }
 
         else{
             Toast.makeText(getActivity().getApplicationContext(), "INGRESA AL MENOS EL PRIMER APELLIDO DE LA PERSONA QUE INGRESO AL LUGAR DE LA INTERVENCIÓN", Toast.LENGTH_SHORT).show();
+            Linear8.requestFocus();
+            txtPrimerApellidoPersonal.requestFocus();
         }
     }
 
