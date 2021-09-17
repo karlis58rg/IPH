@@ -18,7 +18,7 @@ public class Splash extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        guardarUsuario("IPH004");
+        //guardarUsuario("IPH004");
         cargarDatos();
 
         new Handler().postDelayed(new Runnable() {
