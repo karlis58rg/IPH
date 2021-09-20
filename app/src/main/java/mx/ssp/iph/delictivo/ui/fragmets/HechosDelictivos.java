@@ -1104,16 +1104,11 @@ import static android.app.Activity.RESULT_OK;
                     .into(target);
                     }
 
-
-
-
        @Override
        public void onActivityResult(int requestCode, int resultCode, Intent data) {
            super.onActivityResult(requestCode, resultCode, data);
-
            try {
                ClipData clipData = data.getClipData();
-
                if (resultCode == Activity.RESULT_OK && requestCode == 111) {
                    if(clipData == null) {
                        imageUri = data.getData();
@@ -1128,6 +1123,8 @@ import static android.app.Activity.RESULT_OK;
                gvImagenes.setAdapter(baseAdapter);
                int ancho = 1200;
                int alto = (int)(Math.round(gvImagenes.getAdapter().getCount()/6))*300 + 300  ;
+               int contador = baseAdapter.getCount();
+               System.out.println(contador);
                Log.i("Respuesta","Alto:" + Integer.toString(alto));
 
                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ancho, alto);
@@ -1138,9 +1135,6 @@ import static android.app.Activity.RESULT_OK;
                Log.i("Respuesta","catch");
                baseAdapter = new GridViewAdapter(   getContext(), listaImagenes);
                gvImagenes.setAdapter(baseAdapter);
-
            }
-
        }
-
 }

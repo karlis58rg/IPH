@@ -542,7 +542,6 @@ public class InventarioArmasObjetos extends Fragment {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
-
                 PrimeraValidacionArma();
 
 /*                if(lblFirmadelEntrevistadoOcultoAO.getText().toString().isEmpty()){
@@ -668,7 +667,6 @@ public class InventarioArmasObjetos extends Fragment {
             }
         });
 
-
         /***************************************************************************************/
         return view;
     }
@@ -732,6 +730,7 @@ public class InventarioArmasObjetos extends Fragment {
              lyArmaFuego.requestFocus();
          }
     }
+
     public void SgundaValidacionArma(){
 
          Log.i("Firma", "SgundaValidacionArma:");
@@ -853,6 +852,7 @@ public class InventarioArmasObjetos extends Fragment {
              lyObjeto.requestFocus();
          }
     }
+
     public void SegundaValidacionObjeto(){
          if(rbAportacionObjetos.isChecked() || rbInspeccionLugarObjetos.isChecked() || rbInspeccionPersonaObjetos.isChecked() || rbInspeccionVehiculoObjetos.isChecked()){
              if(txtLugarEncontroObjetos.getText().toString().length() >= 3){
@@ -891,6 +891,7 @@ public class InventarioArmasObjetos extends Fragment {
          }
 
     }
+
     public void TerceraValidacionObjeto(){
          if(txtPrimerApellidoPropietarioObjetos.getText().toString().length() >= 3){
              if(txtNombresPropietarioObjetos.getText().toString().length() >= 3){
@@ -911,6 +912,7 @@ public class InventarioArmasObjetos extends Fragment {
              txtPrimerApellidoPropietarioObjetos.requestFocus();
          }
     }
+
     public void CuartaValidacionObjeto(){
          if(rbSiFirmaObjetoAsegurada.isChecked()){
              if(lblFirmadelPropietarioObjetosOculto.getText().toString().isEmpty()){
@@ -920,7 +922,8 @@ public class InventarioArmasObjetos extends Fragment {
 
              else{
                  Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
-                 insertObjetos();
+                 insertarFirmasObjetos();
+                 //insertObjetos();
              }
 
 
@@ -943,7 +946,8 @@ public class InventarioArmasObjetos extends Fragment {
                                  }
                                  else {
                                      Toast.makeText(getActivity().getApplicationContext(), "UN MOMENTO POR FAVOR, ESTO PUEDE TARDAR UNOS SEGUNDOS", Toast.LENGTH_SHORT).show();
-                                     insertObjetos();
+                                     insertarFirmasObjetos();
+                                     //insertObjetos();
                                  }
 
                              }
@@ -984,7 +988,6 @@ public class InventarioArmasObjetos extends Fragment {
          }
 
     }
-
 
     private void iniciarEntradadeVoz() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
@@ -1034,6 +1037,7 @@ public class InventarioArmasObjetos extends Fragment {
         imgMicrofonoObservacionesObjetos.setImageResource(R.drawable.ic_micro);
         imgMicrofonoObservacionesObjetos.setTag(R.drawable.ic_micro);
     }
+
     private void insertArmasFuego() {
         Log.i("Firma", "insertArmasFuego:");
 
@@ -1106,9 +1110,7 @@ public class InventarioArmasObjetos extends Fragment {
             }
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                if(response.code() == 500){
-                    Toast.makeText(getContext(), "EXISTIÓ UN ERROR EN SU CONEXIÓN A INTERNET, INTÉNTELO NUEVAMENTE", Toast.LENGTH_SHORT).show();
-                }else if (response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     final String myResponse = response.body().string();
                     InventarioArmasObjetos.this.getActivity().runOnUiThread(new Runnable() {
                         @Override
@@ -1131,21 +1133,21 @@ public class InventarioArmasObjetos extends Fragment {
     }
 
     private void insertObjetos() {
-        if(txtNombresPropietarioObjetos.getText().toString().equals("NA")){
+
+        if(rbNoFirmaObjetoAsegurada.isChecked()){
             varRutaFirmaObjeto = "NA";
         }else{
-            varRutaFirmaObjeto = "http://189.254.7.167/WebServiceIPH/FirmaObjetos/"+"propietario_objeto_"+cargarIdHechoDelictivo+randomUrlImagen+".jpg";
+            varRutaFirmaObjeto = "http://189.254.7.167/WebServiceIPH/FirmaArmas/"+"propietario_"+cargarIdHechoDelictivo+randomUrlImagen+".jpg";
         }
-        if(txtNombresTestigo1Objeto.getText().toString().equals("NA")){
-            varRutaImagenT1Objeto = "NA";
+        if(txtNombresTestigo1Objeto.getText().toString().equals("")){
+            varRutaFirmaObjeto = "NA";
         }else{
-            varRutaImagenT1Objeto = "http://189.254.7.167/WebServiceIPH/FirmaObjetos/"+"testigo1_objeto_"+cargarIdHechoDelictivo+randomUrlImagen+".jpg";
+            varRutaFirmaObjeto = "http://189.254.7.167/WebServiceIPH/FirmaArmas/"+"testigo1_"+cargarIdHechoDelictivo+randomUrlImagen+".jpg";
         }
-        if(txtNombresTestigo2Objeto.getText().toString().equals("NA")){
-            varRutaImagenT2Objeto = "NA";
-
+        if(txtNombresTestigo2Objeto.getText().toString().equals("")){
+            varRutaFirmaObjeto = "NA";
         }else{
-            varRutaImagenT2Objeto = "http://189.254.7.167/WebServiceIPH/FirmaObjetos/"+"testigo2_objeto_"+cargarIdHechoDelictivo+randomUrlImagen+".jpg";
+            varRutaFirmaObjeto = "http://189.254.7.167/WebServiceIPH/FirmaArmas/"+"testigo2_"+cargarIdHechoDelictivo+randomUrlImagen+".jpg";
         }
 
         ModeloObjetos_Delictivo modeloObjetos = new ModeloObjetos_Delictivo
@@ -1194,9 +1196,7 @@ public class InventarioArmasObjetos extends Fragment {
             }
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                if(response.code() == 500){
-                    Toast.makeText(getContext(), "EXISTIÓ UN ERROR EN SU CONEXIÓN A INTERNET, INTÉNTELO NUEVAMENTE", Toast.LENGTH_SHORT).show();
-                }else if (response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     final String myResponse = response.body().string();
                     InventarioArmasObjetos.this.getActivity().runOnUiThread(new Runnable() {
                         @Override
@@ -1219,7 +1219,6 @@ public class InventarioArmasObjetos extends Fragment {
 
     public void insertImagenFirmaArmas() {
         Log.i("Firma", "insertImagenFirmaArmas:");
-
         OkHttpClient client = new OkHttpClient();
         RequestBody body = new FormBody.Builder()
                 .add("Description", cadenaPersona+cargarIdHechoDelictivo+randomUrlImagen+".jpg")
@@ -1239,9 +1238,47 @@ public class InventarioArmasObjetos extends Fragment {
             }
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                if(response.code() == 500){
-                    Toast.makeText(getContext(), "EXISTIÓ UN ERROR EN SU CONEXIÓN A INTERNET, INTÉNTELO NUEVAMENTE", Toast.LENGTH_SHORT).show();
-                }else if (response.isSuccessful()) {
+                if (response.isSuccessful()) {
+                    final String myResponse = response.body().string();
+                    InventarioArmasObjetos.this.getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            String resp = myResponse;
+                            if(resp.equals("true")){
+                                System.out.println("EL DATO SE ENVIO CORRECTAMENTE");
+                                Toast.makeText(getContext(), "SU ARCHIVO MULTIMEDIA SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, VERIFIQUE SU INFORMACIÓN", Toast.LENGTH_SHORT).show();
+                            }
+                            Log.i("HERE", resp);
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    public void insertImagenFirmaObjetos(){
+        OkHttpClient client = new OkHttpClient();
+        RequestBody body = new FormBody.Builder()
+                .add("Description", cadenaPersona+cargarIdHechoDelictivo+randomUrlImagen+".jpg")
+                .add("ImageData", cadenaImagenFirmaArmas)
+                .build();
+        Request request = new Request.Builder()
+                .url("http://189.254.7.167/WebServiceIPH/api/MultimediaObjetos")
+                .post(body)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Looper.prepare(); // to be able to make toast
+                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, FAVOR DE VERIFICAR SU CONEXCIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
                     final String myResponse = response.body().string();
                     InventarioArmasObjetos.this.getActivity().runOnUiThread(new Runnable() {
                         @Override
@@ -1266,6 +1303,7 @@ public class InventarioArmasObjetos extends Fragment {
         numberRandom = random.nextInt(9000)*99;
         randomUrlImagen = numberRandom;
     }
+
     private void ListCombos() {
         DataHelper dataHelper = new DataHelper(getContext());
         ArrayList<String> list = dataHelper.getAllColores();
@@ -1277,6 +1315,7 @@ public class InventarioArmasObjetos extends Fragment {
             Toast.makeText(getContext(), "LO SENTIMOS, NO CUENTA CON COLORES ACTIVOS", Toast.LENGTH_LONG).show();
         }
     }
+
     public void cargarDatos() {
         share = getContext().getSharedPreferences("main", Context.MODE_PRIVATE);
         cargarIdPoliciaPrimerRespondiente = share.getString("Usuario", "SIN INFORMACION");
@@ -1621,7 +1660,6 @@ public class InventarioArmasObjetos extends Fragment {
                 .into(target);
     }
 
-
     private void insertarFirmasArmas(){
         Log.i("Firma", "insertarFirmasArmas:");
 
@@ -1647,6 +1685,33 @@ public class InventarioArmasObjetos extends Fragment {
                 }
          insertArmasFuego();
     }
+
+    private void insertarFirmasObjetos(){
+
+        if(lblFirmadelPropietarioObjetosOculto.getText().toString().isEmpty()){
+        }else{
+            cadenaPersona = "propietario_";
+            cadenaImagenFirmaArmas = lblFirmadelPropietarioObjetosOculto.getText().toString();
+            insertImagenFirmaObjetos();
+        }
+
+        if(lblFirmaTestigo1ObjetoOculto.getText().toString().isEmpty()){
+        }else{
+            cadenaPersona = "testigo1_";
+            cadenaImagenFirmaArmas = lblFirmaTestigo1ObjetoOculto.getText().toString();
+            insertImagenFirmaObjetos();
+        }
+
+        if(lblFirmaTestigo2ObjetoOculto.getText().toString().isEmpty()){
+        }else{
+            cadenaPersona = "testigo2_";
+            cadenaImagenFirmaArmas = lblFirmaTestigo2ObjetoOculto.getText().toString();
+            insertImagenFirmaObjetos();
+        }
+        insertObjetos();
+    }
+
+
 
     private void limpiarCamposArma(){
 

@@ -148,9 +148,6 @@ public class Detenciones_Delictivo extends Fragment {
 
     int numberRandom,randomUrlImagen;
 
-
-
-
     public static Detenciones_Delictivo newInstance() {
         return new Detenciones_Delictivo();
     }
