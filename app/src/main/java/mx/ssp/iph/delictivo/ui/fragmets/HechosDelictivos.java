@@ -66,6 +66,7 @@ import mx.ssp.iph.administrativo.model.ModeloRecibeDisposicion_Administrativo;
 import mx.ssp.iph.administrativo.model.ModeloUsuarios_Administrativo;
 import mx.ssp.iph.administrativo.ui.fragmets.NoReferencia_Administrativo;
 import mx.ssp.iph.administrativo.ui.fragmets.PuestaDisposicion_Administrativo;
+import mx.ssp.iph.delictivo.model.ModeloAnexosMultimedia_Delictivo;
 import mx.ssp.iph.delictivo.model.ModeloHechoDelictivo;
 import mx.ssp.iph.delictivo.model.ModeloRecibeDisposicion_Delictivo;
 import mx.ssp.iph.delictivo.viewModel.HechosDelictivosViewModel;
@@ -86,7 +87,7 @@ import retrofit2.http.GET;
 
 import static android.app.Activity.RESULT_OK;
 
-                                                                                                                                                                                                                           public class HechosDelictivos extends Fragment {
+public class HechosDelictivos extends Fragment {
 
     private HechosDelictivosViewModel mViewModel;
     Button btnGuardarHechoDelictivo;
@@ -96,14 +97,14 @@ import static android.app.Activity.RESULT_OK;
             chSinAnexosDelictivo;
     Spinner spDetencionesAnexoADelictivo,spAnexosDInventarioArmasDelictivo,spUsoFuerzaAnexoBDelictivo,spEntrevistasAnexoEDelictivo,spAnexosCInspeccionVehiculoDelictivo,spAnexosFEntregaRecepcionDelictivo,
             spAdscripcionDelictivo,spCargoDelictivo;
-    RadioGroup rgAnexosDocumentacionDelictivo;
+    RadioGroup rgAnexoMultimediaDelictivo;
     TextView lblFirmaAutoridadRealizadaDelictivo,lblFirmaOcultaAutoridadBase64HechosDelictivos;
     ImageView imgFirmaAutoridadDelictivo,imgFirmaAutoridadRealizadaDelictivoMiniatura;
     String noReferencia,edo = "",inst = "",gob = "",mpio = "",fecha = "",dia = "01",mes = "01",anio = "2021",tiempo = "",hora = "",minutos = "",
             cargarIdPoliciaPrimerRespondiente = "",cargarIdHechoDelictivo = "",respuestaJson = "",descAutoridad,descCargo;
     String anexoDetenciones = "NO", numAnexoDetenciones = "000", anexoUsoFuerza = "NO",  numAnexoUsoFuerza = "000",  anexoVehiculos = "NO",
      numAnexoVehiculo = "000",  anexoArmasObjetos = "NO",  numAnexoArmasObjetos = "000", anexoEntrevista = "NO",  numAnexoEntrevista = "000", anexoLugarIntervencion = "NO",
-     numAnexoLugarIntervencion = "000",  anexoNoSeEntregan = "SI";
+     numAnexoLugarIntervencion = "000",  anexoNoSeEntregan = "SI",varAnexoMultimedia;
     SharedPreferences share;
     int numberRandom,randomUrlImagen;
     String firmaURLServer = "http://189.254.7.167/WebServiceIPH/Firma/SINFIRMA.jpg";
@@ -172,7 +173,7 @@ import static android.app.Activity.RESULT_OK;
         spAnexosFEntregaRecepcionDelictivo = view.findViewById(R.id.spAnexosFEntregaRecepcionDelictivo);
         spAdscripcionDelictivo = view.findViewById(R.id.spAdscripcionDelictivo);
         spCargoDelictivo = view.findViewById(R.id.spCargoDelictivo);
-        rgAnexosDocumentacionDelictivo = view.findViewById(R.id.rgAnexosDocumentacionDelictivo);
+        rgAnexoMultimediaDelictivo = view.findViewById(R.id.rgAnexoMultimediaDelictivo);
 
         lblFirmaAutoridadRealizadaDelictivo = view.findViewById(R.id.lblFirmaAutoridadRealizadaDelictivo);
         imgFirmaAutoridadRealizadaDelictivoMiniatura = view.findViewById(R.id.imgFirmaAutoridadRealizadaDelictivoMiniatura);
@@ -476,6 +477,18 @@ import static android.app.Activity.RESULT_OK;
                     chEntrevistasAnexoEDelictivo.setEnabled(true);
                     chAnexosFEntregaRecepcionDelictivo.setEnabled(true);
                 }
+            }
+        });
+
+        rgAnexoMultimediaDelictivo.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == R.id.rbSiAnexoMultimediaDelictivo) {
+                    varAnexoMultimedia = "SI";
+                } else if (checkedId == R.id.rbNoAnexoMultimediaDelictivo) {
+                    varAnexoMultimedia = "NO";
+                }
+
             }
         });
 
@@ -913,7 +926,7 @@ import static android.app.Activity.RESULT_OK;
         String cadena = lblFirmaOcultaAutoridadBase64HechosDelictivos.getText().toString();
         OkHttpClient client = new OkHttpClient();
         RequestBody body = new FormBody.Builder()
-                .add("Description", cargarIdHechoDelictivo+randomUrlImagen+".jpg")
+                .add("Description", cargarIdHechoDelictivo + randomUrlImagen + ".jpg")
                 .add("ImageData", cadena)
                 .build();
         Request request = new Request.Builder()
@@ -928,6 +941,92 @@ import static android.app.Activity.RESULT_OK;
                 Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, FAVOR DE VERIFICAR SU CONEXCIÓN A INTERNET", Toast.LENGTH_LONG).show();
                 Looper.loop();
             }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    final String myResponse = response.body().toString();  /********** ME REGRESA LA RESPUESTA DEL WS ****************/
+                    HechosDelictivos.this.getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            System.out.println("EL DATO DE LA IMAGEN SE ENVIO CORRECTAMENTE");
+                            Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    /******************************* ANEXOS ***********************************************/
+    public void insertAnexo(){
+
+        String rutaAnexoMultimedia = "http://189.254.7.167/WebServiceIPH/MultimediaAnexos/"+cargarIdHechoDelictivo+randomUrlImagen+".jpg";
+
+        ModeloAnexosMultimedia_Delictivo anexoMultimedia = new ModeloAnexosMultimedia_Delictivo
+                (cargarIdHechoDelictivo, varAnexoMultimedia,
+                        "3", rutaAnexoMultimedia, "NA");
+
+        OkHttpClient client = new OkHttpClient();
+        RequestBody body = new FormBody.Builder()
+                .add("IdHechoDelictivo", anexoMultimedia.getIdHechoDelictivo())
+                .add("AnexoDocumentacion", anexoMultimedia.getAnexoDocumentacion())
+                .add("IdAnexoMultimedia", anexoMultimedia.getIdAnexoMultimedia())
+                .add("RutaAnexoMultimedia", anexoMultimedia.getRutaAnexoMultimedia())
+                .add("AnexoMultimediaOtro", anexoMultimedia.getAnexoMultimediaOtro())
+                .build();
+        Request request = new Request.Builder()
+                .url("http://189.254.7.167/WebServiceIPH/api/HDAnexosMultimedia")
+                .post(body)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Looper.prepare(); // to be able to make toast
+                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, FAVOR DE VERIFICAR SU CONEXCIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    final String myResponse = response.body().toString();  /********** ME REGRESA LA RESPUESTA DEL WS ****************/
+                    HechosDelictivos.this.getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            System.out.println("EL DATO DE LA IMAGEN SE ENVIO CORRECTAMENTE");
+                            Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    public void insertAnexosMultimedia(){
+       /************************* CADENAS *******************************************/
+
+        String cadena = lblFirmaOcultaAutoridadBase64HechosDelictivos.getText().toString();
+
+        OkHttpClient client = new OkHttpClient();
+        RequestBody body = new FormBody.Builder()
+                .add("Description", cargarIdHechoDelictivo + randomUrlImagen + ".jpg")
+                .add("ImageData", cadena)
+                .build();
+        Request request = new Request.Builder()
+                .url("http://189.254.7.167/WebServiceIPH/api/MultimediaAnexos")
+                .post(body)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Looper.prepare(); // to be able to make toast
+                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, FAVOR DE VERIFICAR SU CONEXCIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {
@@ -1097,7 +1196,6 @@ import static android.app.Activity.RESULT_OK;
             }
         });
     }
-
         public void getFirmaFromURL(){
             Picasso.get()
                     .load(firmaURLServer)
