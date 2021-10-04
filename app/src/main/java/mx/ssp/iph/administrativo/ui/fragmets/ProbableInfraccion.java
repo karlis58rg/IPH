@@ -61,6 +61,8 @@ public class ProbableInfraccion extends Fragment {
     Integer aux1;
     TextView lblOtroProbableInfraccionAdministrativo,lbl911FolioProbableInfraccionAdministrativo;
 
+
+
     public static ProbableInfraccion newInstance() {
         return new ProbableInfraccion();
     }

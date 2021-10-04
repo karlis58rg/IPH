@@ -132,7 +132,7 @@
                 android:layout_height="wrap_content"
                 android:maxLength="41"
                 android:digits="@string/validacion_folios"
-                android:imeOptions="actionNext"
+                android:imeOptions="actionDone"
                 android:inputType="textCapCharacters"
                 android:lines="1"
                 android:maxLines="1"
@@ -211,7 +211,7 @@
                 android:singleLine="true"
                 android:maxLines="1"
                 android:lines="1"
-                android:imeOptions="actionNext"/>
+                android:imeOptions="actionDone"/>
         </LinearLayout>
 
         <LinearLayout

@@ -202,7 +202,7 @@
                         android:singleLine="true"
                         android:maxLines="1"
                         android:lines="1"
-                        android:imeOptions="actionNext"/>
+                        android:imeOptions="actionDone"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -241,7 +241,7 @@
                             android:singleLine="true"
                             android:maxLines="1"
                             android:lines="1"
-                            android:imeOptions="actionNext"/>
+                            android:imeOptions="actionDone"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -340,7 +340,7 @@
                         android:singleLine="true"
                         android:maxLines="1"
                         android:lines="1"
-                        android:imeOptions="actionNext"/>
+                        android:imeOptions="actionDone"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -514,7 +514,11 @@
                         android:id="@+id/txtEntidadDetenido"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="GUERRERO"/>
+                        android:text="GUERRERO"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionDone"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -553,7 +557,7 @@
                         android:layout_height="wrap_content"
                         android:maxLength="50"
                         android:inputType="textCapCharacters"
-                        android:digits="@string/validacion_nombre"
+                        android:digits="@string/validacion_referenciasdomicilio"
                         android:singleLine="true"
                         android:maxLines="1"
                         android:lines="1"
@@ -585,7 +589,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textCapCharacters"
-                        android:digits="@string/validacion_notas"
+                        android:digits="@string/validacion_referenciasdomicilio"
                         android:maxLength="250"
                         android:singleLine="true"
                         android:maxLines="1"
@@ -742,7 +746,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="300dp"
                         android:inputType="textMultiLine|textCapCharacters"
-                        android:digits="@string/validacion_notas"
+                        android:digits="@string/validacion_referenciasdomicilio"
                         android:maxLength="8000"
                         android:gravity="top"/>
 
@@ -921,7 +925,8 @@
                         android:singleLine="true"
                         android:maxLines="1"
                         android:lines="1"
-                        android:imeOptions="actionNext"/>
+                        android:imeOptions="actionDone"
+                        android:visibility="invisible"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -1011,7 +1016,7 @@
                         android:lines="1"
                         android:imeOptions="actionDone"
                         android:gravity="center"
-                        />
+                        android:visibility="invisible"/>
                 </LinearLayout>
             </LinearLayout>
 

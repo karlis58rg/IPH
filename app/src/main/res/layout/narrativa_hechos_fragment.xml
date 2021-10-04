@@ -54,7 +54,7 @@
                         android:maxLength="8000"
                         android:gravity="top"
                         android:inputType="text|textMultiLine|textCapCharacters"
-                        android:digits="@string/validacion_notas"/>
+                        android:digits="@string/validacion_referenciasdomicilio"/>
 
                     <ImageView
                         android:id="@+id/imgMicrofonoNarrativaHechos"

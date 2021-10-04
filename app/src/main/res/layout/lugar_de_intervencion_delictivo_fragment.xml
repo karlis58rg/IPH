@@ -59,7 +59,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="GUERRERO"
-                        android:inputType="textCapCharacters"/>
+                        android:inputType="textCapCharacters"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:imeOptions="actionDone"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/lyMunicipioUbicacionGeograficaDelictivo"
@@ -96,6 +100,7 @@
                         android:id="@+id/txtColoniaUbicacionGeograficaDelictivo"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:digits="@string/validacion_referenciasdomicilio"
                         android:inputType="textCapCharacters"
                         android:singleLine="true"
                         android:maxLines="1"
@@ -122,7 +127,7 @@
                     android:layout_height="wrap_content"
                     android:maxLength="500"
                     android:inputType="textCapCharacters"
-                    android:digits="@string/validacion_notas"
+                    android:digits="@string/validacion_referenciasdomicilio"
                     android:singleLine="true"
                     android:maxLines="1"
                     android:lines="1"
@@ -155,7 +160,7 @@
                         android:layout_height="wrap_content"
                         android:maxLength="50"
                         android:inputType="textCapCharacters"
-                        android:digits="@string/validacion_notas"
+                        android:digits="@string/validacion_referenciasdomicilio"
                         android:singleLine="true"
                         android:maxLines="1"
                         android:lines="1"
@@ -180,7 +185,7 @@
                         android:layout_height="wrap_content"
                         android:maxLength="50"
                         android:inputType="textCapCharacters"
-                        android:digits="@string/validacion_notas"
+                        android:digits="@string/validacion_referenciasdomicilio"
                         android:singleLine="true"
                         android:maxLines="1"
                         android:lines="1"

@@ -171,6 +171,7 @@ public class DescripcionVehiculo extends Fragment {
                         txtOtroVehiculo.setEnabled(false);
                         txtOtroVehiculo.setInputType(InputType.TYPE_NULL);
                         txtOtroVehiculo.setFocusableInTouchMode(false);
+                        txtOtroVehiculo.setText("");
                         break;
                     case R.id.rbOtro:
                         txtOtroVehiculo.setEnabled(true);
@@ -427,12 +428,12 @@ public class DescripcionVehiculo extends Fragment {
                 if(txtOtroVehiculo.getText().toString().length() >= 3){
                     SegundaValidacion();
                 } else {
-                    Toast.makeText(getActivity().getApplicationContext(),"SELECCIONA EL TIPO DE VEHÍCULO ANTES DE CONTINUAR",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity().getApplicationContext(),"INGRESA EL TIPO DE VEHÍCULO",Toast.LENGTH_SHORT).show();
                     txtOtroVehiculo.requestFocus();
                     otroTipoVehiculoAdministrativo.requestFocus();
                 }
             }  else {
-                Toast.makeText(getActivity().getApplicationContext(),"SELECCIONA EL TIPO DE VEHÍCULO ANTES DE CONTINUAR",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity().getApplicationContext(),"SELECCIONA EL TIPO DE VEHÍCULO",Toast.LENGTH_SHORT).show();
                 tipoVehiculoAdministrativo.requestFocus();
             }
         }else{

@@ -40,11 +40,7 @@
             android:id="@+id/segundoLinear"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0.5"
-            android:minWidth="40dp"
-            android:minHeight="40dp"
-            android:orientation="horizontal"
-            android:weightSum="1">
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:id="@+id/lyHechoProbableInfraccionAdministrativo"
@@ -89,7 +85,8 @@
                     android:lines="1"
                     android:maxLength="250"
                     android:maxLines="1"
-                    android:singleLine="true"/>
+                    android:singleLine="true"
+                    android:enabled="false"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -116,7 +113,8 @@
                 android:lines="1"
                 android:maxLength="10"
                 android:maxLines="1"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:enabled="false"/>
         </LinearLayout>
 
 

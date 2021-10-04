@@ -70,7 +70,7 @@ public class Detenciones extends Fragment  {
     private DetencionesViewModel mViewModel;
     private static final  int REQ_CODE_SPEECH_INPUT=100;
     private TextView txtDescripciondelDetenido,lblFirmaOcultaDetenidoBase64;
-    Integer aux1;
+    Integer aux1, auxNac;
     ImageView img_microfonoDescripcionDetenido,imgFirmaDetencionesAutoridadAdministrativo;
     EditText txtFechaDetenido,txthoraDetencion,txtFechaNacimientoDetenido,txtPrimerApellidoDetenido,txtSegundoApellidoDetenido,txtNombresDetenido,txtApodoDetenido,txtEntidadDetenido,
             txtColoniaDetenido,txtCalleDetenido,txtNumeroExteriorDetenido,txtNumeroInteriorDetenido,txtCodigoPostalDetenido,txtReferenciasdelLugarDetenido,txtCualGrupoVulnerable,txtCualPadecimiento, txtNacionalidadEspecifiqueDetenido;
@@ -216,13 +216,14 @@ public class Detenciones extends Fragment  {
 
                 Object item = parent.getItemIdAtPosition(pos);
 
-                int i = Integer.parseInt(item.toString()) + 1;
+                auxNac = Integer.parseInt(item.toString()) + 1;
 
-                aux1 = i;
 
-                if(i == 34){
+
+                aux1 = auxNac;
+
+                if(auxNac == 34){
                     txtNacionalidadEspecifiqueDetenido.setEnabled(true);
-                    txtNacionalidadEspecifiqueDetenido.setText("");
                 }else{
                     txtNacionalidadEspecifiqueDetenido.setEnabled(false);
                     txtNacionalidadEspecifiqueDetenido.setText("");
@@ -583,8 +584,22 @@ public class Detenciones extends Fragment  {
             if(txtPrimerApellidoDetenido.getText().toString().length() >= 3) {
                 if (txtNombresDetenido.getText().toString().length() >= 3) {
                     if (txtApodoDetenido.getText().toString().length() >= 3 || chNoAplicaAliasDetenido.isChecked()){
-                        //Segunda Validacion
-                        SegundaValidacion();
+                        if(auxNac==34){
+                            if(txtNacionalidadEspecifiqueDetenido.getText().toString().length() >= 3){
+                                //Segunda Validacion
+                                SegundaValidacion();
+                            }
+                            else{
+                                Toast.makeText(getActivity().getApplicationContext(), "INGRESA LA NACIONALIDAD", Toast.LENGTH_SHORT).show();
+                                especificaNacionalidad.requestFocus();
+                                txtNacionalidadEspecifiqueDetenido.requestFocus();
+                            }
+                        }
+                        else {
+                            //Segunda Validacion
+                            SegundaValidacion();
+                        }
+
                     } else {
                         Toast.makeText(getActivity().getApplicationContext(), "ESPECIFICA SI TIENE ALGÚN APODO", Toast.LENGTH_SHORT).show();
                         linearApodoDetenido.requestFocus();
@@ -659,6 +674,10 @@ public class Detenciones extends Fragment  {
             if(txtPrimerApellidoDetenido.getText().toString().length() >= 3) {
                 if (txtNombresDetenido.getText().toString().length() >= 3) {
                     if (txtApodoDetenido.getText().toString().length() >= 3 || chNoAplicaAliasDetenido.isChecked()){
+
+
+
+
                         //Segunda Validacion
                         SegundaValidacionUpdt();
                     } else {
