@@ -105,7 +105,7 @@ public class HechosDelictivos extends Fragment {
             cargarIdPoliciaPrimerRespondiente = "",cargarIdHechoDelictivo = "",respuestaJson = "",descAutoridad,descCargo;
     String anexoDetenciones = "NO", numAnexoDetenciones = "000", anexoUsoFuerza = "NO",  numAnexoUsoFuerza = "000",  anexoVehiculos = "NO",
      numAnexoVehiculo = "000",  anexoArmasObjetos = "NO",  numAnexoArmasObjetos = "000", anexoEntrevista = "NO",  numAnexoEntrevista = "000", anexoLugarIntervencion = "NO",
-     numAnexoLugarIntervencion = "000",  anexoNoSeEntregan = "SI",varAnexoMultimedia;
+     numAnexoLugarIntervencion = "000",  anexoNoSeEntregan = "SI",varAnexoMultimedia,rutaAnexoMultimedia;
     SharedPreferences share;
     int numberRandom,randomUrlImagen;
     String firmaURLServer = "http://189.254.7.167/WebServiceIPH/Firma/SINFIRMA.jpg";
@@ -1012,13 +1012,9 @@ public class HechosDelictivos extends Fragment {
 
     /******************************* ANEXOS ***********************************************/
     public void insertAnexo(){
-
-        String rutaAnexoMultimedia = "http://189.254.7.167/WebServiceIPH/MultimediaAnexos/"+cargarIdHechoDelictivo+randomUrlImagen+".jpg";
-
         ModeloAnexosMultimedia_Delictivo anexoMultimedia = new ModeloAnexosMultimedia_Delictivo
                 (cargarIdHechoDelictivo, varAnexoMultimedia,
                         "3", rutaAnexoMultimedia, "NA");
-
         OkHttpClient client = new OkHttpClient();
         RequestBody body = new FormBody.Builder()
                 .add("IdHechoDelictivo", anexoMultimedia.getIdHechoDelictivo())
@@ -1057,8 +1053,10 @@ public class HechosDelictivos extends Fragment {
     }
 
     public void insertAnexosMultimedia(String cadena, String numImagen){
-
         OkHttpClient client = new OkHttpClient();
+
+        rutaAnexoMultimedia = "http://189.254.7.167/WebServiceIPH/MultimediaAnexos/"+cargarIdHechoDelictivo+numImagen+".jpg";
+
         RequestBody body = new FormBody.Builder()
                 .add("Description", cargarIdHechoDelictivo + numImagen + ".jpg")
                 .add("ImageData", cadena)
@@ -1098,10 +1096,10 @@ public class HechosDelictivos extends Fragment {
                                 //Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
                                 //insertImagen();
                                 Toast.makeText(getContext(), "ENVIADA"+numImagen, Toast.LENGTH_SHORT).show();
-
                                 identificador.set(Integer.parseInt(numImagen),R.drawable.ic_check);
                                 baseAdapter = new GridViewAdapter(   getContext(), listaImagenes,identificador);
                                 gvImagenes.setAdapter(baseAdapter);
+                                insertAnexo();
 
                             }else{
                                 Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, VERIFIQUE SU INFORMACIÓN", Toast.LENGTH_SHORT).show();
@@ -1310,11 +1308,6 @@ public class HechosDelictivos extends Fragment {
                                    identificador.add(R.drawable.ic_trash);
                                }
                            }
-
-
-
-
-
                    }
                }
 
