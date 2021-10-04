@@ -1,4 +1,4 @@
-                                                                                                                                                                                                                           package mx.ssp.iph.delictivo.ui.fragmets;
+                                                                                                                                                                                                                            package mx.ssp.iph.delictivo.ui.fragmets;
 
 import androidx.lifecycle.ViewModelProvider;
 
@@ -51,6 +51,7 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -109,6 +110,9 @@ public class HechosDelictivos extends Fragment {
     int numberRandom,randomUrlImagen;
     String firmaURLServer = "http://189.254.7.167/WebServiceIPH/Firma/SINFIRMA.jpg";
     private Target target;
+    Button btnBase64;
+    LinearLayout lyCargarFotografias,lyEnviarFotografias;
+
 
     ViewGroup lyAnexosUno, quintoLinear1, quintoLinear2, lyDetencionesAnexoADelictivo, lyInventarioArmasDelictivo,
             lyUsoFuerzaAnexoBDelictivo, lyEntrevistasDelictivo, lyInspeccionVehiculoDelictivo, lyEntregaRecepcionDelictivo, lyFiscaliaAutoridadDelictivo;
@@ -117,7 +121,9 @@ public class HechosDelictivos extends Fragment {
 
     //Para subir imagnes
     List<Uri> listaImagenes = new ArrayList<>();
+    List<Integer> identificador = new ArrayList<>();
     List<String> listaBase64Imagenes = new ArrayList<>();
+
     int PICK_IMAGE = 100;
     Uri imageUri;
     GridView gvImagenes;
@@ -190,9 +196,12 @@ public class HechosDelictivos extends Fragment {
         lyInspeccionVehiculoDelictivo = view.findViewById(R.id.lyInspeccionVehiculoDelictivo);
         lyEntregaRecepcionDelictivo = view.findViewById(R.id.lyEntregaRecepcionDelictivo);
         lyFiscaliaAutoridadDelictivo = view.findViewById(R.id.lyFiscaliaAutoridadDelictivo);
-
+        btnBase64 = view.findViewById(R.id.btnBase64);
         btnSubirImagenes  = view.findViewById(R.id.btnSubirImagenes);
         gvImagenes = view.findViewById(R.id.gvImagenes);
+
+        lyCargarFotografias = view.findViewById(R.id.lyCargarFotografias);
+        lyEnviarFotografias = view.findViewById(R.id.lyEnviarFotografias);
 
         ListCombos();
         getNumReferencia();
@@ -224,6 +233,8 @@ public class HechosDelictivos extends Fragment {
 
                 Intent intent = new Intent();
                 intent.setType("image/*");
+                //intent.setType("application/pdf");
+
                 intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 Log.d("INTENT","ACTION");
@@ -234,6 +245,41 @@ public class HechosDelictivos extends Fragment {
 
             }
         });
+
+        btnBase64.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                listaBase64Imagenes.clear();
+
+                for(int i = 0 ; i < listaImagenes.size() ; i++) {
+                    try {
+                        InputStream is = getActivity().getContentResolver().openInputStream(listaImagenes.get(i));
+                        Bitmap bitmap = BitmapFactory.decodeStream(is);
+
+                        String cadena = convertirUriToBase64(bitmap);
+
+                        //enviarImagenes("nomIma"+i, cadena);
+                        String nombreImagen = Integer.toString(i);
+                        //Log.i("BASE64",cadena);
+
+
+                        insertAnexosMultimedia(cadena,nombreImagen);
+                        bitmap.recycle();
+
+                    } catch (IOException e) {
+                        Log.i("CATCH",e.toString());
+
+                    }
+
+                }
+
+
+
+            }
+        });
+
+
 
         //***************** FECHA  **************************//
         txtFechaEntregaReferenciaDelictivo.setOnClickListener(new View.OnClickListener() {
@@ -485,8 +531,14 @@ public class HechosDelictivos extends Fragment {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (checkedId == R.id.rbSiAnexoMultimediaDelictivo) {
                     varAnexoMultimedia = "SI";
+                    lyCargarFotografias.setVisibility(view.VISIBLE);
+                    lyEnviarFotografias.setVisibility(view.VISIBLE);
+                    gvImagenes.setVisibility(view.VISIBLE);
                 } else if (checkedId == R.id.rbNoAnexoMultimediaDelictivo) {
                     varAnexoMultimedia = "NO";
+                    lyCargarFotografias.setVisibility(view.GONE);
+                    lyEnviarFotografias.setVisibility(view.GONE);
+                    gvImagenes.setVisibility(view.GONE);
                 }
 
             }
@@ -1004,14 +1056,11 @@ public class HechosDelictivos extends Fragment {
         });
     }
 
-    public void insertAnexosMultimedia(){
-       /************************* CADENAS *******************************************/
-
-        String cadena = lblFirmaOcultaAutoridadBase64HechosDelictivos.getText().toString();
+    public void insertAnexosMultimedia(String cadena, String numImagen){
 
         OkHttpClient client = new OkHttpClient();
         RequestBody body = new FormBody.Builder()
-                .add("Description", cargarIdHechoDelictivo + randomUrlImagen + ".jpg")
+                .add("Description", cargarIdHechoDelictivo + numImagen + ".jpg")
                 .add("ImageData", cadena)
                 .build();
         Request request = new Request.Builder()
@@ -1024,18 +1073,43 @@ public class HechosDelictivos extends Fragment {
                 e.printStackTrace();
                 Looper.prepare(); // to be able to make toast
                 Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, FAVOR DE VERIFICAR SU CONEXCIÓN A INTERNET", Toast.LENGTH_LONG).show();
+
+                HechosDelictivos.this.getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        identificador.set(Integer.parseInt(numImagen),R.drawable.ic_clear);
+                        baseAdapter = new GridViewAdapter(   getContext(), listaImagenes,identificador);
+                        gvImagenes.setAdapter(baseAdapter);
+                    }
+                });
                 Looper.loop();
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {
-                    final String myResponse = response.body().toString();  /********** ME REGRESA LA RESPUESTA DEL WS ****************/
+                    final String myResponse = response.body().string();
                     HechosDelictivos.this.getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            System.out.println("EL DATO DE LA IMAGEN SE ENVIO CORRECTAMENTE");
-                            Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+                            String resp = myResponse;
+                            if(resp.equals("true")){
+                                System.out.println("EL DATO DE LA RECEPCION DE DISPOSICION SE ENVIO CORRECTAMENTE"+ numImagen);
+                                //Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+                                //insertImagen();
+                                Toast.makeText(getContext(), "ENVIADA"+numImagen, Toast.LENGTH_SHORT).show();
+
+                                identificador.set(Integer.parseInt(numImagen),R.drawable.ic_check);
+                                baseAdapter = new GridViewAdapter(   getContext(), listaImagenes,identificador);
+                                gvImagenes.setAdapter(baseAdapter);
+
+                            }else{
+                                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, VERIFIQUE SU INFORMACIÓN", Toast.LENGTH_SHORT).show();
+                                identificador.set(Integer.parseInt(numImagen),R.drawable.ic_clear);
+                                baseAdapter = new GridViewAdapter(   getContext(), listaImagenes,identificador);
+                                gvImagenes.setAdapter(baseAdapter);
+                            }
+                            Log.i("HERE", resp);
                         }
                     });
                 }
@@ -1207,32 +1281,76 @@ public class HechosDelictivos extends Fragment {
            super.onActivityResult(requestCode, resultCode, data);
            try {
                ClipData clipData = data.getClipData();
+               int totalimagenes = 0;
+               if (gvImagenes.getAdapter() != null)
+               {
+                   totalimagenes = gvImagenes.getAdapter().getCount();
+                   Log.i("TOTALIMAGENES","NO NULO");
+               }
+
+               Log.i("TOTALIMAGENES","Total:"+Integer.toString(totalimagenes));
+
                if (resultCode == Activity.RESULT_OK && requestCode == 111) {
                    if(clipData == null) {
-                       imageUri = data.getData();
-                       listaImagenes.add(imageUri);
-                   } else {
-                       for (int i = 0; i < clipData.getItemCount(); i++) {
-                           listaImagenes.add(clipData.getItemAt(i).getUri());
+
+                       if ((totalimagenes + 1 )>6) { Toast.makeText(getContext(), "SOLO SE PERMITEN CARGAR 6 IMAGENES.", Toast.LENGTH_LONG).show();}
+                       else {
+                           imageUri = data.getData();
+                           listaImagenes.add(imageUri);
+                           identificador.add(R.drawable.ic_trash);
                        }
+                   } else {
+                       Toast.makeText(getContext(), "else", Toast.LENGTH_LONG).show();
+
+                           for (int i = 0; i < clipData.getItemCount() ; i++) {
+                               if ((totalimagenes + i +1 )>6) { Toast.makeText(getContext(), "SOLO SE PERMITEN CARGAR 6 IMAGENES.", Toast.LENGTH_LONG).show();}
+                               else
+                               {
+                                   listaImagenes.add(clipData.getItemAt(i).getUri());
+                                   identificador.add(R.drawable.ic_trash);
+                               }
+                           }
+
+
+
+
+
                    }
                }
-               baseAdapter = new GridViewAdapter(   getContext(), listaImagenes);
+
+               //Log.i("BASE64", ""+listaImagenes.get(0));
+
+
+               baseAdapter = new GridViewAdapter(getContext(), listaImagenes,identificador);
                gvImagenes.setAdapter(baseAdapter);
-               int ancho = 1200;
+             /*  int ancho = 1200;
                int alto = (int)(Math.round(gvImagenes.getAdapter().getCount()/6))*300 + 300  ;
                int contador = baseAdapter.getCount();
                System.out.println(contador);
                Log.i("Respuesta","Alto:" + Integer.toString(alto));
 
                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ancho, alto);
+
                gvImagenes.setLayoutParams(params);
+               */
+
            }
            catch (Exception e)
            {
-               Log.i("Respuesta","catch");
-               baseAdapter = new GridViewAdapter(   getContext(), listaImagenes);
+               Log.i("Respuesta","catch"+e.toString());
+               baseAdapter = new GridViewAdapter(   getContext(), listaImagenes,identificador);
                gvImagenes.setAdapter(baseAdapter);
            }
        }
+
+
+
+        public String convertirUriToBase64(Bitmap bitmap) {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 30, baos);
+            byte[] bytes = baos.toByteArray();
+            String encode = Base64.encodeToString(bytes, Base64.DEFAULT);
+
+            return encode;
+        }
 }
