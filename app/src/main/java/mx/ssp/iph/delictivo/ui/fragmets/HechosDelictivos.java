@@ -847,7 +847,7 @@ public class HechosDelictivos extends Fragment {
                 numAnexoDetenciones, anexoUsoFuerza,  numAnexoUsoFuerza,  anexoVehiculos,
                  numAnexoVehiculo, anexoArmasObjetos, numAnexoArmasObjetos,
                  anexoEntrevista, numAnexoEntrevista, anexoLugarIntervencion,
-                 numAnexoLugarIntervencion, anexoNoSeEntregan,
+                 numAnexoLugarIntervencion, anexoNoSeEntregan,varAnexoMultimedia,
                 cargarIdPoliciaPrimerRespondiente);
 
         OkHttpClient client = new OkHttpClient();
@@ -870,6 +870,7 @@ public class HechosDelictivos extends Fragment {
                 .add("AnexoLugarIntervencion", modeloHechoDelictivo.getAnexoLugarIntervencion())
                 .add("NumAnexoLugarIntervencion", modeloHechoDelictivo.getNumAnexoLugarIntervencion())
                 .add("AnexoNoSeEntregan",modeloHechoDelictivo.getAnexoNoSeEntregan())
+                .add("AnexoDocumentacion",modeloHechoDelictivo.getAnexoDocumentacion())
                 .add("IdPoliciaPrimerRespondiente", modeloHechoDelictivo.getIdPoliciaPrimerRespondiente())
                 .build();
         Request request = new Request.Builder()
@@ -1009,55 +1010,16 @@ public class HechosDelictivos extends Fragment {
         });
     }
 
-    /******************************* ANEXOS ***********************************************/
-    public void insertAnexo(){
-        ModeloAnexosMultimedia_Delictivo anexoMultimedia = new ModeloAnexosMultimedia_Delictivo
-                (cargarIdHechoDelictivo, varAnexoMultimedia,
-                        "3", rutaAnexoMultimedia, "NA");
-        OkHttpClient client = new OkHttpClient();
-        RequestBody body = new FormBody.Builder()
-                .add("IdHechoDelictivo", anexoMultimedia.getIdHechoDelictivo())
-                .add("AnexoDocumentacion", anexoMultimedia.getAnexoDocumentacion())
-                .add("IdAnexoMultimedia", anexoMultimedia.getIdAnexoMultimedia())
-                .add("RutaAnexoMultimedia", anexoMultimedia.getRutaAnexoMultimedia())
-                .add("AnexoMultimediaOtro", anexoMultimedia.getAnexoMultimediaOtro())
-                .build();
-        Request request = new Request.Builder()
-                .url("http://189.254.7.167/WebServiceIPH/api/HDAnexosMultimedia")
-                .post(body)
-                .build();
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-                Looper.prepare(); // to be able to make toast
-                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, FAVOR DE VERIFICAR SU CONEXCIÓN A INTERNET", Toast.LENGTH_LONG).show();
-                Looper.loop();
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if (response.isSuccessful()) {
-                    final String myResponse = response.body().toString();  /********** ME REGRESA LA RESPUESTA DEL WS ****************/
-                    HechosDelictivos.this.getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            System.out.println("EL DATO DE LA IMAGEN SE ENVIO CORRECTAMENTE");
-                            Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
-            }
-        });
-    }
-
+    /************************** ANEXO IMAGEN ***********************************************/
     public void insertAnexosMultimedia(String cadena, String numImagen){
         OkHttpClient client = new OkHttpClient();
 
-        rutaAnexoMultimedia = "http://189.254.7.167/WebServiceIPH/MultimediaAnexos/"+cargarIdHechoDelictivo+numImagen+".jpg";
+        rutaAnexoMultimedia = "http://189.254.7.167/WebServiceIPH/MultimediaAnexos/"+cargarIdHechoDelictivo+"_"+numImagen + ".jpg";
+        System.out.println("NO. IMAGEN: "+numImagen);
+        System.out.println("rUTA INSERT 1: "+rutaAnexoMultimedia);
 
         RequestBody body = new FormBody.Builder()
-                .add("Description", cargarIdHechoDelictivo + numImagen + ".jpg")
+                .add("Description", cargarIdHechoDelictivo+"_"+numImagen + ".jpg")
                 .add("ImageData", cadena)
                 .build();
         Request request = new Request.Builder()
@@ -1092,13 +1054,15 @@ public class HechosDelictivos extends Fragment {
                             String resp = myResponse;
                             if(resp.equals("true")){
                                 System.out.println("EL DATO DE LA RECEPCION DE DISPOSICION SE ENVIO CORRECTAMENTE"+ numImagen);
+                                rutaAnexoMultimedia = "http://189.254.7.167/WebServiceIPH/MultimediaAnexos/"+cargarIdHechoDelictivo+"_"+numImagen + ".jpg";
+                                insertAnexo(rutaAnexoMultimedia);
                                 //Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
                                 //insertImagen();
                                 Toast.makeText(getContext(), "ENVIADA"+numImagen, Toast.LENGTH_SHORT).show();
                                 identificador.set(Integer.parseInt(numImagen),R.drawable.ic_check);
                                 baseAdapter = new GridViewAdapter(   getContext(), listaImagenes,identificador);
                                 gvImagenes.setAdapter(baseAdapter);
-                                insertAnexo();
+
 
                             }else{
                                 Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, VERIFIQUE SU INFORMACIÓN", Toast.LENGTH_SHORT).show();
@@ -1107,6 +1071,47 @@ public class HechosDelictivos extends Fragment {
                                 gvImagenes.setAdapter(baseAdapter);
                             }
                             Log.i("HERE", resp);
+                        }
+                    });
+                }
+            }
+        });
+    }
+    public void insertAnexo(String rutaAnexoMultimediaImg){
+        System.out.println("rUTA INSERT 2: "+rutaAnexoMultimediaImg);
+        ModeloAnexosMultimedia_Delictivo anexoMultimedia = new ModeloAnexosMultimedia_Delictivo
+                (cargarIdHechoDelictivo, varAnexoMultimedia,
+                        "3", rutaAnexoMultimediaImg, "NA");
+        OkHttpClient client = new OkHttpClient();
+        RequestBody body = new FormBody.Builder()
+                .add("IdHechoDelictivo", anexoMultimedia.getIdHechoDelictivo())
+                .add("AnexoDocumentacion", anexoMultimedia.getAnexoDocumentacion())
+                .add("IdAnexoMultimedia", anexoMultimedia.getIdAnexoMultimedia())
+                .add("RutaAnexoMultimedia", anexoMultimedia.getRutaAnexoMultimedia())
+                .add("AnexoMultimediaOtro", anexoMultimedia.getAnexoMultimediaOtro())
+                .build();
+        Request request = new Request.Builder()
+                .url("http://189.254.7.167/WebServiceIPH/api/HDAnexosMultimedia")
+                .post(body)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Looper.prepare(); // to be able to make toast
+                Toast.makeText(getContext(), "ERROR AL ENVIAR SU REGISTRO, FAVOR DE VERIFICAR SU CONEXCIÓN A INTERNET", Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    final String myResponse = response.body().toString();  /********** ME REGRESA LA RESPUESTA DEL WS ****************/
+                    HechosDelictivos.this.getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            System.out.println("EL DATO DE LA IMAGEN SE ENVIO CORRECTAMENTE");
+                            Toast.makeText(getContext(), "EL DATO SE ENVIO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }

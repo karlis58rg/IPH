@@ -19,6 +19,7 @@ public class ModeloHechoDelictivo {
     public String AnexoLugarIntervencion;
     public String NumAnexoLugarIntervencion;
     public String AnexoNoSeEntregan;
+    public String AnexoDocumentacion;
     public String IdPoliciaPrimerRespondiente;
 
     public String getIdHechoDelictivo() {
@@ -93,6 +94,9 @@ public class ModeloHechoDelictivo {
         return AnexoNoSeEntregan;
     }
 
+    public String getAnexoDocumentacion() {
+        return AnexoDocumentacion;
+    }
     public String getIdPoliciaPrimerRespondiente() {
         return IdPoliciaPrimerRespondiente;
     }
@@ -168,6 +172,9 @@ public class ModeloHechoDelictivo {
     public void setAnexoNoSeEntregan(String anexoNoSeEntregan) {
         AnexoNoSeEntregan = anexoNoSeEntregan;
     }
+    public void setAnexoDocumentacion(String anexoDocumentacion) {
+        AnexoDocumentacion = anexoDocumentacion;
+    }
 
     public void setIdPoliciaPrimerRespondiente(String idPoliciaPrimerRespondiente) {
         IdPoliciaPrimerRespondiente = idPoliciaPrimerRespondiente;
@@ -179,7 +186,7 @@ public class ModeloHechoDelictivo {
                                 String anexoUsoFuerza, String numAnexoUsoFuerza, String anexoVehiculos,
                                 String numAnexoVehiculo, String anexoArmasObjetos, String numAnexoArmasObjetos,
                                 String anexoEntrevista, String numAnexoEntrevista, String anexoLugarIntervencion,
-                                String numAnexoLugarIntervencion, String anexoNoSeEntregan,
+                                String numAnexoLugarIntervencion, String anexoNoSeEntregan,String anexoDocumentacion ,
                                 String idPoliciaPrimerRespondiente) {
         IdHechoDelictivo = idHechoDelictivo;
         NumReferencia = numReferencia;
@@ -199,6 +206,7 @@ public class ModeloHechoDelictivo {
         AnexoLugarIntervencion = anexoLugarIntervencion;
         NumAnexoLugarIntervencion = numAnexoLugarIntervencion;
         AnexoNoSeEntregan = anexoNoSeEntregan;
+        AnexoDocumentacion = anexoDocumentacion;
         IdPoliciaPrimerRespondiente = idPoliciaPrimerRespondiente;
     }
 
