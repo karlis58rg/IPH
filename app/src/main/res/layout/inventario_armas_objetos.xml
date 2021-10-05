@@ -87,7 +87,7 @@
                             android:id="@+id/rbInspeccionLugar"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Inspección del lugar"
+                            android:text="Inspección del Lugar"
                             android:button="@null"
                             android:drawableStart="@drawable/rbbox"/>
                         <RadioButton
@@ -282,7 +282,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/font"
-                        android:text="No. de serie."/>
+                        android:text="No. de Serie."/>
                     <EditText
                         android:id="@+id/txtNoSerieArmaDelictivo"
                         android:layout_width="match_parent"
@@ -371,7 +371,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/font"
-                        android:text="Destino que se le dio:"/>
+                        android:text="Destino Que se le Dio:"/>
                     <EditText
                         android:id="@+id/txtDestinoArma"
                         android:layout_width="match_parent"
@@ -756,9 +756,16 @@
                 android:layout_weight="1"
                 android:orientation="horizontal"
                 android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp">
+                android:layout_marginBottom="20dp"
+                android:focusableInTouchMode="true">
 
-
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1"
+                    android:layout_weight="0.10">
+                </LinearLayout>
 
 
                 <LinearLayout
@@ -782,7 +789,7 @@
                             android:id="@+id/lblFirmaTestigo1Arma"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Firma del primer Testigo" />
+                            android:text="Firma del Primer Testigo" />
 
 
 
@@ -987,7 +994,7 @@
                             android:id="@+id/lblFirmaTestigo2Arma"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Firma del segundo Testigo" />
+                            android:text="Firma del Segundo Testigo" />
 
 
 
@@ -1283,7 +1290,7 @@
                             android:id="@+id/rbInspeccionLugarObjetos"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Inspección del lugar"
+                            android:text="Inspección del Lugar"
                             android:button="@null"
                             android:drawableStart="@drawable/rbbox"/>
                         <RadioButton
@@ -1817,7 +1824,7 @@
                             android:id="@+id/lblFirmaTestigo1Objeto"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Firma del primer Testigo" />
+                            android:text="Firma del Primer Testigo" />
 
 
 
@@ -1934,8 +1941,7 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:weightSum="1"
-                    android:layout_weight="0.10"
-                    android:focusableInTouchMode="true">
+                    android:layout_weight="0.10">
                     <TextView
                         android:id="@+id/lblSegundoApellidoTestigo2Objeto"
                         android:layout_width="wrap_content"
@@ -1960,7 +1966,7 @@
                     android:orientation="vertical"
                     android:weightSum="1"
                     android:layout_weight="0.10"
-                    android:focusableInTouchMode="true">
+                    >
                     <TextView
                         android:id="@+id/lblNombreTestigo2Objeto"
                         android:layout_width="wrap_content"
@@ -2021,7 +2027,7 @@
                             android:id="@+id/lblFirmaTestigo2Objeto"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Firma del primer Testigo" />
+                            android:text="Firma del Segundo Testigo" />
 
 
 

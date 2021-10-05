@@ -76,7 +76,8 @@
                         android:id="@+id/rgReservarDatos"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:layout_marginTop="20dp">
                         <RadioButton
                             android:id="@+id/rbNoReservarDatos"
                             android:layout_width="wrap_content"
@@ -335,7 +336,8 @@
                         android:id="@+id/rgCalidadEntrevistado"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp">
                         <RadioButton
                             android:id="@+id/rbCalidadVictima"
                             android:layout_width="wrap_content"
@@ -493,7 +495,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/font"
-                        android:text="Tipo de documento"/>
+                        android:text="Tipo de Documento"/>
                     <Spinner
                         android:id="@+id/spTipoDocumentoEntrevistado"
                         android:layout_width="match_parent"
@@ -510,7 +512,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/font"
-                        android:text="Número de identificación"/>
+                        android:text="Número de Identificación"/>
                     <EditText
                         android:id="@+id/txtNumeroIdentificacionEntrevistado"
                         android:layout_width="match_parent"
@@ -1086,7 +1088,8 @@
                         android:id="@+id/rgTrasladoPersonaEntrevistada"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:layout_marginTop="20dp">
                         <RadioButton
                             android:id="@+id/rbNoTrasladoPersonaEntrevistada"
                             android:layout_width="wrap_content"
@@ -1106,7 +1109,7 @@
                             android:padding="10dp"
                             android:text="@string/si"
                             android:button="@null"
-                            android:drawableStart="@drawable/rbbox"  />
+                            android:drawableStart="@drawable/rbbox"/>
                     </RadioGroup>
                 </LinearLayout>
 
@@ -1289,7 +1292,7 @@
                         android:id="@+id/lblInformeDerechoDetencionesDelictivo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="¿Le informó sus derechos a la victima u ofendido?" />
+                        android:text="¿Le Informó sus Derechos a la Victima u Ofendido?" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -1350,7 +1353,7 @@
                             android:id="@+id/lblFirmaVictimaDelictivo"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Firma de la victima u ofendido" />
+                            android:text="Firma de la Victima u Ofendido" />
 
                         <LinearLayout
                             android:layout_width="match_parent"

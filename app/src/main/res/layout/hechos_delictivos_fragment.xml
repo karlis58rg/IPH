@@ -209,7 +209,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="horizontal"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="25dp"
                     android:focusableInTouchMode="true">
                     <LinearLayout
                         android:id="@+id/lyAnexosADetencionDelictivo"
@@ -292,7 +292,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="horizontal"
-                    android:layout_marginTop="20dp">
+                    android:layout_marginTop="25dp">
                     <LinearLayout
                         android:id="@+id/lyAnexosBUsoFuerzaDelictivo"
                         android:layout_width="0dp"
@@ -372,7 +372,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="horizontal"
-                    android:layout_marginTop="20dp">
+                    android:layout_marginTop="25dp">
                     <LinearLayout
                         android:id="@+id/lyAnexosCInspeccionVehiculoDelictivo"
                         android:layout_width="0dp"

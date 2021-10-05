@@ -254,6 +254,7 @@ public class HechosDelictivos extends Fragment {
 
                 for(int i = 0 ; i < listaImagenes.size() ; i++) {
                     try {
+
                         InputStream is = getActivity().getContentResolver().openInputStream(listaImagenes.get(i));
                         Bitmap bitmap = BitmapFactory.decodeStream(is);
 
@@ -273,8 +274,6 @@ public class HechosDelictivos extends Fragment {
                     }
 
                 }
-
-
 
             }
         });

@@ -10,14 +10,14 @@
     <string name="fecha_de_entrega_del_iph">Fecha IPH</string>
     <string name="hora_de_entrega_del_iph">Hora IPH</string>
     <string name="guardar_datos">Guardar Datos</string>
-    <string name="fecha_de_la_puesta_a_disposicion">Fecha de la puesta a disposición</string>
-    <string name="hora_de_la_puesta_a_posposicion">Hora de la puesta a disposición</string>
-    <string name="numero_de_expediente_en_caso_de_existir">Número de Expediente (En caso de existir)</string>
+    <string name="fecha_de_la_puesta_a_disposicion">Fecha de la Puesta a Disposición</string>
+    <string name="hora_de_la_puesta_a_posposicion">Hora de la Puesta a Disposición</string>
+    <string name="numero_de_expediente_en_caso_de_existir">Número de Expediente (En Caso de Existir)</string>
     <string name="apartado_1_1_fecha_y_hora_de_la_puesta_a_disposicion">Apartado 1.1 Fecha y hora de la puesta a disposición.</string>
     <string name="marque_con_una_x_el_o_los_anexos_entregados">Marque con una X el o los Anexos Entregados</string>
     <string name="anexo_a_detenciones">Anexo A. Detención(es)</string>
     <string name="descripcion_de_vehiculos">Anexo B. Descripción de Vehículos</string>
-    <string name="no_se_entregan_anexos">No se entregan Anexos</string>
+    <string name="no_se_entregan_anexos">No se Entregan Anexos</string>
     <string name="apartado_1_2_datos_de_quien_realiza_la_puesta_a_disposicion_primer_respondiente">Apartado 1.2 Datos de quien realiza la puesta a disposición/Primer respondiente</string>
     <string name="el_usuario_que_inicio_sesion_es_el_primer_respondiente">¿El usuario que inició sesión es el primer respondiente?</string>
     <string name="si">Sí</string>
@@ -35,12 +35,12 @@
     <string name="adscripcion">Adscripción</string>
     <string name="cargo">Cargo</string>
     <string name="apartado_2_1_conocimiento_de_la_probable_infraccion_administrativa_por_el_primer_respondiente">Apartado 2.1 Conocimiento de la probable infracción administrativa por el primer respondiente</string>
-    <string name="como_se_entero_del_hecho">¿Cómo se enteró del hecho?</string>
+    <string name="como_se_entero_del_hecho">¿Cómo se Enteró del Hecho?</string>
     <string name="otro_especifique">Otro (Especifique)</string>
-    <string name="_911_no_solo_en_caso_de_contar_con_el">911 No. (Solo en caso de contar con él)</string>
+    <string name="_911_no_solo_en_caso_de_contar_con_el">911 No. (Solo en Caso de Contar con Él)</string>
     <string name="apartado_3_1_ubicacion_geografica">Apartado 3.1 Ubicación Geográfica</string>
     <string name="entidad">*Entidad</string>
-    <string name="municipio_demarcacion_territorial">Municipio/Demarcación territorial</string>
+    <string name="municipio_demarcacion_territorial">Municipio/Demarcación Territorial</string>
     <string name="calle_tramo_carretero">Calle/Tramo carretero</string>
 
     <!--Sección 4 Narración de los Hechos Administrativo -->
@@ -58,15 +58,15 @@ preguntas: ¿Quién? (personas), ¿Qué? (hechos), ¿Cómo? (circunstancias), ¿
     <string name="lblApodoDetenido">Apodo o Alias</string>
     <string name="lblGenero">Género</string>
     <string name="lblNacionalidad">Nacionalidad</string>
-    <string name="lblNacionalidad_especifique">Especifique Ncionalidad</string>
+    <string name="lblNacionalidad_especifique">Especifique Nacionalidad</string>
     <string name="lblFechaNacimiento">Fecha de Nacimiento</string>
 
     <string name="lblEntidad">Entidad</string>
     <string name="lblMunicipio">Municipio</string>
     <string name="lblColonia">Colonia/Localidad</string>
-    <string name="lblCalle">Calle/Tramo carretero</string>
-    <string name="lblNumeroExterior">Número exterior</string>
-    <string name="lblNumeroInterior">Número interior</string>
+    <string name="lblCalle">Calle/Tramo Carretero</string>
+    <string name="lblNumeroExterior">Número Exterior</string>
+    <string name="lblNumeroInterior">Número Interior</string>
     <string name="lblCodigoPostal">Código Postal</string>
     <string name="lblReferencias">Referencias del Lugar</string>
 
@@ -75,7 +75,7 @@ preguntas: ¿Quién? (personas), ¿Qué? (hechos), ¿Cómo? (circunstancias), ¿
     <string name="subtitulo_apartado_A4">Apartado A.4 Datos del primer respondiente que realizó la detención</string>
 
     <string name="lblAdscripcion">Adscripción</string>
-    <string name="lblCargo">¿Cuál es su grado o cargo?</string>
+    <string name="lblCargo">¿Cuál es su Grado o Cargo?</string>
     <string name="lblFirma">Firma</string>
 
     <!--Anexo B:Detenciones Administrativo -->
@@ -104,8 +104,8 @@ preguntas: ¿Quién? (personas), ¿Qué? (hechos), ¿Cómo? (circunstancias), ¿
     <string name="navigation_buscar">Buscar IPH</string>
 
     <string name="menu_inicio">Inicio</string>
-    <string name="menu_que_es">¿Qué es?</string>
-    <string name="menu_como_usarla">¿Cómo usarla?</string>
+    <string name="menu_que_es">¿Qué Es?</string>
+    <string name="menu_como_usarla">¿Cómo Usarla?</string>
     <string name="menu_protocolo_intervencion">Protocolo de Intervención</string>
     <string name="menu_terminos">Términos y Condiciones</string>
     <string name="menu_cerrarSession">Cerrar Sesión</string>

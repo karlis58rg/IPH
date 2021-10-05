@@ -704,7 +704,7 @@
                         android:id="@+id/lblFirmaPersonaRecepciondelLugar"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Firma de quien recibe" />
+                        android:text="Firma de Quien Recibe" />
 
                     <LinearLayout
                         android:layout_width="match_parent"

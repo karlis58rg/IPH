@@ -46,7 +46,7 @@
                         android:id="@+id/lblAutoridadesLesionadosUsoFuerza"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Autoridades lesionadas" />
+                        android:text="Autoridades Lesionadas" />
 
                     <Spinner
                         android:id="@+id/spAutoridadesLesionadosUsoFuerza"
@@ -84,7 +84,7 @@
                         android:id="@+id/lblPersonasLesionadasUsoFuerza"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Personas lesionadas" />
+                        android:text="Personas Lesionadas" />
 
                     <Spinner
                         android:id="@+id/spPersonasLesionadasUsoFuerza"
@@ -103,7 +103,7 @@
                         android:id="@+id/lblPersonasFallecidasUsoFuerza"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Personas fallecidas" />
+                        android:text="Personas Fallecidas" />
                     <Spinner
                         android:id="@+id/spPersonasFallecidasUsoFuerza"
                         android:layout_width="match_parent"
@@ -139,7 +139,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="30dp"
                         android:layout_gravity="center_vertical"
-                        android:text="Reducción física de movimientos"
+                        android:text="Reducción Física de Movimientos"
                         android:textColor="@color/font" />
 
                     <TextView
@@ -148,7 +148,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginTop="20dp"
-                        android:text="Utilización de armas incapacitantes menos letales"
+                        android:text="Utilización de Armas Incapacitantes Menos Letales"
                         android:textColor="@color/font" />
 
                     <TextView
@@ -157,7 +157,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:layout_marginTop="20dp"
-                        android:text="Utilización de armas de fuego o fuerza letal"
+                        android:text="Utilización de Armas de Fuego o Fuerza Letal"
                         android:textColor="@color/font"
                         android:layout_marginBottom="20dp"/>
                 </LinearLayout>
@@ -327,7 +327,7 @@
                         android:id="@+id/lblAsistenciaMedicaUsoFuerza"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="¿Brindó o solicitó asistencia médica?" />
+                        android:text="¿Brindó o Solicitó Asistencia Médica?" />
                     <RadioGroup
                         android:id="@+id/rgAsistenciaMedicaUsoFuerza"
                         android:layout_width="match_parent"
