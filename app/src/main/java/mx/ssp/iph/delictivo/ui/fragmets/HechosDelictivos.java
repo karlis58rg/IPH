@@ -105,13 +105,14 @@ public class HechosDelictivos extends Fragment {
             cargarIdPoliciaPrimerRespondiente = "",cargarIdHechoDelictivo = "",respuestaJson = "",descAutoridad,descCargo;
     String anexoDetenciones = "NO", numAnexoDetenciones = "000", anexoUsoFuerza = "NO",  numAnexoUsoFuerza = "000",  anexoVehiculos = "NO",
      numAnexoVehiculo = "000",  anexoArmasObjetos = "NO",  numAnexoArmasObjetos = "000", anexoEntrevista = "NO",  numAnexoEntrevista = "000", anexoLugarIntervencion = "NO",
-     numAnexoLugarIntervencion = "000",  anexoNoSeEntregan = "SI",varAnexoMultimedia,rutaAnexoMultimedia;
+     numAnexoLugarIntervencion = "000",  anexoNoSeEntregan = "NO",varAnexoMultimedia,rutaAnexoMultimedia;
     SharedPreferences share;
     int numberRandom,randomUrlImagen;
     String firmaURLServer = "http://189.254.7.167/WebServiceIPH/Firma/SINFIRMA.jpg";
     private Target target;
     Button btnBase64;
     LinearLayout lyCargarFotografias,lyEnviarFotografias;
+    RadioButton rbNoAnexoMultimediaDelictivo,rbSiAnexoMultimediaDelictivo;
 
 
     ViewGroup lyAnexosUno, quintoLinear1, quintoLinear2, lyDetencionesAnexoADelictivo, lyInventarioArmasDelictivo,
@@ -202,6 +203,9 @@ public class HechosDelictivos extends Fragment {
 
         lyCargarFotografias = view.findViewById(R.id.lyCargarFotografias);
         lyEnviarFotografias = view.findViewById(R.id.lyEnviarFotografias);
+
+        rbNoAnexoMultimediaDelictivo = view.findViewById(R.id.rbNoAnexoMultimediaDelictivo);
+        rbSiAnexoMultimediaDelictivo = view.findViewById(R.id.rbSiAnexoMultimediaDelictivo);
 
         ListCombos();
         getNumReferencia();
@@ -837,7 +841,7 @@ public class HechosDelictivos extends Fragment {
         }
 
         if(chSinAnexosDelictivo.isChecked()){
-            anexoNoSeEntregan = "NO";
+            anexoNoSeEntregan = "SI";
         }
 
         ModeloHechoDelictivo modeloHechoDelictivo = new ModeloHechoDelictivo(
@@ -1238,6 +1242,13 @@ public class HechosDelictivos extends Fragment {
                                             }
                                         }
 
+                                        if ((jsonjObject.getString("AnexoDocumentacion").equals("SI"))) {
+                                            rbSiAnexoMultimediaDelictivo.setChecked(true);
+                                        }else
+                                        if ((jsonjObject.getString("AnexoDocumentacion").equals("NO"))) {
+                                            rbNoAnexoMultimediaDelictivo.setChecked(true);
+                                        }
+
                                         txtFiscaliaAutoridadDelictivo.setText((jsonjObject.getString("IdFiscaliaAutoridad")).equals("null")?"":jsonjObject.getString("IdFiscaliaAutoridad"));
                                         spAdscripcionDelictivo.setSelection(funciones.getIndexSpiner(spAdscripcionDelictivo, jsonjObject.getString("IdAdscripcion")));
                                         spCargoDelictivo.setSelection(funciones.getIndexSpiner(spCargoDelictivo, jsonjObject.getString("IdCargo")));
@@ -1302,7 +1313,7 @@ public class HechosDelictivos extends Fragment {
                            identificador.add(R.drawable.ic_trash);
                        }
                    } else {
-                       Toast.makeText(getContext(), "else", Toast.LENGTH_LONG).show();
+                       //Toast.makeText(getContext(), "else", Toast.LENGTH_LONG).show();
 
                            for (int i = 0; i < clipData.getItemCount() ; i++) {
                                if ((totalimagenes + i +1 )>6) { Toast.makeText(getContext(), "SOLO SE PERMITEN CARGAR 6 IMAGENES.", Toast.LENGTH_LONG).show();}

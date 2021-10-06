@@ -1455,6 +1455,12 @@ public class Detenciones_Delictivo extends Fragment {
         //colaca la posición del
         IdDetenidoSeleccionado = -1;
 
+
+        //Limpia List Pertencias
+        Detenciones_Delictivo.MyAdapterPertenencias adapter = new Detenciones_Delictivo.MyAdapterPertenencias(getContext(), ListaIdPertenencias, ListPertenencia);
+        adapter.clear();
+        lvPertenenciasDetenido.setAdapter(adapter);
+
         //Oculta botones de actualizar y muestra botón de guardar
         veinticinco.setVisibility(View. VISIBLE);
         veinticincoUpdate.setVisibility(View.GONE);
