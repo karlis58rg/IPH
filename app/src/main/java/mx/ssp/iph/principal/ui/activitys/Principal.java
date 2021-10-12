@@ -145,7 +145,9 @@ public class Principal extends AppCompatActivity {
         //Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("titulo toolbar");
+        getSupportActionBar().setTitle("titulo");
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
 
         PrincipalDelictivo = new PrincipalDelictivo();
         PrincipalAdministrativo= new PrincipalAdministrativo();

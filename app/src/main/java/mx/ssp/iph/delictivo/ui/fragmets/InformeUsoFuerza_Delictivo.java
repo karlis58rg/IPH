@@ -113,6 +113,9 @@ public class InformeUsoFuerza_Delictivo extends Fragment {
         img_microfonoDescripcionUsoFuerza = view.findViewById(R.id.img_microfonoDescripcionUsoFuerza);
         img_microfonoDescripcionAsistenciaMedicaUsoFuerza = view.findViewById(R.id.img_microfonoDescripcionAsistenciaMedicaUsoFuerza);
 
+        img_microfonoDescripcionAsistenciaMedicaUsoFuerza.setTag(R.drawable.ic_micro);
+        img_microfonoDescripcionUsoFuerza.setTag(R.drawable.ic_micro);
+
         funciones = new Funciones();
         funciones.CambiarTituloSeccionesDelictivo("ANEXO B. INFORME DEL USO DE LA FUERZA",getContext(),getActivity());
 
@@ -205,6 +208,7 @@ public class InformeUsoFuerza_Delictivo extends Fragment {
                 iniciarEntradadeVoz();
             }
         });
+
 
 
 
