@@ -1457,9 +1457,14 @@ public class Detenciones_Delictivo extends Fragment {
 
 
         //Limpia List Pertencias
-        Detenciones_Delictivo.MyAdapterPertenencias adapter = new Detenciones_Delictivo.MyAdapterPertenencias(getContext(), ListaIdPertenencias, ListPertenencia);
+      /*  Detenciones_Delictivo.MyAdapterPertenencias adapter = new Detenciones_Delictivo.MyAdapterPertenencias(getContext(), ListaIdPertenencias, ListPertenencia);
         adapter.clear();
         lvPertenenciasDetenido.setAdapter(adapter);
+       */
+        lvPertenenciasDetenido.setAdapter(null);
+
+
+
 
         //Oculta botones de actualizar y muestra botón de guardar
         veinticinco.setVisibility(View. VISIBLE);
