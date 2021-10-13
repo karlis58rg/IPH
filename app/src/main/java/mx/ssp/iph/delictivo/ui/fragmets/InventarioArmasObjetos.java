@@ -425,6 +425,7 @@ public class InventarioArmasObjetos extends Fragment {
                 } else{
                     varAportacion = "NO";
                 }
+
                 if (checkedId == R.id.rbInspeccionLugar) {
                     varInspeccion = "INSPECCION LUGAR";
                     varAportacion = "NO";
@@ -435,7 +436,6 @@ public class InventarioArmasObjetos extends Fragment {
                 }else if(checkedId == R.id.rbInspeccionVehiculo){
                     varInspeccion = "INSPECCION VEHICULO";
                     varAportacion = "NO";
-
                 }
             }
         });
@@ -574,14 +574,19 @@ public class InventarioArmasObjetos extends Fragment {
             public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
                 if (checkedId == R.id.rbAportacionObjetos) {
                     varAportacionObjeto = "SI";
+                    varInspeccionObjeto = "NO";
                 } else{
                     varAportacionObjeto = "NO";
                 }
+
                 if (checkedId == R.id.rbInspeccionLugarObjetos) {
                     varInspeccionObjeto = "INSPECCION LUGAR";
+                    varAportacionObjeto = "NO";
                 }else if(checkedId == R.id.rbInspeccionPersonaObjetos){
+                    varAportacionObjeto = "NO";
                     varInspeccionObjeto = "INSPECCION PERSONA";
                 }else if(checkedId == R.id.rbInspeccionVehiculoObjetos){
+                    varAportacionObjeto = "NO";
                     varInspeccionObjeto = "INSPECCION VEHICULO";
                 }
             }
@@ -1137,21 +1142,21 @@ public class InventarioArmasObjetos extends Fragment {
         if(rbNoFirmaObjetoAsegurada.isChecked()){
             varRutaFirmaObjeto = "NA";
         }else{
-            varRutaFirmaObjeto = "http://189.254.7.167/WebServiceIPH/FirmaArmas/"+"propietario_"+cargarIdHechoDelictivo+randomUrlImagen+".jpg";
+            varRutaFirmaObjeto = "http://189.254.7.167/WebServiceIPH/FirmaObjetos/"+"propietario_"+cargarIdHechoDelictivo+randomUrlImagen+".jpg";
         }
         if(txtNombresTestigo1Objeto.getText().toString().equals("")){
-            varRutaFirmaObjeto = "NA";
+            varRutaImagenT1Objeto = "NA";
         }else{
-            varRutaFirmaObjeto = "http://189.254.7.167/WebServiceIPH/FirmaArmas/"+"testigo1_"+cargarIdHechoDelictivo+randomUrlImagen+".jpg";
+            varRutaImagenT1Objeto = "http://189.254.7.167/WebServiceIPH/FirmaObjetos/"+"testigo1_"+cargarIdHechoDelictivo+randomUrlImagen+".jpg";
         }
         if(txtNombresTestigo2Objeto.getText().toString().equals("")){
-            varRutaFirmaObjeto = "NA";
+            varRutaImagenT2Objeto = "NA";
         }else{
-            varRutaFirmaObjeto = "http://189.254.7.167/WebServiceIPH/FirmaArmas/"+"testigo2_"+cargarIdHechoDelictivo+randomUrlImagen+".jpg";
+            varRutaImagenT2Objeto = "http://189.254.7.167/WebServiceIPH/FirmaObjetos/"+"testigo2_"+cargarIdHechoDelictivo+randomUrlImagen+".jpg";
         }
 
         ModeloObjetos_Delictivo modeloObjetos = new ModeloObjetos_Delictivo
-                (cargarIdHechoDelictivo, varTipoObjeto, txtOtroObjeto.getText().toString(), varAportacionObjeto, varInspeccionObjeto, txtLugarEncontroObjetos.getText().toString(),
+                (cargarIdHechoDelictivo, varTipoObjeto, txtOtroObjeto.getText().toString(), varAportacionObjeto, varInspeccionObjeto = "NO", txtLugarEncontroObjetos.getText().toString(),
                         txtObservacionesObjetos.getText().toString(), txtDestinoObjetos.getText().toString(),
                         txtPrimerApellidoPropietarioObjetos.getText().toString(), txtSegundoApellidoPropietarioObjetos.getText().toString(), txtNombresPropietarioObjetos.getText().toString(),
                         varRutaFirmaObjeto, txtPrimerApellidoTestigo1Objeto.getText().toString(), txtSegundoApellidoTestigo1Objeto.getText().toString(), txtNombresTestigo1Objeto.getText().toString(),

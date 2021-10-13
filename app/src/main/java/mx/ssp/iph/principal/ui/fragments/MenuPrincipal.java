@@ -180,6 +180,7 @@ public class MenuPrincipal extends Fragment {
         OkHttpClient client = new OkHttpClient();
         RequestBody body = new FormBody.Builder()
                 .add("IdFaltaAdmin",randomCodigoVerifi)
+                .add("NumReferencia",randomReferencia)
                 .build();
 
         Request request = new Request.Builder()
